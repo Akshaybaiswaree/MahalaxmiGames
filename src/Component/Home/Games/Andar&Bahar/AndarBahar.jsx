@@ -23,7 +23,7 @@ const socket = io("https://andarbaharbacked.onrender.com", {
   query: {
     userId: Math.floor(Math.random() * Date.now()),
   },
-  transports: ["websocket"],
+  transports: ["websocket"],                                                                                          
 });
 const AndarBahar = () => {
   const [gameState, setGameState] = useState({ value: "waiting" });

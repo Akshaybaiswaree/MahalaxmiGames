@@ -18,11 +18,12 @@ import {
   Tbody,
   Td,
   Text,
+  Th,
   Thead,
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
-import  React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Gamingimage from "../Games/images/GAMING GIRL.svg";
 import { io } from "socket.io-client";
@@ -31,7 +32,7 @@ const socket = io("https://dragontiger-backend.onrender.com", {
   query: {
     userId: Math.floor(Math.random() * Date.now()),
   },
- transports: ['websocket'] 
+  transports: ["websocket"],
 });
 
 export default function DragonTiger() {
@@ -128,7 +129,7 @@ export default function DragonTiger() {
                   <Button
                     mb={"1rem"}
                     mt={"1rem"}
-                    ml={  [ "2rem","5rem"]}
+                    ml={["2rem", "5rem"]}
                     fontWeight={"600"}
                     width={["13rem", "14rem"]}
                     background="linear-gradient(to bottom right , #668cff , #a64dff)"
@@ -265,7 +266,7 @@ export default function DragonTiger() {
                 minHeight="50%"
                 borderRadius="10px"
                 controls
-                ml={["1rem" , "0rem"]}
+                ml={["1rem", "0rem"]}
               >
                 <Box
                   border="4px solid #333"
@@ -309,8 +310,8 @@ export default function DragonTiger() {
                       <Button
                         // background="linear-gradient(to bottom right,#ED9203, #323349, #880000)"
                         background="linear-gradient(to bottom right, #ED9203, #C7E600)"
-                        height={"3rem"}
-                        width={"8rem"}
+                        height={"4rem"}
+                        width={"9rem"}
                       >
                         Winner: {mainCard?.winstatus}
                       </Button>
@@ -341,7 +342,7 @@ export default function DragonTiger() {
                   </Box>
                   {gameState.value >= 1 && (
                     <React.Fragment>
-                      <Flex marginTop={"13rem"} ml={"2rem"} width={"20rem"}>
+                      <Flex marginTop={"15rem"} ml={"2rem"} width={"20rem"}>
                         <Stack direction="column" width={"10rem"}>
                           <Box color={"Yellow"} fontSize="2rem">
                             Dragon
@@ -370,7 +371,7 @@ export default function DragonTiger() {
               </AspectRatio>
             </Box>
           </Box>
-          <Box>
+          <Box marginLeft={["" , "1rem"]}>
             {/* First Flex - Horizontal View */}
             <Stack
               mt={"1.5rem"}
@@ -389,7 +390,7 @@ export default function DragonTiger() {
                   boxShadow="4px 4px 10px rgba(3, 0, 2, 0.6)"
                   display="flex"
                   borderRadius="1rem"
-                  ml={"3rem"}
+                   ml={"3rem"}
                 >
                   <Box
                     flex="1"
@@ -443,12 +444,15 @@ export default function DragonTiger() {
                     </Box>
                   ))}
                 </Stack>
-                <Box mb={"1rem"} mt={"1rem"} ml={"3rem"}>
+                <Box 
+                justifyContent={'center'}
+                alignItems={'center'}
+                mb={"1rem"} mt={"1rem"} ml={"7rem"}>
                   <Button
                     background="linear-gradient(to bottom right , #989BDE , #656794 )"
                     _hover={{ bg: " #d9d9d9" }}
-                    width={["14rem", "12rem"]}
-                    mb={["1rem" , "0rem"]}
+                    width={["14rem", "16rem"]}
+                    mb={["1rem", "1rem"]}
                     marginLeft="2rem"
                   >
                     <Text fontWeight={"700"}> PlayerId : {user?.userId}</Text>
@@ -458,12 +462,11 @@ export default function DragonTiger() {
                     alignItems="center"
                     marginLeft="2rem"
                     variant="outline"
-                    width={["14rem", "12rem"]}
+                    width={["14rem", "16rem"]}
                     borderRadius={"10px"}
                     background="linear-gradient(to bottom right, #ED9203, #C7E600)"
                     _hover={{ bg: "#ffff00" }}
                     fontWeight={"700"}
-
                   >
                     Player History
                   </Button>
@@ -520,97 +523,76 @@ export default function DragonTiger() {
                     </Flex>
                   
                   </Flex> */}
-                  <Flex 
-                    width={'100%'}
-                  flexDirection={["", "row"]}>
-                    <Box
-                  
-                    marginLeft={["10rem", "4rem"]}>
-                      <Text 
-                      mt={'1rem'}
-                      fontSize="15px" fontWeight="bold">
-                        Choose Amount
-                      </Text>
-                      {/* <Text fontSize="15px" fontWeight="bold">
+                  <Box marginLeft={["10rem", "12rem"]}>
+                    <Text mt={"1rem"} mb={'0.6rem'} fontSize="15px" fontWeight="bold">
+                      Choose Your Amount
+                    </Text>
+                    {/* <Text fontSize="15px" fontWeight="bold">
                         Amount
                       </Text> */}
-                    </Box>
+                  </Box>
+                  <Flex
+                
+                  ml={'2rem'}
+                    border={"6px solid lightgreen"}
+                    borderRadius={"20px"}
+                    width={"95%"}
+                    flexDirection={["", "row"]}
+                  >
                     <Flex
                       width={["0%", "60%"]}
                       flexWrap={["nowrap", "nowrap"]}
                       justifyContent={["center", "flex-start"]}
                       marginTop={["4rem", "0"]}
-                      ml={["0rem", "1rem"]}
+                      // ml={["0rem", "3rem"]}
                     >
-                      {["10", "50", "100", "500", "1000"].map(
-                        (value, index) => (
-                          <Button
-                            ml={["0.8rem", "0rem"]}
-                            key={index}
-                            height="35px"
-                            margin={["rem", "1rem"]}
-                            display="flex"
-                            justifyContent="center"
-                            alignItems="center"
-                            fontWeight="bold"
-                            variant="unstyled"
-                            border="5px solid #333"
-                            onClick={() => {
-                              setCoins(value);
-                              console.log(value);
-                            }}
-                          >
-                            <Text
-                              fontSize="14px"
-                              color={index % 2 === 0 ? "#333" : "#2b329b"}
-                            >
-                              {typeof value === "number"
-                                ? value.toLocaleString()
-                                : value}
-                            </Text>
-                          </Button>
-                        )
-                      )}
+                      {[
+                        { value: 10, imageSrc: "/Coins/10's coin.webp" },
+                        { value: 50, imageSrc: "/Coins/50's coin.webp" },
+                        { value: 100, imageSrc: "/Coins/100's coin.webp" },
+                        { value: 500, imageSrc: "/Coins/500's coin.webp" },
+                        { value: 1000, imageSrc: "/Coins/1000's coin.webp" },
+                        { value: 5000, imageSrc: "/Coins/5000's coin.webp" },
+                      ].map((item, index) => (
+                        <Button
+                          ml={["0.8rem", "0rem"]}
+                          key={index}
+                          height="45px"
+                          margin={["rem", "1rem"]}
+                          display="flex"
+                          justifyContent="center"
+                          alignItems="center"
+                          fontWeight="bold"
+                          variant="unstyled"
+                          onClick={() => {
+                            setCoins(item.value);
+                            console.log(item.value);
+                          }}
+                        >
+                          <img
+                          height={"10rem"}
+                            src={item.imageSrc}
+                            alt={`${item.value}'s coin`}
+                            style={{ maxHeight: "55px" }}
+                          />
+                        </Button>
+                      ))}
                     </Flex>
                   </Flex>
 
-                  {/* <Box
-                    mt={"1rem"}
-                    display={"flex"}
-                    marginLeft={["8rem", "13rem"]}
-                  >
-                 
-                    <Button
-                      fontWeight={"700"}
-                      mr={"4px"}
-                      width={["8rem","6rem"]}
-                      background="linear-gradient(to bottom right , #989BDE , #656794 )"
-                      _hover={{ bg: " #d9d9d9" }}
-                    >
-                      Undo
-                    </Button>
-                    <Button
-                      fontWeight={"700"}
-                      background="linear-gradient(to bottom right , #989BDE , #656794 )"
-                      _hover={{ bg: " #d9d9d9" }}
-                      width={["10rem","6rem"]}
-                    >
-                      Reset
-                    </Button>
-                  </Box> */}
+               
                   {/* Player Button */}
                   <Flex
-                    ml={[ "0.6rem", "2.6rem" ]}
-                    padding="1rem"
+                    ml={["0.6rem", "3.6rem"]}
+                    // padding="1rem"
                     // border="2px solid #333"
-                    marginTop="1rem"
-                    width={["400%", "120%"]}
+                    marginTop="1.5rem"
+                    width={["400%", "100%"]}
                     flexDirection="column"
                     justifyContent="flex-start"
                     alignItems="center"
                   >
                     <Flex
-                      
                       width={["100%", "100%"]}
                       borderRadius="10px"
                       position="relative"
@@ -621,7 +603,7 @@ export default function DragonTiger() {
                         onClick={() => handleBait("dragon")}
                         disabled={gameState?.value <= 10}
                         width={["60%", "40%"]}
-                        height="4rem"
+                        height="5rem"
                         borderRadius="10px"
                         variant="unstyled"
                         background="linear-gradient(to bottom right , #668cff , #a64dff)"
@@ -639,7 +621,7 @@ export default function DragonTiger() {
                         disabled={gameState?.value <= 10}
                         fontWeight={"700"}
                         width={["30%", "25%"]}
-                        height="4rem"
+                        height="5rem"
                         borderRadius="50%"
                         position="absolute"
                         left={["50%", "40%"]}
@@ -660,7 +642,7 @@ export default function DragonTiger() {
                         onClick={() => handleBait("tiger")}
                         disabled={gameState?.value <= 10}
                         width={["60%", "40%"]}
-                        height="4rem"
+                        height="5rem"
                         borderRadius="10px"
                         variant="unstyled"
                         background="linear-gradient(to bottom right , #668cff , #a64dff)"
@@ -678,6 +660,61 @@ export default function DragonTiger() {
             </Stack>
           </Box>
         </Flex>
+        <Box p="1" display="flex" width="101%">
+<Table width="15px" style={{ borderCollapse: 'separate', borderSpacing: '1px', borderRadius: '3px', marginRight: '10px', width:'45%' }}>
+<Thead>
+  <Tr>
+    <Th bg="#edf2f7"></Th>
+    <Th  textAlign="center">Red</Th>
+    <Th  textAlign='center'>Black</Th>
+  </Tr>
+</Thead>
+<Tbody>
+  <Tr>
+    <Td bg="#edf2f7">Dragon</Td>
+    <Td  textAlign="center">2.1<br />0</Td>
+    <Td  textAlign="center">1.8<br />0</Td>
+  </Tr>
+  <Tr>
+    <Td bg="#edf2f7">Triger</Td>
+    <Td  textAlign="center">2.1<br />0</Td>
+    <Td  textAlign="center">1.8<br />0</Td>
+  </Tr>
+</Tbody>
+</Table>
+
+
+</Box>  
+
+<Box p="1">
+<Table style={{ borderCollapse: 'separate', borderSpacing: '1px', borderRadius: '3px', height:'10px', width:'101%',}}>
+  <Thead>
+    <Tr>
+      <Th bg="#edf2f7"></Th> 
+      <Th  textAlign="center"> {'}'} </Th>
+      <Th  textAlign="center"> {'{'} </Th>
+      <Th  textAlign='center'> ] </Th>
+      <Th  textAlign='center'> [ </Th>
+    </Tr>
+  </Thead>
+  <Tbody>
+    <Tr>
+      <Td bg="#edf2f7">Dragon</Td>
+      <Td  textAlign="center">3.75<br/>0</Td>
+      <Td  textAlign="center">3.75<br/>0</Td>
+      <Td textAlign="center">3.75<br/>0</Td>
+      <Td textAlign="center">3.75<br/>0</Td>
+    </Tr>
+    <Tr>
+      <Td bg="#edf2f7">Triger</Td>
+      <Td textAlign="center">3.75<br/>0</Td>
+      <Td textAlign="center">3.75<br/>0</Td>
+      <Td textAlign="center">3.75<br/>0</Td>
+      <Td textAlign="center">3.75<br/>0</Td>
+    </Tr>
+  </Tbody>
+</Table>
+</Box>
       </ChakraProvider>
     </>
   );
