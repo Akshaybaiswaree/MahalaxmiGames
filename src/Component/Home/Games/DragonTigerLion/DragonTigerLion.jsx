@@ -100,15 +100,33 @@ export default function DragonTigerLion() {
     };
   }, []);
 
-  const handleBetting = (selectBet) => {
+  // const handleBetting = (selectBet) => {
+  //   if (availableBal <= 0) {
+  //     alert("Insufficient Funds");
+  //     return;
+  //   }
+  //   const coins = parseInt(selectCoins, 10);
+  //   socket.emit("placeBet", { selectBet, coins });
+  // };
+
+  const handleBetting = (baitType) => {
     if (availableBal <= 0) {
       alert("Insufficient Funds");
       return;
     }
-    const coins = parseInt(selectCoins, 10);
-    socket.emit("placeBet", { selectBet, coins });
+  
+    const coins = parseInt(selectCoins, 10); // Make sure to define selectCoins somewhere in your code
+  
+    const betData = {
+      baitType,
+      coins,
+      cardId: mainCard._id, // Assuming mainCard is defined somewhere in your code
+    };
+  
+    socket.emit("placeBet", betData);
   };
-
+  
+  
   return (
     <>
       <ChakraProvider>
@@ -142,14 +160,16 @@ export default function DragonTigerLion() {
               <Text
                 border="1px solid white"
                 padding="20px"
-                width="15%"
-                height="20%"
+                // width="15%"
+                // height="20%"
                 borderRadius="50%"
                 position="absolute"
                 top="5"
                 right="10"
                 color="white"
                 fontWeight="bold"
+                fontSize="24px"
+                alignItems="center"
               >
                 {timer}
               </Text>
