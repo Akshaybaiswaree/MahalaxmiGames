@@ -184,32 +184,27 @@ export default function DragonTigerLion() {
               <Text
                 border="5px solid white"
                 padding="20px"
-                // width="15%"
-                // height="20%"
                 borderRadius="50%"
                 position="absolute"
                 top="5"
                 right="10"
                 color="white"
                 fontWeight="bold"
-                fontSize="24px"
-                alignItems="center"
+                id="round2"
               >
                 {timer - 20 < 0 ? "0" : timer - 20}
               </Text>
               {timer - 20 < -5 && (
                 <Text
-                  border="5px solid white"
-                  padding="30px"
-                  // width="15%"
-                  // height="20%"
+                  border="10px solid white"
+                  padding="40px"
                   borderRadius="50%"
                   position="absolute"
                   top="5"
                   left="10"
                   color="white"
                   fontWeight="bold"
-                  // alignItems="center"
+                  id="round1"
                 >
                   <span>Winner:</span> {winnerStatus}
                 </Text>
@@ -271,6 +266,7 @@ export default function DragonTigerLion() {
           // border="2px solid darkgreen"
           display="flex"
           position="relative"
+          id="second"
         >
           {[...Array(10)].map((_, index) => (
             <Text
@@ -288,6 +284,14 @@ export default function DragonTigerLion() {
             </Text>
           ))}
 
+          {/* <Text
+            position="absolute"
+            bottom="0"
+            left="10%"
+            fontWeight="bold"
+            border="2px solid darkblue"
+            padding="0.3rem"
+          > */}
           <Text
             position="absolute"
             bottom="0"
@@ -295,9 +299,18 @@ export default function DragonTigerLion() {
             fontWeight="bold"
             border="2px solid darkblue"
             padding="0.3rem"
+            className="second"
           >
             Match Id: {matchId}
           </Text>
+          {/* <Button
+            width="20%"
+            variant="outline"
+            colorScheme="blue"
+            position="absolute"
+            bottom="0"
+            right="10%"
+          > */}
           <Button
             width="20%"
             variant="outline"
@@ -305,10 +318,22 @@ export default function DragonTigerLion() {
             position="absolute"
             bottom="0"
             right="10%"
+            className="second"
           >
             Player History
           </Button>
         </Box>
+        {/* <Box
+          // border="5px dotted blue"
+          width="30%"
+          height="80%"
+          position="absolute"
+          right="0"
+          top="35%"
+          display="flex"
+          justifyContent="space-between"
+          flexDirection="column"
+        > */}
         <Box
           // border="5px dotted blue"
           width="30%"
@@ -319,6 +344,7 @@ export default function DragonTigerLion() {
           display="flex"
           justifyContent="space-between"
           flexDirection="column"
+          id="third"
         >
           <Box
             border="20px solid #333"

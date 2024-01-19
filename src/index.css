@@ -1,0 +1,115 @@
+@media only screen and (max-width: 425px) {
+   
+    #round1{
+        padding: 30px;
+        border: 6px solid white;
+        top: 2;
+        left: 1rem;
+    }
+    #round2{
+        padding: 20px;
+        border: 6px solid white;
+        top: 2;
+        right: 1rem;
+        
+        
+    }
+    #first{
+        width: 119%;
+        margin-top: 1rem;
+        margin-left: 0.5rem;
+        /* background-color: red; */
+        margin-bottom: 43rem;
+    }
+    #second{
+        width: 124%;
+       margin-bottom: 2rem;
+       height: 4rem;
+      
+        /* background-color: red; */
+        
+    }
+    
+    .second{
+        margin-bottom: -1rem; 
+        
+    }
+    #second button{
+        width: 30%;
+    }
+    #third{
+        
+        /* background-color: blue; */
+        width: 100%;
+        top: 68%;
+        right: -0.5rem;
+    }
+}
+@media only screen and (min-width: 768px) {
+    #first{
+        
+        margin-bottom: 0;
+        width:60%;
+    }
+    #second{
+       margin-top: 1rem;
+        width:60%;
+        height:15%;
+        /* border:"2px solid darkgreen"; */
+        display:flex;
+        position:relative;
+    }
+    .second{
+        margin-left:-1.8rem ;
+        margin-right:-1.5rem ;
+    }
+    #second button{
+        width: 35%;
+        
+    }
+    #third{
+        width:30%;
+        height:80;
+        position:absolute;
+        right:0.2rem;
+        top:40%;
+
+        display:flex;
+        justify-Content:space-between;
+        flex-Direction:column;
+        
+    }
+   
+}
+@media screen and (min-width: 1024px) {
+   
+    #first{
+        
+        margin-bottom: 0;
+        width:65%;
+    }
+    #second{
+       
+        width:65%;
+        height:15%;
+        /* border:"2px solid darkgreen"; */
+        display:flex;
+        position:relative;
+    }
+    #second button{
+        width: 20%;
+        
+    }
+    #third{
+        width:30%;
+        height:80;
+        position:absolute;
+        right:0;
+        top:35%;
+
+        display:flex;
+        justify-Content:space-between;
+        flex-Direction:column;
+        
+    }
+}
