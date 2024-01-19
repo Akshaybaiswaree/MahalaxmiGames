@@ -32,6 +32,8 @@ export default function DragonTigerLion() {
   const [lionCards, setLionCards] = useState("");
   // const [gameCards, setGamesCards] = useState("");
   const [winnerStatus, setWinnerStatus] = useState("Wait!!");
+  const [buttonClick, setButtonClick] = useState(false);
+
   // console.log("availableBal", availableBal);
   // console.log("selectCoins", selectCoins);
 
@@ -74,7 +76,11 @@ export default function DragonTigerLion() {
       setDragonCards(data.DragenNumber);
       setTigerCards(data.TigerNumber);
       setLionCards(data.LionNumber);
-      // console.log("new bet:-", data);
+      // setButtonStatus1(true);
+      // setButtonStatus2(true);
+      // setButtonStatus3(true);
+
+      console.log("new bet:-", data);
       // console.log("new bet Choice:-", data.choice);
       // console.log("new bet balance:-", data.userBalance);
       // console.log("DragenNumber:-", data.DragenNumber);
@@ -89,6 +95,9 @@ export default function DragonTigerLion() {
       setLionCards([]);
       // setGamesCards([]);
       setWinnerStatus(null);
+      // setButtonStatus1(true);
+      // setButtonStatus2(true);
+      // setButtonStatus3(true);
     };
     handleGetUserBalance();
 
@@ -118,6 +127,10 @@ export default function DragonTigerLion() {
   // };
 
   const handleBetting = (baitType) => {
+    if (timer - 20 < 0) {
+      setButtonClick(true);
+    }
+
     if (availableBal <= 0) {
       alert("Insufficient Funds");
       return;
@@ -129,7 +142,7 @@ export default function DragonTigerLion() {
     // console.log("coins", coins);
 
     const betData = {
-      selectedChoice:baitType,
+      selectedChoice: baitType,
       coins,
       // cardId: playerId._id,
     };
@@ -150,7 +163,7 @@ export default function DragonTigerLion() {
             >
               Dragon Tiger Lion
             </Text>
-            <Text>{selectBet}</Text>
+            {/* <Text>{selectBet}</Text> */}
             <Button variant="outline" colorScheme="blue" ml="2">
               Rules
             </Button>
@@ -169,7 +182,7 @@ export default function DragonTigerLion() {
               position="relative"
             >
               <Text
-                border="1px solid white"
+                border="5px solid white"
                 padding="20px"
                 // width="15%"
                 // height="20%"
@@ -182,11 +195,11 @@ export default function DragonTigerLion() {
                 fontSize="24px"
                 alignItems="center"
               >
-                {timer}
+                {timer - 20 < 0 ? "0" : timer - 20}
               </Text>
-              {timer <= 10 && (
+              {timer - 20 < -5 && (
                 <Text
-                  border="1px solid white"
+                  border="5px solid white"
                   padding="30px"
                   // width="15%"
                   // height="20%"
@@ -202,7 +215,7 @@ export default function DragonTigerLion() {
                 </Text>
               )}
 
-              {timer < 20 && (
+              {timer - 20 <= 0 && (
                 <Box
                   // border="2px solid yellow"
                   width="100%"
@@ -217,7 +230,7 @@ export default function DragonTigerLion() {
                     // src={`/cards/${gameCards.Dragen}`}
                     src={`/cards/${dragonCards}`}
                     // alt={`dragen${gameCards.Dragen}`}
-                    alt={`dragen${dragonCards}`}
+                    alt=""
                     position="absolute"
                     top="38%"
                     left="20.8%"
@@ -228,7 +241,7 @@ export default function DragonTigerLion() {
                     // src={`/cards/${gameCards.Lion}`}
                     src={`/cards/${lionCards}`}
                     // alt={`tiger${gameCards.Lion}`}
-                    alt={`lion${lionCards}`}
+                    alt=""
                     position="absolute"
                     top="38%"
                     right="19.5%"
@@ -239,7 +252,7 @@ export default function DragonTigerLion() {
                     // src={`/cards/${gameCards.Tiger}`}
                     src={`/cards/${tigerCards}`}
                     // alt={`lion${gameCards.Tiger}`}
-                    alt={`tiger${tigerCards}`}
+                    alt=""
                     position="absolute"
                     top="38%"
                     width="6%"
@@ -392,6 +405,7 @@ export default function DragonTigerLion() {
               height="100%"
               variant="unstyled"
               onClick={() => handleBetting("Dragen")}
+              isDisabled={timer - 20 <= 0 && buttonClick}
             >
               <Image
                 src="/DragonTigerLion/DRAGON TIGER LION/DRAGON.webp"
@@ -405,6 +419,7 @@ export default function DragonTigerLion() {
               height="100%"
               variant="unstyled"
               onClick={() => handleBetting("Tiger")}
+              isDisabled={timer - 20 <= 0 && buttonClick}
             >
               <Image
                 src="/DragonTigerLion/DRAGON TIGER LION/TIGER.webp"
@@ -418,6 +433,7 @@ export default function DragonTigerLion() {
               height="100%"
               variant="unstyled"
               onClick={() => handleBetting("Lion")}
+              isDisabled={timer - 20 <= 0 && buttonClick}
             >
               <Image
                 src="/DragonTigerLion/DRAGON TIGER LION/LION.webp"

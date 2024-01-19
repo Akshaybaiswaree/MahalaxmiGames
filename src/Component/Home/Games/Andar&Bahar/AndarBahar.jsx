@@ -32,8 +32,8 @@ const AndarBahar = () => {
   const [mainCard, setMainCard] = useState([]);
   const [andarCards, setAndarCards] = useState([]);
   const [baharCards, setBaharCards] = useState([]);
-  // const[buttonClick1, setButtonClick1] = useState(false);
-  // const[buttonClick2, setButtonClick2] = useState(false);
+  const [buttonClick1, setButtonClick1] = useState(false);
+  const [buttonClick2, setButtonClick2] = useState(false);
 
   console.log("user", user);
   console.log("mainCard", mainCard);
@@ -121,6 +121,10 @@ const AndarBahar = () => {
   }
 
   const handleBait = (baitType) => {
+    if (gameState?.value > 0) {
+      setButtonClick1(true);
+      setButtonClick2(true);
+    }
     if (user?.coins <= 0) {
       alert("Insufficient Funds");
       return;
@@ -358,7 +362,7 @@ const AndarBahar = () => {
           </Box>
 
           {/* Player Button */}
-          {gameState?.value - 20 > 0 && (
+          {/* {gameState?.value - 20 > 0 && ( */}
             <Box
               border="2px solid red"
               width="100%"
@@ -380,6 +384,7 @@ const AndarBahar = () => {
                 backgroundColor="#640e18"
                 borderRadius="1rem"
                 onClick={() => handleBait(0)}
+                isDisabled={gameState?.value - 20 < 0 && buttonClick1}
               >
                 Andar <span>1.98</span>
               </Button>
@@ -395,11 +400,12 @@ const AndarBahar = () => {
                 backgroundColor="#1c3e6b"
                 borderRadius="1rem"
                 onClick={() => handleBait(1)}
+                isDisabled={gameState?.value - 20 < 0 && buttonClick2}
               >
                 Bahar <span>1.98</span>
               </Button>
             </Box>
-          )}
+          {/* )} */}
         </Box>
       </>
     </ChakraProvider>
