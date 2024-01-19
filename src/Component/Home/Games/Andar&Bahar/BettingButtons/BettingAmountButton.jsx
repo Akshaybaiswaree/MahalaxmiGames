@@ -24,7 +24,7 @@ const BettingAmountButton = ({ value, imageSrc, setCoins }) => (
     height="90%"
     onClick={() => setCoins(value)}
   >
-    <Image src={imageSrc} alt="Betting Amount" boxSize="110%" />
+    <Image src={imageSrc} alt="Betting Amount" boxSize="100%" />
   </Button>
 );
 

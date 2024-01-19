@@ -338,6 +338,7 @@ const AndarBahar = () => {
             justifyContent="space-around"
             alignItems="center"
             borderRadius="5rem"
+            backgroundColor="black"
           >
             {[
               { value: 10, imageSrc: "/Coins/10's coin.webp" },
@@ -366,6 +367,7 @@ const AndarBahar = () => {
               display="flex"
               justifyContent="space-between"
               alignItems="center"
+              backgroundColor="lightgray"
             >
               <Button
                 width="47%"
