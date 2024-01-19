@@ -27,16 +27,17 @@ export default function DragonTigerLion() {
   const [matchId, setMatchId] = useState("");
   const [selectBet, setSelectBet] = useState("");
   const [selectCoins, setSelectCoins] = useState("10");
-  const [dragonCards, setDragonCards] = useState("null");
-  const [tigerCards, setTigerCards] = useState("null");
-  const [lionCards, setLionCards] = useState("null");
+  const [dragonCards, setDragonCards] = useState("");
+  const [tigerCards, setTigerCards] = useState("");
+  const [lionCards, setLionCards] = useState("");
   // const [gameCards, setGamesCards] = useState("");
   const [winnerStatus, setWinnerStatus] = useState("Wait!!");
   // console.log("availableBal", availableBal);
-  console.log("selectCoins", selectCoins);
+  // console.log("selectCoins", selectCoins);
 
   useEffect(() => {
     const handleGameCards = (data) => {
+      // console.log("CardsData:-", data);
       if (data.playerHands) {
         setDragonCards(data.playerHands.Dragen);
         setTigerCards(data.playerHands.Tiger);
@@ -59,7 +60,7 @@ export default function DragonTigerLion() {
     };
 
     const handlePlayerBalance = (data) => {
-      console.log("Received balance update:", data);
+      // console.log("Received balance update:", data);
       setAvailableBal(data.balance);
     };
 
@@ -67,11 +68,18 @@ export default function DragonTigerLion() {
       socket.emit("getBalance");
     };
 
-
-    const handleBet = (bet) => {
-      console.log("new bet", bet);
-      setSelectBet(bet.choice);
-      setAvailableBal(bet.userBalance);
+    const handleBet = (data) => {
+      setSelectBet(data.choice);
+      setAvailableBal(data.userBalance);
+      setDragonCards(data.DragenNumber);
+      setTigerCards(data.TigerNumber);
+      setLionCards(data.LionNumber);
+      // console.log("new bet:-", data);
+      // console.log("new bet Choice:-", data.choice);
+      // console.log("new bet balance:-", data.userBalance);
+      // console.log("DragenNumber:-", data.DragenNumber);
+      // console.log("TigerNumber:-", data.TigerNumber);
+      // console.log("LionNumber:-", data.LionNumber);
     };
 
     const handleNewRound = () => {
@@ -83,7 +91,7 @@ export default function DragonTigerLion() {
       setWinnerStatus(null);
     };
     handleGetUserBalance();
-    
+
     socket.on("countdown", handleTimer);
     socket.on("balanceUpdate", handlePlayerBalance);
     socket.on("getuser", handlePlayerId);
@@ -114,19 +122,21 @@ export default function DragonTigerLion() {
       alert("Insufficient Funds");
       return;
     }
-  
-    const coins = parseInt(selectCoins, 10); // Make sure to define selectCoins somewhere in your code
-  
+
+    // console.log("bettype", baitType);
+
+    const coins = parseInt(selectCoins);
+    // console.log("coins", coins);
+
     const betData = {
-      baitType,
+      selectedChoice:baitType,
       coins,
-      cardId: mainCard._id, // Assuming mainCard is defined somewhere in your code
+      // cardId: playerId._id,
     };
-  
+
     socket.emit("placeBet", betData);
   };
-  
-  
+
   return (
     <>
       <ChakraProvider>
@@ -140,6 +150,7 @@ export default function DragonTigerLion() {
             >
               Dragon Tiger Lion
             </Text>
+            <Text>{selectBet}</Text>
             <Button variant="outline" colorScheme="blue" ml="2">
               Rules
             </Button>
@@ -191,7 +202,7 @@ export default function DragonTigerLion() {
                 </Text>
               )}
 
-              {timer <= 20 && (
+              {timer < 20 && (
                 <Box
                   // border="2px solid yellow"
                   width="100%"
