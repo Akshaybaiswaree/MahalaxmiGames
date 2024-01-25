@@ -16,41 +16,14 @@ import Mainpage from "./Component/Mainpage";
 import MuflisOneDay from "./Component/Home/Games/MuflisOneDay";
 import Rootlayout from "./Component/RootLayout/Rootlayout";
 import Roulette from "./Component/Home/Games/Roulette";
+import TeenPatti from "./Component/Home/Games/TeenPatti/TeenPatti";
 import TeenPattiMuflis from "./Component/Home/Games/TeenPattiMuflis";
 import ThirtyTwoCards from "./Component/Home/Games/ThirtyTwoCards";
 import TwoCardsTeenPatti from "./Component/Home/Games/TwoCardsTeenPatti";
 
 // import RegisterPage from "./Component/Login/RegisterPage";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import Login from "./Component/Login/Login";
-
-
-
-
-
-
-
-
-
-
 
 // import RaceGame from "./Component/Home/Games/RaceGame";
 
@@ -61,7 +34,7 @@ const router = createBrowserRouter(
       {/* <Route path="SignUp" element={<SignUP />} /> */}
       {/* <Route path="SignUp" element={<Login />} /> */}
       {/* <Route path="racegame" element={<RaceGame />} /> */}
-      <Route path ="app1" element={<App1 />} />
+      <Route path="app1" element={<App1 />} />
 
       <Route path="/" element={<Rootlayout />}>
         <Route index element={<Mainpage />} />
@@ -78,6 +51,7 @@ const router = createBrowserRouter(
         <Route path="rouellte" element={<Roulette />} />
 
         <Route path="dragontigertesting" element={<DragonTesting />} />
+        <Route path="3cardsteenpatti" element={<TeenPatti />} />
 
         {/* <Route path="admin" element={<Admin />} /> */}
       </Route>

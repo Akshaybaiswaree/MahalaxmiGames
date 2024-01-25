@@ -12,7 +12,7 @@ const socket = io("https://dragenliontiger.onrender.com/", {
   transports: ["websocket"],
 });
 
-const Socket1 = () => {
+const App1 = () => {
   const [selectedChoice, setSelectedChoice] = useState(null);
   const [countdown, setCountdown] = useState(null);
   const [userBalance, setUserBalance] = useState(null);
@@ -20,14 +20,9 @@ const Socket1 = () => {
   const [playerHands, setPlayerHands] = useState(null);
   const [winner, setWinner] = useState(null);
   const [userId, setuserId] = useState(null);
-
-  // console.log("userId", userId);
-  // console.log("userBalance", userBalance);
-  console.log("userBalance", userBalance);
-
-
   useEffect(() => {
     const handleDealCards = (data) => {
+      handleGetBalance();
       const winner = data.winner;
       console.log("Received dealt cards:", data);
       if (data.playerHands) {
@@ -37,7 +32,6 @@ const Socket1 = () => {
         console.log("Player hands not found in data:", data);
       }
     };
-
     const handleCountdown = (data) => {
       console.log("Received countdown:", data.countdown);
       setCountdown(data.countdown);
@@ -46,7 +40,6 @@ const Socket1 = () => {
     const handleNewBet = (bet) => {
       console.log("Received new bet:", bet);
       setSelectedChoice(bet.choice);
-      setUserBalance(bet.userBalance);
     };
     const handleNewRound = () => {
       console.log("Starting a new round");
@@ -58,16 +51,15 @@ const Socket1 = () => {
       setUserBalance(data.balance);
     };
     const handleGetBalance = () => {
-      // const userId = "659f512690a104c5ddc07269"; // Provide the user ID
       socket.emit("getBalance");
     };
     const handleuser = (data) => {
       socket.emit("getuser");
       console.log("User : - ", data.user);
       setuserId(data.user.userId);
+      setUserBalance(data.user.balance);
     };
     handleGetBalance();
-
     socket.on("dealCards", handleDealCards);
     socket.on("countdown", handleCountdown);
     socket.on("newBet", handleNewBet);
@@ -85,8 +77,7 @@ const Socket1 = () => {
   }, []);
 
   const handlePlaceBet = (selectedChoice) => {
-    // const userId = "659f512690a104c5ddc07269";
-    const coins = parseInt(selectedCoin, 10); 
+    const coins = parseInt(selectedCoin, 10); // Parse the selectedCoin to an integer
     socket.emit("placeBet", { selectedChoice, coins });
   };
 
@@ -103,7 +94,6 @@ const Socket1 = () => {
             <h5>{card}</h5>
           </div>
         ))}
-
       {countdown !== null && <p>Countdown: {countdown}</p>}
       <p>User Balance: {userBalance}</p>
       <label htmlFor="quantity">Select a Coin:</label>
@@ -119,7 +109,6 @@ const Socket1 = () => {
         <option value="100">100</option>
       </select>
       <br />
-
       <button onClick={() => handlePlaceBet("Dragen")}>Bet on Dragon</button>
       <button onClick={() => handlePlaceBet("Tiger")}>Bet on Tiger</button>
       <button onClick={() => handlePlaceBet("Lion")}>Bet on Lion</button>
@@ -127,4 +116,4 @@ const Socket1 = () => {
   );
 };
 
-export default Socket1;
+export default App1;

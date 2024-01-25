@@ -4,6 +4,7 @@ import {
   Button,
   ChakraProvider,
   Flex,
+  Image,
   Table,
   Tbody,
   Td,
@@ -12,459 +13,403 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+
+import { io } from "socket.io-client";
+
+const socket = io("https://teenpattibackend.onrender.com", {
+  query: {
+    userId: Math.floor(Math.random() * Date.now()),
+  },
+  transports: ["websocket"],
+});
 
 export default function TeenPattiMuflis() {
+  const [timer, setTimer] = useState("");
+  const [coins, setCoins] = useState("");
+  const [user, setUser] = useState("");
+  const [mainCard, setMainCard] = useState([]);
+  const [selectedCoins, setSelectedCoins] = useState(null);
+  const player1Cards = [
+    "/public/cards/clubs_2.png",
+    "/public/cards/clubs_3.png",
+    "/public/cards/clubs_4.png",
+  ];
+  const player2Cards = [
+    "/public/cards/diamonds_2.png",
+    "/public/cards/diamonds_3.png",
+    "/public/cards/diamonds_4.png",
+  ];
+
+  useEffect(() => {
+    const handelTimer = (data) => {
+      setTimer(data.gamestate);
+      console.log("Timer", data.gamestate.value);
+    };
+    const handelUserDetails = (data) => {
+      setUser(data.user);
+      // console.log("UserDetails", data);
+    };
+
+    // const handelBetting = (data) => {
+    //   setUser(data);
+    //   console.log("HandelBetting", data);
+    // };
+
+    const handelCards = (data) => {
+      setMainCard(data.gameCard);
+      console.log("Cards", data);
+    };
+
+    socket.on("gameUpdate", handelTimer);
+    socket.on("userDetails", handelUserDetails);
+    // socket.on("bait", handelBetting);
+    socket.on("Main_Card", handelCards);
+    return () => {
+      socket.off("gameState", handelTimer);
+      socket.off("userDetails", handelUserDetails);
+      // socket.off("bait", handelBetting);
+      socket.off("Main_Card", handelCards);
+    };
+  }, []);
+
+  const handelBet = (baitType) => {
+    if (user?.coins <= 0) {
+      alert("Insufficient Fund");
+      return;
+    }
+    const bait = {
+      baitType,
+      coins,
+      cardId: mainCard._id,
+    };
+    socket.emit("bait", bait);
+    console.log("bait", bait);
+    console.log("baitType", bait.baitType);
+    console.log("coins", bait.coins);
+  };
+
   return (
     <>
       <ChakraProvider>
-        <Flex
-          align="left-top"
-          justify="left-top"
-          minH="50%" // Set the minimum height to 100% of the viewport height
-        >
-          <Box width="65%" marginTop="0px" marginLeft="0px" marginBottom="1rem">
-            <Flex justify="space-between" align="center" mb="2">
+        <Box width="100%" id="first">
+          <Flex justify="space-between" align="center" mb="2">
+            <Text
+              fontSize="24px"
+              fontWeight="bold"
+              borderRadius="10px"
+              position="relative"
+            >
+              Muflis TeenPatti
+            </Text>
+            {/* <Text>{selectBet}</Text> */}
+            <Button variant="outline" colorScheme="blue" ml="2">
+              Rules
+            </Button>
+          </Flex>
+          <AspectRatio minHeight="50%" borderRadius="10px" controls>
+            <Box
+              border="4px solid #333"
+              backgroundImage="url('/MuflisTeenPatti/MuflisTeenPatti.webp')"
+              display="flex"
+              flexDirection="column"
+              justifyContent="flex-start"
+              alignItems="top"
+              backgroundSize="cover"
+              backgroundPosition={`center 100%`}
+              backgroundRepeat="no-repeat"
+              position="relative"
+            >
               <Text
-                fontSize="24px"
+                border="5px solid white"
+                padding="20px"
+                borderRadius="50%"
+                position="absolute"
+                top="5"
+                right="10"
+                color="white"
                 fontWeight="bold"
-                borderRadius="10px"
-                position="relative"
+                id="round2"
               >
-                Teen Patti Muflis
+                {timer?.value}
               </Text>
-              <Button variant="outline" colorScheme="blue" ml="2">
-                Rules
-              </Button>
-            </Flex>
-            <AspectRatio minHeight="50%" borderRadius="10px" controls>
+              <Text
+                border="10px solid white"
+                padding="40px"
+                borderRadius="50%"
+                position="absolute"
+                top="5"
+                left="10"
+                color="white"
+                fontWeight="bold"
+                id="round1"
+              >
+                <span>Winner:</span>
+              </Text>
+
               <Box
-                border="4px solid #333"
-                height="100%" // Adjust the height as needed
-                background="linear-gradient(#1c3e6b, #640e18)"
+                border="2px solid yellow"
+                width="100%"
+                height="50%"
                 display="flex"
-                flexDirection="column"
-                justifyContent="flex-start"
-                alignItems="top"
-              >
-                {/* <Image
-                  src=""
-                  alt="Main card image"
-                  maxW="200px"
-                  p="4"
-                  boxShadow="lg"
-                  rounded="md"
-                  height="8rem"
-                />
-
-                <Flex direction="column" align="start" marginRight="25rem">
-                  <Text color="white">Andar</Text>
-
-                  <Box
-                    height="100%" // Adjust the height as needed
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                  >
-                    <Image
-                      src=""
-                      alt=""
-                      maxW="200px"
-                      p="4"
-                      boxShadow="lg"
-                      rounded="md"
-                      height="8rem"
-                    />
-                  </Box>
-                  <Text color="white">Bahar</Text>
-
-                  <Box
-                    height="100%" // Adjust the height as needed
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                  >
-                    <Image
-                      src=""
-                      alt=""
-                      maxW="200px"
-                      p="4"
-                      boxShadow="lg"
-                      rounded="md"
-                      height="8rem"
-                    />
-                  </Box>
-                </Flex> */}
-              </Box>
-            </AspectRatio>
-            {/* 10 Mini Boxes */}
-            <Flex flexDirection="row" alignItems="center">
-              {[...Array(10)].map((_, index) => (
-                <Box
-                  key={index}
-                  width="35px"
-                  height="35px"
-                  marginRight="10px"
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                  fontWeight="bold"
-                  border="5px solid #333"
-                >
-                  <Text
-                    fontSize="14px"
-                    color={index % 2 === 0 ? "#333" : "#2b329b"}
-                  >
-                    {index % 2 === 0 ? "A" : "B"}
-                  </Text>
-                </Box>
-              ))}
-              {/* Text and Button */}
-              <Flex flexDirection="row" alignItems="center" padding="1rem">
-                <Text>Match Id: 123456789</Text>
-                <Button
-                  flexDirection="row"
-                  alignItems="center"
-                  marginLeft="3rem"
-                  variant="outline"
-                  colorScheme="blue"
-                  width="100%"
-                >
-                  Player History
-                </Button>
-              </Flex>
-            </Flex>
-            {/* New Box */}
-            <Box width="100%">
-              <Flex flexDirection="row" alignItems="center">
-                <Text fontSize="15px" fontWeight="bold" marginLeft="0.5rem">
-                  Last Win
-                </Text>
-                {/* <Text fontSize="12px">0</Text> */}
-                <Text fontSize="15px" fontWeight="bold" marginLeft="0.5rem">
-                  Last Bet
-                </Text>
-                {/* <Text fontSize="12px">0</Text> */}
-                <Flex>
-                  {[100, 500, "1K", "5K", "10K", "25K"].map((value, index) => (
-                    <Button
-                      key={index}
-                      width="35px"
-                      height="35px"
-                      marginLeft="1rem"
-                      display="flex"
-                      justifyContent="center"
-                      alignItems="center"
-                      fontWeight="bold"
-                      variant="unstyled" // Use "unstyled" instead of "unstyles"
-                      border="5px solid #333"
-                    >
-                      <Text
-                        fontSize="14px"
-                        color={index % 2 === 0 ? "#333" : "#2b329b"}
-                      >
-                        {typeof value === "number"
-                          ? value.toLocaleString()
-                          : value}
-                      </Text>
-                    </Button>
-                  ))}
-                </Flex>
-                {/* Margin */}
-                <Box marginLeft="4rem">
-                  {/* 3 More Buttons */}
-                  {["Undo", "Reset"].map((label, index) => (
-                    <Button
-                      key={index}
-                      variant="outline"
-                      colorScheme="blue"
-                      justifyContent="end"
-                      width="50%"
-                    >
-                      <Text>{label}</Text>
-                    </Button>
-                  ))}
-                </Box>
-              </Flex>
-              <Flex
-                flexDirection="row"
-                alignItems="center"
                 justifyContent="center"
-                padding="1rem"
+                position="absolute"
+                bottom="0"
+                alignItems="center"
               >
-                {/* Box 1 */}
-                {/* Player Button */}
-                <Box
-                  width="100%"
-                  position="relative"
-                  border="2px solid #333"
-                  height="22rem"
-                  display="flex" // Set display to flex
-                  flexDirection="column" // Stack child boxes vertically
-                  justifyContent="center" // Center horizontally
-                  alignItems="center" // Set align
-                >
-                  <Box
-                    width="80%"
-                    height="50%"
-                    position="relative"
-                    border="2px solid #333"
-                    marginTop="1rem"
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    margin="1rem"
-                  >
-                    <Button
-                      width="90%" // Adjusted width to create a small gap between buttons
-                      height="70%"
-                      display="flex"
-                      flexDirection="column"
-                      justifyContent="center"
-                      alignItems="center"
-                      fontWeight="bold"
-                      variant="unstyled"
-                      fontSize="3rem" // Increased text size
-                      backgroundColor="#640e18"
-                      borderRadius="1rem"
-                      marginTop="1rem"
-                      marginBottom="1rem"
-                      marginLeft="1rem"
-                      marginRight="1rem"
-                    >
-                      <Text
-                        position="absolute"
-                        left="1rem"
-                        top="1rem"
-                        fontSize="1rem"
-                        textColor="white"
-                      >
-                        Player 1
-                      </Text>
-                      <Text
-                        position="absolute"
-                        left="1rem"
-                        bottom="1rem"
-                        fontSize="1rem"
-                        textColor="white"
-                      >
-                        1.98
-                      </Text>
-                    </Button>
+                {player1Cards.map((image, index) => {
+                  <Box key={index}>
+                    <Image src={image} alt="123" />;
+                  </Box>;
+                })}
+              </Box>
+            </Box>
+          </AspectRatio>
+        </Box>
+        {/* Player History */}
+        <Text fontWeight="bold">Last Wins :</Text>
+        <Box
+          width="65%"
+          // height="15%"
+          // border="2px solid darkgreen"
+          display="flex"
+          position="relative"
+          // justifyContent="space-between"
+        >
+          {[...Array(10)].map((_, index) => (
+            <Text
+              border="1px solid black"
+              backgroundColor="grey"
+              key={index}
+              fontSize="20px"
+              color={index % 2 === 0 ? "black" : "#553325"}
+              width="5%"
+              height="40%"
+              align="center"
+              fontWeight="bold"
+            >
+              <Text
+                fontSize="18px"
+                color={index % 2 === 0 ? "#black" : "#553325"}
+              >
+                {index % 2 === 0 ? "1" : "2"}
+              </Text>
+            </Text>
+          ))}
 
-                    {/* Player Button */}
+          <Text>Match Id: 12345678123456789</Text>
 
-                    <Button
-                      width="90%" // Adjusted width to create a small gap between buttons
-                      height="70%"
-                      display="flex"
-                      flexDirection="column"
-                      justifyContent="center"
-                      alignItems="center"
-                      fontWeight="bold"
-                      variant="unstyled"
-                      fontSize="3rem" // Increased text size
-                      backgroundColor="#1c3e6b"
-                      borderRadius="1rem"
-                      marginTop="1rem"
-                      marginBottom="1rem"
-                      marginLeft="1rem"
-                      marginRight="1rem"
-                    >
-                      <Text
-                        position="absolute"
-                        right="1rem"
-                        top="1rem"
-                        fontSize="1rem"
-                        textColor="white"
-                      >
-                        Player 2
-                      </Text>
-                      <Text
-                        position="absolute"
-                        right="1rem"
-                        bottom="1rem"
-                        fontSize="1rem"
-                        textColor="white"
-                      >
-                        1.98
-                      </Text>
-                    </Button>
-                  </Box>
+          <Button width="20%" colorScheme="blue">
+            Player History
+          </Button>
+        </Box>
+        {/* Betting Area */}
 
-                  <Text fontSize="18px" fontWeight="bold">
-                    Pair Plus
-                  </Text>
-                  {/* Box 2 */}
-                  <Box
-                    width="80%"
-                    height="25%"
-                    position="relative"
-                    // border="2px solid #333"
-                    marginTop="1rem"
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    margin="1rem"
-                  >
-                    <Button
-                      width="90%" // Adjusted width to create a small gap between buttons
-                      height="100%"
-                      display="flex"
-                      flexDirection="column"
-                      justifyContent="center"
-                      alignItems="center"
-                      fontWeight="bold"
-                      variant="unstyled"
-                      fontSize="3rem" // Increased text size
-                      backgroundColor="#640e18"
-                      borderRadius="1rem"
-                    >
-                      <Text
-                        position="absolute"
-                        left="1rem"
-                        top="1rem"
-                        fontSize="1rem"
-                        textColor="white"
-                      >
-                        Player 1
-                      </Text>
-                      <Text
-                        position="absolute"
-                        left="1rem"
-                        bottom="1rem"
-                        fontSize="1rem"
-                        textColor="white"
-                      >
-                        3
-                      </Text>
-                    </Button>
+        <Box
+          width="50%"
+          position="absolute"
+          // border="4px solid #333"
+          height="25%"
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="space-between"
+          backgroundColor="#2c2721"
+        >
+          <Text color="white" textAlign="left">
+            Place Your Bet!
+          </Text>
+          <Box
+            border="2px solid white"
+            width="40%"
+            height="40%"
+            display="flex"
+            borderRadius="5rem"
+            backgroundColor="transparent"
+            alignItems="center"
+          >
+            {[
+              { value: 10, imageName: "10's coin.webp" },
+              { value: 50, imageName: "50's coin.webp" },
+              { value: 100, imageName: "100's coin.webp" },
+              { value: 500, imageName: "500's coin.webp" },
+              { value: 1000, imageName: "1000's coin.webp" },
+              { value: 5000, imageName: "5000's coin.webp" },
+            ].map(({ value, imageName }, index) => (
+              <Button
+                // border="2px solid grey"
+                key={index}
+                variant="unstyled"
+                width="80%"
+                height="80%"
+                _hover={{
+                  width: selectedCoins === index ? "110%" : "80%",
+                  height: selectedCoins === index ? "110%" : "80%",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  setCoins(value);
+                  console.log("coins", value);
+                  setSelectedCoins(index);
+                }}
+              >
+                <img
+                  src={`/Coins/${imageName}`}
+                  alt={`Image for ${imageName}`}
+                  style={{ width: "80%", height: "80%" }}
+                />
+              </Button>
+            ))}
+          </Box>
+          <Box
+            width="80%"
+            height="40%"
+            border="2px solid #333"
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            backgroundColor="black"
+            borderRadius="1rem"
+          >
+            <Button
+              width="45%"
+              height="80%"
+              // variant="unstyled"
+              backgroundColor="#640e18"
+              borderRadius="1rem"
+              alignItems="center"
+              flexDirection="row"
+              display="flex"
+              justifyContent="space-around"
+              onClick={() => handelBet("0")}
+              _hover={{
+                backgroundColor: "#e77526",
+                "&:hover": {
+                  "> :first-child": {
+                    color: "black",
+                    fontWeight: "bold",
+                  },
+                  "> :last-child": {
+                    color: "black",
+                    fontWeight: "bold",
+                  },
+                },
+              }}
+            >
+              <Text textColor="white">Player A</Text>
+              <Text textColor="white">1.98</Text>
+            </Button>
 
-                    {/* Player Button */}
+            <Button
+              width="45%"
+              height="80%"
+              // variant="unstyled"
+              backgroundColor="#1c3e6b"
+              borderRadius="1rem"
+              display="flex"
+              justifyContent="space-around"
+              flexDirection="row"
+              onClick={() => handelBet("1")}
+              _hover={{
+                backgroundColor: "#f3cb07",
+                "&:hover": {
+                  "> :first-child": {
+                    color: "black",
+                    fontWeight: "bold",
+                  },
+                  "> :last-child": {
+                    color: "black",
+                    fontWeight: "bold",
+                  },
+                },
+              }}
+            >
+              <Text textColor="white">Player B</Text>
+              <Text textColor="white">1.98</Text>
+            </Button>
+          </Box>
+        </Box>
+        {/* side part */}
+        <Box
+          // border="5px dotted blue"
+          width="28%"
+          height="100%"
+          position="absolute"
+          right="0"
+          top="33%"
+          display="flex"
+          justifyContent="space-around"
+          flexDirection="column"
+        >
+          <Box
+            border="2px solid #333"
+            width="100%"
+            justifyContent="center"
+            align="center"
+            borderRadius="1rem"
+          >
+            <Box backgroundColor="#ee9d1e" padding="0.5rem" borderRadius="1rem">
+              <Text fontSize="18px" fontWeight="bold" color="white">
+                Available Credit
+              </Text>
+              <Text
+                fontSize="18px"
+                margin="0 0 0.5rem"
+                fontWeight="bold"
+                color="white"
+              >
+                ${user?.coins}
+              </Text>
+            </Box>
 
-                    <Button
-                      width="90%" // Adjusted width to create a small gap between buttons
-                      height="100%"
-                      display="flex"
-                      flexDirection="column"
-                      justifyContent="center"
-                      alignItems="center"
-                      fontWeight="bold"
-                      variant="unstyled"
-                      fontSize="3rem" // Increased text size
-                      backgroundColor="#1c3e6b"
-                      borderRadius="1rem"
-                    >
-                      <Text
-                        position="absolute"
-                        right="1rem"
-                        top="1rem"
-                        fontSize="1rem"
-                        textColor="white"
-                      >
-                        Player 2
-                      </Text>
-                      <Text
-                        position="absolute"
-                        right="1rem"
-                        bottom="1rem"
-                        fontSize="1rem"
-                        textColor="white"
-                      >
-                        3
-                      </Text>
-                    </Button>
-                  </Box>
-                </Box>
-              </Flex>
+            <Box backgroundColor="#e0e0e0" padding="0.5rem" borderRadius="1rem">
+              <Text fontSize="18px" fontWeight="bold">
+                Player ID
+              </Text>
+              <Text fontSize="18px" margin="0 0 0.5rem" fontWeight="bold">
+                {user?.userId}
+              </Text>
             </Box>
           </Box>
 
-          <Flex flexDirection="column">
-            {/* First Flex - Horizontal View */}
-            <Box marginLeft="1rem" marginTop="4rem">
-              <Flex
-                width="100%"
-                flexDirection="row"
-                border="1rem solid #333"
-                borderRadius="1rem"
-              >
-                {/* First Half - White Background */}
-                <Box
-                  flex="1"
-                  width="48%"
-                  backgroundColor="white"
-                  textAlign="center"
-                >
-                  <Text fontSize="18px" fontWeight="bold">
-                    Available Credit
-                  </Text>
-                  <Text fontSize="24px">0</Text>
-                </Box>
-
-                {/* Second Half - Orange Background */}
-                <Box
-                  flex="1"
-                  width="48%"
-                  backgroundColor="#2b329b"
-                  textAlign="center"
-                >
-                  <Text fontSize="18px" fontWeight="bold">
-                    Exposure
-                  </Text>
-                  <Text fontSize="24px">0</Text>
-                </Box>
-              </Flex>
-            </Box>
-
-            {/* Table - Below the First Flex */}
-            <Box marginLeft="1rem" marginTop="4rem">
-              <Flex
-                width="100%"
-                flexDirection="row"
-                border="1rem solid #333"
-                borderRadius="1rem"
-              >
-                <Table variant="simple" width="100%">
-                  <Thead>
-                    <Tr>
-                      <Th>High Cards Market Payouts</Th>
-                    </Tr>
-                    <Tr>
-                      <Th>Hands</Th>
-                      <Th>Payout</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {/* Add your table rows here */}
-                    <Tr>
-                      <Td>With Highest Card Of 9</Td>
-                      <Td>1 to 2</Td>
-                    </Tr>
-                    <Tr>
-                      <Td>With Highest Card Of 8</Td>
-                      <Td>1 to 3</Td>
-                    </Tr>
-                    <Tr>
-                      <Td>With Highest Card Of 7</Td>
-                      <Td>1 to 4</Td>
-                    </Tr>
-                    <Tr>
-                      <Td>With Highest Card Of 6</Td>
-                      <Td>1 to 7</Td>
-                    </Tr>
-                    <Tr>
-                      <Td>With Highest Card Of 5</Td>
-                      <Td>1 to 29</Td>
-                    </Tr>
-                    {/* Add more rows as needed */}
-                  </Tbody>
-                </Table>
-              </Flex>
-            </Box>
-          </Flex>
-        </Flex>
+          <Box border="2px solid black" borderRadius="1rem">
+            <Table variant="simple" width="100%">
+              <Thead>
+                <Tr>
+                  <Th>High Cards Market Payouts</Th>
+                </Tr>
+                <Tr>
+                  <Th>Hands</Th>
+                  <Th>Payout</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {/* Add your table rows here */}
+                <Tr>
+                  <Td>With Highest Card Of 9</Td>
+                  <Td>1 to 2</Td>
+                </Tr>
+                <Tr>
+                  <Td>With Highest Card Of 8</Td>
+                  <Td>1 to 3</Td>
+                </Tr>
+                <Tr>
+                  <Td>With Highest Card Of 7</Td>
+                  <Td>1 to 4</Td>
+                </Tr>
+                <Tr>
+                  <Td>With Highest Card Of 6</Td>
+                  <Td>1 to 7</Td>
+                </Tr>
+                <Tr>
+                  <Td>With Highest Card Of 5</Td>
+                  <Td>1 to 29</Td>
+                </Tr>
+                {/* Add more rows as needed */}
+              </Tbody>
+            </Table>
+          </Box>
+        </Box>
       </ChakraProvider>
     </>
   );

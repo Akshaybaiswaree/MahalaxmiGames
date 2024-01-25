@@ -33,13 +33,16 @@ export default function DragonTigerLion() {
   // const [gameCards, setGamesCards] = useState("");
   const [winnerStatus, setWinnerStatus] = useState("Wait!!");
   const [buttonClick, setButtonClick] = useState(false);
-
+  // const [showDragonCard, setShowDragonCard] = useState(false);
+  // const [showTigerCard, setShowTigerCard] = useState(false);
+  // const [showLionCard, setShowLionCard] = useState(false);
   // console.log("availableBal", availableBal);
   // console.log("selectCoins", selectCoins);
 
   useEffect(() => {
     const handleGameCards = (data) => {
       // console.log("CardsData:-", data);
+      handleGetUserBalance();
       if (data.playerHands) {
         setDragonCards(data.playerHands.Dragen);
         setTigerCards(data.playerHands.Tiger);
@@ -59,6 +62,7 @@ export default function DragonTigerLion() {
       socket.emit("getuser");
       setPlayerId(data.user.userId);
       setMatchId(data.user._id);
+      setAvailableBal(data.user.balance);
     };
 
     const handlePlayerBalance = (data) => {
@@ -116,6 +120,9 @@ export default function DragonTigerLion() {
       socket.off("dealCards", handleGameCards);
     };
   }, []);
+  if (timer === 40) {
+    socket.emit("getUpdatedUserDetails");
+  }
 
   // const handleBetting = (selectBet) => {
   //   if (availableBal <= 0) {
@@ -126,12 +133,26 @@ export default function DragonTigerLion() {
   //   socket.emit("placeBet", { selectBet, coins });
   // };
 
+  // useEffect(() => {
+  //   if (timer - 20 <= 0) {
+  //     setShowDragonCard(true);
+  //     setTimeout(() => {
+  //       setShowDragonCard(false);
+  //       setShowTigerCard(true);
+  //     }, 2000);
+  //     setTimeout(() => {
+  //       setShowTigerCard(false);
+  //       setShowLionCard(true);
+  //     }, 2000 + 2000);
+  //   }
+  // }, [timer]);
+
   const handleBetting = (baitType) => {
     if (timer - 20 < 0) {
       setButtonClick(true);
     }
 
-    if (availableBal <= 0) {
+    if (availableBal < 0) {
       alert("Insufficient Funds");
       return;
     }
@@ -153,7 +174,7 @@ export default function DragonTigerLion() {
   return (
     <>
       <ChakraProvider>
-        <Box width="65%">
+        <Box width="65%" id="first">
           <Flex justify="space-between" align="center" mb="2">
             <Text
               fontSize="24px"
@@ -243,6 +264,7 @@ export default function DragonTigerLion() {
                     width="6%"
                     height="21%"
                   />
+
                   <Image
                     // src={`/cards/${gameCards.Tiger}`}
                     src={`/cards/${tigerCards}`}
@@ -298,8 +320,8 @@ export default function DragonTigerLion() {
             left="10%"
             fontWeight="bold"
             border="2px solid darkblue"
-            padding="0.3rem"
-            className="second"
+            // padding="0.3rem"
+            className="matchID"
           >
             Match Id: {matchId}
           </Text>
@@ -378,7 +400,7 @@ export default function DragonTigerLion() {
           </Box>
 
           {/* New Box */}
-          <Text align="center" fontWeight="bold">
+          <Text align="center" fontWeight="bold" id="spacing">
             Place Your Bet!
           </Text>
           <Box

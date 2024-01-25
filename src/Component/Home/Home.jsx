@@ -347,13 +347,25 @@ const Home = () => {
           </GridItem>
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
+            <NavLink to="/3cardsteenpatti">
+              <Box className="custom-box">
+                <Image
+                  src="/game card/Teen Patti  Muflis.png"
+                  alt="MULFIS TEENPATTI"
+                />
+                <span> 3 CARDS TEENPATTI</span>
+              </Box>
+            </NavLink>
+          </GridItem>
+
+          <GridItem colSpan={{ base: 4, md: 1 }}>
             <NavLink to="/teenpattimuflis">
               <Box className="custom-box">
                 <Image
                   src="/game card/Teen Patti  Muflis.png"
                   alt="MULFIS TEENPATTI"
                 />
-                <span> MULFIS TEENPATTI</span>
+                <span> MULFIS TEENPATTI </span>
               </Box>
             </NavLink>
           </GridItem>
@@ -379,7 +391,7 @@ const Home = () => {
             </NavLink>
           </GridItem>
 
-          <GridItem colSpan={{ base: 4, md: 1 }}>
+          {/* <GridItem colSpan={{ base: 4, md: 1 }}>
             <NavLink to="/muflisoneday">
               <Box className="custom-box">
                 <Image
@@ -389,7 +401,7 @@ const Home = () => {
                 <span>MUFLIS ONE DAY </span>
               </Box>
             </NavLink>
-          </GridItem>
+          </GridItem> */}
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <NavLink to="/highcards">

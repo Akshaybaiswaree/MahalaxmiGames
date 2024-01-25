@@ -1,115 +1,150 @@
+.card {
+  display: none;
+  position: absolute;
+  width: 6%;
+  height: 21%;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@keyframes showCard {
+  to {
+    opacity: 1;
+  }
+}
+
+.show {
+  display: block;
+  animation-name: showCard;
+}
+
+.show.dragon {
+  animation-delay: 0s;
+}
+
+.show.tiger {
+  animation-delay: 3s;
+}
+
+.show.lion {
+  animation-delay: 6s;
+}
+
 @media only screen and (max-width: 425px) {
-   
-    #round1{
-        padding: 30px;
-        border: 6px solid white;
-        top: 2;
-        left: 1rem;
-    }
-    #round2{
-        padding: 20px;
-        border: 6px solid white;
-        top: 2;
-        right: 1rem;
-        
-        
-    }
-    #first{
-        width: 119%;
-        margin-top: 1rem;
-        margin-left: 0.5rem;
-        /* background-color: red; */
-        margin-bottom: 43rem;
-    }
-    #second{
-        width: 124%;
-       margin-bottom: 2rem;
-       height: 4rem;
-      
-        /* background-color: red; */
-        
-    }
-    
-    .second{
-        margin-bottom: -1rem; 
-        
-    }
-    #second button{
-        width: 30%;
-    }
-    #third{
-        
-        /* background-color: blue; */
-        width: 100%;
-        top: 68%;
-        right: -0.5rem;
-    }
+  #round1 {
+    padding: 30px;
+    border: 6px solid white;
+    top: 2;
+    left: 1rem;
+  }
+  #round2 {
+    padding: 20px;
+    border: 6px solid white;
+    top: 2;
+    right: 1rem;
+  }
+  #first {
+    width: 124%;
+    margin-top: 1rem;
+    margin-left: 0.1rem;
+    /* background-color: red; */
+    margin-bottom: 31rem;
+  }
+  #second {
+    width: 124%;
+    margin-bottom: 2rem;
+    height: 4rem;
+
+    /* background-color: red; */
+  }
+
+  .second {
+    margin-bottom: -1.2rem;
+    margin-left: -2.1rem;
+    width: 65%;
+
+    /* background-color: red; */
+  }
+  .matchID {
+    margin-bottom: -1rem;
+    margin-left: -2.1rem;
+    width: 65%;
+
+    font-size: 82%;
+
+    /* background-color: red; */
+  }
+  #second button {
+    width: 30%;
+    /* background-color: red; */
+    margin-right: -2.4rem;
+  }
+  #third {
+    /* background-color: blue; */
+    width: 100%;
+    top: 69%;
+    right: -0.5rem;
+    height: 60%;
+  }
 }
 @media only screen and (min-width: 768px) {
-    #first{
-        
-        margin-bottom: 0;
-        width:60%;
-    }
-    #second{
-       margin-top: 1rem;
-        width:60%;
-        height:15%;
-        /* border:"2px solid darkgreen"; */
-        display:flex;
-        position:relative;
-    }
-    .second{
-        margin-left:-1.8rem ;
-        margin-right:-1.5rem ;
-    }
-    #second button{
-        width: 35%;
-        
-    }
-    #third{
-        width:30%;
-        height:80;
-        position:absolute;
-        right:0.2rem;
-        top:40%;
+  #first {
+    margin-bottom: 0;
+    width: 60%;
+  }
+  #second {
+    margin-top: 1rem;
+    width: 60%;
+    height: 15%;
+    /* border:"2px solid darkgreen"; */
+    display: flex;
+    position: relative;
+  }
+  .second {
+    margin-left: -1.8rem;
+    margin-right: -1.5rem;
+  }
+  #second button {
+    width: 35%;
+  }
+  #third {
+    width: 30%;
+    height: 80;
+    position: absolute;
+    right: 0.2rem;
+    top: 40%;
 
-        display:flex;
-        justify-Content:space-between;
-        flex-Direction:column;
-        
-    }
-   
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
 }
 @media screen and (min-width: 1024px) {
-   
-    #first{
-        
-        margin-bottom: 0;
-        width:65%;
-    }
-    #second{
-       
-        width:65%;
-        height:15%;
-        /* border:"2px solid darkgreen"; */
-        display:flex;
-        position:relative;
-    }
-    #second button{
-        width: 20%;
-        
-    }
-    #third{
-        width:30%;
-        height:80;
-        position:absolute;
-        right:0;
-        top:35%;
+  #first {
+    margin-bottom: 0;
+    width: 65%;
+  }
+  #second {
+    width: 65%;
+    height: 15%;
+    /* border:"2px solid darkgreen"; */
+    display: flex;
+    position: relative;
+  }
+  #second button {
+    width: 20%;
+  }
+  #third {
+    width: 30%;
+    height: 80;
+    position: absolute;
+    right: 0;
+    top: 35%;
 
-        display:flex;
-        justify-Content:space-between;
-        flex-Direction:column;
-        
-    }
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
 }
