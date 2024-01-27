@@ -28,7 +28,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 // import Gamingimage from "../Games/images/GAMING GIRL.svg";
  import "./DragonTiger.css";
-import Gamingimage from "../../Games/images/GAMING GIRL.svg";
+import Gamingimage from "../../Games/Images/GAMING GIRL.svg";
 import { io } from "socket.io-client";
 
 const socket = io("https://dragontiger-backend.onrender.com", {

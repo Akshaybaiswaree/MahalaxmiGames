@@ -1,19 +1,12 @@
 /* 3Cards-Teen-Patti */
 
 @media screen and (min-width: 320px) {
-    #cards-positionA{
-      
-    }
-    #cards-positionB{
-      
-   }
+  
     #abcde{
        height: 1rem;
        margin-bottom: 0.5rem;
     }
-    #xyz{
-     
-    }
+  
     #teenpattifreezeplacebettext{
       font-size: 0.7rem;
     
@@ -273,9 +266,7 @@
     }
   }
   @media screen and (min-width: 1440px) {
-    #cardshidden{
-     
-    }
+   
     .players{
         margin-left: 1.8rem;
     }
