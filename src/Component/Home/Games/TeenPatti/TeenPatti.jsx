@@ -22,7 +22,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import Teenpatti from "../../Games/Images/TeenPatti.svg";
- import "./TeenPatti.css";
+ import "./Teenpatti.css";
 
 const socket = io("https://teenpattibackend.onrender.com", {
   query: {
