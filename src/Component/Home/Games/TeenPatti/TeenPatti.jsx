@@ -67,7 +67,7 @@ function TeenPatti() {
       setMainCard(data.gameCard);
       displayPlayerCards(data.gameCard.player1Cards, setPlayer1Cards);
       displayPlayerCards(data.gameCard.player2Cards, setPlayer2Cards);
-      // console.log(data, "data");
+      console.log(data, "data123");
     });
 
     return () => {
@@ -354,7 +354,7 @@ function TeenPatti() {
 
           <Box ml={"12rem"} mt={"1rem"}>
             <Button
-              onClick={() => handleBait("0")}
+              onClick={() => handleBait(0)}
               disabled={gameState?.value <= 10}
               width={"10rem"}
               height={"5rem"}
@@ -366,7 +366,7 @@ function TeenPatti() {
               Player A
             </Button>
             <Button
-              onClick={() => handleBait("1")}
+              onClick={() => handleBait(1)}
               disabled={gameState?.value <= 10}
               width={"10rem"}
               ml={"1rem"}

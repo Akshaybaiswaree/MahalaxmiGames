@@ -34,6 +34,8 @@ const AndarBahar = () => {
   const [baharCards, setBaharCards] = useState([]);
   const [buttonClick1, setButtonClick1] = useState(false);
   const [buttonClick2, setButtonClick2] = useState(false);
+  const [selectedCoins, setSelectedCoins] = useState(null);
+  
 
   console.log("user", user);
   console.log("mainCard", mainCard);
@@ -121,6 +123,8 @@ const AndarBahar = () => {
   }
 
   const handleBait = (baitType) => {
+
+    
     if (gameState?.value > 0) {
       setButtonClick1(true);
       setButtonClick2(true);
@@ -157,13 +161,14 @@ const AndarBahar = () => {
           <Box
             width="100%"
             height="90vh"
-            // border="10px solid #333"
+            // border="10px solid red"
             backgroundImage="url('/Andar&BaharImage/Andar&BaharAvatar.webp')"
             backgroundSize="cover"
             backgroundPosition={`center 100%`}
             backgroundRepeat="no-repeat"
             display="flex"
             position="relative"
+            id="andarbaharImg"
           >
             <WinStatusBanner
               winStatus={mainCard.winstatus}
@@ -188,6 +193,7 @@ const AndarBahar = () => {
               left="3"
               color="white"
               alignItems="center"
+              
             />
             <MainCardSection mainCard={mainCard} />
             <Box width="15%">
@@ -197,6 +203,7 @@ const AndarBahar = () => {
                 position="absolute"
                 bottom="38%"
                 left="10%"
+                id="andarcardstext"
               >
                 Andar Cards
               </Text>
@@ -206,6 +213,7 @@ const AndarBahar = () => {
                 position="absolute"
                 bottom="10%"
                 left="10%"
+                id="baharcardstext"
               >
                 Bahar Cards
               </Text>
@@ -245,6 +253,7 @@ const AndarBahar = () => {
           // border="2px solid darkgreen"
           display="flex"
           position="relative"
+          id="andarbaharidhistory"
         >
           {[...Array(10)].map((_, index) => (
             <Text
@@ -269,10 +278,11 @@ const AndarBahar = () => {
           <Text
             position="absolute"
             bottom="0"
-            left="10%"
+            // left="10%"
             fontWeight="bold"
             border="2px solid darkblue"
             padding="0.3rem"
+            id="andarbaharmatchID"
           >
             Match Id: {user?._id}
           </Text>
@@ -283,6 +293,7 @@ const AndarBahar = () => {
             position="absolute"
             bottom="0"
             right="10%"
+            id="andarbaharplayerhistory"
           >
             Player History
           </Button>
@@ -297,6 +308,7 @@ const AndarBahar = () => {
           display="flex"
           justifyContent="space-between"
           flexDirection="column"
+          id="andarbaharscoreboard"
         >
           <Box
             border="20px solid #333"
@@ -356,6 +368,9 @@ const AndarBahar = () => {
                 value={value}
                 imageSrc={imageSrc}
                 setCoins={setCoins}
+                selectedCoins={selectedCoins}
+                index={index}
+                setSelectedCoins={setSelectedCoins}
               />
             ))}
           </Box>

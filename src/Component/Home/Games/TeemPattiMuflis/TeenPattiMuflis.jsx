@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 
 import { io } from "socket.io-client";
 
-const socket = io("https://teenpattibackend.onrender.com", {
+const socket = io("https://muflisteenpattibackend.onrender.com", {
   query: {
     userId: Math.floor(Math.random() * Date.now()),
   },
@@ -30,51 +30,45 @@ export default function TeenPattiMuflis() {
   const [user, setUser] = useState("");
   const [mainCard, setMainCard] = useState([]);
   const [selectedCoins, setSelectedCoins] = useState(null);
-  const player1Cards = [
-    "/public/cards/clubs_2.png",
-    "/public/cards/clubs_3.png",
-    "/public/cards/clubs_4.png",
-  ];
-  const player2Cards = [
-    "/public/cards/diamonds_2.png",
-    "/public/cards/diamonds_3.png",
-    "/public/cards/diamonds_4.png",
-  ];
+  const [player1Cards, setPlayer1Cards] = useState([]);
+  const [player2Cards, setPlayer2Cards] = useState([]);
+  const [buttonClick, setButtonClick] = useState(false);
 
   useEffect(() => {
     const handelTimer = (data) => {
       setTimer(data.gamestate);
-      console.log("Timer", data.gamestate.value);
+      // console.log("Timer", data.gamestate);
     };
     const handelUserDetails = (data) => {
       setUser(data.user);
       // console.log("UserDetails", data);
     };
 
-    // const handelBetting = (data) => {
-    //   setUser(data);
-    //   console.log("HandelBetting", data);
-    // };
-
     const handelCards = (data) => {
       setMainCard(data.gameCard);
+
+      setPlayer1Cards(data.gameCard.player1Cards);
+      setPlayer2Cards(data.gameCard.player2Cards);
       console.log("Cards", data);
     };
 
     socket.on("gameUpdate", handelTimer);
     socket.on("userDetails", handelUserDetails);
-    // socket.on("bait", handelBetting);
     socket.on("Main_Card", handelCards);
     return () => {
       socket.off("gameState", handelTimer);
       socket.off("userDetails", handelUserDetails);
-      // socket.off("bait", handelBetting);
       socket.off("Main_Card", handelCards);
     };
   }, []);
+  useEffect(() => {}, []);
 
   const handelBet = (baitType) => {
-    if (user?.coins <= 0) {
+    if (timer?.value <= 21) {
+      setButtonClick(true);
+    }
+
+    if (user?.coins < 0) {
       alert("Insufficient Fund");
       return;
     }
@@ -85,8 +79,8 @@ export default function TeenPattiMuflis() {
     };
     socket.emit("bait", bait);
     console.log("bait", bait);
-    console.log("baitType", bait.baitType);
-    console.log("coins", bait.coins);
+    // console.log("baitType", bait.baitType);
+    // console.log("coins", bait.coins);
   };
 
   return (
@@ -131,37 +125,67 @@ export default function TeenPattiMuflis() {
                 fontWeight="bold"
                 id="round2"
               >
-                {timer?.value}
+                {timer?.value - 25 < 0 ? "0" : timer?.value - 25}
               </Text>
-              <Text
-                border="10px solid white"
-                padding="40px"
-                borderRadius="50%"
-                position="absolute"
-                top="5"
-                left="10"
-                color="white"
-                fontWeight="bold"
-                id="round1"
-              >
-                <span>Winner:</span>
-              </Text>
+              {timer?.value - 25 <= -20 && (
+                <Text
+                  border="5px solid white"
+                  padding="24px"
+                  borderRadius="50%"
+                  position="absolute"
+                  top="0"
+                  left="0"
+                  color="white"
+                  fontWeight="bold"
+                  id="round1"
+                >
+                  <span>Winner:{mainCard?.winstatus}</span>
+                </Text>
+              )}
 
               <Box
-                border="2px solid yellow"
+                // border="2px solid yellow"
                 width="100%"
                 height="50%"
                 display="flex"
+                flexDirection="row"
                 justifyContent="center"
                 position="absolute"
                 bottom="0"
                 alignItems="center"
               >
-                {player1Cards.map((image, index) => {
-                  <Box key={index}>
-                    <Image src={image} alt="123" />;
-                  </Box>;
-                })}
+                {timer?.value - 25 <= -10 && (
+                  <Box
+                    // border="2px solid black"
+                    position="absolute"
+                    width="21.5%"
+                    height="21%"
+                    display="flex"
+                    left="23.7%"
+                    top="35%"
+                    justifyContent="space-between"
+                  >
+                    {player1Cards.map((image, index) => (
+                      <Image key={index} src={`/cards/${image}`} alt="123" />
+                    ))}
+                  </Box>
+                )}
+                {timer?.value - 25 <= -15 && (
+                  <Box
+                    // border="2px solid black"
+                    position="absolute"
+                    width="21.5%"
+                    height="21%"
+                    display="flex"
+                    right="24%"
+                    top="35%"
+                    justifyContent="space-between"
+                  >
+                    {player2Cards.map((image, index) => (
+                      <Image key={index} src={`/cards/${image}`} alt="123" />
+                    ))}
+                  </Box>
+                )}
               </Box>
             </Box>
           </AspectRatio>
@@ -174,7 +198,7 @@ export default function TeenPattiMuflis() {
           // border="2px solid darkgreen"
           display="flex"
           position="relative"
-          // justifyContent="space-between"
+          justifyContent="space-between"
         >
           {[...Array(10)].map((_, index) => (
             <Text
@@ -192,12 +216,12 @@ export default function TeenPattiMuflis() {
                 fontSize="18px"
                 color={index % 2 === 0 ? "#black" : "#553325"}
               >
-                {index % 2 === 0 ? "1" : "2"}
+                {index % 2 === 0 ? "B" : "A"}
               </Text>
             </Text>
           ))}
 
-          <Text>Match Id: 12345678123456789</Text>
+          <Text>Match Id: {mainCard?.gameid}</Text>
 
           <Button width="20%" colorScheme="blue">
             Player History
@@ -209,12 +233,13 @@ export default function TeenPattiMuflis() {
           width="50%"
           position="absolute"
           // border="4px solid #333"
-          height="25%"
+          height="45%"
           display="flex"
           flexDirection="column"
           alignItems="center"
           justifyContent="space-between"
           backgroundColor="#2c2721"
+          marginTop="1%"
         >
           <Text color="white" textAlign="left">
             Place Your Bet!
@@ -222,7 +247,7 @@ export default function TeenPattiMuflis() {
           <Box
             border="2px solid white"
             width="40%"
-            height="40%"
+            height="60%"
             display="flex"
             borderRadius="5rem"
             backgroundColor="transparent"
@@ -249,21 +274,21 @@ export default function TeenPattiMuflis() {
                 }}
                 onClick={() => {
                   setCoins(value);
-                  console.log("coins", value);
+                  // console.log("coins", value);
                   setSelectedCoins(index);
                 }}
               >
                 <img
                   src={`/Coins/${imageName}`}
                   alt={`Image for ${imageName}`}
-                  style={{ width: "80%", height: "80%" }}
+                  style={{ width: "90%", height: "90%" }}
                 />
               </Button>
             ))}
           </Box>
           <Box
             width="80%"
-            height="40%"
+            height="100%"
             border="2px solid #333"
             display="flex"
             justifyContent="space-between"
@@ -281,7 +306,8 @@ export default function TeenPattiMuflis() {
               flexDirection="row"
               display="flex"
               justifyContent="space-around"
-              onClick={() => handelBet("0")}
+              onClick={() => handelBet("Player1")}
+              isDisabled={timer?.value - 25 <= 0 && buttonClick}
               _hover={{
                 backgroundColor: "#e77526",
                 "&:hover": {
@@ -309,7 +335,8 @@ export default function TeenPattiMuflis() {
               display="flex"
               justifyContent="space-around"
               flexDirection="row"
-              onClick={() => handelBet("1")}
+              onClick={() => handelBet("Player2")}
+              isDisabled={timer?.value - 25 <= 0 && buttonClick}
               _hover={{
                 backgroundColor: "#f3cb07",
                 "&:hover": {
@@ -326,6 +353,76 @@ export default function TeenPattiMuflis() {
             >
               <Text textColor="white">Player B</Text>
               <Text textColor="white">1.98</Text>
+            </Button>
+          </Box>
+          <Text color="white">Pair Plus</Text>
+          <Box
+            width="90%"
+            height="80%"
+            border="2px solid #333"
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            backgroundColor="black"
+            borderRadius="1rem"
+          >
+            <Button
+              width="45%"
+              height="80%"
+              // variant="unstyled"
+              backgroundColor="#640e18"
+              borderRadius="1rem"
+              alignItems="center"
+              flexDirection="row"
+              display="flex"
+              justifyContent="space-around"
+              onClick={() => handelBet("PairPlus1")}
+              isDisabled={timer?.value - 25 <= 0 && buttonClick}
+              _hover={{
+                backgroundColor: "#e77526",
+                "&:hover": {
+                  "> :first-child": {
+                    color: "black",
+                    fontWeight: "bold",
+                  },
+                  "> :last-child": {
+                    color: "black",
+                    fontWeight: "bold",
+                  },
+                },
+              }}
+            >
+              <Text textColor="white">Player A</Text>
+              <Text textColor="white">3</Text>
+            </Button>
+
+            <Button
+              width="45%"
+              height="80%"
+              // variant="unstyled"
+              backgroundColor="#1c3e6b"
+              borderRadius="1rem"
+              display="flex"
+              justifyContent="space-around"
+              flexDirection="row"
+              onClick={() => handelBet("PairPlus2")}
+              isDisabled={timer?.value - 25 <= 0 && buttonClick}
+              _hover={{
+                backgroundColor: "#f3cb07",
+                "&:hover": {
+                  "> :first-child": {
+                    color: "black",
+                    fontWeight: "bold",
+                  },
+                  "> :last-child": {
+                    color: "black",
+                    fontWeight: "bold",
+                  },
+                },
+              }}
+            >
+              <Text textColor="white">Player B</Text>
+              <Text textColor="white">3</Text>
             </Button>
           </Box>
         </Box>

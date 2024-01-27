@@ -33,16 +33,14 @@ export default function DragonTigerLion() {
   // const [gameCards, setGamesCards] = useState("");
   const [winnerStatus, setWinnerStatus] = useState("Wait!!");
   const [buttonClick, setButtonClick] = useState(false);
-  // const [showDragonCard, setShowDragonCard] = useState(false);
-  // const [showTigerCard, setShowTigerCard] = useState(false);
-  // const [showLionCard, setShowLionCard] = useState(false);
+  const [selectedCoins, setSelectedCoins] = useState(null);
+
   // console.log("availableBal", availableBal);
   // console.log("selectCoins", selectCoins);
 
   useEffect(() => {
     const handleGameCards = (data) => {
       // console.log("CardsData:-", data);
-      handleGetUserBalance();
       if (data.playerHands) {
         setDragonCards(data.playerHands.Dragen);
         setTigerCards(data.playerHands.Tiger);
@@ -62,7 +60,6 @@ export default function DragonTigerLion() {
       socket.emit("getuser");
       setPlayerId(data.user.userId);
       setMatchId(data.user._id);
-      setAvailableBal(data.user.balance);
     };
 
     const handlePlayerBalance = (data) => {
@@ -133,26 +130,12 @@ export default function DragonTigerLion() {
   //   socket.emit("placeBet", { selectBet, coins });
   // };
 
-  // useEffect(() => {
-  //   if (timer - 20 <= 0) {
-  //     setShowDragonCard(true);
-  //     setTimeout(() => {
-  //       setShowDragonCard(false);
-  //       setShowTigerCard(true);
-  //     }, 2000);
-  //     setTimeout(() => {
-  //       setShowTigerCard(false);
-  //       setShowLionCard(true);
-  //     }, 2000 + 2000);
-  //   }
-  // }, [timer]);
-
   const handleBetting = (baitType) => {
-    if (timer - 20 < 0) {
+    if (timer - 25 < 0) {
       setButtonClick(true);
     }
 
-    if (availableBal < 0) {
+    if (availableBal <= 0) {
       alert("Insufficient Funds");
       return;
     }
@@ -174,7 +157,15 @@ export default function DragonTigerLion() {
   return (
     <>
       <ChakraProvider>
-        <Box width="65%" id="first">
+        <Box
+          id="first"
+          //  p={4}
+          //  width = {{ base: "134%",sm:"140%", md: "100%", lg:"55%", xl:"40%" }}
+          // marginTop = {{ base: "1rem",sm:"",md: "1rem", lg:"",xl:"" }}
+          //  marginLeft = {{ base: "-0.7rem",sm:"",md: "0.1rem",lg:"" }}
+
+          //  marginBottom = {{ base: "27rem", md: "2rem" }}
+        >
           <Flex justify="space-between" align="center" mb="2">
             <Text
               fontSize="24px"
@@ -213,9 +204,9 @@ export default function DragonTigerLion() {
                 fontWeight="bold"
                 id="round2"
               >
-                {timer - 20 < 0 ? "0" : timer - 20}
+                {timer - 25 < 0 ? "0" : timer - 25}
               </Text>
-              {timer - 20 < -5 && (
+              {timer - 25 < -17 && (
                 <Text
                   border="10px solid white"
                   padding="40px"
@@ -231,60 +222,79 @@ export default function DragonTigerLion() {
                 </Text>
               )}
 
-              {timer - 20 <= 0 && (
-                <Box
-                  // border="2px solid yellow"
-                  width="100%"
-                  height="50%"
-                  display="flex"
-                  justifyContent="center"
-                  position="absolute"
-                  bottom="0"
-                  alignItems="center"
-                >
-                  <Image
-                    // src={`/cards/${gameCards.Dragen}`}
-                    src={`/cards/${dragonCards}`}
-                    // alt={`dragen${gameCards.Dragen}`}
-                    alt=""
-                    position="absolute"
-                    top="38%"
-                    left="20.8%"
-                    width="6%"
-                    height="21%"
-                  />
-                  <Image
-                    // src={`/cards/${gameCards.Lion}`}
-                    src={`/cards/${lionCards}`}
-                    // alt={`tiger${gameCards.Lion}`}
-                    alt=""
-                    position="absolute"
-                    top="38%"
-                    right="19.5%"
-                    width="6%"
-                    height="21%"
-                  />
+              {/* {timer - 20 <= 0 && ( */}
+              <Box
+                // border="2px solid yellow"
+                width="100%"
+                height="50%"
+                display="flex"
+                justifyContent="center"
+                position="absolute"
+                bottom="0"
+                alignItems="center"
+              >
+                {timer - 25 <= -5 && (
+                  <Box>
+                    <Image
+                      // src={`/cards/${gameCards.Dragen}`}
+                      src={`/cards/${dragonCards}`}
+                      // alt={`dragen${gameCards.Dragen}`}
+                      alt=""
+                      position="absolute"
+                      top="38%"
+                      left="20.8%"
+                      width="6%"
+                      height="21%"
+                    />
+                  </Box>
+                )}
 
-                  <Image
-                    // src={`/cards/${gameCards.Tiger}`}
-                    src={`/cards/${tigerCards}`}
-                    // alt={`lion${gameCards.Tiger}`}
-                    alt=""
-                    position="absolute"
-                    top="38%"
-                    width="6%"
-                    height="21%"
-                  />
-                </Box>
-              )}
+                {timer - 25 <= -10 && (
+                  <Box>
+                    <Image
+                      // src={`/cards/${gameCards.Tiger}`}
+                      src={`/cards/${tigerCards}`}
+                      // alt={`lion${gameCards.Tiger}`}
+                      alt=""
+                      position="absolute"
+                      top="38%"
+                      width="6%"
+                      height="21%"
+                      left="47%"
+                    />
+                  </Box>
+                )}
+
+                {timer - 25 <= -15 && (
+                  <Box>
+                    <Image
+                      // src={`/cards/${gameCards.Lion}`}
+                      src={`/cards/${lionCards}`}
+                      // alt={`tiger${gameCards.Lion}`}
+                      alt=""
+                      position="absolute"
+                      top="38%"
+                      right="19.5%"
+                      width="6%"
+                      height="21%"
+                    />
+                  </Box>
+                )}
+              </Box>
+              {/* )} */}
             </Box>
           </AspectRatio>
         </Box>
 
         {/* 10 Mini Boxes */}
         <Box
-          width="65%"
-          height="15%"
+          width={{ base: "115%", sm: "110%", md: "65%" }}
+          marginY={{ base: "0.5rem", md: "1rem" }}
+          marginLeft={{ base: "0.2rem", md: "0" }}
+          height="10%"
+          marginBottom={{ base: "2rem" }}
+          // width="65%"
+          // height="15%"
           // border="2px solid darkgreen"
           display="flex"
           position="relative"
@@ -292,6 +302,7 @@ export default function DragonTigerLion() {
         >
           {[...Array(10)].map((_, index) => (
             <Text
+              mb={{ base: "1rem", md: -1 }}
               border="2px solid grey"
               key={index}
               fontSize="20px"
@@ -301,6 +312,7 @@ export default function DragonTigerLion() {
               align="center"
               justifyContent="space-around"
               fontWeight="bold"
+              id="array"
             >
               {index % 3 === 0 ? "D" : index % 3 === 1 ? "T" : "L"}
             </Text>
@@ -315,54 +327,52 @@ export default function DragonTigerLion() {
             padding="0.3rem"
           > */}
           <Text
+            mb={{ base: "1rem", md: -1 }} // Adjust margin-bottom for different screen sizes
+            ml={{ base: "0.2rem", md: -2 }} // Adjust margin-left for different screen sizes
+            top={{ base: "3.5rem" }}
+            width={{ base: "75%", md: "65%" }} // Adjust width for different screen sizes
             position="absolute"
-            bottom="0"
-            left="10%"
+            // bottom="0"
+            // left="10%"
             fontWeight="bold"
             border="2px solid darkblue"
-            // padding="0.3rem"
+            padding="0"
             className="matchID"
           >
             Match Id: {matchId}
           </Text>
-          {/* <Button
-            width="20%"
-            variant="outline"
-            colorScheme="blue"
-            position="absolute"
-            bottom="0"
-            right="10%"
-          > */}
+
           <Button
-            width="20%"
+            width={{ base: "23%", md: "20%" }}
+            fontSize={{ base: "0.8rem", md: "1rem" }}
+            padding={{ base: "1rem" }}
             variant="outline"
             colorScheme="blue"
             position="absolute"
             bottom="0"
-            right="10%"
+            right={{ base: "0", md: "10%" }}
+            // width="20%"
+            // variant="outline"
+            // colorScheme="blue"
+            // position="absolute"
+            // bottom="0"
+            // right="10%"
             className="second"
           >
             Player History
           </Button>
         </Box>
-        {/* <Box
-          // border="5px dotted blue"
-          width="30%"
-          height="80%"
-          position="absolute"
-          right="0"
-          top="35%"
-          display="flex"
-          justifyContent="space-between"
-          flexDirection="column"
-        > */}
+
         <Box
-          // border="5px dotted blue"
-          width="30%"
-          height="80%"
+          // width={{ base: '95%', sm: '80%', md: '30%', lg: '30%' }}
+          // top={{ base: '106%', md: '35%' }}
+          // right={{ base: '0rem', md: '0' }}
+          // left={{ base: '0.7rem', md: '66rem' }}
+          // height={{ base: '80%', md: '70%', lg: '80%', xl: '90%' }}
+          // border="2px solid red"
+          // marginTop="8rem"
+          // height="100%"
           position="absolute"
-          right="0"
-          top="35%"
           display="flex"
           justifyContent="space-between"
           flexDirection="column"
@@ -406,12 +416,13 @@ export default function DragonTigerLion() {
           <Box
             border="5px solid #4790b5"
             width="100%"
-            height="16%"
+            height="14%"
             display="flex"
             justifyContent="space-around"
             alignItems="center"
             borderRadius="5rem"
             backgroundColor="black"
+            // marginTop="2rem"
           >
             {[
               { value: 10, imageName: "10's coin.webp" },
@@ -425,9 +436,17 @@ export default function DragonTigerLion() {
                 // border="2px solid grey"
                 key={index}
                 variant="unstyled"
-                width="100%"
-                height="100%"
-                onClick={() => setSelectCoins(value)}
+                width="90%"
+                height="90%"
+                _hover={{
+                  width: selectedCoins === index ? "120%" : "",
+                  height: selectedCoins === index ? "120%" : "",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  setSelectCoins(value);
+                  setSelectedCoins(index);
+                }}
                 // value={value}
                 // onClick={() => console.log(value)}
               >
@@ -447,13 +466,17 @@ export default function DragonTigerLion() {
             flexDirection="row"
             height="30%"
             display="flex"
+            // marginTop="3rem"
           >
             <Button
               width="100%"
               height="100%"
               variant="unstyled"
               onClick={() => handleBetting("Dragen")}
-              isDisabled={timer - 20 <= 0 && buttonClick}
+              isDisabled={timer - 25 <= 0 && buttonClick}
+              _hover={{
+                backgroundColor: "darkred",
+              }}
             >
               <Image
                 src="/DragonTigerLion/DRAGON TIGER LION/DRAGON.webp"
@@ -467,7 +490,10 @@ export default function DragonTigerLion() {
               height="100%"
               variant="unstyled"
               onClick={() => handleBetting("Tiger")}
-              isDisabled={timer - 20 <= 0 && buttonClick}
+              isDisabled={timer - 25 <= 0 && buttonClick}
+              _hover={{
+                backgroundColor: "darkgreen",
+              }}
             >
               <Image
                 src="/DragonTigerLion/DRAGON TIGER LION/TIGER.webp"
@@ -481,7 +507,10 @@ export default function DragonTigerLion() {
               height="100%"
               variant="unstyled"
               onClick={() => handleBetting("Lion")}
-              isDisabled={timer - 20 <= 0 && buttonClick}
+              isDisabled={timer - 25 <= 0 && buttonClick}
+              _hover={{
+                backgroundColor: "darkblue",
+              }}
             >
               <Image
                 src="/DragonTigerLion/DRAGON TIGER LION/LION.webp"

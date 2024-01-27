@@ -17,7 +17,7 @@ import MuflisOneDay from "./Component/Home/Games/MuflisOneDay";
 import Rootlayout from "./Component/RootLayout/Rootlayout";
 import Roulette from "./Component/Home/Games/Roulette";
 import TeenPatti from "./Component/Home/Games/TeenPatti/TeenPatti";
-import TeenPattiMuflis from "./Component/Home/Games/TeenPattiMuflis";
+import TeenPattiMuflis from "./Component/Home/Games/TeemPattiMuflis/TeenPattiMuflis";
 import ThirtyTwoCards from "./Component/Home/Games/ThirtyTwoCards";
 import TwoCardsTeenPatti from "./Component/Home/Games/TwoCardsTeenPatti";
 
