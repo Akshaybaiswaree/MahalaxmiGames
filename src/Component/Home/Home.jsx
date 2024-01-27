@@ -389,7 +389,7 @@ const Home = () => {
                 <span>MUFLIS ONE DAY </span>
               </Box>
             </NavLink>
-          </GridItem> */}
+           </GridItem> *}
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <NavLink to="/highcards">
