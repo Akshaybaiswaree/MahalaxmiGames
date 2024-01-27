@@ -32,8 +32,10 @@ const AndarBahar = () => {
   const [mainCard, setMainCard] = useState([]);
   const [andarCards, setAndarCards] = useState([]);
   const [baharCards, setBaharCards] = useState([]);
-  // const[buttonClick1, setButtonClick1] = useState(false);
-  // const[buttonClick2, setButtonClick2] = useState(false);
+  const [buttonClick1, setButtonClick1] = useState(false);
+  const [buttonClick2, setButtonClick2] = useState(false);
+  const [selectedCoins, setSelectedCoins] = useState(null);
+  
 
   console.log("user", user);
   console.log("mainCard", mainCard);
@@ -77,14 +79,14 @@ const AndarBahar = () => {
     };
   }, []);
 
-  if (gameState?.value === 40) {
+  if (gameState?.value === 3) {
     socket.emit("getUpdatedUserDetails");
   }
 
   useEffect(() => {
-    if (gameState?.value === 20) {
+    if (gameState?.value === 19) {
       animateCards();
-    } else if (gameState?.value === 40) {
+    } else if (gameState?.value === 45) {
       setAndarCards([]);
       setBaharCards([]);
     }
@@ -121,6 +123,12 @@ const AndarBahar = () => {
   }
 
   const handleBait = (baitType) => {
+
+    
+    if (gameState?.value > 0) {
+      setButtonClick1(true);
+      setButtonClick2(true);
+    }
     if (user?.coins <= 0) {
       alert("Insufficient Funds");
       return;
@@ -153,38 +161,39 @@ const AndarBahar = () => {
           <Box
             width="100%"
             height="90vh"
-            // border="10px solid #333"
+            // border="10px solid red"
             backgroundImage="url('/Andar&BaharImage/Andar&BaharAvatar.webp')"
             backgroundSize="cover"
             backgroundPosition={`center 100%`}
             backgroundRepeat="no-repeat"
             display="flex"
             position="relative"
+            id="andarbaharImg"
           >
             <WinStatusBanner
               winStatus={mainCard.winstatus}
               gameState={gameState}
             />
             <CounterBox
-              value={gameState.value - 20 < 0 ? "0" : gameState.value - 20}
+              value={gameState.value - 25 < 0 ? "0" : gameState.value - 25}
               width="13%"
               height="18%"
               position="absolute"
               top="5"
               right="6"
               color="white"
-              align="center"
             />
 
             <CounterBox
-              value={gameState.value - 20 < 0 ? "Freeze" : "Place Bet"}
-              width="17%"
+              value={gameState.value - 25 < 0 ? "Freeze" : "Place Bet"}
+              width="20%"
               height="22%"
               position="absolute"
               top="3"
               left="3"
               color="white"
-              align="center"
+              alignItems="center"
+              
             />
             <MainCardSection mainCard={mainCard} />
             <Box width="15%">
@@ -194,6 +203,7 @@ const AndarBahar = () => {
                 position="absolute"
                 bottom="38%"
                 left="10%"
+                id="andarcardstext"
               >
                 Andar Cards
               </Text>
@@ -203,11 +213,12 @@ const AndarBahar = () => {
                 position="absolute"
                 bottom="10%"
                 left="10%"
+                id="baharcardstext"
               >
                 Bahar Cards
               </Text>
             </Box>
-            {gameState.value <= 20 && (
+            {gameState?.value <= 20 && (
               <Box width="100%">
                 <CardSection
                   // title="Andar cards"
@@ -242,6 +253,7 @@ const AndarBahar = () => {
           // border="2px solid darkgreen"
           display="flex"
           position="relative"
+          id="andarbaharidhistory"
         >
           {[...Array(10)].map((_, index) => (
             <Text
@@ -266,10 +278,11 @@ const AndarBahar = () => {
           <Text
             position="absolute"
             bottom="0"
-            left="10%"
+            // left="10%"
             fontWeight="bold"
             border="2px solid darkblue"
             padding="0.3rem"
+            id="andarbaharmatchID"
           >
             Match Id: {user?._id}
           </Text>
@@ -280,6 +293,7 @@ const AndarBahar = () => {
             position="absolute"
             bottom="0"
             right="10%"
+            id="andarbaharplayerhistory"
           >
             Player History
           </Button>
@@ -294,6 +308,7 @@ const AndarBahar = () => {
           display="flex"
           justifyContent="space-between"
           flexDirection="column"
+          id="andarbaharscoreboard"
         >
           <Box
             border="20px solid #333"
@@ -338,6 +353,7 @@ const AndarBahar = () => {
             justifyContent="space-around"
             alignItems="center"
             borderRadius="5rem"
+            backgroundColor="black"
           >
             {[
               { value: 10, imageSrc: "/Coins/10's coin.webp" },
@@ -352,12 +368,15 @@ const AndarBahar = () => {
                 value={value}
                 imageSrc={imageSrc}
                 setCoins={setCoins}
+                selectedCoins={selectedCoins}
+                index={index}
+                setSelectedCoins={setSelectedCoins}
               />
             ))}
           </Box>
 
           {/* Player Button */}
-          {gameState?.value - 20 > 0 && (
+          {/* {gameState?.value - 20 > 0 && ( */}
             <Box
               border="2px solid red"
               width="100%"
@@ -366,6 +385,7 @@ const AndarBahar = () => {
               display="flex"
               justifyContent="space-between"
               alignItems="center"
+              backgroundColor="lightgray"
             >
               <Button
                 width="47%"
@@ -378,6 +398,7 @@ const AndarBahar = () => {
                 backgroundColor="#640e18"
                 borderRadius="1rem"
                 onClick={() => handleBait(0)}
+                isDisabled={gameState?.value - 25 < 0 && buttonClick1}
               >
                 Andar <span>1.98</span>
               </Button>
@@ -393,11 +414,12 @@ const AndarBahar = () => {
                 backgroundColor="#1c3e6b"
                 borderRadius="1rem"
                 onClick={() => handleBait(1)}
+                isDisabled={gameState?.value - 25 < 0 && buttonClick2}
               >
                 Bahar <span>1.98</span>
               </Button>
             </Box>
-          )}
+          {/* )} */}
         </Box>
       </>
     </ChakraProvider>
