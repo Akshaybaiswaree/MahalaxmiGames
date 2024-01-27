@@ -4,7 +4,14 @@ import { Button, Image } from "@chakra-ui/react";
 
 import PropTypes from "prop-types";
 
-const BettingAmountButton = ({ value, imageSrc, setCoins }) => (
+const BettingAmountButton = ({
+  value,
+  imageSrc,
+  setCoins,
+  selectedCoins,
+  setSelectedCoins,
+  index,
+}) => (
   // <Button
   //   width="50px"
   //   height="35px"
@@ -22,9 +29,17 @@ const BettingAmountButton = ({ value, imageSrc, setCoins }) => (
     variant="unstyled"
     width="14%"
     height="90%"
-    onClick={() => setCoins(value)}
+    _hover={{
+      width: selectedCoins === index ? "18%" : "",
+      height: selectedCoins === index ? "110%" : "",
+      cursor: "pointer",
+    }}
+    onClick={() => {
+      setCoins(value);
+      setSelectedCoins(index);
+    }}
   >
-    <Image src={imageSrc} alt="Betting Amount" boxSize="110%" />
+    <Image src={imageSrc} alt="Betting Amount" boxSize="100%" />
   </Button>
 );
 
