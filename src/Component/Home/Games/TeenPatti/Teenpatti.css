@@ -12,7 +12,7 @@
     
     }
     #playerA{
-      margin-top: 10rem;
+      margin-top: 12rem;
       margin-left: 4rem;
       font-size: 0.7rem;
       
@@ -24,11 +24,7 @@
         font-size: 0.7rem;
         
     }
-    .players{
-      margin-left: 1.5rem;
-      margin-top: 0rem;
-        
-    }
+ 
   
     #outputbox{
         /* background-color: blue; */
@@ -80,9 +76,9 @@
         position: absolute;
         top: 40rem;
         justify-content: space-around;
-        left: 0.01rem;
+        /* left: 0.01rem; */
         margin-right: 0.8rem;
-        width: 23.5rem;
+        width: 24.5rem;
     }
   
     #teenpattimainimg{

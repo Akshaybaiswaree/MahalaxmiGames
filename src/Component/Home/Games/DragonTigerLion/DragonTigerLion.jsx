@@ -8,7 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import "../Andar&Bahar/AndarBahar.css"
+import "../Andar&Bahar/AndarBahar.css";
 import { io } from "socket.io-client";
 
 const userId = Math.floor(Math.random() * Date.now());
@@ -288,10 +288,11 @@ export default function DragonTigerLion() {
 
         {/* 10 Mini Boxes */}
         <Box
-          width={{ base: "115%", sm: "110%", md: "65%" }}
-          marginY={{ base: "0.5rem", md: "1rem" }}
-          marginLeft={{ base: "0.2rem", md: "0" }}
-          height="10%"
+        bg={'red'}
+          width={{ base: "2%", sm: "110%", md: "65%" }}
+          marginY={{ base: "0rem", md: "1rem" }}
+          marginLeft={{ base: "2rem", md: "0" }}
+          height="100px"
           marginBottom={{ base: "2rem" }}
           // width="65%"
           // height="15%"
@@ -364,6 +365,7 @@ export default function DragonTigerLion() {
         </Box>
 
         <Box
+        
           // width={{ base: '95%', sm: '80%', md: '30%', lg: '30%' }}
           // top={{ base: '106%', md: '35%' }}
           // right={{ base: '0rem', md: '0' }}

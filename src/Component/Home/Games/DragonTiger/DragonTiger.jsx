@@ -118,9 +118,16 @@ export default function DragonTiger() {
   return (
     <>
       <ChakraProvider>
-        <Box maxW={["92.5 vw", "83.5vw"]}>
-          <Flex direction={["column", "row "]}>
-            <Box width={["100%", "35%"]}>
+        
+        <Box
+      m={'0.5rem'}
+        maxW={["90.5 vw", "83.5vw"]}>
+          <Flex 
+           
+          direction={["column", "row "]}>
+            <Box 
+          
+            width={["105%", "34%"]}>
               <Box
                 width={["42%", "65%"]}
                 marginTop="0px"
@@ -131,7 +138,7 @@ export default function DragonTiger() {
                 <Flex>
                   <Box
                     textAlign={"center"}
-                    fontSize={["20px", "28px"]}
+                    fontSize={["24px", "28px"]}
                     ml={["1.2rem", "0rem"]}
                     fontWeight="bold"
                     borderRadius="10px"
@@ -335,8 +342,9 @@ export default function DragonTiger() {
                         <Button
                           // background="linear-gradient(to bottom right,#ED9203, #323349, #880000)"
                           background="linear-gradient(to bottom right, #ED9203, #C7E600)"
-                          height={"4rem"}
-                          width={"9rem"}
+                          height={["2rem","4rem"]}
+                          width={ ["7rem","9rem"]}
+                          mt={['rem' , "1rem"]}
                         >
                           Winner: {mainCard?.winstatus}
                         </Button>
@@ -348,7 +356,7 @@ export default function DragonTiger() {
                       border={"1px solid white"}
                       borderRadius={"50%"}
                       padding={"2px"}
-                      mt={"2rem"}
+                       mt={"2rem"}
                       ml={"1rem"}
                       position={"absolute"}
                       top="0"
@@ -368,27 +376,27 @@ export default function DragonTiger() {
                     {gameState.value >= 1 && (
                       <React.Fragment>
                         <Flex
-                          marginTop={["10rem", "15rem"]}
+                          marginTop={["9rem", "13rem"]}
                           ml={["0.5rem", "2rem"]}
                           width={["15rem", "20rem"]}
                         >
-                          <Stack direction="column" width={"10rem"}>
-                            <Box color={"Yellow"} fontSize="2rem">
+                          <Stack direction="column" width={[  "10rem","10rem"]}>
+                            <Box color={"Yellow"} fontSize={["1.4rem" , "2rem"  ]}>
                               Dragon
                             </Box>
                             {gameState.value < 11 && (
-                              <Box fontStyle={"yellow"} width={"3rem"}>
+                              <Box fontStyle={"yellow"} width={["1.5rem","3rem"]}>
                                 <Image src={`/cards/${mainCard?.dragoncard}`} />
                               </Box>
                             )}
-                          </Stack>+
+                          </Stack>
 
                           <Stack ml={"3rem"} width={"10rem"} direction="column">
-                            <Box color={"Yellow"} fontSize="2rem">
+                            <Box color={"Yellow"} fontSize={["1.4rem" , "2rem"  ]}>
                               Tiger
                             </Box>
                             {gameState.value < 9 && (
-                              <Box width={"3rem"}>
+                              <Box width={["1.5rem","3rem"]}>
                                 <Image src={`/cards/${mainCard?.tigercard}`} />
                               </Box>
                             )}

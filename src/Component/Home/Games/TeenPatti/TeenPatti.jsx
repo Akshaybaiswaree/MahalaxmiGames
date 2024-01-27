@@ -22,7 +22,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import Teenpatti from "../../Games/Images/TeenPatti.svg";
- import "./Teenpatti.css";
+import "./Teenpatti.css";
 
 const socket = io("https://teenpattibackend.onrender.com", {
   query: {
@@ -102,18 +102,18 @@ function TeenPatti() {
   return (
     <>
       <ChakraProvider>
-        <Box m={"1rem"}>
+        <Box m={"0.6rem"}>
           <Flex justifyContent={"space-between"}>
             <AspectRatio
-              width={"70%"}
+              width={["45%", "70%"]}
               minHeight="50%"
               borderRadius="10px"
               controls
-              ml={["1rem", "0rem"]}
+              ml={["2.5rem", "0rem"]}
               id="teenpattimainimg"
             >
               <Box
-                height="50%" // Adjust the height as needed
+                height="90%" // Adjust the height as needed
                 // background="linear-gradient(#c86363, #51a454, #517a9c)"
 
                 backgroundImage={Teenpatti}
@@ -123,7 +123,7 @@ function TeenPatti() {
                 justifyContent="flex-start"
                 alignItems="top"
                 position="relative"
-                width={"60%"}
+                width={"80%"}
               >
                 <Box
                   fontWeight={"1000"}
@@ -148,65 +148,40 @@ function TeenPatti() {
                   {gameState?.value <= 20 ? "Freeze" : "Place  Bet"}
                 </Box>
                 <Box>
-                  {gameState.value < 5 && (
+                  {gameState.value < 8 && (
                     <Button
                       // background="linear-gradient(to bottom right,#ED9203, #323349, #880000)"
                       background="linear-gradient(to bottom right, #ED9203, #C7E600)"
                       height={"4rem"}
                       width={"9rem"}
+                      marginTop={["5rem", ""]}
                     >
                       Winner: {mainCard?.winstatus}
                     </Button>
                   )}
                 </Box>
 
-                {/* {gameState.value >= 1 && (
-                  <React.Fragment>
-                    <Flex marginTop={"15rem"} ml={"2rem"} width={"20rem"}>
-                      <Stack direction="column" width={"10rem"}>
-                        <Box color={"Yellow"} fontSize="2rem">
-                          PLAYER A
-                        </Box>
-                        {gameState.value < 11 && (
-                          <Box fontStyle={"yellow"} width={"3rem"}>
-                            {mainCard?.player1Cards.map((card, index) => (
-                              <Image key={index} src={`/cards/${card}`} />
-                            ))}
-                          </Box>
-                        )}
-                      </Stack>
-
-                      <Stack ml={"3rem"} width={"10rem"} direction="column">
-                        <Box color={"Yellow"} fontSize="2rem">
-                          PLAYER B
-                        </Box>
-                        {gameState.value < 9 && (
-                          <Box width={"3rem"}>
-                            {mainCard?.player2Cards.map((card, index) => (
-                              <Image key={index} src={`/cards/${card}`} />
-                            ))}
-                          </Box>
-                        )}
-                      </Stack>
-                    </Flex>
-                  </React.Fragment>
-                )} */}
                 {gameState.value >= 1 && (
-                  <Flex  flexWrap="wrap">
+                  <Flex flexWrap="wrap">
                     <Box
                       color={"Yellow"}
                       fontSize="1rem"
-                      width="100%"
+                      width="120%"
                       className="players"
                       id="playerA"
+                      mt={["", "-1rem"]}
                     >
                       PLAYER A
                     </Box>
                     {gameState.value < 12 && (
-                      <Flex Flex width="60%" marginLeft={"20rem"} marginTop={"-1rem"}  >
+                      <Flex
+                        Flex
+                        width="40%"
+                        marginLeft={["5rem", "20rem"]}
+                        marginTop={"-3rem"}
+                      >
                         {player1Cards.map((card, index) => (
                           <Image
-                          
                             key={index}
                             src={`/cards/${card}`}
                             boxSize="2rem"
@@ -219,15 +194,21 @@ function TeenPatti() {
 
                     <Box
                       color={"Yellow"}
-                      fontSize="1rem"
+                      fontSize={["1.4rem", "5rem"]}
                       width="100%"
                       className="players"
                       id="playerB"
+                 
+                      mt={["1rem"]}
                     >
                       PLAYER B
                     </Box>
                     {gameState.value < 10 && (
-                      <Flex width="60%" marginLeft={"20rem"} >
+                      <Flex
+                        width="40%"
+                        marginLeft={["5rem", "20rem"]}
+                        marginTop={"-3rem"}
+                      >
                         {player2Cards.map((card, index) => (
                           <Image
                             key={index}
@@ -270,6 +251,7 @@ function TeenPatti() {
 
             <Flex flexDirection={"column"} id="outputbox">
               <Box
+                ml={["1.5rem", ""]}
                 height={"5rem"}
                 // width="100%"
                 flexDirection="row"
@@ -303,7 +285,7 @@ function TeenPatti() {
                   </Text>
                 </Box>
               </Box>
-              <TableContainer mt={"1rem"}>
+              <TableContainer ml={["1rem", ""]} mt={"1rem"}>
                 <Table
                   borderRadius={"1rem"}
                   border="1px solid 5pxblack"
@@ -387,6 +369,7 @@ function TeenPatti() {
                 alignItems="center"
                 fontWeight="bold"
                 variant="unstyled"
+                _hover={{ height: "2rem" }}
                 onClick={() => {
                   setCoins(item.value);
                   console.log(item.value);
@@ -402,7 +385,7 @@ function TeenPatti() {
             ))}
           </Box>
 
-          <Box ml={"12rem"} mt={"1rem"} id="playersbutton">
+          <Box ml={["12rem"]} mt={"1rem"} id="playersbutton">
             <Button
               onClick={() => handleBait("0")}
               disabled={gameState?.value <= 10}
