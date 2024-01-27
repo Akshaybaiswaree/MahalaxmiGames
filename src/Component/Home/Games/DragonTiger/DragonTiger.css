@@ -1,0 +1,65 @@
+@media only screen and (min-width:320px) {
+    #table{
+       display: flex;
+       flex-direction: column;
+       width: 90%;
+       margin-left: 0.9rem;
+       /* background-color: yellow; */
+      
+    }
+    #box-btn{
+        margin-left: 0.2rem;
+    }
+    #playerId{
+        margin-left: 1rem;
+    }
+    }
+    @media screen and (min-width:375px) {
+        #box-btn{
+            margin-left: 3.6rem;
+        }
+        #playerId{
+            margin-left: 2.9rem;
+        }
+    }
+    @media only screen and (min-width: 425px) {
+    
+       
+        #box-btn{
+            margin-left: 4.6rem;
+        }
+        #playerId{
+            margin-left: 2.9rem;
+        }
+    
+       
+      
+    }
+    @media screen and (min-width: 1024px) {
+       
+    
+        #table{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 90%;
+            margin-left: 0.9rem;
+            /* background-color: yellow; */
+           
+         }
+         #playerId{
+            margin-left: 4.5rem;
+        }
+        #money{
+          
+        }
+        }
+
+    @media screen and (min-width: 1440px){
+#second{
+    margin-left: 9rem;
+}
+#playerId{
+    margin-left: 7.5rem;
+}
+    }

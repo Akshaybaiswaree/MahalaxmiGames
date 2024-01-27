@@ -8,7 +8,7 @@ import {
 import AndarBahar from "./Component/Home/Games/Andar&Bahar/AndarBahar";
 import App1 from "./App1";
 import DragonTesting from "./Component/Home/Games/DragonTesting";
-import DragonTiger from "./Component/Home/Games/DragonTiger";
+
 import DragonTigerLion from "./Component/Home/Games/DragonTigerLion/DragonTigerLion";
 import Hicard from "./Component/Home/Games/Hicard";
 import Home from "./Component/Home/Home";
@@ -18,39 +18,14 @@ import Rootlayout from "./Component/RootLayout/Rootlayout";
 import Roulette from "./Component/Home/Games/Roulette";
 import TeenPattiMuflis from "./Component/Home/Games/TeenPattiMuflis";
 import ThirtyTwoCards from "./Component/Home/Games/ThirtyTwoCards";
-import TwoCardsTeenPatti from "./Component/Home/Games/TwoCardsTeenPatti";
+import TeenPatti from "./Component/Home/Games/TeenPatti/TeenPatti";
+import TwoCardsTeenPatti from "./Component/Home/Games/TwoCardspatti/TwoCardspatti";
+import TwoCardsPattiTesting from "./Component/Home/Games/TwoCardspatti/TwoCardsPattiTesting";
+import DragonTiger from "./Component/Home/Games/DragonTiger/DragonTiger";
 
 // import RegisterPage from "./Component/Login/RegisterPage";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import Login from "./Component/Login/Login";
-
-
-
-
-
-
-
-
-
-
 
 // import RaceGame from "./Component/Home/Games/RaceGame";
 
@@ -61,7 +36,7 @@ const router = createBrowserRouter(
       {/* <Route path="SignUp" element={<SignUP />} /> */}
       {/* <Route path="SignUp" element={<Login />} /> */}
       {/* <Route path="racegame" element={<RaceGame />} /> */}
-      <Route path ="app1" element={<App1 />} />
+      <Route path="app1" element={<App1 />} />
 
       <Route path="/" element={<Rootlayout />}>
         <Route index element={<Mainpage />} />
@@ -70,7 +45,12 @@ const router = createBrowserRouter(
         <Route path="dragontiger" element={<DragonTiger />} />
         <Route path="andarbahar" element={<AndarBahar />} />
         <Route path="teenpattimuflis" element={<TeenPattiMuflis />} />
+        <Route path="3cardsteenpatti" element={<TeenPatti />} />
         <Route path="2cardsteenpatti" element={<TwoCardsTeenPatti />} />
+        <Route
+          path="2cardsteenpattiTesting"
+          element={<TwoCardsPattiTesting />}
+        />
         <Route path="32Cards" element={<ThirtyTwoCards />} />
         <Route path="dragontigerlion" element={<DragonTigerLion />} />
         <Route path="muflisoneday" element={<MuflisOneDay />} />

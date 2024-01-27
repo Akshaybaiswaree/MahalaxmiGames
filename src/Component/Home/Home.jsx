@@ -347,13 +347,13 @@ const Home = () => {
           </GridItem>
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
-            <NavLink to="/teenpattimuflis">
+            <NavLink to="/3cardsteenpatti">
               <Box className="custom-box">
                 <Image
                   src="/game card/Teen Patti  Muflis.png"
                   alt="MULFIS TEENPATTI"
                 />
-                <span> MULFIS TEENPATTI</span>
+                <span> 3 CARDS TEENPATTI</span>
               </Box>
             </NavLink>
           </GridItem>
