@@ -16,7 +16,7 @@ import Mainpage from "./Component/Mainpage";
 import MuflisOneDay from "./Component/Home/Games/MuflisOneDay";
 import Rootlayout from "./Component/RootLayout/Rootlayout";
 import Roulette from "./Component/Home/Games/Roulette";
-import TeenPatti from "./Component/Home/Games/TeenPatti/TeenPatti";
+
 import TeenPattiMuflis from "./Component/Home/Games/TeemPattiMuflis/TeenPattiMuflis";
 import ThirtyTwoCards from "./Component/Home/Games/ThirtyTwoCards";
 import TeenPatti from "./Component/Home/Games/TeenPatti/TeenPatti";
@@ -46,7 +46,7 @@ const router = createBrowserRouter(
         <Route path="dragontiger" element={<DragonTiger />} />
         <Route path="andarbahar" element={<AndarBahar />} />
         <Route path="teenpattimuflis" element={<TeenPattiMuflis />} />
-        <Route path="3cardsteenpatti" element={<TeenPatti />} />
+     
         <Route path="2cardsteenpatti" element={<TwoCardsTeenPatti />} />
         <Route
           path="2cardsteenpattiTesting"

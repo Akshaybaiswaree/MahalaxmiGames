@@ -14,7 +14,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-
+import "../Andar&Bahar/AndarBahar.css"
 import { io } from "socket.io-client";
 
 const socket = io("https://muflisteenpattibackend.onrender.com", {

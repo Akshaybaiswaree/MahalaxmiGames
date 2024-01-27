@@ -8,7 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-
+import "../Andar&Bahar/AndarBahar.css"
 import { io } from "socket.io-client";
 
 const userId = Math.floor(Math.random() * Date.now());

@@ -27,7 +27,7 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 
 // import Gamingimage from "../Games/images/GAMING GIRL.svg";
-import "./DragonTiger.css";
+ import "./DragonTiger.css";
 import Gamingimage from "../../Games/images/GAMING GIRL.svg";
 import { io } from "socket.io-client";
 
@@ -408,7 +408,7 @@ export default function DragonTiger() {
                 flexDirection={["column", "row"]}
                 // backgroundColor={'blue'}
                 width={["100%", "45%"]}
-                id="second"
+                id="secondss"
               >
                 <Box
                   marginLeft={["rem", "7rem"]}
@@ -833,3 +833,4 @@ export default function DragonTiger() {
     </>
   );
 }
+
