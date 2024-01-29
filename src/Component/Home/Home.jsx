@@ -294,14 +294,18 @@ const Home = () => {
         </Flex>
       </Flex>
 
-      <Box className="Home" paddingLeft="2">
+      <Box
+
+         width={["26rem" , "100%"]}
+      className="Home" paddingLeft="2">
         {/* <Heading as="h1" textAlign={{base: "start", md: "center",lg: "center"}} marginBottom="4">
           Our Casino
         </Heading> */}
 
         <Grid
+          
           templateColumns={{
-            base: "repeat(18, 1fr)",
+            base: "repeat(16, 1fr)",
             md: "repeat(4, 1fr)",
             lg: "repeat(6, 1fr)",
             xl: "repeat(6, 1fr)",
@@ -328,7 +332,9 @@ const Home = () => {
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <NavLink to="/dragontiger">
               <Box className="custom-box">
-                <Image src="/game card/Dragon  Tiger.png" alt="DRAGON TIGER" />
+                <Image 
+            
+                src="/game card/Dragon  Tiger.png" alt="DRAGON TIGER" />
                 <span> DRAGON TIGER</span>
               </Box>
             </NavLink>
