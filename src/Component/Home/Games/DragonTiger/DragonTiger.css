@@ -1,9 +1,9 @@
 @media only screen and (min-width:320px) {
     #table{
        display: flex;
-       flex-direction: column;
-       width: 90%;
-       margin-left: 0.9rem;
+       flex-direction: row;
+       width: 24rem;
+       /* margin-left: 0.9rem; */
        /* background-color: yellow; */
       
     }
@@ -40,10 +40,10 @@
     
         #table{
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             justify-content: space-between;
             width: 90%;
-            margin-left: 0.9rem;
+          
             /* background-color: yellow; */
            
          }
