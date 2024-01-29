@@ -59,11 +59,11 @@ export default function DragonTiger() {
         //  console.log(mainCard , "maincard")
         // console.log(updatedGameState, "updatedGameState"); 
         // setMainCard(updatedGameState.gameCard);
-        const isDisabled = updatedGameState?.gamestate?.value <= 25;
+        const isDisabled = updatedGameState?.gamestate?.value <= 20;
         console.log(isDisabled , "isdisabled")
         setButtonDisabled(isDisabled);
       },
-      [gameState?.value ,isButtonDisabled]
+      [gameState?.value ]
     );
 
     socket.on("Main_Card", (data) => {
@@ -384,7 +384,7 @@ export default function DragonTiger() {
                             <Box color={"Yellow"} fontSize={["1.4rem", "2rem"]}>
                               Dragon
                             </Box>
-                            {gameState.value < 11 && (
+                            {gameState.value < 14 && (
                               <Box
                                 fontStyle={"yellow"}
                                 width={["1.5rem", "3rem"]}
@@ -398,7 +398,7 @@ export default function DragonTiger() {
                             <Box color={"Yellow"} fontSize={["1.4rem", "2rem"]}>
                               Tiger
                             </Box>
-                            {gameState.value < 9 && (
+                            {gameState.value < 15 && (
                               <Box width={["1.5rem", "3rem"]}>
                                 <Image src={`/cards/${mainCard?.tigercard}`} />
                               </Box>
