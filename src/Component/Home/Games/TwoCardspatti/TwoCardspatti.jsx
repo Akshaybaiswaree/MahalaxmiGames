@@ -35,7 +35,10 @@ export default function TwoCardsTeenPatti() {
   useEffect(() => {
     const handleDealCards = (data) => {
       // console.log(data, "playerHands123");
-      handleGetBalance();
+        // handleGetBalance();
+        setTimeout(() => {
+          handleGetBalance();
+        }, 10000);
       const winner = data.winner;
       // console.log("Received dealt cards:", data);
       // console.log(data , "data")
@@ -95,7 +98,7 @@ export default function TwoCardsTeenPatti() {
     };
   }, []);
 
-  console.log(playerHands, "playerHands");
+ 
   const handlePlaceBet = (selectedChoice) => {
     const coins = parseInt(selectedCoin, 10); // Parse the selectedCoin to an integer
     socket.emit("placeBet", { selectedChoice, coins });
@@ -328,7 +331,7 @@ export default function TwoCardsTeenPatti() {
                 width={["100%", "50%"]}
               >
                 <Flex
-                  width="110%"
+                  width={[ "95%","110%"]}
                   flexDirection="row"
                   border="3px solid #333"
                   borderRadius="10px"
@@ -399,8 +402,9 @@ export default function TwoCardsTeenPatti() {
                           // borderColor={'red'}
                           variant="unstyled"
                           _hover={{
-                            boxShadow: "dark-lg",
-                            p: "4px",
+                            boxShadow: "0 8px 12px rgba(0, 0, 255, 0.8)",
+
+                            p: "px",
                             rounded: "full",
                             cursor: "pointer",
                           }}
@@ -449,67 +453,43 @@ export default function TwoCardsTeenPatti() {
                         display="flex"
                         justifyContent="center"
                         alignItems="center"
-                        // margin="1rem"
+                     
                       >
                         {/* Player Button 1 */}
                         <Button
                           width="90%"
                           height={["50%", "80%"]}
-                          // display="flex"
-                          // flexDirection="column"
-                          // justifyContent="center"
-                          // alignItems="center"
-                          // fontWeight="bold"
-                          // variant="unstyled"
-                          // fontSize="2rem"
-                          // padding={'1rem'}
-                          // color={'white'}
-                          // backgroundColor="#640e18"
-                          // borderRadius="1rem"
-                          // _hover={{
-                          //   backgroundColor: "red",
-                          // }}
                           p={4}
                           color="white"
-                          fontWeight="bold"
+                          fontWeight="800"
                           borderRadius="md"
-                          bgGradient="linear(to-r, teal.500, green.500)"
+                          bgGradient="linear(to-r, #0000FF, #FFA500)"
+
                           _hover={{
-                            bgGradient: "linear(to-r, red.500, yellow.500)",
-                          }}
+                            bg:"#FAEBD7",
+                               boxShadow: "dark-lg",
+                               color:"black"
+                             }}
                           onClick={() => handlePlaceBet("PlayerA")}
                         >
                           Player A
                         </Button>
 
-                        {/* Player Button 2 */}
-
                         <Button
                           width="90%"
                           height={["50%", "80%"]}
-                          // display="flex"
-                          // flexDirection="column"
-                          // justifyContent="center"
-                          // alignItems="center"
-                          // fontWeight="bold"
-                          // variant="unstyled"
-                          // fontSize="3rem"
-                          // backgroundColor="#1c3e6b"
-                          // borderRadius="1rem"
-                          // marginTop="1rem"
-                          // marginBottom="1rem"
                           marginLeft="1rem"
-                          // marginRight="1rem"
-                          // _hover={{
-                          //   backgroundColor: "#1c3e6b",
-                          // }}
                           color="white"
-                          fontWeight="bold"
+                          fontWeight="800"
                           borderRadius="md"
-                          bgGradient="linear(to-r, red.500, yellow.500) "
+                          bgGradient="linear(to-r, #0000FF, #FFA500)"
+
                           _hover={{
-                            bgGradient: "linear(to-r, teal.500, green.500)",
+                         bg:"#FAEBD7",
+                            boxShadow: "dark-lg",
+                            color:"black"
                           }}
+                          
                           onClick={() => handlePlaceBet("PlayerB")}
                         >
                           Player B

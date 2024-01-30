@@ -60,7 +60,7 @@ export default function DragonTiger() {
         // console.log(updatedGameState, "updatedGameState"); 
         // setMainCard(updatedGameState.gameCard);
         const isDisabled = updatedGameState?.gamestate?.value <= 20;
-        console.log(isDisabled , "isdisabled")
+     
         setButtonDisabled(isDisabled);
       },
       [gameState?.value ]
