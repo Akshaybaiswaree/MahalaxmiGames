@@ -32,16 +32,20 @@ export default function TwoCardsTeenPatti() {
   const [playerHands, setPlayerHands] = useState(null);
   const [winner, setWinner] = useState(null);
   const [selectedChoice, setSelectedChoice] = useState(null);
+  const [winHistory, setWinHistory] = useState(null);
   useEffect(() => {
     const handleDealCards = (data) => {
       // console.log(data, "playerHands123");
-        // handleGetBalance();
-        setTimeout(() => {
-          handleGetBalance();
-        }, 10000);
+      // handleGetBalance();
+      setTimeout(() => {
+      setWinHistory(data.winHistory.reverse());
+    } ,13000);
+      setTimeout(() => {
+        handleGetBalance();
+      }, 10000);
       const winner = data.winner;
       // console.log("Received dealt cards:", data);
-      // console.log(data , "data")
+      console.log(data, "data");
       if (data.playerHands) {
         setPlayerHands(data.playerHands);
 
@@ -77,7 +81,6 @@ export default function TwoCardsTeenPatti() {
     const handleuser = (data) => {
       setUser(data.user.userId);
       setUserBalance(data.user.balance);
-      console.log("data123", data);
     };
     handleGetBalance();
     socket.on("countdown", handleCountdown);
@@ -86,6 +89,7 @@ export default function TwoCardsTeenPatti() {
     socket.on("newBet", handleNewBet);
     socket.on("newRound", handleNewRound);
     socket.on("balanceUpdate", handleBalanceUpdate);
+    // socket.on("WinHistory", handleWinHistory);
     // socket.on("dealCards", handleDealCards);
 
     return () => {
@@ -95,10 +99,10 @@ export default function TwoCardsTeenPatti() {
       socket.off("newRound", handleNewRound);
       socket.off("balanceUpdate", handleBalanceUpdate);
       socket.off("getuser", handleuser);
+      // socket.off("WinHistory", handleWinHistory);
     };
   }, []);
 
- 
   const handlePlaceBet = (selectedChoice) => {
     const coins = parseInt(selectedCoin, 10); // Parse the selectedCoin to an integer
     socket.emit("placeBet", { selectedChoice, coins });
@@ -282,7 +286,7 @@ export default function TwoCardsTeenPatti() {
 
                 {/* 10 Mini Boxes */}
                 <Flex flexDirection={["column", "row"]} alignItems="center">
-                  <Flex width={["100%", "67%"]} p={1}>
+                  {/* <Flex width={["100%", "67%"]} p={1}>
                     {[...Array(10)].map((_, index) => (
                       <Box
                         key={index}
@@ -304,23 +308,34 @@ export default function TwoCardsTeenPatti() {
                         </Text>
                       </Box>
                     ))}
-                  </Flex>
-                  {/* Text and Button */}
+                  </Flex> */}
+                  {/* {winHistory?.map((element, index) => (
+                    <Box key={index}>{element}</Box>
+                  ))} */}
 
-                  <Flex flexDirection="row" alignItems="center">
-                    <Text> </Text>
-                    <Button
-                      flexDirection={["column", "row"]}
-                      alignItems="center"
-                      marginLeft="0rem"
-                      mt={["2", "5"]}
-                      variant="outline"
-                      colorScheme="blue"
-                      width="100%"
-                    >
-                      Player History
-                    </Button>
-                  </Flex>
+                  <Box
+                    mt={["rem", "1.5rem"]}
+                    ml={["2rem", "5rem"]}
+                    display="flex"
+                  >
+                    {winHistory?.map((item, index) => (
+                      <Box
+                        color={"blue"}
+                        p={"2px"}
+                        key={index}
+                        marginRight={["10px", "10px"]}
+                        width={["25px", "30px"]}
+                        height="30px"
+                        border="2px solid black"
+                        borderRadius="5px"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                      >
+                        {item}
+                      </Box>
+                    ))}
+                  </Box>
                 </Flex>
                 {/* New Box */}
               </Box>
@@ -331,7 +346,7 @@ export default function TwoCardsTeenPatti() {
                 width={["100%", "50%"]}
               >
                 <Flex
-                  width={[ "95%","110%"]}
+                  width={["95%", "110%"]}
                   flexDirection="row"
                   border="3px solid #333"
                   borderRadius="10px"
@@ -415,7 +430,6 @@ export default function TwoCardsTeenPatti() {
                             // console.log(item.value);
                           }}
                         >
-                          {console.log(selectedCoin, "selectedCoin")}
                           <img
                             src={item.imageSrc}
                             alt={`${item.value}'s coin`}
@@ -453,7 +467,6 @@ export default function TwoCardsTeenPatti() {
                         display="flex"
                         justifyContent="center"
                         alignItems="center"
-                     
                       >
                         {/* Player Button 1 */}
                         <Button
@@ -464,12 +477,11 @@ export default function TwoCardsTeenPatti() {
                           fontWeight="800"
                           borderRadius="md"
                           bgGradient="linear(to-r, #0000FF, #FFA500)"
-
                           _hover={{
-                            bg:"#FAEBD7",
-                               boxShadow: "dark-lg",
-                               color:"black"
-                             }}
+                            bg: "#FAEBD7",
+                            boxShadow: "dark-lg",
+                            color: "black",
+                          }}
                           onClick={() => handlePlaceBet("PlayerA")}
                         >
                           Player A
@@ -483,13 +495,11 @@ export default function TwoCardsTeenPatti() {
                           fontWeight="800"
                           borderRadius="md"
                           bgGradient="linear(to-r, #0000FF, #FFA500)"
-
                           _hover={{
-                         bg:"#FAEBD7",
+                            bg: "#FAEBD7",
                             boxShadow: "dark-lg",
-                            color:"black"
+                            color: "black",
                           }}
-                          
                           onClick={() => handlePlaceBet("PlayerB")}
                         >
                           Player B

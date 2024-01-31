@@ -57,9 +57,7 @@ export default function DragonTiger() {
       "gameUpdate",
       (updatedGameState) => {
         setGameState(updatedGameState?.gamestate);
-        //  console.log(mainCard , "maincard")
-        // console.log(updatedGameState, "updatedGameState");
-        // setMainCard(updatedGameState.gameCard);
+
         const isDisabled = updatedGameState?.gamestate?.value <= 20;
 
         setButtonDisabled(isDisabled);
@@ -347,8 +345,9 @@ export default function DragonTiger() {
                           // background="linear-gradient(to bottom right,#ED9203, #323349, #880000)"
                           background="linear-gradient(to bottom right, #ED9203, #C7E600)"
                           height={["2rem", "4rem"]}
-                          width={["13rem", "14rem"]}
+                          width={["12rem", "14rem"]}
                           mt={["rem", "1rem"]}
+                          ml={["2rem", ""]}
                         >
                           Winner: {mainCard?.winstatus} {mainCard?.winCardSuit}
                           {/* Winner: {mainCard?.winCardSuit} */}
@@ -385,7 +384,7 @@ export default function DragonTiger() {
                           ml={["0.5rem", "2rem"]}
                           width={["15rem", "20rem"]}
                         >
-                          <Stack direction="column" width={["10rem", "10rem"]}>
+                          <Stack direction="column" width={["10rem", "12rem"]}>
                             <Box color={"Yellow"} fontSize={["1.4rem", "2rem"]}>
                               Dragon
                             </Box>
@@ -399,7 +398,11 @@ export default function DragonTiger() {
                             )}
                           </Stack>
 
-                          <Stack ml={"3rem"} width={"10rem"} direction="column">
+                          <Stack
+                            ml={"3rem"}
+                            width={["6rem", "8rem"]}
+                            direction="column"
+                          >
                             <Box color={"Yellow"} fontSize={["1.4rem", "2rem"]}>
                               Tiger
                             </Box>
@@ -504,9 +507,11 @@ export default function DragonTiger() {
                     ))}
                     
                   </Stack> */}
-                  <Box 
-                  mb={["1rem" ,""]}
-                  mt={["2rem", "1rem"]} ml={["8rem", "12rem"]}>
+                  <Box
+                    mb={["1rem", ""]}
+                    mt={["2rem", "1rem"]}
+                    ml={["8rem", "12rem"]}
+                  >
                     <Button
                       _hover={{ backgroundColor: "blue.500", color: "white" }}
                       transition="background-color 0.3s, color 0.3s"
@@ -515,17 +520,21 @@ export default function DragonTiger() {
                       bg={"orange"}
                       width={["10rem", "10rem"]}
                     >
-                      Previous Win
+                      Bet History
                     </Button>
                   </Box>
-                  <Box mt={["rem", "1.5rem"]} ml={["", "3rem"]} display="flex">
+                  <Box
+                    mt={["rem", "1.5rem"]}
+                    ml={["2rem", "5rem"]}
+                    display="flex"
+                  >
                     {gamehistory.map((item, index) => (
                       <Box
                         color={"blue"}
                         p={"2px"}
                         key={index}
-                        marginRight="10px"
-                        width={[  "px", "20px"]}
+                        marginRight={["10px", "10px"]}
+                        width={["25px", "30px"]}
                         height="30px"
                         border="2px solid black"
                         borderRadius="5px"
