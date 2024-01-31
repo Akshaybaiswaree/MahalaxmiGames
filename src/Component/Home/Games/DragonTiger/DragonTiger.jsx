@@ -45,10 +45,11 @@ export default function DragonTiger() {
 
   // const [seconds, setSeconds] = useState(30);
   const [gameState, setGameState] = useState({ value: "waiting" });
-  const [user, setUser] = useState(null); 
+  const [user, setUser] = useState(null);
   const [coins, setCoins] = useState(50);
   const [mainCard, setMainCard] = useState([]);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
+  const [gamehistory, setGamehistory] = useState([]);
 
   useEffect(() => {
     // Listen for game state updates from the server
@@ -57,19 +58,24 @@ export default function DragonTiger() {
       (updatedGameState) => {
         setGameState(updatedGameState?.gamestate);
         //  console.log(mainCard , "maincard")
-        // console.log(updatedGameState, "updatedGameState"); 
+        // console.log(updatedGameState, "updatedGameState");
         // setMainCard(updatedGameState.gameCard);
         const isDisabled = updatedGameState?.gamestate?.value <= 20;
-     
+
         setButtonDisabled(isDisabled);
       },
-      [gameState?.value ]
+      [gameState?.value]
     );
 
     socket.on("Main_Card", (data) => {
       setMainCard(data.mainCard);
 
       console.log(data, "data");
+    });
+    socket.on("Main_Card", (data) => {
+      setGamehistory(data.gameHistory);
+
+      // console.log(data?.gameHistory, "data");
     });
 
     socket.on("userDetails", (data) => {
@@ -344,12 +350,11 @@ export default function DragonTiger() {
                           width={["13rem", "14rem"]}
                           mt={["rem", "1rem"]}
                         >
-                         Winner: {mainCard?.winstatus} {mainCard?.winCardSuit}
+                          Winner: {mainCard?.winstatus} {mainCard?.winCardSuit}
                           {/* Winner: {mainCard?.winCardSuit} */}
                         </Button>
                       )}
                     </Box>
-        
 
                     <Box
                       fontWeight={"900"}
@@ -470,7 +475,7 @@ export default function DragonTiger() {
                       </Text>
                     </Box>
                   </Flex>
-                  <Stack
+                  {/* <Stack
                     ml={["1rem", "6rem"]}
                     mt={"1rem"}
                     flexDirection="row"
@@ -492,11 +497,47 @@ export default function DragonTiger() {
                           fontSize="14px"
                           color={index % 2 === 0 ? "#333" : "#2b329b"}
                         >
-                          {index % 2 === 0 ? "D" : "T"}
+                          {index % 2 === 0 ? "D" : "T"} 
+                        {gamehistory}
                         </Text>
                       </Box>
                     ))}
-                  </Stack>
+                    
+                  </Stack> */}
+                  <Box 
+                  mb={["1rem" ,""]}
+                  mt={["2rem", "1rem"]} ml={["8rem", "12rem"]}>
+                    <Button
+                      _hover={{ backgroundColor: "blue.500", color: "white" }}
+                      transition="background-color 0.3s, color 0.3s"
+                      p={4}
+                      borderRadius="md"
+                      bg={"orange"}
+                      width={["10rem", "10rem"]}
+                    >
+                      Previous Win
+                    </Button>
+                  </Box>
+                  <Box mt={["rem", "1.5rem"]} ml={["", "3rem"]} display="flex">
+                    {gamehistory.map((item, index) => (
+                      <Box
+                        color={"blue"}
+                        p={"2px"}
+                        key={index}
+                        marginRight="10px"
+                        width={[  "px", "20px"]}
+                        height="30px"
+                        border="2px solid black"
+                        borderRadius="5px"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                      >
+                        {item}
+                      </Box>
+                    ))}
+                  </Box>
+
                   <Box
                     justifyContent={"center"}
                     alignItems={"center"}
@@ -617,8 +658,7 @@ export default function DragonTiger() {
 
                           onClick={() =>
                             handleBait({ baitType: "dragon", baitOn: "normal" })
-                          }  
-                         
+                          }
                           isDisabled={isButtonDisabled}
                           width={["60%", "40%"]}
                           height="5rem"
@@ -801,7 +841,7 @@ export default function DragonTiger() {
                 </Tr>
               </Thead>
               <Tbody bg={"#780200"}>
-                <Tr >
+                <Tr>
                   <Td
                     padding={["1.7rem"]}
                     display={"flex"}
@@ -933,40 +973,6 @@ export default function DragonTiger() {
               </Tbody>
             </Table>
           </Box>
-          {/* <TableContainer>
-  <Table size='sm'>
-    <Thead>
-      <Tr >
-        <Th></Th>
-        <Th>Heart</Th>  
-        <Th >Club</Th>
-        <Th>Diamond</Th>
-        <Th>Spade</Th>
-      </Tr>
-    </Thead>
-    <Tbody>
-      <Tr>
-        <Td>inches</Td>
-        <Td></Td>
-        <Td isNumeric>25.4</Td>
-      </Tr>
-      <Tr>
-        <Td>feet</Td>
-        <Td>cen</Td>
-        <Td >30.48</Td>
-      </Tr>
-      <Tr>
-       
-       
-      </Tr>
-    </Tbody>
-    <Tfoot>
-      <Tr>
-      
-      </Tr>
-    </Tfoot>
-  </Table>
-</TableContainer> */}
         </Box>
       </ChakraProvider>
     </>
