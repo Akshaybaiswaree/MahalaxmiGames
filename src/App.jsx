@@ -10,7 +10,7 @@ import App1 from "./App1";
 import DragonTesting from "./Component/Home/Games/DragonTesting";
 
 import DragonTigerLion from "./Component/Home/Games/DragonTigerLion/DragonTigerLion";
-import Hicard from "./Component/Home/Games/Hicard";
+
 import Home from "./Component/Home/Home";
 import Mainpage from "./Component/Mainpage";
 import MuflisOneDay from "./Component/Home/Games/MuflisOneDay";
@@ -23,6 +23,8 @@ import TeenPatti from "./Component/Home/Games/TeenPatti/TeenPatti";
 import TwoCardsTeenPatti from "./Component/Home/Games/TwoCardspatti/TwoCardspatti";
 import TwoCardsPattiTesting from "./Component/Home/Games/TwoCardspatti/TwoCardsPattiTesting";
 import DragonTiger from "./Component/Home/Games/DragonTiger/DragonTiger";
+import Highcard from "./Component/Home/Games/HighCard/HighCard";
+import HighCardTesting from "./Component/Home/Games/HighCard/highcardTesting";
 
 // import RegisterPage from "./Component/Login/RegisterPage";
 
@@ -55,7 +57,8 @@ const router = createBrowserRouter(
         <Route path="32Cards" element={<ThirtyTwoCards />} />
         <Route path="dragontigerlion" element={<DragonTigerLion />} />
         <Route path="muflisoneday" element={<MuflisOneDay />} />
-        <Route path="highcards" element={<Hicard />} />
+        <Route path="highcards" element={<Highcard />} />
+        <Route path="highCardTesting" element={< HighCardTesting />} />
         <Route path="rouellte" element={<Roulette />} />
 
         <Route path="dragontigertesting" element={<DragonTesting />} />

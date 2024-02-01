@@ -26,7 +26,7 @@ const socket = io("https://andarbaharbacked.onrender.com", {
   transports: ["websocket"],                                                                                          
 });
 const AndarBahar = () => {
-  const [gameState, setGameState] = useState({ value: "waiting" });
+  const [gameState, setGameState] = useState({ value: "waiting" }); 
   const [user, setUser] = useState(null);
   const [coins, setCoins] = useState(50);
   const [mainCard, setMainCard] = useState([]);
@@ -205,7 +205,7 @@ const AndarBahar = () => {
                 left="10%"
                 id="andarcardstext"
               >
-                Andar Cards
+                Andar
               </Text>
               <Text
                 color="white"
@@ -215,7 +215,7 @@ const AndarBahar = () => {
                 left="10%"
                 id="baharcardstext"
               >
-                Bahar Cards
+                Bahar
               </Text>
             </Box>
             {gameState?.value <= 20 && (
