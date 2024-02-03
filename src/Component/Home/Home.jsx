@@ -294,14 +294,18 @@ const Home = () => {
         </Flex>
       </Flex>
 
-      <Box className="Home" paddingLeft="2">
+      <Box
+
+         width={["26rem" , "100%"]}
+      className="Home" paddingLeft="2">
         {/* <Heading as="h1" textAlign={{base: "start", md: "center",lg: "center"}} marginBottom="4">
           Our Casino
         </Heading> */}
 
         <Grid
+          
           templateColumns={{
-            base: "repeat(18, 1fr)",
+            base: "repeat(16, 1fr)",
             md: "repeat(4, 1fr)",
             lg: "repeat(6, 1fr)",
             xl: "repeat(6, 1fr)",
@@ -328,7 +332,9 @@ const Home = () => {
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <NavLink to="/dragontiger">
               <Box className="custom-box">
-                <Image src="/game card/Dragon  Tiger.png" alt="DRAGON TIGER" />
+                <Image 
+            
+                src="/game card/Dragon  Tiger.png" alt="DRAGON TIGER" />
                 <span> DRAGON TIGER</span>
               </Box>
             </NavLink>
@@ -347,13 +353,13 @@ const Home = () => {
           </GridItem>
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
-            <NavLink to="/teenpattimuflis">
+            <NavLink to="/3cardsteenpatti">
               <Box className="custom-box">
                 <Image
-                  src="/game card/Teen Patti  Muflis.png"
+                src="/game card/Teen Patti T20.png"
                   alt="MULFIS TEENPATTI"
                 />
-                <span> MULFIS TEENPATTI</span>
+                <span> 3 CARDS TEENPATTI </span>
               </Box>
             </NavLink>
           </GridItem>
@@ -371,22 +377,10 @@ const Home = () => {
           </GridItem>
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
-            <NavLink to="/32Cards">
-              <Box className="custom-box">
-                <Image src="/game card/32 CARD VR.png" alt="32 CARD" />
-                <span>32 CARD (VIRTUALS) </span>
-              </Box>
-            </NavLink>
-          </GridItem>
-
-          <GridItem colSpan={{ base: 4, md: 1 }}>
-            <NavLink to="/muflisoneday">
-              <Box className="custom-box">
-                <Image
-                  src="/game card/Muflis oneday.png"
-                  alt="MUFLIS ONE DAY"
-                />
-                <span>MUFLIS ONE DAY </span>
+            <NavLink to="/teenpattimuflis">
+              <Box  className="custom-box">
+                <Image  src="/game card/Teen Patti  Muflis.png" />
+                <span>3 PATTI MUFLIS</span>
               </Box>
             </NavLink>
           </GridItem>
@@ -394,47 +388,11 @@ const Home = () => {
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <NavLink to="/highcards">
               <Box className="custom-box">
-                <Image src="/game card/High Card.png" alt="HIGH CARDS" />
-                <span>HIGH CARDS</span>
-              </Box>
-            </NavLink>
-          </GridItem>
-
-          <GridItem colSpan={{ base: 4, md: 1 }}>
-            <NavLink to="/rouellte">
-              <Box className="custom-box">
-                <Image src="/game card/Roulette.png" alt="ROULETTE" />
-                <Text> ROULETTE</Text>
-              </Box>
-            </NavLink>
-          </GridItem>
-
-          <GridItem colSpan={{ base: 4, md: 1 }}>
-            <NavLink to="/TeenpattiVirtual">
-              <Box className="custom-box">
-                <Image src="/game card/TeenPatti.png" alt="TEENPATTI" />
-                <span> TEENPATTI</span>
-              </Box>
-            </NavLink>
-          </GridItem>
-
-          {/* <GridItem colSpan={{ base: 4, md: 1 }}>
-            <NavLink to="/AmarAkbarAnthony">
-              <Box className="custom-box">
-                <Image src={first} alt="teenpatti" />
-                <span> AMAR AKBAR ANTHONY</span>
-              </Box>
-            </NavLink>
-          </GridItem> */}
-
-          <GridItem colSpan={{ base: 4, md: 1 }}>
-            <NavLink to="/TeenpattiVirtual">
-              <Box className="custom-box">
                 <Image
-                  src="/game card/Teen Patti T20.png"
+                  src="/game card/HighCard.jpg"
                   alt="TEENPATTI T20"
                 />
-                <span> TEENPATTI T20</span>
+                <span> HIGH CARD</span>
               </Box>
             </NavLink>
           </GridItem>
@@ -491,7 +449,7 @@ const Home = () => {
             <NavLink to="/racegame">
               <Box className="custom-box">
                 <Image src="/game card/World  Matka VR.png" alt="WORLD MATKA" />
-                <span> WORLD MATKA (VIRTUAL)</span>
+                <span> WORLD MATKA </span>
               </Box>
             </NavLink>
           </GridItem>
@@ -618,12 +576,7 @@ const Home = () => {
             </Box>
           </GridItem>
 
-          {/* // <GridItem colSpan={{ base: 4, md: 1 }}>
-          //   <Box className="custom-box">
-          //     <Image src={four} alt="teenpatti" />
-          //     <span> 7 UP&DOWN</span>
-          //   </Box>
-          // </GridItem> */}
+      
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <Box className="custom-box">

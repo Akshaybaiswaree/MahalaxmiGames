@@ -8,7 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-
+import "../Andar&Bahar/AndarBahar.css";
 import { io } from "socket.io-client";
 
 const userId = Math.floor(Math.random() * Date.now());
@@ -27,16 +27,20 @@ export default function DragonTigerLion() {
   const [matchId, setMatchId] = useState("");
   const [selectBet, setSelectBet] = useState("");
   const [selectCoins, setSelectCoins] = useState("10");
-  const [dragonCards, setDragonCards] = useState("null");
-  const [tigerCards, setTigerCards] = useState("null");
-  const [lionCards, setLionCards] = useState("null");
+  const [dragonCards, setDragonCards] = useState("");
+  const [tigerCards, setTigerCards] = useState("");
+  const [lionCards, setLionCards] = useState("");
   // const [gameCards, setGamesCards] = useState("");
   const [winnerStatus, setWinnerStatus] = useState("Wait!!");
+  const [buttonClick, setButtonClick] = useState(false);
+  const [selectedCoins, setSelectedCoins] = useState(null);
+
   // console.log("availableBal", availableBal);
-  console.log("selectCoins", selectCoins);
+  // console.log("selectCoins", selectCoins);
 
   useEffect(() => {
     const handleGameCards = (data) => {
+      // console.log("CardsData:-", data);
       if (data.playerHands) {
         setDragonCards(data.playerHands.Dragen);
         setTigerCards(data.playerHands.Tiger);
@@ -59,7 +63,7 @@ export default function DragonTigerLion() {
     };
 
     const handlePlayerBalance = (data) => {
-      console.log("Received balance update:", data);
+      // console.log("Received balance update:", data);
       setAvailableBal(data.balance);
     };
 
@@ -67,11 +71,22 @@ export default function DragonTigerLion() {
       socket.emit("getBalance");
     };
 
+    const handleBet = (data) => {
+      setSelectBet(data.choice);
+      setAvailableBal(data.userBalance);
+      setDragonCards(data.DragenNumber);
+      setTigerCards(data.TigerNumber);
+      setLionCards(data.LionNumber);
+      // setButtonStatus1(true);
+      // setButtonStatus2(true);
+      // setButtonStatus3(true);
 
-    const handleBet = (bet) => {
-      console.log("new bet", bet);
-      setSelectBet(bet.choice);
-      setAvailableBal(bet.userBalance);
+      console.log("new bet:-", data);
+      // console.log("new bet Choice:-", data.choice);
+      // console.log("new bet balance:-", data.userBalance);
+      // console.log("DragenNumber:-", data.DragenNumber);
+      // console.log("TigerNumber:-", data.TigerNumber);
+      // console.log("LionNumber:-", data.LionNumber);
     };
 
     const handleNewRound = () => {
@@ -81,9 +96,12 @@ export default function DragonTigerLion() {
       setLionCards([]);
       // setGamesCards([]);
       setWinnerStatus(null);
+      // setButtonStatus1(true);
+      // setButtonStatus2(true);
+      // setButtonStatus3(true);
     };
     handleGetUserBalance();
-    
+
     socket.on("countdown", handleTimer);
     socket.on("balanceUpdate", handlePlayerBalance);
     socket.on("getuser", handlePlayerId);
@@ -99,6 +117,9 @@ export default function DragonTigerLion() {
       socket.off("dealCards", handleGameCards);
     };
   }, []);
+  if (timer === 40) {
+    socket.emit("getUpdatedUserDetails");
+  }
 
   // const handleBetting = (selectBet) => {
   //   if (availableBal <= 0) {
@@ -110,27 +131,41 @@ export default function DragonTigerLion() {
   // };
 
   const handleBetting = (baitType) => {
+    if (timer - 25 < 0) {
+      setButtonClick(true);
+    }
+
     if (availableBal <= 0) {
       alert("Insufficient Funds");
       return;
     }
-  
-    const coins = parseInt(selectCoins, 10); // Make sure to define selectCoins somewhere in your code
-  
+
+    // console.log("bettype", baitType);
+
+    const coins = parseInt(selectCoins);
+    // console.log("coins", coins);
+
     const betData = {
-      baitType,
+      selectedChoice: baitType,
       coins,
-      cardId: mainCard._id, // Assuming mainCard is defined somewhere in your code
+      // cardId: playerId._id,
     };
-  
+
     socket.emit("placeBet", betData);
   };
-  
-  
+
   return (
     <>
       <ChakraProvider>
-        <Box width="65%">
+        <Box
+          id="first"
+          //  p={4}
+          //  width = {{ base: "134%",sm:"140%", md: "100%", lg:"55%", xl:"40%" }}
+          // marginTop = {{ base: "1rem",sm:"",md: "1rem", lg:"",xl:"" }}
+          //  marginLeft = {{ base: "-0.7rem",sm:"",md: "0.1rem",lg:"" }}
+
+          //  marginBottom = {{ base: "27rem", md: "2rem" }}
+        >
           <Flex justify="space-between" align="center" mb="2">
             <Text
               fontSize="24px"
@@ -140,6 +175,7 @@ export default function DragonTigerLion() {
             >
               Dragon Tiger Lion
             </Text>
+            {/* <Text>{selectBet}</Text> */}
             <Button variant="outline" colorScheme="blue" ml="2">
               Rules
             </Button>
@@ -158,98 +194,116 @@ export default function DragonTigerLion() {
               position="relative"
             >
               <Text
-                border="1px solid white"
+                border="5px solid white"
                 padding="20px"
-                // width="15%"
-                // height="20%"
                 borderRadius="50%"
                 position="absolute"
                 top="5"
                 right="10"
                 color="white"
                 fontWeight="bold"
-                fontSize="24px"
-                alignItems="center"
+                id="round2"
               >
-                {timer}
+                {timer - 25 < 0 ? "0" : timer - 25}
               </Text>
-              {timer <= 10 && (
+              {timer - 25 < -17 && (
                 <Text
-                  border="1px solid white"
-                  padding="30px"
-                  // width="15%"
-                  // height="20%"
+                  border="10px solid white"
+                  padding="40px"
                   borderRadius="50%"
                   position="absolute"
                   top="5"
                   left="10"
                   color="white"
                   fontWeight="bold"
-                  // alignItems="center"
+                  id="round1"
                 >
                   <span>Winner:</span> {winnerStatus}
                 </Text>
               )}
 
-              {timer <= 20 && (
-                <Box
-                  // border="2px solid yellow"
-                  width="100%"
-                  height="50%"
-                  display="flex"
-                  justifyContent="center"
-                  position="absolute"
-                  bottom="0"
-                  alignItems="center"
-                >
-                  <Image
-                    // src={`/cards/${gameCards.Dragen}`}
-                    src={`/cards/${dragonCards}`}
-                    // alt={`dragen${gameCards.Dragen}`}
-                    alt={`dragen${dragonCards}`}
-                    position="absolute"
-                    top="38%"
-                    left="20.8%"
-                    width="6%"
-                    height="21%"
-                  />
-                  <Image
-                    // src={`/cards/${gameCards.Lion}`}
-                    src={`/cards/${lionCards}`}
-                    // alt={`tiger${gameCards.Lion}`}
-                    alt={`lion${lionCards}`}
-                    position="absolute"
-                    top="38%"
-                    right="19.5%"
-                    width="6%"
-                    height="21%"
-                  />
-                  <Image
-                    // src={`/cards/${gameCards.Tiger}`}
-                    src={`/cards/${tigerCards}`}
-                    // alt={`lion${gameCards.Tiger}`}
-                    alt={`tiger${tigerCards}`}
-                    position="absolute"
-                    top="38%"
-                    width="6%"
-                    height="21%"
-                  />
-                </Box>
-              )}
+              {/* {timer - 20 <= 0 && ( */}
+              <Box
+                // border="2px solid yellow"
+                width="100%"
+                height="50%"
+                display="flex"
+                justifyContent="center"
+                position="absolute"
+                bottom="0"
+                alignItems="center"
+              >
+                {timer - 25 <= -5 && (
+                  <Box>
+                    <Image
+                      // src={`/cards/${gameCards.Dragen}`}
+                      src={`/cards/${dragonCards}`}
+                      // alt={`dragen${gameCards.Dragen}`}
+                      alt=""
+                      position="absolute"
+                      top="38%"
+                      left="20.8%"
+                      width="6%"
+                      height="21%"
+                    />
+                  </Box>
+                )}
+
+                {timer - 25 <= -10 && (
+                  <Box>
+                    <Image
+                      // src={`/cards/${gameCards.Tiger}`}
+                      src={`/cards/${tigerCards}`}
+                      // alt={`lion${gameCards.Tiger}`}
+                      alt=""
+                      position="absolute"
+                      top="38%"
+                      width="6%"
+                      height="21%"
+                      left="47%"
+                    />
+                  </Box>
+                )}
+
+                {timer - 25 <= -15 && (
+                  <Box>
+                    <Image
+                      // src={`/cards/${gameCards.Lion}`}
+                      src={`/cards/${lionCards}`}
+                      // alt={`tiger${gameCards.Lion}`}
+                      alt=""
+                      position="absolute"
+                      top="38%"
+                      right="19.5%"
+                      width="6%"
+                      height="21%"
+                    />
+                  </Box>
+                )}
+              </Box>
+              {/* )} */}
             </Box>
           </AspectRatio>
         </Box>
 
         {/* 10 Mini Boxes */}
         <Box
-          width="65%"
-          height="15%"
+        bg={'red'}
+          width={{ base: "2%", sm: "110%", md: "65%" }}
+          marginY={{ base: "0rem", md: "1rem" }}
+          marginLeft={{ base: "2rem", md: "0" }}
+          height="100px"
+          marginBottom={{ base: "2rem" }}
+          // width="65%"
+          // height="15%"
           // border="2px solid darkgreen"
           display="flex"
           position="relative"
+          id="second"
         >
           {[...Array(10)].map((_, index) => (
             <Text
+              mb={{ base: "1rem", md: -1 }}
               border="2px solid grey"
               key={index}
               fontSize="20px"
@@ -259,42 +313,72 @@ export default function DragonTigerLion() {
               align="center"
               justifyContent="space-around"
               fontWeight="bold"
+              id="array"
             >
               {index % 3 === 0 ? "D" : index % 3 === 1 ? "T" : "L"}
             </Text>
           ))}
 
-          <Text
+          {/* <Text
             position="absolute"
             bottom="0"
             left="10%"
             fontWeight="bold"
             border="2px solid darkblue"
             padding="0.3rem"
+          > */}
+          <Text
+            mb={{ base: "1rem", md: -1 }} // Adjust margin-bottom for different screen sizes
+            ml={{ base: "0.2rem", md: -2 }} // Adjust margin-left for different screen sizes
+            top={{ base: "3.5rem" }}
+            width={{ base: "75%", md: "65%" }} // Adjust width for different screen sizes
+            position="absolute"
+            // bottom="0"
+            // left="10%"
+            fontWeight="bold"
+            border="2px solid darkblue"
+            padding="0"
+            className="matchID"
           >
             Match Id: {matchId}
           </Text>
+
           <Button
-            width="20%"
+            width={{ base: "23%", md: "20%" }}
+            fontSize={{ base: "0.8rem", md: "1rem" }}
+            padding={{ base: "1rem" }}
             variant="outline"
             colorScheme="blue"
             position="absolute"
             bottom="0"
-            right="10%"
+            right={{ base: "0", md: "10%" }}
+            // width="20%"
+            // variant="outline"
+            // colorScheme="blue"
+            // position="absolute"
+            // bottom="0"
+            // right="10%"
+            className="second"
           >
             Player History
           </Button>
         </Box>
+
         <Box
-          // border="5px dotted blue"
-          width="30%"
-          height="80%"
+        
+          // width={{ base: '95%', sm: '80%', md: '30%', lg: '30%' }}
+          // top={{ base: '106%', md: '35%' }}
+          // right={{ base: '0rem', md: '0' }}
+          // left={{ base: '0.7rem', md: '66rem' }}
+          // height={{ base: '80%', md: '70%', lg: '80%', xl: '90%' }}
+          // border="2px solid red"
+          // marginTop="8rem"
+          // height="100%"
           position="absolute"
-          right="0"
-          top="35%"
           display="flex"
           justifyContent="space-between"
           flexDirection="column"
+          id="third"
         >
           <Box
             border="20px solid #333"
@@ -328,18 +412,19 @@ export default function DragonTigerLion() {
           </Box>
 
           {/* New Box */}
-          <Text align="center" fontWeight="bold">
+          <Text align="center" fontWeight="bold" id="spacing">
             Place Your Bet!
           </Text>
           <Box
             border="5px solid #4790b5"
             width="100%"
-            height="16%"
+            height="14%"
             display="flex"
             justifyContent="space-around"
             alignItems="center"
             borderRadius="5rem"
             backgroundColor="black"
+            // marginTop="2rem"
           >
             {[
               { value: 10, imageName: "10's coin.webp" },
@@ -353,9 +438,17 @@ export default function DragonTigerLion() {
                 // border="2px solid grey"
                 key={index}
                 variant="unstyled"
-                width="100%"
-                height="100%"
-                onClick={() => setSelectCoins(value)}
+                width="90%"
+                height="90%"
+                _hover={{
+                  width: selectedCoins === index ? "120%" : "",
+                  height: selectedCoins === index ? "120%" : "",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  setSelectCoins(value);
+                  setSelectedCoins(index);
+                }}
                 // value={value}
                 // onClick={() => console.log(value)}
               >
@@ -375,12 +468,17 @@ export default function DragonTigerLion() {
             flexDirection="row"
             height="30%"
             display="flex"
+            // marginTop="3rem"
           >
             <Button
               width="100%"
               height="100%"
               variant="unstyled"
               onClick={() => handleBetting("Dragen")}
+              isDisabled={timer - 25 <= 0 && buttonClick}
+              _hover={{
+                backgroundColor: "darkred",
+              }}
             >
               <Image
                 src="/DragonTigerLion/DRAGON TIGER LION/DRAGON.webp"
@@ -394,6 +492,10 @@ export default function DragonTigerLion() {
               height="100%"
               variant="unstyled"
               onClick={() => handleBetting("Tiger")}
+              isDisabled={timer - 25 <= 0 && buttonClick}
+              _hover={{
+                backgroundColor: "darkgreen",
+              }}
             >
               <Image
                 src="/DragonTigerLion/DRAGON TIGER LION/TIGER.webp"
@@ -407,6 +509,10 @@ export default function DragonTigerLion() {
               height="100%"
               variant="unstyled"
               onClick={() => handleBetting("Lion")}
+              isDisabled={timer - 25 <= 0 && buttonClick}
+              _hover={{
+                backgroundColor: "darkblue",
+              }}
             >
               <Image
                 src="/DragonTigerLion/DRAGON TIGER LION/LION.webp"

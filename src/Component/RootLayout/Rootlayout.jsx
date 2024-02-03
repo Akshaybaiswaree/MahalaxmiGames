@@ -19,7 +19,9 @@ function Rootlayout() {
   return (
     <Flex direction="column" height="100vh">
       {/* Navbar */}
-      <Box>
+      <Box
+      
+      >
         <Navbar />
         {/* {!AndarBahar && <Navbar />} */}
       </Box>

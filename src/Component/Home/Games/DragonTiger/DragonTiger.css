@@ -1,0 +1,251 @@
+.container{
+    width: 25%;
+    height:20%;
+    padding: 20px;
+    margin: 20px;
+    margin-left: 5%;
+    justify-content: space-between;
+    background: linear-gradient(to bottom right, #323349, #880000, #ED9203);
+    border-radius: 20px;
+}
+.container h6{
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+.white-box{
+width: 50%;
+padding: 10px;
+margin-left: 5%;
+position: relative;
+left: 3%;
+border-radius: 20px;
+background: white;
+}
+.box1{
+    
+    padding: 5px;
+    border-radius: 20px;
+    display: flex;
+}
+.image{
+    display: flex;
+    justify-content: space-around;
+}
+.box1 span{
+font-weight: bold;
+margin-left: 15px;
+}
+.cards{
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    width: 60%;
+}
+.cards h6{
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 30px;
+}
+.image-1{
+    border: 1px solid #880000 ;
+    background: #880000 ;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+   
+}
+
+
+.image-2{
+    border-radius: 10px;
+    background: #450481 ;
+    padding: 20px;
+    margin: 10px;
+   
+}
+
+.line p{
+   font-weight: bold;
+   font-size: 22px;
+   font-family: 'Poppins sans-serif';
+}
+.line p span{
+    color: #ED9203;
+}
+
+.line  h5{
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.circle{
+    display: flex;
+    padding: 20px;
+    margin: 10px;
+    justify-content: space-between;
+    width: 50%;
+}
+.circle1 span{
+    text-align: center;
+    font-weight: bold;
+    color: #ED9203;
+
+}
+
+.circle1{
+    justify-content: space-between;
+    border: 5px solid  #ED9203 ;
+    border-radius: 80px;
+    width: 50%;
+    margin-left: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+}
+.box{
+   display: flex;
+   width: 100%;
+   padding: 20px;
+   margin: 10px;
+   justify-content: space-around;
+   width: 60%;
+}
+.button1{
+    border:1px solid #c48686;
+    background: #c48686;
+    font-weight: bolder;
+    width: 20%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 20px;
+    border-radius: 10px;
+
+
+}
+.button2{
+    font-weight: bold;
+    font-size: 20px;
+}
+ .box button{
+    width: 20%;
+    padding: 5px;
+    background: linear-gradient(to bottom right, #ED9203, #C7E600);
+    font-weight: bold;
+    color: #fff;
+    border-radius: 10px;
+
+ }
+
+
+
+@media only screen and (min-width:320px) {
+    #table{
+       display: flex;
+       flex-direction: row;
+       width: 24rem;
+       /* margin-left: 0.9rem; */
+       /* background-color: yellow; */
+      
+    }
+    #box-btn{
+        margin-left: 0.2rem;
+    }
+    #playerId{
+        margin-left: 1rem;
+    }
+    }
+    @media screen and (min-width:375px) {
+        #box-btn{
+            margin-left: 3.6rem;
+        }
+        #playerId{
+            margin-left: 2.9rem;
+        }
+    }
+    @media only screen and (min-width: 425px) {
+    
+       
+        #box-btn{
+            margin-left: 4.6rem;
+        }
+        #playerId{
+            margin-left: 2.9rem;
+        }
+    
+       
+      
+    }
+    @media screen and (min-width: 1024px) {
+       
+    
+        #table{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 90%;
+          
+            /* background-color: yellow; */
+           
+         }
+         #playerId{
+            margin-left: 4.5rem;
+        }
+     
+        }
+
+    @media screen and (min-width: 1440px){
+#secondss{
+    margin-left: 9rem;
+}
+#playerId{
+    margin-left: 7.5rem;
+}
+    }
+
+    @media screen and (max-width: 768px){
+        .boxes{
+            width: 80%;
+            position: relative;
+            
+            
+          }  
+        .container{
+            width: 90%;
+            border: 1px solid black;
+            justify-content: space-between;
+        }
+          .white-box{
+            margin-left: 5px;
+          }
+          .cards{
+            width: 100%;
+            
+          }
+        
+          .image-1{
+            width: 40%;
+          }
+         
+          .image-2{
+            width: 20%;
+          }
+          .circle{
+            
+            width: 99%;
+            margin-left: 0px;
+          }
+         .circle1{
+            margin-left: 2px;
+         }
+        
+         .box{
+            width: 100%;
+         }
+         .box button{
+            width: 30%;
+         }
+          
+    }

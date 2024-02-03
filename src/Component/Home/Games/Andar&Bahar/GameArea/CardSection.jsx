@@ -25,6 +25,7 @@ const CardSection = ({
       left={left}
       right={right}
       transform={transform}
+      id="andarhiddencards"
     >
       {/* <Text textColor="white">{title}</Text> */}
       <Box display="flex" flexDirection={flexDirection}>

@@ -10,9 +10,11 @@ const MainCardSection = ({ mainCard }) => (
     position="absolute"
     bottom="30%"
     right="7%"
+    id="maincardsection"
     // border="5px solid black"
   >
-    <Text textColor="white">
+    <Text textColor="white"
+    id="maincardsectiontext">
       Main Card
     </Text>
     <Card card={mainCard.main_card} index="main" />
