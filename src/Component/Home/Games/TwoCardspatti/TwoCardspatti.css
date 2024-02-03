@@ -1,11 +1,11 @@
 
-@media only screen and (min-width:320px) {
+@media only screen and (min-width:353px) {
     #table{
        display: flex;
        flex-direction: column;
-       width: 90%;
+       width: 80%;
        margin-left: 0.9rem;
-       /* background-color: yellow; */
+     
       
     }
     #box-btn{
@@ -14,8 +14,30 @@
     #playerId{
         margin-left: 1rem;
     }
+    #second{
+        margin-left: -9rem;
+        width: 100%;
     }
-    @media screen and (min-width:375px) {
+   
+    #winner{
+        margin-top: 16rem;
+        left: 30rem;
+    }
+    #player{
+        margin-top:8rem;
+        margin-left: 2rem;
+    }
+    .cardBox{
+        top: 25rem;
+    }
+    .asasas{
+        width: 10%;
+    }
+    .firstBox{
+        width: 100%;
+    }
+    }
+    /* @media screen and (min-width:375px) {
         #box-btn{
             margin-left: 3.6rem;
         }
@@ -24,8 +46,9 @@
         }
         #main-div{
             width: 150%;
-            /* background-color: red; */
+       
         }
+        
     }
     @media only screen and (min-width: 425px) {
     
@@ -40,6 +63,27 @@
        
       
     }
+
+    @media screen and (min-width: 820px) {
+       
+    
+        #table{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 90%;
+            margin-left: 0.9rem;
+           
+           
+         }
+         #playerId{
+            margin-left: 4.5rem;
+        }
+     
+        }
+
+
+
     @media screen and (min-width: 1024px) {
        
     
@@ -49,18 +93,20 @@
             justify-content: space-between;
             width: 90%;
             margin-left: 0.9rem;
-            /* background-color: yellow; */
+           
            
          }
          #playerId{
             margin-left: 4.5rem;
         }
-        #money{
-          
-        }
+          #player{
+           margin-top:8rem;
+           margin-left: 2rem;
+          }   
         }
 
     @media screen and (min-width: 1440px){
+     
 #second{
     margin-left: 9rem;
 }
@@ -68,12 +114,43 @@
     margin-left: 7.5rem;
 }
 #winner{
-    margin-top: 14rem;
+    margin-top: 16rem;
+    left: 30rem;
 }
 #player{
     margin-top:8rem;
     margin-left: 2rem;
 }
+.cardBox{
+    top: 25rem;
+}
  }
 
-  
+   */
+
+   @media screen and (min-width: 1440px){
+     
+   
+
+    #winner{
+        margin-top: 10rem;
+        left: 35rem;
+    }
+    #player{
+        margin-top:2rem;
+        margin-left: 2rem;
+    }
+    #playerCard{
+        top: 5rem;
+    }
+    #playerCard2{
+        top: 7rem;
+        left: 2rem;
+    }
+    .firstBox{
+        margin-top: 0rem;
+    }
+    
+
+     }
+

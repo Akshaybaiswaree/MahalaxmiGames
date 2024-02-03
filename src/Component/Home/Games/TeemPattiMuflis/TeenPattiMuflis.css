@@ -1,0 +1,229 @@
+@media screen and (min-width: 320px){
+
+    #third{
+        width: 100%;
+        height: 20rem;
+        right: 0rem;
+        top: 52rem;
+
+    }
+    #two{
+        top: 38rem;
+    }
+    #round1{
+        top: 2px;
+        left: 2px;
+        padding: 10px;
+    }
+    #round2{
+        padding: 5px;
+        top: 2px;
+        right: 2px;
+    }
+    .cardShow{
+        margin-left: 0.5rem;
+    }
+    #last{
+        top: 20rem;
+    }
+    #arry{
+        top: -36rem;
+    }
+   .tableBox{
+    visibility: none;
+   }
+  
+}
+@media screen and (min-width: 375px) {
+
+    #two {
+        top: 40rem;
+    }
+
+    #arry {
+        width: 118%;
+    }
+
+    #match-id-btn {
+        right: 0.2rem;
+    }
+    #third{
+        width: 100%;
+        height: 20rem;
+        right: 0rem;
+        top: 54rem;
+
+    } 
+  
+
+}
+
+@media screen and (min-width: 425px) {
+
+    #two {
+        top: 34.5rem;
+    }
+
+    #arry {
+        width: 115%;
+    }
+
+    #match-id-btn {
+        right: 1.5rem;
+    }
+
+    #money {
+        margin-left: 0.5rem;
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 768px){
+
+#two{
+    width: 90%;
+    right: 2.5rem;
+    top: 51rem;
+}
+#match-id-btn {
+    right: 9rem;
+    top: 3rem;
+}
+#third{
+    width: 90%;
+    right: 2rem;
+    top: 83rem;
+  
+}
+#money {
+    margin-left:8rem;
+    width:80%;
+    
+}
+}
+@media screen and (min-width: 820px){
+
+    #two{
+        width: 65%;
+        right: 2.5rem;
+        top: 51rem;
+    }
+    #match-id-btn {
+        right: 9rem;
+        top: 3rem;
+    }
+    #third{
+        width: 65%;
+        right: 2rem;
+        top: 73rem;
+      
+    }
+    #money {
+        margin-left:8rem;
+        width:80%;
+        
+    }
+    #arry{
+        top: 2rem;
+    }
+    .cardShow{
+        margin-left: 0.8rem;
+    }
+    }
+
+
+@media screen and (min-width: 1024px) {
+    #first {
+        width: 59%;
+    }
+
+    #two {
+        top: 12.5rem;
+        right: 0.1rem;
+        width: 35%;
+    }
+
+    #arry {
+        width: 60%;
+        margin-bottom: 4rem;
+
+    }
+
+    #match-id-btn {
+        top: 2.5rem;
+        right: 4rem;
+    }
+
+    #money {
+        margin-left: 9rem;
+        width: 80%;
+    }
+
+    #money-Hover:hover {
+        height: 3.8rem;
+    }
+    #third{
+        width: 80%;
+        right: 2rem;
+        top: 48rem;
+      
+    }
+    #round1{
+        top: 5px;
+        left: 5px;
+        padding: 24px;
+    }
+    #round2{
+        padding: 24px;
+        top: 5px;
+        right: 5px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+
+    #first {
+        width: 59%;
+        top: 5rem;
+    }
+    #two {
+        top: 9.5rem;
+    }
+
+    #arry {
+        width: 30%;
+        top: 1rem;
+
+    }
+
+    #match-id-btn {
+        right: -24rem;
+        top: -0.5rem;
+    }
+
+    #money {
+        margin-left: 0.2rem;
+        width: 93%;
+      /* background-color: white; */
+    }
+    #money-Hover{
+        margin-left: 1.5rem;
+      
+        
+    }
+    #money-Hover:hover {
+        height: 3.8rem;
+    }
+    #third{
+        width: 48%;
+        height: 19rem;
+        right: 0.5rem;
+        top: 60rem;
+        left: 15rem;
+      
+    }
+    .cardShow{
+        margin-left: 1rem;
+    }
+  
+}

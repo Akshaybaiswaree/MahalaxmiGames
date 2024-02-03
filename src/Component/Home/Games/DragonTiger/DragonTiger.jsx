@@ -31,7 +31,12 @@ import React, { useEffect, useRef, useState } from "react";
 import "./DragonTiger.css";
 import Gamingimage from "../../Games/Images/GAMING GIRL.svg";
 import { io } from "socket.io-client";
-
+import pann from "../../Games/Images/Pann.svg";
+import flower from "../../Games/Images/Flower.svg";
+import heart from "../../Games/Images/Heart.svg";
+import heart1 from "../../Games/Images/Heart1.svg";
+import vector from "../../Games/Images/Vector-1.svg";
+import NoteIcon from "@mui/icons-material/Note";
 const socket = io("https://dragontiger-backend.onrender.com", {
   query: {
     userId: Math.floor(Math.random() * Date.now()),
@@ -39,7 +44,7 @@ const socket = io("https://dragontiger-backend.onrender.com", {
   transports: ["websocket"],
 });
 
-export default function DragonTiger() {
+export default function DragonTiger()   {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = useRef(null);
 
@@ -125,6 +130,7 @@ export default function DragonTiger() {
   };
 
   return (
+
     <>
       <ChakraProvider>
         <Box m={"0.5rem"} maxW={["90.5 vw", "83.5vw"]}>
@@ -735,7 +741,7 @@ export default function DragonTiger() {
               </Stack>
             </Box>
           </Flex>
-          <Box p="1" display="flex">
+          {/*<Box p="1" display="flex">
             <Table
               mt={["1rem", "0rem"]}
               width={["24rem", "30rem"]}
@@ -825,7 +831,7 @@ export default function DragonTiger() {
                 </Tr>
               </Tbody>
             </Table>
-          </Box>
+                  </Box> */}
 
           <Box
             p="1"
@@ -849,7 +855,8 @@ export default function DragonTiger() {
                   <Th bg={"#F09403"}>Spade</Th> */}
                 </Tr>
               </Thead>
-              <Tbody bg={"#780200"}>
+
+              {/*    <Tbody bg={"#780200"}>
                 <Tr>
                   <Td
                     padding={["1.7rem"]}
@@ -979,11 +986,135 @@ export default function DragonTiger() {
                     <Image src={`/cards/${"Group 1000004933.svg"}`} />
                   </Td>
                 </Tr>
-              </Tbody>
-            </Table>
+                  </Tbody>*/}
+
+  <div style={{display:'flex'}} className='boxes'>     
+   <div className="container">
+   <h6>DRAGON COLOUR</h6>
+    <div className="box1">
+  
+    <div className="white-box">
+      <div className="image">
+        <img src={pann} alt="" />
+        <img src={flower} alt="" />
+      </div>
+      <span>1.98</span>
+</div>
+<div className="white-box">
+      <div className="image">
+        <img src={heart1} alt="" />
+        <img src={flower} alt="" />
+      </div>
+      <span>1.98</span>
+</div>
+
+     
+    
+    </div>
+   </div>
+
+
+   <div className="container">
+   <h6>DRAGON COLOUR</h6>
+    <div className="box1">
+  
+    <div className="white-box">
+      <div className="image">
+        <img src={pann} alt="" />
+        <img src={flower} alt="" />
+      </div>
+      <span>1.98</span>
+</div>
+<div className="white-box">
+      <div className="image">
+        <img src={heart1} alt="" />
+        <img src={flower} alt="" />
+      </div>
+      <span>1.98</span>
+</div>
+
+     
+    
+    </div>
+   </div>
+
+
+
+</div>
+
+<div className="cards">
+  <h6>DRAGON <br />SUIT 3.75</h6>
+  <div className="image-1"><img src={pann}  alt="" /></div>
+  <div className="image-1"><img src={flower} alt="" /></div>
+  <div className="image-1"><img src={heart1}alt="" /></div>
+  <div className="image-1"><img src={pann} alt="" /></div>
+</div>
+
+<div className="cards">
+  <h6>TIGER  <br />   SUIT 3.75</h6>
+  <div className="image-2"><img src={pann} alt="" /></div>
+  <div className="image-2"><img src={flower} alt="" /></div>
+  <div className="image-2"><img src={heart1}alt="" /></div>
+  <div className="image-2"><img src={pann} alt="" /></div>
+</div>
+
+{/* <div className="line">
+  <p>YOUR BET : <span>0</span></p>
+  <h5>Game Histroy</h5>
+</div>
+ 
+<div className="circle">
+ 
+<div className="circle1">
+  <span>B</span>
+  <span>+20</span>
+</div>
+
+<div className="circle1">
+  <span>A</span>
+  <span>-20</span>
+</div>
+
+<div className="circle1">
+  <span>B</span>
+  <span>+20</span>
+</div>
+
+<div className="circle1">
+  <span>A</span>
+  <span>-20</span>
+</div>
+
+<div className="circle1">
+  <span>B</span>
+  <span>+20</span>
+</div>
+</div> */}
+
+
+{/* <div className="box">
+<div className="button1">
+  <NoteIcon />
+  <p>Rules</p>
+</div>
+<div className="button2">
+  <p>Min:5</p>
+  <p>Max:100000</p>
+</div>
+
+
+<button>Player Histroy</button>
+
+
+</div> */}
+
+
+</Table>
           </Box>
         </Box>
       </ChakraProvider>
     </>
-  );
-}
+
+);
+                        }
+

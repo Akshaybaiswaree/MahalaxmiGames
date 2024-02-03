@@ -457,6 +457,7 @@ function TeenPatti() {
   const [user, setUser] = useState(null);
   const [coins, setCoins] = useState(50);
   const [mainCard, setMainCard] = useState([]);
+  const [swithCard, setSwitchCard] = useState(true); 
   const [player1Cards, setPlayer1Cards] = useState([]);
   const [player2Cards, setPlayer2Cards] = useState([]);
 
@@ -477,6 +478,7 @@ function TeenPatti() {
     socket.on("userDetails", (data) => {
       // console.log(data.user.coins , "data");
       setUser(data.user);
+      setCurrentPlayer((prevPlayer) => (prevPlayer === "A" ? "B" : "A"));
       console.log(data, "data?.user");
     });
     socket.on("bait", (data) => {
@@ -485,27 +487,37 @@ function TeenPatti() {
       // setUser(data.user);
     });
 
+  
     socket.on("Main_Card", (data) => {
+      console.log("Main_Card Data:", data);
       setMainCard(data.gameCard);
       displayPlayerCards(data.gameCard.player1Cards, setPlayer1Cards);
       displayPlayerCards(data.gameCard.player2Cards, setPlayer2Cards);
-      console.log(data, "data");
+      
     });
-
-    // console.log(mainCard , "maincard");
+   
 
     return () => {
-      // Clean up socket connection on component unmount
+      
 
       socket.disconnect();
     };
   }, []);
-  const displayPlayerCards = (cards, setPlayerCards) => {
-    const displayedCards = cards.slice(0, 3); // Take only the first 3 cards
+  // const displayPlayerCards = (cards, setPlayerCards) => {
+  //   const displayedCards = cards.slice(0, 3); // Take only the first 3 cards
 
-    // Update state directly with the first 3 cards
-    setPlayerCards(displayedCards);
-  };
+
+
+const displayPlayerCards = (cards, setPlayerCards) => {
+  const displayedCards = [];
+
+  for (let i = 0; i < 3; i++) {
+    // Display one card for each player in each iteration
+    displayedCards.push(cards[i % 2]);
+  }
+  
+  setPlayerCards(displayedCards);
+};
 
   const handleBait = (baitType) => {
     if (user?.coins <= 0) {
@@ -622,7 +634,7 @@ function TeenPatti() {
                             // marginLeft={["11rem", "20rem"]}
                             // marginTop={"9rem"}
                             >
-                              {player1Cards.map((card, index) => (
+                              {/* {player1Cards.map((card, index) => (
                                 <Image
                                   key={index}
                                   src={`/cards/${card}`}
@@ -630,7 +642,46 @@ function TeenPatti() {
                                   margin="0.5rem"
                                   id="cards-positionA"
                                 />
-                              ))}
+                              ))} */}
+                              {
+                                gameState.value <= 14 && (
+                                  (
+                                    <Image
+                                      key={0}
+                                      src={`/cards/${player1Cards[0]}`}
+                                      boxSize={["2rem","3rem"]}
+                                      margin="0.5rem"
+                                      id="cards-positionA"
+                                    />
+                                  )
+                                )
+                              }
+                              {
+                                gameState.value <= 11 && (
+                                  (
+                                    <Image
+                                      key={1}
+                                      src={`/cards/${player1Cards[1]}`}
+                                      boxSize={["2rem","3rem"]}
+                                      margin="0.5rem"
+                                      id="cards-positionA"
+                                    />
+                                  )
+                                )
+                              }
+                              {
+                                gameState.value <= 9 && (
+                                  (
+                                    <Image
+                                      key={2}
+                                      src={`/cards/${player1Cards[2]}`}
+                                      boxSize={["2rem","3rem"]}
+                                      margin="0.5rem"
+                                      id="cards-positionA"
+                                    />
+                                  )
+                                )
+                              }
                             </Flex>
                           )}
 
@@ -647,7 +698,7 @@ function TeenPatti() {
                           PLAYER B
                         </Box>
                         {
-                          gameState.value < 10 &&
+                          gameState.value < 14 && //update 14 to 10
                           (
                             <Flex
                               position='absolute'
@@ -658,7 +709,8 @@ function TeenPatti() {
                             // marginLeft={["11rem", "20rem"]}
                             // marginTop={"5rem"}
                             >
-                              {player2Cards.map((card, index) => (
+                              {/* uncomment */}
+                              {/* {player2Cards.map((card, index) => (
                                 <Image
                                   key={index}
                                   src={`/cards/${card}`}
@@ -667,7 +719,44 @@ function TeenPatti() {
                                   marginTop={"-5rem"}
                                   id="cards-positionB"
                                 />
-                              ))}
+                              ))} */}
+                              {
+                                gameState.value <= 12 && (
+                                  <Image
+                                  key={0}
+                                  src={`/cards/${player2Cards[0]}`}
+                                  boxSize={["2rem","3rem"]}
+                                  margin="0.5rem"
+                                  marginTop={"-5rem"}
+                                  id="cards-positionB"
+                                />
+                                )
+                              }
+                              {
+                                gameState.value <= 10 && (
+                                  <Image
+                                  key={1}
+                                  src={`/cards/${player2Cards[1]}`}
+                                  boxSize={["2rem","3rem"]}
+                                  margin="0.5rem"
+                                  marginTop={"-5rem"}
+                                  id="cards-positionB"
+                                />
+                                )
+                              }
+                              {
+                                gameState.value <= 8 && (
+                                  <Image
+                                  key={2}
+                                  src={`/cards/${player2Cards[2]}`}
+                                  boxSize={["2rem","3rem"]}
+                                  margin="0.5rem"
+                                  marginTop={"-5rem"}
+                                  id="cards-positionB"
+                                />
+                                )
+                              }
+                              
                             </Flex>
                           )}
                       </Flex>
@@ -796,6 +885,7 @@ function TeenPatti() {
               Choose the Amount
             </Text>
 
+          <Box>
             <Box
             mt={["4rem" , ""]}
               display={"flex"}
@@ -866,6 +956,7 @@ function TeenPatti() {
                 Player B
               </Button>
             </Box>
+            </Box>
           </Box>
         </Box>
 
@@ -875,4 +966,3 @@ function TeenPatti() {
 }
 
 export default TeenPatti;
-

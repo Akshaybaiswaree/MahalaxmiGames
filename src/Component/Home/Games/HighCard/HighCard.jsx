@@ -15,7 +15,6 @@ import {
   Td,
   Text,
   Tfoot,
-  Th,
   Thead,
   Tr,
 } from "@chakra-ui/react";
