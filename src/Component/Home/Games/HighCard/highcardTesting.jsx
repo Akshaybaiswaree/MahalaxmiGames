@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
- // Import your CSS file for styling
+
+import io from "socket.io-client";
+
+// Import your CSS file for styling
 
 // const Card = ({ value }) => (
 //   <div className="card">
@@ -18,17 +21,14 @@ import React, { useEffect, useState } from "react";
 //   </div>
 // );
 
-import io from "socket.io-client";
 
 
-const socket = io("https://high-card-game-be.vercel.app/");
+
+const socket = io("https://highcardsbackend.onrender.com");
 
 const HighCardTesting = () => {
   const [players, setPlayers] = useState([]);
   const [winner, setWinner] = useState(null);
-
-  
-
   const [timer, setTimer] = useState(0);
   const [currentGame, setGame] = useState();
   const [gameHistory, setHistory] = useState();

@@ -1,119 +1,105 @@
 import { useEffect, useState } from "react";
 
-import { io } from "socket.io-client";
+import io from "socket.io-client";
 
-const userId = Math.floor(Math.random() * Date.now());
-console.log("userId on the client side:", userId);
+const socket = io("https://highcardsbackend.onrender.com");
 
-const socket = io("https://dragenliontiger.onrender.com/", {
-  query: {
-    userId,
-  },
-  transports: ["websocket"],
-});
-
-const App1 = () => {
-  const [selectedChoice, setSelectedChoice] = useState(null);
-  const [countdown, setCountdown] = useState(null);
-  const [userBalance, setUserBalance] = useState(null);
-  const [selectedCoin, setSelectedCoin] = useState("10"); // Default value, you can change it based on your needs
-  const [playerHands, setPlayerHands] = useState(null);
-  const [winner, setWinner] = useState(null);
-  const [userId, setuserId] = useState(null);
+const App = () => {
+  const [timer, setTimer] = useState(0);
+  const [currentGame, setGame] = useState();
+  const [gameHistory, setHistory] = useState();
+  socket.on("userDetails", (data) => {
+    console.log("User joined:", data);
+  });
   useEffect(() => {
-    const handleDealCards = (data) => {
-      handleGetBalance();
-      const winner = data.winner;
-      console.log("Received dealt cards:", data);
-      if (data.playerHands) {
-        setPlayerHands(data.playerHands);
-        setWinner(winner);
-      } else {
-        console.log("Player hands not found in data:", data);
-      }
-    };
-    const handleCountdown = (data) => {
-      console.log("Received countdown:", data.countdown);
-      setCountdown(data.countdown);
-    };
+    // Set up socket event listeners
 
-    const handleNewBet = (bet) => {
-      console.log("Received new bet:", bet);
-      setSelectedChoice(bet.choice);
-    };
-    const handleNewRound = () => {
-      console.log("Starting a new round");
-      setSelectedChoice(null);
-      setPlayerHands([]);
-    };
-    const handleBalanceUpdate = (data) => {
-      console.log("Received balance update:", data);
-      setUserBalance(data.balance);
-    };
-    const handleGetBalance = () => {
-      socket.emit("getBalance");
-    };
-    const handleuser = (data) => {
-      socket.emit("getuser");
-      console.log("User : - ", data.user);
-      setuserId(data.user.userId);
-      setUserBalance(data.user.balance);
-    };
-    handleGetBalance();
-    socket.on("dealCards", handleDealCards);
-    socket.on("countdown", handleCountdown);
-    socket.on("newBet", handleNewBet);
-    socket.on("newRound", handleNewRound);
-    socket.on("balanceUpdate", handleBalanceUpdate);
-    socket.on("getuser", handleuser);
+    // when user join
+    socket.on("me", (id) => {
+      console.log(id, "id");
+    });
+
+    // for timer
+    socket.on("timer", (data) => {
+      setTimer(data.timer);
+      console.log(data, "timer");
+    });
+
+    // when game is created 42sec
+    socket.on("game:create", (data) => {
+      console.log(data, "game initiate");
+    });
+
+    // game history 0sec
+    socket.on("game:history", (data) => {
+      console.log(data, "game history");
+    });
+
+    // game result in 22sec
+    socket.on("game:result", (result) => {
+      console.log(result, `game${timer}`, "cards");
+      setGame(result.gameCard);
+      setHistory(result.gameHistory);
+    });
+
     return () => {
-      socket.off("dealCards", handleDealCards);
-      socket.off("countdown", handleCountdown);
-      socket.off("newBet", handleNewBet);
-      socket.off("newRound", handleNewRound);
-      socket.off("balanceUpdate", handleBalanceUpdate);
-      socket.off("getuser", handleuser);
+      // Clean up event listeners
+      socket.off("me");
+      socket.off("timer");
+      socket.off("game:create");
+      socket.off("game:result");
+      socket.off("game:history");
     };
-  }, []);
+  }, [socket]);
 
-  const handlePlaceBet = (selectedChoice) => {
-    const coins = parseInt(selectedCoin, 10); // Parse the selectedCoin to an integer
-    socket.emit("placeBet", { selectedChoice, coins });
+  const placeBet = (betType, coins, gameId) => {
+    // Send user bet to the server
+    let data = { baitType: betType, coins: coins, gameId: gameId };
+    console.log(betType, coins, gameId, "beting");
+    socket.emit("bait", data);
   };
 
   return (
-    <div>
-      <h2>Winner : {winner}</h2>
-      <p>User Id: {userId}</p>
-      <h2> Deal Cards:</h2>
-
-      {playerHands &&
-        Object.entries(playerHands).map(([player, card], index) => (
-          <div key={index}>
-            <h3>{player} Card:</h3>
-            <h5>{card}</h5>
-          </div>
-        ))}
-      {countdown !== null && <p>Countdown: {countdown}</p>}
-      <p>User Balance: {userBalance}</p>
-      <label htmlFor="quantity">Select a Coin:</label>
-      <select
-        id="quantity"
-        name="quantity"
-        onChange={(e) => setSelectedCoin(e.target.value)}
-        value={selectedCoin}
+    <div className="app">
+      <p>Timer: {timer}s</p>
+      <button
+        disabled={timer <= 22 || !currentGame}
+        onClick={() => placeBet(0, 50, currentGame._id)}
       >
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-      </select>
-      <br />
-      <button onClick={() => handlePlaceBet("Dragen")}>Bet on Dragon</button>
-      <button onClick={() => handlePlaceBet("Tiger")}>Bet on Tiger</button>
-      <button onClick={() => handlePlaceBet("Lion")}>Bet on Lion</button>
+        1
+      </button>
+      <button
+        disabled={timer <= 22 || !currentGame}
+        onClick={() => placeBet(1, 70, currentGame._id)}
+      >
+        2
+      </button>
+      <button
+        disabled={timer <= 22 || !currentGame}
+        onClick={() => placeBet(2, 1000, currentGame._id)}
+      >
+        3
+      </button>
+      <button
+        disabled={timer <= 22 || !currentGame}
+        onClick={() => placeBet(3, 1520, currentGame._id)}
+      >
+        4
+      </button>
+      <button
+        disabled={timer <= 22 || !currentGame}
+        onClick={() => placeBet(4, 500, currentGame._id)}
+      >
+        5
+      </button>
+      <button
+        disabled={timer <= 22 || !currentGame}
+        onClick={() => placeBet(5, 810, currentGame._id)}
+      >
+        6
+      </button>
     </div>
   );
 };
 
-export default App1;
+export default App;

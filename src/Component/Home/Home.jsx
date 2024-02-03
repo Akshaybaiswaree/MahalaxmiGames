@@ -294,16 +294,12 @@ const Home = () => {
         </Flex>
       </Flex>
 
-      <Box
-
-         width={["26rem" , "100%"]}
-      className="Home" paddingLeft="2">
+      <Box width={["26rem", "100%"]} className="Home" paddingLeft="2">
         {/* <Heading as="h1" textAlign={{base: "start", md: "center",lg: "center"}} marginBottom="4">
           Our Casino
         </Heading> */}
 
         <Grid
-          
           templateColumns={{
             base: "repeat(16, 1fr)",
             md: "repeat(4, 1fr)",
@@ -332,9 +328,7 @@ const Home = () => {
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <NavLink to="/dragontiger">
               <Box className="custom-box">
-                <Image 
-            
-                src="/game card/Dragon  Tiger.png" alt="DRAGON TIGER" />
+                <Image src="/game card/Dragon  Tiger.png" alt="DRAGON TIGER" />
                 <span> DRAGON TIGER</span>
               </Box>
             </NavLink>
@@ -356,7 +350,7 @@ const Home = () => {
             <NavLink to="/3cardsteenpatti">
               <Box className="custom-box">
                 <Image
-                src="/game card/Teen Patti T20.png"
+                  src="/game card/Teen Patti T20.png"
                   alt="MULFIS TEENPATTI"
                 />
                 <span> 3 CARDS TEENPATTI </span>
@@ -378,8 +372,8 @@ const Home = () => {
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <NavLink to="/teenpattimuflis">
-              <Box  className="custom-box">
-                <Image  src="/game card/Teen Patti  Muflis.png" />
+              <Box className="custom-box">
+                <Image src="/game card/Teen Patti  Muflis.png" />
                 <span>3 PATTI MUFLIS</span>
               </Box>
             </NavLink>
@@ -388,10 +382,7 @@ const Home = () => {
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <NavLink to="/highcards">
               <Box className="custom-box">
-                <Image
-                  src="/game card/HighCard.jpg"
-                  alt="TEENPATTI T20"
-                />
+                <Image src="/game card/HighCard.jpg" alt="TEENPATTI T20" />
                 <span> HIGH CARD</span>
               </Box>
             </NavLink>
@@ -575,8 +566,6 @@ const Home = () => {
               <span> SCIBO</span>
             </Box>
           </GridItem>
-
-      
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <Box className="custom-box">
