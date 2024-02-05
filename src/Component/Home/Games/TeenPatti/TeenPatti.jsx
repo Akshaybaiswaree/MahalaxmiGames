@@ -443,7 +443,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import Teenpatti from "../../Games/Images/TeenPatti.svg";
+import Teenpatti from "../../Games/Images/TeenPatti 1.svg";
 import "./Teenpatti.css";
 
 const socket = io("https://teenpattibackend.onrender.com", {

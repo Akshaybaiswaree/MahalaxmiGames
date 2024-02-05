@@ -1,5 +1,5 @@
 
-@media only screen and (min-width:353px) {
+@media only screen and (min-width:340px) and (max-width:355px){
     #table{
        display: flex;
        flex-direction: column;
@@ -20,8 +20,10 @@
     }
    
     #winner{
-        margin-top: 16rem;
-        left: 30rem;
+        margin-top: 1rem;
+        left: 30%;
+        position: absolute;
+        top: 25%;
     }
     #player{
         margin-top:8rem;
@@ -37,7 +39,7 @@
         width: 100%;
     }
     }
-    /* @media screen and (min-width:375px) {
+   @media screen and (max-width:450px) {
         #box-btn{
             margin-left: 3.6rem;
         }
@@ -48,9 +50,50 @@
             width: 150%;
        
         }
+      
+        #third{
+                top: 40rem;
+        }
+        #two{
+            top: 60rem;
+        }
         
     }
-    @media only screen and (min-width: 425px) {
+
+    @media screen and (min-width: 780px) and (max-width: 830px) {
+        #box-btn{
+            margin-left: 3.6rem;
+        }
+        #playerId{
+            margin-left: 2.9rem;
+        }
+        #main-div{
+            width: 150%;
+       
+        }
+      
+        #third{
+                top: 55rem;
+        }
+        #two{
+            top: 80rem;
+            height: 60vh;
+        }
+        /* #tavle{
+            margin-top: 85;
+          } */
+      
+          #placeyourbetdiv{
+            /* display: flex;
+            flex-direction: column; */
+           left: -10rem;
+           top: 40rem;
+          }
+        
+    }
+
+
+  /*  @media only screen and (min-width: 425px) {
     
        
         #box-btn{
@@ -105,30 +148,30 @@
           }   
         }
 
+        */
     @media screen and (min-width: 1440px){
      
 #second{
     margin-left: 9rem;
 }
-#playerId{
-    margin-left: 7.5rem;
-}
+
 #winner{
-    margin-top: 16rem;
-    left: 30rem;
+    margin-top: 10rem;
+    left: 50%;
 }
 #player{
-    margin-top:8rem;
+    margin-top:1rem;
     margin-left: 2rem;
 }
 .cardBox{
-    top: 25rem;
+    top: 225rem;
 }
+
  }
 
-   */
 
-   @media screen and (min-width: 1440px){
+
+   /* @media screen and   (min-width:1440){
      
    
 
@@ -137,11 +180,11 @@
         left: 35rem;
     }
     #player{
-        margin-top:2rem;
+        margin-top:1rem;
         margin-left: 2rem;
     }
     #playerCard{
-        top: 5rem;
+        top: 105rem;
     }
     #playerCard2{
         top: 7rem;
@@ -150,7 +193,16 @@
     .firstBox{
         margin-top: 0rem;
     }
-    
+ 
+    .firstBox{
+        margin-top: 50rem;
+    }
 
-     }
+     } */
 
+
+#winner{
+    margin-top: 1rem;
+    position: absolute;
+    left: 30%;
+}

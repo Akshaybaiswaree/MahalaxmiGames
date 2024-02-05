@@ -13,7 +13,8 @@ import {
 import { useState, useEffect } from "react";
 //import PopUp from "./PopUp";
 // import Logo from "../../../images/32cardsA_v.jpeg";
-// import backGroundImage from "./images/background_plus_cards.jpeg"
+//  import backGroundImage from "./images/background_plus_cards.jpeg"
+import TwoCard from "../../Games/Images/2cardpatti.svg";
 import "./TwoCardsPatti.css";
 
 import { io } from "socket.io-client";
@@ -164,7 +165,7 @@ export default function TwoCardsTeenPatti() {
                   <Box
                     border="4px solid #333"
                     height="50%"
-                    backgroundImage="url('/Andar&BaharImage/Andar&BaharAvatar.webp')"
+                    backgroundImage={TwoCard}
                     backgroundSize="cover"
                     backgroundPosition={`center 100%`}
                     backgroundRepeat="no-repeat"
@@ -199,7 +200,7 @@ export default function TwoCardsTeenPatti() {
                     </Box>
 
                     {countdown <= 8 && (
-                      <Box mt={["7.5rem", "12rem"]} id="winner">
+                      <Box mt={["2rem", "2rem"]} id="winner">
                         <Button
                           w={["8rem", "12rem"]}
                           fontSize={["15px", "lg"]}
@@ -239,8 +240,8 @@ export default function TwoCardsTeenPatti() {
                       <>
                         <Box
                           position={"absolute"}
-                          top={["11.5rem", "18.5rem"]}
-                          left={["2rem", "3rem"]}
+                          top={["2.5rem", "15rem", "17.5rem"]}
+                          left={["2rem", "2rem" , "3rem"]}
                           id="player"
                         >
                           <Text mb={["1rem", "2rem"]}>Player A</Text>
@@ -251,9 +252,9 @@ export default function TwoCardsTeenPatti() {
 
                     <Flex
                       direction="column"
-                      // position={"absolute"}
-                      top={["11rem", "18rem"]}
-                      right={["1.5rem", "3rem"]}
+                      position={"absolute"}
+                      top={["60%" , "65%"]}
+                      left={["40%"]}
                       id="playerCard"
                     >
                       {/* {countdown <= 12 && (
@@ -410,9 +411,11 @@ export default function TwoCardsTeenPatti() {
               </Box>
 
               <Box
-                marginX={["0rem", "5rem"]}
-                marginTop={["2rem", "4rem"]}
+                marginX={["0rem", "-30rem" ,"5rem" ]}
+                marginTop={["2rem", "38rem" , "5rem"]}
+            
                 width={["100%", "50%"]}
+                id="playeryourbetdiv"
               >
                 <Flex
                   width={[ "95%","110%"]}
@@ -447,13 +450,16 @@ export default function TwoCardsTeenPatti() {
                   </Box>
                 </Flex>
                 {/* New Box  */}
-                <Box width="90%">
+                <Box width="90%"
+                 id ="placeyourbet"
+                 >
                   <Flex flexDirection="column" alignItems="center">
                     <Text
                       fontSize="20px"
                       fontWeight="bold"
-                      marginLeft="0.5rem"
+                      marginLeft={["0.5rem"]}
                       mt={"1rem"}
+                     
                     >
                       Place Your Bet
                     </Text>
