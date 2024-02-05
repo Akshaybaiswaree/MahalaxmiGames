@@ -15,7 +15,7 @@ import { useState, useEffect } from "react";
 // import Logo from "../../../images/32cardsA_v.jpeg";
 //  import backGroundImage from "./images/background_plus_cards.jpeg"
 import TwoCard from "../../Games/Images/2cardpatti.svg";
-import "./TwoCardsPatti.css";
+import "./TwoCardspatti.css";
 
 import { io } from "socket.io-client";
 
