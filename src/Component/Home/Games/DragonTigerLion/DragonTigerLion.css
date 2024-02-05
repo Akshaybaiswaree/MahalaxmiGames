@@ -202,7 +202,7 @@
       margin-top: 1rem;
       margin-left: 0.1rem;
     
-      margin-bottom: 26rem;
+      margin-bottom: 26 rem;
     }
     #second {
       width: 124%;
@@ -248,6 +248,8 @@
   }
   
   @media screen and (min-width: 375px) {
+    
+
     #round1 {
       padding: 30px;
       border: 6px solid white;
@@ -311,6 +313,7 @@
   }
   
   @media screen and (min-width: 425px) {
+  
     #round1 {
       padding: 30px;
       border: 6px solid white;

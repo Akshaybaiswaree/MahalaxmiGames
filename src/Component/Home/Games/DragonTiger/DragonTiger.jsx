@@ -28,7 +28,7 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 
 //  import Gamingimage from "../Games/images/GAMING GIRL 1.svg";
-import Gamingimage from "../../Games/Images/GAMING GIRL 1.svg";
+import Gamingimage from "../../Games/Images/GAMING GIRL 1.svg"; 
 import "./DragonTiger.css";
 
 import { io } from "socket.io-client";

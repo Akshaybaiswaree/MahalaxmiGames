@@ -1,5 +1,5 @@
 
-@media only screen and (min-width:340px) and (max-width:355px){
+@media only screen and (min-width:353px) and (max-width:745)    {
     #table{
        display: flex;
        flex-direction: column;
@@ -37,6 +37,10 @@
     }
     .firstBox{
         width: 100%;
+    }
+
+    #player1card1{
+        height: 20rem;
     }
     }
    @media screen and (max-width:450px) {
@@ -159,12 +163,15 @@
     margin-top: 10rem;
     left: 50%;
 }
-#player{
-    margin-top:1rem;
-    margin-left: 2rem;
-}
+/* #player{
+    /* margin-top:1rem;
+    margin-left: 2rem; */
+*/
 .cardBox{
     top: 225rem;
+}
+#playerCard2{
+    top: 200rem;
 }
 
  }

@@ -8,7 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import "../Andar&Bahar/AndarBahar.css";
+import "./DragonTigerLion.css";
 import { io } from "socket.io-client";
 
 const userId = Math.floor(Math.random() * Date.now());
@@ -158,6 +158,7 @@ export default function DragonTigerLion() {
     <>
       <ChakraProvider>
         <Box
+        marginBottom={["9rem" , "0rem"]}
           id="first"
           //  p={4}
           //  width = {{ base: "134%",sm:"140%", md: "100%", lg:"55%", xl:"40%" }}
@@ -239,12 +240,14 @@ export default function DragonTigerLion() {
                       // src={`/cards/${gameCards.Dragen}`}
                       src={`/cards/${dragonCards}`}
                       // alt={`dragen${gameCards.Dragen}`}
+
                       alt=""
                       position="absolute"
                       top="38%"
                       left="20.8%"
                       width="6%"
                       height="21%"
+                 
                     />
                   </Box>
                 )}
@@ -285,21 +288,22 @@ export default function DragonTigerLion() {
             </Box>
           </AspectRatio>
         </Box>
-
+       
         {/* 10 Mini Boxes */}
         <Box
-        bg={'red'}
-          width={{ base: "2%", sm: "110%", md: "65%" }}
-          marginY={{ base: "0rem", md: "1rem" }}
+          bg={"gray"}
+          mt={["-25rem", "2rem"]}
+          mb={["10rem", "0rem"]}
+          width={{ base: "100%", sm: "110%", md: "65%" }}
+          // marginY={{ base: "0rem", md: "1rem" }}
           marginLeft={{ base: "2rem", md: "0" }}
-          height="100px"
-          marginBottom={{ base: "2rem" }}
+          height={["50px", "60px"]}
+          // marginBottom={{ base: "2rem" }}
           // width="65%"
           // height="15%"
           // border="2px solid darkgreen"
           display="flex"
-          position="relative"
-          id="second"
+          // position="relative"
         >
           {[...Array(10)].map((_, index) => (
             <Text
@@ -320,14 +324,6 @@ export default function DragonTigerLion() {
           ))}
 
           {/* <Text
-            position="absolute"
-            bottom="0"
-            left="10%"
-            fontWeight="bold"
-            border="2px solid darkblue"
-            padding="0.3rem"
-          > */}
-          <Text
             mb={{ base: "1rem", md: -1 }} // Adjust margin-bottom for different screen sizes
             ml={{ base: "0.2rem", md: -2 }} // Adjust margin-left for different screen sizes
             top={{ base: "3.5rem" }}
@@ -341,9 +337,9 @@ export default function DragonTigerLion() {
             className="matchID"
           >
             Match Id: {matchId}
-          </Text>
+          </Text> */}
 
-          <Button
+          {/* <Button
             width={{ base: "23%", md: "20%" }}
             fontSize={{ base: "0.8rem", md: "1rem" }}
             padding={{ base: "1rem" }}
@@ -358,14 +354,13 @@ export default function DragonTigerLion() {
             // position="absolute"
             // bottom="0"
             // right="10%"
-            className="second"
+          
           >
             Player History
-          </Button>
+          </Button> */}
         </Box>
 
         <Box
-        
           // width={{ base: '95%', sm: '80%', md: '30%', lg: '30%' }}
           // top={{ base: '106%', md: '35%' }}
           // right={{ base: '0rem', md: '0' }}
@@ -463,6 +458,8 @@ export default function DragonTigerLion() {
 
           {/* Player Button */}
           <Box
+            marginTop={["2rem", ""]}
+            marginBottom={["rem", ""]}
             border="2px solid red"
             width="100%"
             flexDirection="row"

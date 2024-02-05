@@ -122,7 +122,9 @@ export default function TwoCardsTeenPatti() {
   return (
     <>
       <ChakraProvider>
-        <Box m={"0.6rem"} width={["25rem", "100%"]}>
+        <Box m={"0.6rem"} 
+        width={["19rem", "100%"]}
+        >
           <Box maxW={["100vw", "100vw"]} id="main-div">
             <Flex
               align="left-top"
@@ -236,7 +238,7 @@ export default function TwoCardsTeenPatti() {
                         <p>{Math.max(0, countdown - 25)}</p>
                       )}
                     </Box>
-                    {countdown <= 15 && (
+                    {/* {countdown <= 15 && (
                       <>
                         <Box
                           position={"absolute"}
@@ -248,13 +250,13 @@ export default function TwoCardsTeenPatti() {
                           <Text>Player B</Text>
                         </Box>
                       </>
-                    )}
+                    )} */}
 
                     <Flex
                       direction="column"
                       position={"absolute"}
-                      top={["60%" , "65%"]}
-                      left={["40%"]}
+                      top={["60%" , "62.5%"]}
+                      left={["44%"]}
                       id="playerCard"
                     >
                       {/* {countdown <= 12 && (
@@ -277,34 +279,52 @@ export default function TwoCardsTeenPatti() {
                             )}
                         </Flex>
                       )} */}
-                       <Flex direction="row">
-                        {countdown <= 13 && (
-                        <Flex>
-                             <Box 
-                                key={0}
-                               
-                                 >
+                       <Flex
+                        direction="row"
+                        top={["2rem"]}
+                       >
+                        
+                       {countdown <= 13  && (
+                        <Flex >
+                          {/* {playerHands?.PlayerA &&
+                            Object.entries(playerHands?.PlayerA).map( */}
+                                <Box key={1}
+                                // style="margin-left:-1rem"
+                                // style={{marginTop: '0rem', marginLeft: '0.6rem' }}
+                                marginTop={["-0.1rem","-0.2rem"]}
+                                marginLeft={["-0.15rem","0.05rem"]}
+                                >
                                     <Image
                                       bg={"red"}
-                                      src={`/cards/${player1Cards[0]}`}
-                                      boxSize={["1.8rem", "2rem"]}
+                                      src={`/cards/${player1Cards[1]}`}
+                                      // position={'absolute'}
+                                      // top={'1rem'}
+                                      // boxSize={["1.8rem", "2.9rem"]}
+                                      height={["2.5 rem","3.5rem"]}
+                                      width={["1.9rem" , "2.6rem"]}
+                                     
                                       margin="0.5rem"
-                                      // top={"80rem"}
                                       // alt={`${card}`}
                                     />
                                 </Box>
                         </Flex>
                       )}
-                       {countdown <= 11 && (
-                        <Flex >
-                          {/* {playerHands?.PlayerA &&
-                            Object.entries(playerHands?.PlayerA).map( */}
-                                <Box key={1}>
+                        {countdown <= 11 && (
+                        <Flex>
+                             <Box 
+                                key={0}
+                                // style={{marginTop: '0.2rem', marginLeft: '0.4rem' }}
+                                marginTop={["0.1rem","0.1rem"]}
+                                marginLeft={["-0.2rem","0.7rem"]}
+                                 >
                                     <Image
                                       bg={"red"}
-                                      src={`/cards/${player1Cards[1]}`}
-                                      boxSize={["1.8rem", "2rem"]}
-                                      margin="0.5rem"
+                                      src={`/cards/${player1Cards[0]}`}
+                                      // boxSize={["1.8rem", "2.7rem"]}
+                                      width={["" , ""]}
+                                      height={["1.8rem","3rem"]}
+                                      margin="0.3rem"
+                                      // top={"80rem"}
                                       // alt={`${card}`}
                                     />
                                 </Box>
@@ -335,26 +355,40 @@ export default function TwoCardsTeenPatti() {
                        direction="row" 
                        id="playerCard2"
                        >
-                         {countdown <= 10 && (
+                         {countdown <= 12 && (
                          <Flex>
-                                <Box key={0}>
+                                <Box
+                                 key={0}
+                                //  style={{marginTop: '0.9rem', marginLeft: '0.1rem' }}
+                                marginTop={["-0.1rem","0.3rem"]}
+                                // marginTop={["-0.1rem","-0.2rem"]}
+                                 marginLeft={["-0.2rem","-0.5rem"]}
+                                 id="player1card1"
+                                >
                                     <Image
                                       src={`/cards/${player2Cards[0]}`}
-                                      boxSize={["1.8rem", "2rem"]}
-                                      margin="0.5rem"
+                                      // boxSize={["1.8rem", "2.9rem"]}
+                                      height={["1.8rem","3rem"]}
+                                      // margin="0.5rem"
+                                      width={["1.9rem" , "2.6rem"]}
                                       // alt={`${card}`}
                                     />
                                   </Box>
                            </Flex>
                            )}
 
-                          {countdown <= 12 && (
+                          {countdown <= 10 && (
                          <Flex>
-                                <Box key={1}>
+                                <Box key={1}
+                                //  style={{marginTop: '0.9rem', marginLeft: '0.4rem' }}
+                                 marginTop={["-0.1rem","0.8rem"]}
+                                 marginLeft={["-0.4rem","0.4rem"]}
+                                 >
                                     <Image
                                       src={`/cards/${player2Cards[1]}`}
-                                      boxSize={["1.8rem", "2rem"]}
+                                      height={["1.8rem","3rem"]}
                                       margin="0.5rem"
+                                 
                                       // alt={`${card}`}
                                     />
                                 </Box>
