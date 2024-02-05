@@ -7,18 +7,18 @@ const socket = io("https://highcardsbackend.onrender.com");
 const App = () => {
   const [timer, setTimer] = useState(0);
   const [currentGame, setGame] = useState();
-  const [gameHistory, setHistory] = useState();
-  socket.on("userDetails", (data) => {
-    console.log("User joined:", data);
-  });
+  // const [gameHistory, setHistory] = useState();
+
   useEffect(() => {
     // Set up socket event listeners
 
     // when user join
-    socket.on("me", (id) => {
-      console.log(id, "id");
+    // socket.on("me", (id) => {
+    //   console.log(id, "id");
+    // });
+    socket.on("userDetails", (data) => {
+      console.log("User joined:", data);
     });
-
     // for timer
     socket.on("timer", (data) => {
       setTimer(data.timer);
@@ -35,11 +35,11 @@ const App = () => {
       console.log(data, "game history");
     });
 
-    // game result in 22sec
+    // game result in 45sec
     socket.on("game:result", (result) => {
       console.log(result, `game${timer}`, "cards");
       setGame(result.gameCard);
-      setHistory(result.gameHistory);
+      // setHistory(result.gameHistory);
     });
 
     return () => {
