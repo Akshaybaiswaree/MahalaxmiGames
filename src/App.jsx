@@ -14,32 +14,19 @@ import HighCard from "./Component/Home/Games/HighCard/HighCard";
 import HighCardTesting from "./Component/Home/Games/HighCard/highcardTesting";
 import Home from "./Component/Home/Home";
 import Mainpage from "./Component/Mainpage";
-import MuflisOneDay from "./Component/Home/Games/MuflisOneDay";
+import MuflisOneDay from "./Component/Home/Games/Muflis One Day/MuflisOneDay";
 import Rootlayout from "./Component/RootLayout/Rootlayout";
 import TeenPatti from "./Component/Home/Games/TeenPatti/TeenPatti";
-import TeenPattiMuflis from "./Component/Home/Games/TeemPattiMuflis/TeenPattiMuflis";
+import TeenPattiMuflis from "./Component/Home/Games/TeenPattiMuflis/TeenPattiMuflis";
 import ThirtyTwoCards from "./Component/Home/Games/ThirtyTwoCards";
 import TwoCardsPattiTesting from "./Component/Home/Games/TwoCardspatti/TwoCardsPattiTesting";
 import TwoCardsTeenPatti from "./Component/Home/Games/TwoCardspatti/TwoCardspatti";
 
+// import MuflisOneDay from "./Component/Home/Games/MuflisOneDay";
+
 // import Roulette from "./Component/Home/Games/Roulette";
 
-
-
-
-
-
 // import Highcard from "./Component/Home/Games/HighCard/HighCard";
-
-
-
-
-
-
-
-
-
-
 
 // import RegisterPage from "./Component/Login/RegisterPage";
 
@@ -63,7 +50,7 @@ const router = createBrowserRouter(
         <Route path="dragontiger" element={<DragonTiger />} />
         <Route path="andarbahar" element={<AndarBahar />} />
         <Route path="teenpattimuflis" element={<TeenPattiMuflis />} />
-
+        <Route path="muflisoneday" element={<MuflisOneDay />} />
         <Route path="2cardsteenpatti" element={<TwoCardsTeenPatti />} />
         <Route
           path="2cardsteenpattiTesting"

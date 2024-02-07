@@ -1,6 +1,3 @@
-// import "../Andar&Bahar/AndarBahar.css"
-// import "./teenPattiMuflis.css";
-
 import {
   AspectRatio,
   Box,
@@ -22,7 +19,6 @@ const socket = io("https://highcardsbackend.onrender.com", {
 });
 
 export default function HighCard() {
-
   const [timer, setTimer] = useState("");
   const [availableCoins, setAvailableCoins] = useState("");
   const [userId, setUserId] = useState("");
@@ -35,73 +31,75 @@ export default function HighCard() {
   const [docID, setDocId] = useState("");
   const [buttonClick, setButtonClick] = useState(false);
 
-
   useEffect(() => {
-
     const handelTimer = (data) => {
       // console.log("timer", data.timer);
       setTimer(data.timer);
     };
 
-
     const handelUserDetails = (data) => {
-      // console.log("userDetails", data.userData);
+      console.log("userDetails", data.userData);
       setAvailableCoins(data.userData.coins);
       setUserId(data.userData.userId);
-    }
+    };
 
     const handelGameCreate = (data) => {
       // console.log("gameCreate", data);
-      setMatchId(data.gameid)
-      setCards(data.Cards)
-      setWinStatus(data.winstatus)
-      setDocId(data._id)
-    }
+      setMatchId(data.gameCard.gameid);
+      setCards(data.gameCard.Cards);
+      setWinStatus(data.gameCard.winstatus);
+      setDocId(data.gameCard._id);
+      setGameHistory(data.gameHistory);
+    };
 
-    const handelGameHistory = (data) => {
-      console.log("gameHistory", data);
-      setGameHistory(data)
-    }
+    // const handelGameHistory = (data) => {
+    //   console.log("gameHistory", data);
+    //   setGameHistory(data);
+    // };
 
     const handelGameResult = (data) => {
-      console.log("gameResult", data);
-      setCards(data.Cards)
-      setWinStatus(data.winstatus)
-
-    }
+      // console.log("gameResult", data);
+      setCards(data.gameCard.Cards);
+      setWinStatus(data.gameCard.winstatus);
+    };
 
     const handelGameUserCoin = (data) => {
-      console.log("gameUserCoin", data);
-    }
+      // console.log("gameUserCoin", data);
+    };
 
+    const handelUserBalanceUpdate = (data) => {
+      console.log("gameUserBalanceUpdate", data);
+      setAvailableCoins(data.User.coins);
+      setUserId(data.User.userId);
+    };
 
     socket.on("timer", handelTimer);
     socket.on("userDetails", handelUserDetails);
     socket.on("game:create", handelGameCreate);
-    socket.on("game:history", handelGameHistory);
+    // socket.on("game:history", handelGameHistory);
     socket.on("game:result", handelGameResult);
     socket.on("game:user-coin", handelGameUserCoin);
+    socket.on("UserBalanceUpdate", handelUserBalanceUpdate);
 
     return () => {
       socket.off("timer", handelTimer);
       socket.off("userDetails", handelUserDetails);
       socket.off("game:create", handelGameCreate);
-      socket.off("game:history", handelGameHistory);
+      // socket.off("game:history", handelGameHistory);
       socket.off("game:result", handelGameResult);
       socket.off("game:user-coin", handelGameUserCoin);
-
+      socket.off("UserBalanceUpdate", handelUserBalanceUpdate);
     };
   }, []);
 
-
-
-
+  if (timer === 10) {
+    socket.emit("getUserBalanceUpdate", userId);
+  }
 
   const handelBet = (baitType) => {
-
     if (availableCoins < 0) {
-      alert("Insufficient amount")
-      return
+      alert("Insufficient amount");
+      return;
     }
 
     if (timer <= 22) {
@@ -111,13 +109,12 @@ export default function HighCard() {
     const data = {
       baitType,
       coins,
-      gameId: docID
-    }
+      gameId: docID,
+    };
     // console.log("betting", baitType, coins, docID);
-    socket.emit("bait", data)
-    console.log("bet", data)
-
-  }
+    socket.emit("bait", data);
+    console.log("bet", data);
+  };
 
   return (
     <>
@@ -161,18 +158,20 @@ export default function HighCard() {
               >
                 {timer - 25 < 0 ? "0" : timer - 25}
               </Text>
-              {timer - 25 <= -16 && <Text
-                border="5px solid white"
-                padding="24px"
-                borderRadius="50%"
-                position="absolute"
-                top="0"
-                left="0"
-                color="white"
-                fontWeight="bold"
-              >
-                <span>Winner:{winstatus}</span>
-              </Text>}
+              {timer - 25 <= -16 && (
+                <Text
+                  border="5px solid white"
+                  padding="24px"
+                  borderRadius="50%"
+                  position="absolute"
+                  top="0"
+                  left="0"
+                  color="white"
+                  fontWeight="bold"
+                >
+                  <span>Winner:{winstatus}</span>
+                </Text>
+              )}
 
               <Box
                 // border="2px solid yellow"
@@ -195,26 +194,32 @@ export default function HighCard() {
                   left="38.8%"
                   top="22.7%"
                 >
-                  {timer - 25 <= -5 && <Image
-                    src={`/cards/${cards[0]}`}
-                    alt="0"
-                    width="100%"
-                    height="29%"
-                  />}
-                  {timer - 25 <= -7 && <Image
-                    src={`/cards/${cards[1]}`}
-                    alt="1"
-                    width="100%"
-                    height="29%"
-                    marginTop="10px"
-                  />}
-                  {timer - 25 <= -9 && <Image
-                    src={`/cards/${cards[2]}`}
-                    alt="2"
-                    width="100%"
-                    height="29%"
-                    marginTop="12px"
-                  />}
+                  {timer - 25 <= 0 && (
+                    <Image
+                      src={`/cards/${cards[0]}`}
+                      alt="0"
+                      width="100%"
+                      height="29%"
+                    />
+                  )}
+                  {timer - 25 <= -7 && (
+                    <Image
+                      src={`/cards/${cards[1]}`}
+                      alt="1"
+                      width="100%"
+                      height="29%"
+                      marginTop="10px"
+                    />
+                  )}
+                  {timer - 25 <= -9 && (
+                    <Image
+                      src={`/cards/${cards[2]}`}
+                      alt="2"
+                      width="100%"
+                      height="29%"
+                      marginTop="12px"
+                    />
+                  )}
                 </Box>
                 <Box
                   // border="1px solid pink"
@@ -227,29 +232,34 @@ export default function HighCard() {
                   right="40%"
                   top="22.7%"
                 >
-                  {timer - 25 <= -11 && <Image
-                    src={`/cards/${cards[3]}`}
-                    alt="3"
-                    width="100%"
-                    height="29%"
-                  />}
-                  {timer - 25 <= -13 && <Image
-                    src={`/cards/${cards[4]}`}
-                    alt="4"
-                    width="100%"
-                    height="29%"
-                    marginTop="10px"
-                  />}
-                  {timer - 25 <= -15 && <Image
-                    src={`/cards/${cards[5]}`}
-                    alt="5"
-                    width="100%"
-                    height="29%"
-                    marginTop="12px"
-                  />}
+                  {timer - 25 <= -11 && (
+                    <Image
+                      src={`/cards/${cards[3]}`}
+                      alt="3"
+                      width="100%"
+                      height="29%"
+                    />
+                  )}
+                  {timer - 25 <= -13 && (
+                    <Image
+                      src={`/cards/${cards[4]}`}
+                      alt="4"
+                      width="100%"
+                      height="29%"
+                      marginTop="10px"
+                    />
+                  )}
+                  {timer - 25 <= -15 && (
+                    <Image
+                      src={`/cards/${cards[5]}`}
+                      alt="5"
+                      width="100%"
+                      height="29%"
+                      marginTop="12px"
+                    />
+                  )}
                 </Box>
               </Box>
-
             </Box>
           </AspectRatio>
         </Box>
@@ -273,15 +283,11 @@ export default function HighCard() {
               align="center"
               fontWeight="bold"
             >
-              <Text
-                fontSize="18px"
-                color="#c32625"
-              >
+              <Text fontSize="18px" color="#c32625">
                 {gameHistory[index] && gameHistory[index].join(", ")}
               </Text>
             </Text>
           ))}
-
 
           <Text>Match Id: {matchId}</Text>
 
@@ -335,9 +341,9 @@ export default function HighCard() {
                   cursor: "pointer",
                 }}
                 onClick={() => {
-                  setCoins(value)
+                  setCoins(value);
                   // console.log("coins", value)
-                  setSelectedCoins(index)
+                  setSelectedCoins(index);
                 }}
               >
                 <img
@@ -476,7 +482,7 @@ export default function HighCard() {
                 fontWeight="bold"
                 color="white"
               >
-                ${availableCoins}
+                ${availableCoins.toFixed(2)}
               </Text>
             </Box>
 

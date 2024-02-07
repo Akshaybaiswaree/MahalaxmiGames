@@ -388,6 +388,15 @@ const Home = () => {
             </NavLink>
           </GridItem>
 
+           <GridItem colSpan={{ base: 4, md: 1 }}>
+            <NavLink to="/muflisoneday">
+              <Box className="custom-box">
+                <Image src="/game card/MUFLIS ONE DAY.webp" alt="TEENPATTI T20" />
+                <span>Muflis One Day</span>
+              </Box>
+            </NavLink>
+          </GridItem>
+
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <NavLink to="/DragonTiger">
               <Box className="custom-box">
