@@ -1,3 +1,5 @@
+import "./DragonTigerLion.css";
+
 import {
   AspectRatio,
   Box,
@@ -8,7 +10,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import "./DragonTigerLion.css";
+
 import { io } from "socket.io-client";
 
 const userId = Math.floor(Math.random() * Date.now());
@@ -158,7 +160,7 @@ export default function DragonTigerLion() {
     <>
       <ChakraProvider>
         <Box
-        marginBottom={["9rem" , "0rem"]}
+          marginBottom={["9rem", "0rem"]}
           id="first"
           //  p={4}
           //  width = {{ base: "134%",sm:"140%", md: "100%", lg:"55%", xl:"40%" }}
@@ -247,7 +249,6 @@ export default function DragonTigerLion() {
                       left="20.8%"
                       width="6%"
                       height="21%"
-                 
                     />
                   </Box>
                 )}
@@ -288,7 +289,7 @@ export default function DragonTigerLion() {
             </Box>
           </AspectRatio>
         </Box>
-       
+
         {/* 10 Mini Boxes */}
         <Box
           bg={"gray"}
@@ -392,7 +393,7 @@ export default function DragonTigerLion() {
                 fontWeight="bold"
                 color="white"
               >
-                ${availableBal}
+                ${Math.round(availableBal * 100) / 100}
               </Text>
             </Box>
 

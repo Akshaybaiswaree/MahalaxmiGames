@@ -63,7 +63,7 @@ export default function HighCard() {
       setWinStatus(data.gameCard.winstatus);
     };
 
-    const handelGameUserCoin = (data) => {
+    const handelGameUserCoin = () => {
       // console.log("gameUserCoin", data);
     };
 
@@ -482,7 +482,7 @@ export default function HighCard() {
                 fontWeight="bold"
                 color="white"
               >
-                ${availableCoins.toFixed(2)}
+                ${Math.round(availableCoins * 100) / 100}
               </Text>
             </Box>
 

@@ -23,10 +23,10 @@ const socket = io("https://andarbaharbacked.onrender.com", {
   query: {
     userId: Math.floor(Math.random() * Date.now()),
   },
-  transports: ["websocket"],                                                                                          
+  transports: ["websocket"],
 });
 const AndarBahar = () => {
-  const [gameState, setGameState] = useState({ value: "waiting" }); 
+  const [gameState, setGameState] = useState({ value: "waiting" });
   const [user, setUser] = useState(null);
   const [coins, setCoins] = useState(50);
   const [mainCard, setMainCard] = useState([]);
@@ -35,7 +35,6 @@ const AndarBahar = () => {
   const [buttonClick1, setButtonClick1] = useState(false);
   const [buttonClick2, setButtonClick2] = useState(false);
   const [selectedCoins, setSelectedCoins] = useState(null);
-  
 
   console.log("user", user);
   console.log("mainCard", mainCard);
@@ -60,7 +59,7 @@ const AndarBahar = () => {
       setUser(data.user);
     };
 
-    const handleBait = (data) => {
+    const handlebet = (data) => {
       setUser(data);
     };
 
@@ -70,12 +69,12 @@ const AndarBahar = () => {
     socket.on("gameUpdate", handleGameUpdate);
     socket.on("userDetails", handleUserDetails);
     socket.on("Main_Card", handleMainCard);
-    socket.on("bait", handleBait);
+    socket.on("bet", handlebet);
 
     return () => {
       socket.off("gameUpdate", handleGameUpdate);
       socket.off("userDetails", handleUserDetails);
-      socket.off("bait", handleBait);
+      socket.off("bet", handlebet);
     };
   }, []);
 
@@ -122,9 +121,7 @@ const AndarBahar = () => {
     });
   }
 
-  const handleBait = (baitType) => {
-
-    
+  const handlebet = (betType) => {
     if (gameState?.value > 0) {
       setButtonClick1(true);
       setButtonClick2(true);
@@ -133,12 +130,12 @@ const AndarBahar = () => {
       alert("Insufficient Funds");
       return;
     }
-    const bait = {
-      baitType,
+    const bet = {
+      betType,
       coins,
       cardId: mainCard._id,
     };
-    socket.emit("bait", bait);
+    socket.emit("bet", bet);
   };
 
   return (
@@ -193,7 +190,6 @@ const AndarBahar = () => {
               left="3"
               color="white"
               alignItems="center"
-              
             />
             <MainCardSection mainCard={mainCard} />
             <Box width="15%">
@@ -325,7 +321,9 @@ const AndarBahar = () => {
                 ${user?._id}
               </Text> */}
               {user?.coins > 0 ? (
-                <Text fontSize="24px">${user?.coins}</Text>
+                <Text fontSize="24px">
+                  ${Math.round(user?.coins * 100) / 100}
+                </Text>
               ) : (
                 <Text fontSize="24px">$0</Text>
               )}
@@ -377,48 +375,48 @@ const AndarBahar = () => {
 
           {/* Player Button */}
           {/* {gameState?.value - 20 > 0 && ( */}
-            <Box
-              border="2px solid red"
-              width="100%"
-              flexDirection="row"
-              height="30%"
+          <Box
+            border="2px solid red"
+            width="100%"
+            flexDirection="row"
+            height="30%"
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            backgroundColor="lightgray"
+          >
+            <Button
+              width="47%"
+              height="80%"
               display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              backgroundColor="lightgray"
+              justifyContent="space-around"
+              variant="unstyled"
+              fontSize="1.5rem"
+              textColor="white"
+              backgroundColor="#640e18"
+              borderRadius="1rem"
+              onClick={() => handlebet(0)}
+              isDisabled={gameState?.value - 25 < 0 && buttonClick1}
             >
-              <Button
-                width="47%"
-                height="80%"
-                display="flex"
-                justifyContent="space-around"
-                variant="unstyled"
-                fontSize="1.5rem"
-                textColor="white"
-                backgroundColor="#640e18"
-                borderRadius="1rem"
-                onClick={() => handleBait(0)}
-                isDisabled={gameState?.value - 25 < 0 && buttonClick1}
-              >
-                Andar <span>1.98</span>
-              </Button>
+              Andar <span>1.98</span>
+            </Button>
 
-              <Button
-                width="47%"
-                height="80%"
-                display="flex"
-                justifyContent="space-around"
-                variant="unstyled"
-                fontSize="1.5rem"
-                textColor="white"
-                backgroundColor="#1c3e6b"
-                borderRadius="1rem"
-                onClick={() => handleBait(1)}
-                isDisabled={gameState?.value - 25 < 0 && buttonClick2}
-              >
-                Bahar <span>1.98</span>
-              </Button>
-            </Box>
+            <Button
+              width="47%"
+              height="80%"
+              display="flex"
+              justifyContent="space-around"
+              variant="unstyled"
+              fontSize="1.5rem"
+              textColor="white"
+              backgroundColor="#1c3e6b"
+              borderRadius="1rem"
+              onClick={() => handlebet(1)}
+              isDisabled={gameState?.value - 25 < 0 && buttonClick2}
+            >
+              Bahar <span>1.98</span>
+            </Button>
+          </Box>
           {/* )} */}
         </Box>
       </>

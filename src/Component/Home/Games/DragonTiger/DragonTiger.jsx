@@ -1,3 +1,5 @@
+import "./DragonTiger.css";
+
 import {
   AspectRatio,
   Box,
@@ -24,20 +26,28 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
-
 import React, { useEffect, useRef, useState } from "react";
 
-//  import Gamingimage from "../Games/images/GAMING GIRL 1.svg";
-import Gamingimage from "../../Games/Images/GAMING GIRL 1.svg"; 
-import "./DragonTiger.css";
-
-import { io } from "socket.io-client";
-import pann from "../../Games/Images/Pann.svg";
+import Gamingimage from "../../Games/Images/GAMING GIRL 1.svg";
+import NoteIcon from "@mui/icons-material/Note";
 import flower from "../../Games/Images/Flower.svg";
 import heart from "../../Games/Images/Heart.svg";
 import heart1 from "../../Games/Images/Heart1.svg";
+import { io } from "socket.io-client";
+import pann from "../../Games/Images/Pann.svg";
 import vector from "../../Games/Images/Vector-1.svg";
-import NoteIcon from "@mui/icons-material/Note";
+
+//  import Gamingimage from "../Games/images/GAMING GIRL 1.svg";
+
+
+
+
+
+
+
+
+
+
 const socket = io("https://dragontiger-backend.onrender.com", {
   query: {
     userId: Math.floor(Math.random() * Date.now()),
@@ -392,7 +402,7 @@ export default function DragonTiger() {
                         >
                           <Stack direction="column" width={["10rem", "12rem"]}>
                             <Box color={"Yellow"} fontSize={["1.4rem", "2rem"]}>
-                              Dragon
+                              {/* Dragon */}
                             </Box>
                             {gameState.value < 14 && (
                               <Box
@@ -410,7 +420,7 @@ export default function DragonTiger() {
                             direction="column"
                           >
                             <Box color={"Yellow"} fontSize={["1.4rem", "2rem"]}>
-                              Tiger
+                              {/* Tiger */}
                             </Box>
                             {gameState.value < 15 && (
                               <Box width={["1.5rem", "3rem"]}>
@@ -994,7 +1004,7 @@ export default function DragonTiger() {
                   <div className="box1">
                     <div className="white-box">
                       <div className="image">
-                        <img src={pann} alt="" />  
+                        <img src={pann} alt="" />
                         <img src={flower} alt="" />
                       </div>
                       <span>1.98</span>
@@ -1012,7 +1022,7 @@ export default function DragonTiger() {
                 <div className="container">
                   <h6>TIGER COLOUR</h6>
                   <div className="box1">
-                     <div className="white-box">
+                    <div className="white-box">
                       <div className="image">
                         <img src={pann} alt="" />
                         <img src={flower} alt="" />

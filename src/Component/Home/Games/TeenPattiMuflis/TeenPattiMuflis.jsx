@@ -1,4 +1,4 @@
-
+import "./TeenPattiMuflis.css";
 
 import {
   AspectRatio,
@@ -16,9 +16,10 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-// import "../Andar&Bahar/AndarBahar.css"
+
 import { io } from "socket.io-client";
-import "./TeenPattiMuflis.css";
+
+// import "../Andar&Bahar/AndarBahar.css"
 
 const socket = io("https://muflisteenpattibackend.onrender.com", {
   query: {
@@ -64,9 +65,12 @@ export default function TeenPattiMuflis() {
       socket.off("Main_Card", handelCards);
     };
   }, []);
-  useEffect(() => { }, []);
 
-  const handelBet = (baitType) => {
+  if (timer?.value === 3) {
+    socket.emit("getUpdatedUserDetails");
+  }
+
+  const handelBet = (betType) => {
     if (timer?.value <= 21) {
       setButtonClick(true);
     }
@@ -75,23 +79,21 @@ export default function TeenPattiMuflis() {
       alert("Insufficient Fund");
       return;
     }
-    const bait = {
-      baitType,
+    const bet = {
+      betType,
       coins,
       cardId: mainCard._id,
     };
-    socket.emit("bait", bait);
-    console.log("bait", bait);
-    // console.log("baitType", bait.baitType);
-    // console.log("coins", bait.coins);
+    socket.emit("bet", bet);
+    console.log("bet", bet);
+    // console.log("betType", bet.betType);
+    // console.log("coins", bet.coins);
   };
 
   return (
     <>
       <ChakraProvider>
         <Box maxW={["100%", "100%"]}>
-
-
           <Box width={["100%"]} id="first">
             <Flex justify="space-between" align="center" mb="2">
               <Text
@@ -107,7 +109,12 @@ export default function TeenPattiMuflis() {
                 Rules
               </Button>
             </Flex>
-            <AspectRatio width={["100%"]} minHeight="50%" borderRadius="10px" controls>
+            <AspectRatio
+              width={["100%"]}
+              minHeight="50%"
+              borderRadius="10px"
+              controls
+            >
               <Box
                 border="4px solid #333"
                 backgroundImage="url('/MuflisTeenPatti/MuflisTeenPatti.webp')"
@@ -144,7 +151,7 @@ export default function TeenPattiMuflis() {
                     color="white"
                     fontWeight="bold"
                     id="round1"
-                  > 
+                  >
                     <span>Winner:{mainCard?.winstatus}</span>
                   </Text>
                 )}
@@ -179,40 +186,31 @@ export default function TeenPattiMuflis() {
                          alt="123" />
                       ))} */}
 
-                     {
-                  timer.value - 25 <= -11  &&(
-                    
-                    <Image 
-                    key={0}
-                     src={`/cards/${player1Cards[0]}`} 
-                     alt="1"
-                      /> 
-                  )
-                 }
+                      {timer.value - 25 <= -11 && (
+                        <Image
+                          key={0}
+                          src={`/cards/${player1Cards[0]}`}
+                          alt="1"
+                        />
+                      )}
 
-                   {
-                  timer.value - 25 <= -17  &&(
-                    
-                    <Image 
-                    key={1}
-                     src={`/cards/${player1Cards[1]}`} 
-                     alt="2"
-                     className="cardShow"
-                      /> 
-                  )
-                 }
+                      {timer.value - 25 <= -17 && (
+                        <Image
+                          key={1}
+                          src={`/cards/${player1Cards[1]}`}
+                          alt="2"
+                          className="cardShow"
+                        />
+                      )}
 
-                  {
-                  timer.value - 25 <= -19  &&(
-                    
-                    <Image 
-                    key={2}
-                     src={`/cards/${player1Cards[2]}`} 
-                     alt="3"
-                     className="cardShow"
-                      /> 
-                  )
-                 }
+                      {timer.value - 25 <= -19 && (
+                        <Image
+                          key={2}
+                          src={`/cards/${player1Cards[2]}`}
+                          alt="3"
+                          className="cardShow"
+                        />
+                      )}
                     </Box>
                   )}
                   {timer?.value - 25 <= -15 && (
@@ -234,40 +232,30 @@ export default function TeenPattiMuflis() {
                           />
                       ))} */}
 
-                      {
-                        timer.value - 25 <= -15  &&(
-                          
-                          <Image 
+                      {timer.value - 25 <= -15 && (
+                        <Image
                           key={0}
-                           src={`/cards/${player2Cards[0]}`} 
-                           alt="1"
+                          src={`/cards/${player2Cards[0]}`}
+                          alt="1"
+                        />
+                      )}
 
-                            /> 
-                        )
-                       }
-                  
-                  {
-                        timer.value - 25 <= -18   &&(
-                          
-                          <Image 
+                      {timer.value - 25 <= -18 && (
+                        <Image
                           key={1}
-                           src={`/cards/${player2Cards[1]}`} 
-                           alt="2"
-                           className="cardShow"
-                            /> 
-                        )
-                       }
-                        {
-                        timer.value - 25 <= -20 &&(
-                          
-                          <Image 
+                          src={`/cards/${player2Cards[1]}`}
+                          alt="2"
+                          className="cardShow"
+                        />
+                      )}
+                      {timer.value - 25 <= -20 && (
+                        <Image
                           key={2}
-                           src={`/cards/${player2Cards[2]}`}  
-                           alt="3"
-                           className="cardShow"
-                            /> 
-                        )
-                       }
+                          src={`/cards/${player2Cards[2]}`}
+                          alt="3"
+                          className="cardShow"
+                        />
+                      )}
                     </Box>
                   )}
                 </Box>
@@ -275,13 +263,14 @@ export default function TeenPattiMuflis() {
             </AspectRatio>
           </Box>
           {/* Player History */}
-          <Text fontSize="1.5rem" 
-          marginTop={["35rem", "2rem"]} 
-          fontWeight="bold"
-          id="lastWin"
-          
-          
-           >Last Wins :</Text>
+          <Text
+            fontSize="1.5rem"
+            marginTop={["35rem", "2rem"]}
+            fontWeight="bold"
+            id="lastWin"
+          >
+            Last Wins :
+          </Text>
           <Box
             width={["120.8%", "45%"]}
             marginBottom={["4rem", "0"]}
@@ -292,19 +281,18 @@ export default function TeenPattiMuflis() {
             marginLeft={["0.3rem", "0"]}
             position="relative"
             justifyContent="space-between"
-            id='arry'
+            id="arry"
           >
             {[...Array(10)].map((_, index) => (
               <Text
                 border="1px solid black"
                 backgroundColor="grey"
                 key={index}
-                fontSize={["15px","20px"]}
+                fontSize={["15px", "20px"]}
                 color={index % 2 === 0 ? "black" : "#553325"}
                 width="5%"
                 height="40%"
                 align="center"
-
                 fontWeight="bold"
               >
                 <Text
@@ -315,23 +303,37 @@ export default function TeenPattiMuflis() {
                 </Text>
               </Text>
             ))}
-            <Box display="flex" right={["0", "-16.5rem"]} top={["2.5rem", "-0.5rem"]} position="absolute" justifyContent="space-around" id="match-id-btn">
-              <Text marginRight="1rem" fontWeight="700" backgroundColor="grey" borderRadius="1rem" paddingX="1rem" >Match Id: {mainCard?.gameid}</Text>
+            <Box
+              display="flex"
+              right={["0", "-16.5rem"]}
+              top={["2.5rem", "-0.5rem"]}
+              position="absolute"
+              justifyContent="space-around"
+              id="match-id-btn"
+            >
+              <Text
+                marginRight="1rem"
+                fontWeight="700"
+                backgroundColor="grey"
+                borderRadius="1rem"
+                paddingX="1rem"
+              >
+                Match Id: {mainCard?.gameid}
+              </Text>
 
               <Button width="60%" colorScheme="blue">
                 Player History
               </Button>
             </Box>
-
           </Box>
           {/* Betting Area */}
 
           <Box
-            width={["100%","53%"]}
+            width={["100%", "53%"]}
             position="absolute"
             // border="4px solid #333"
             height="45%"
-            borderRadius='1rem'
+            borderRadius="1rem"
             display="flex"
             flexDirection="column"
             alignItems="center"
@@ -340,11 +342,13 @@ export default function TeenPattiMuflis() {
             marginTop="1%"
             id="third"
           >
-            <Text color="white"
-             fontWeight="500"
-              fontSize={["1.5rem","2rem"]}
-               mt="1rem" textAlign="left"
-               >
+            <Text
+              color="white"
+              fontWeight="500"
+              fontSize={["1.5rem", "2rem"]}
+              mt="1rem"
+              textAlign="left"
+            >
               Place Your Bet!
             </Text>
             <Box
@@ -357,11 +361,9 @@ export default function TeenPattiMuflis() {
               // backgroundColor="transparent"
               // alignItems="center"
               ml={["0rem", "9rem"]}
-             
-             mb={["1rem"]}
-             mt={["1rem"]}
+              mb={["1rem"]}
+              mt={["1rem"]}
               width={["100%", "80%"]}
-            
               id="money"
             >
               {[
@@ -376,14 +378,14 @@ export default function TeenPattiMuflis() {
                   // border="2px solid grey"
                   ml={["0.8rem", "0rem"]}
                   key={index}
-                  height={["3rem","4rem"]}
+                  height={["3rem", "4rem"]}
                   margin={["rem", "0.5rem"]}
                   display="flex"
                   justifyContent="center"
                   alignItems="center"
                   fontWeight="bold"
                   variant="unstyled"
-                  _hover={{ height:"2.5rem" }}
+                  _hover={{ height: "2.5rem" }}
                   onClick={() => {
                     setCoins(value);
                     // console.log("coins", value);
@@ -543,7 +545,7 @@ export default function TeenPattiMuflis() {
           <Box
             // border="5px dotted blue"
             width={["100%", "28%"]}
-            height={["90%","80%"]}
+            height={["90%", "80%"]}
             position="absolute"
             right={["0", "1.5rem"]}
             top={["78%", "21%"]}
@@ -559,14 +561,14 @@ export default function TeenPattiMuflis() {
               align="center"
               borderRadius="1rem"
             >
-              <Box backgroundColor="#ee9d1e"
-               padding="0.5rem"
+              <Box
+                backgroundColor="#ee9d1e"
+                padding="0.5rem"
                 mb="0.5rem"
                 borderRadius="1rem"
                 className="availavleCredit"
-                >
-                <Text fontSize="18px" 
-                fontWeight="bold" color="white">
+              >
+                <Text fontSize="18px" fontWeight="bold" color="white">
                   Available Credit
                 </Text>
                 <Text
@@ -575,11 +577,15 @@ export default function TeenPattiMuflis() {
                   fontWeight="bold"
                   color="white"
                 >
-                  ${user?.coins}
+                  ${Math.round(user?.coins * 100) / 100}
                 </Text>
               </Box>
 
-              <Box backgroundColor="#e0e0e0" padding="0.5rem" borderRadius="1rem">
+              <Box
+                backgroundColor="#e0e0e0"
+                padding="0.5rem"
+                borderRadius="1rem"
+              >
                 <Text fontSize="18px" fontWeight="bold">
                   Player ID
                 </Text>
@@ -589,14 +595,8 @@ export default function TeenPattiMuflis() {
               </Box>
             </Box>
 
-            <Box 
-            border="2px solid black"
-             borderRadius="1rem"
-            id="tableBox"
-
-             >
-              <Table variant="simple" width="100% " 
-               id="tavle">
+            <Box border="2px solid black" borderRadius="1rem" id="tableBox">
+              <Table variant="simple" width="100% " id="tavle">
                 <Thead>
                   <Tr>
                     <Th>High Cards Market Payouts</Th>
@@ -638,4 +638,3 @@ export default function TeenPattiMuflis() {
     </>
   );
 }
-  

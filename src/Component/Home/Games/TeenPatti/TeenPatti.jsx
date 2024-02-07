@@ -198,7 +198,7 @@
 //                       width="100%"
 //                       className="players"
 //                       id="playerB"
-                 
+
 //                       mt={["1rem"]}
 //                     >
 //                       PLAYER B
@@ -420,6 +420,8 @@
 
 // export default TeenPatti;
 
+import "./Teenpatti.css";
+
 import {
   AspectRatio,
   Box,
@@ -442,9 +444,10 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+
 import { io } from "socket.io-client";
-import Teenpatti from "../../Games/Images/TeenPatti 1.svg";
-import "./Teenpatti.css";
+
+// import Teenpatti from "/public/MuflisTeenPatti/MuflisTeenPatti";
 
 const socket = io("https://teenpattibackend.onrender.com", {
   query: {
@@ -457,7 +460,7 @@ function TeenPatti() {
   const [user, setUser] = useState(null);
   const [coins, setCoins] = useState(50);
   const [mainCard, setMainCard] = useState([]);
-  const [swithCard, setSwitchCard] = useState(true); 
+  const [swithCard, setSwitchCard] = useState(true);
   const [player1Cards, setPlayer1Cards] = useState([]);
   const [player2Cards, setPlayer2Cards] = useState([]);
 
@@ -487,37 +490,30 @@ function TeenPatti() {
       // setUser(data.user);
     });
 
-  
     socket.on("Main_Card", (data) => {
       console.log("Main_Card Data:", data);
       setMainCard(data.gameCard);
       displayPlayerCards(data.gameCard.player1Cards, setPlayer1Cards);
       displayPlayerCards(data.gameCard.player2Cards, setPlayer2Cards);
-      
     });
-   
 
     return () => {
-      
-
       socket.disconnect();
     };
   }, []);
   // const displayPlayerCards = (cards, setPlayerCards) => {
   //   const displayedCards = cards.slice(0, 3); // Take only the first 3 cards
 
+  const displayPlayerCards = (cards, setPlayerCards) => {
+    const displayedCards = [];
 
+    for (let i = 0; i < 3; i++) {
+      // Display one card for each player in each iteration
+      displayedCards.push(cards[i % 2]);
+    }
 
-const displayPlayerCards = (cards, setPlayerCards) => {
-  const displayedCards = [];
-
-  for (let i = 0; i < 3; i++) {
-    // Display one card for each player in each iteration
-    displayedCards.push(cards[i % 2]);
-  }
-  
-  setPlayerCards(displayedCards);
-};
+    setPlayerCards(displayedCards);
+  };
 
   const handleBait = (baitType) => {
     if (user?.coins <= 0) {
@@ -536,9 +532,7 @@ const displayPlayerCards = (cards, setPlayerCards) => {
   return (
     <>
       <ChakraProvider>
-        <Box maxW={'100vw'} >
-
-
+        <Box maxW={"100vw"}>
           <Box m={"0"}>
             <Flex justifyContent={"space-between"}>
               <AspectRatio
@@ -547,20 +541,22 @@ const displayPlayerCards = (cards, setPlayerCards) => {
                 // minHeight="50%"
                 borderRadius="10px"
                 controls
-              // ml={["2.5rem", "0rem"]}
-              //  id='AspectRatio'
+                // ml={["2.5rem", "0rem"]}
+                //  id='AspectRatio'
               >
                 <Box
                   height="auto" // Adjust the height as needed
                   // background="linear-gradient(#c86363, #51a454, #517a9c)"
 
-                  backgroundImage={Teenpatti}
+                  // backgroundImage={Teenpatti}
+                  backgroundImage="url('/public/MuflisTeenPatti/MuflisTeenPatti.webp')"
                   backgroundSize="cover"
                   display="flex"
                   flexDirection="column"
                   justifyContent="flex-start"
                   alignItems="top"
                   position="relative"
+                  backgroundPosition={`center 100%`}
                   // width={"100%"}
                   id="teenpattimainimg"
                 >
@@ -586,55 +582,53 @@ const displayPlayerCards = (cards, setPlayerCards) => {
                   >
                     {gameState?.value <= 20 ? "Freeze" : "Place  Bet"}
                   </Box>
-                  <Box position='absolute' top='5rem'
-                    left='-0.7rem' id='winner-main'>
-                    {
-                      gameState.value < 8 &&
-                      (
-                        <Button
-                          // background="linear-gradient(to bottom right,#ED9203, #323349, #880000)"
-                          background="linear-gradient(to bottom right, #ED9203, #C7E600)"
-                          height={"2rem"}
-                          width={"10rem"}
-                          position='absolute'
-                          Top={["2rem", ""]}
-                          left={['6rem']}
-                          id='winner'
-                        >
-                          Winner: {mainCard?.winstatus}
-                        </Button>
-                      )}
+                  <Box
+                    position="absolute"
+                    top="5rem"
+                    left="-0.7rem"
+                    id="winner-main"
+                  >
+                    {gameState.value < 8 && (
+                      <Button
+                        // background="linear-gradient(to bottom right,#ED9203, #323349, #880000)"
+                        background="linear-gradient(to bottom right, #ED9203, #C7E600)"
+                        height={"2rem"}
+                        width={"10rem"}
+                        position="absolute"
+                        Top={["2rem", ""]}
+                        left={["6rem"]}
+                        id="winner"
+                      >
+                        Winner: {mainCard?.winstatus}
+                      </Button>
+                    )}
                   </Box>
 
-                  {
-                    gameState.value >= 1 &&
-                    (
-                      <Flex flexWrap="wrap">
-                        <Box
-                          color={"Yellow"}
-                          fontSize="1rem"
-                          width={["20%", "20%"]}
-                          // backgroundColor='red'
-                          className="players"
-                          id="playerA"
-                          mt={["0", "-1rem"]}
+                  {gameState.value >= 1 && (
+                    <Flex flexWrap="wrap">
+                      <Box
+                        color={"Yellow"}
+                        fontSize="1rem"
+                        width={["20%", "20%"]}
+                        // backgroundColor='red'
+                        className="players"
+                        id="playerA"
+                        mt={["0", "-1rem"]}
+                      >
+                        {/* PLAYER A */}
+                      </Box>
+                      {gameState.value < 14 && (
+                        <Flex
+                          position="absolute"
+                          width="40%"
+                          flexDirection="row"
+                          // border='2px'
+                          top="8rem"
+                          id="playerA-Card"
+                          // marginLeft={["11rem", "20rem"]}
+                          // marginTop={"9rem"}
                         >
-                          PLAYER A
-                        </Box>
-                        {
-                          gameState.value < 14 &&
-                          (
-                            <Flex
-                              position='absolute'
-                              width="40%"
-                              flexDirection='row'
-                              // border='2px'
-                              top='8rem'
-                              id="playerA-Card"
-                            // marginLeft={["11rem", "20rem"]}
-                            // marginTop={"9rem"}
-                            >
-                              {/* {player1Cards.map((card, index) => (
+                          {/* {player1Cards.map((card, index) => (
                                 <Image
                                   key={index}
                                   src={`/cards/${card}`}
@@ -643,74 +637,59 @@ const displayPlayerCards = (cards, setPlayerCards) => {
                                   id="cards-positionA"
                                 />
                               ))} */}
-                              {
-                                gameState.value <= 14 && (
-                                  (
-                                    <Image
-                                      key={0}
-                                      src={`/cards/${player1Cards[0]}`}
-                                      boxSize={["2rem","3rem"]}
-                                      margin="0.5rem"
-                                      id="cards-positionA"
-                                    />
-                                  )
-                                )
-                              }
-                              {
-                                gameState.value <= 11 && (
-                                  (
-                                    <Image
-                                      key={1}
-                                      src={`/cards/${player1Cards[1]}`}
-                                      boxSize={["2rem","3rem"]}
-                                      margin="0.5rem"
-                                      id="cards-positionA"
-                                    />
-                                  )
-                                )
-                              }
-                              {
-                                gameState.value <= 9 && (
-                                  (
-                                    <Image
-                                      key={2}
-                                      src={`/cards/${player1Cards[2]}`}
-                                      boxSize={["2rem","3rem"]}
-                                      margin="0.5rem"
-                                      id="cards-positionA"
-                                    />
-                                  )
-                                )
-                              }
-                            </Flex>
+                          {gameState.value <= 14 && (
+                            <Image
+                              key={0}
+                              src={`/cards/${player1Cards[0]}`}
+                              boxSize={["2rem", "3rem"]}
+                              margin="0.5rem"
+                              id="cards-positionA"
+                            />
                           )}
+                          {gameState.value <= 11 && (
+                            <Image
+                              key={1}
+                              src={`/cards/${player1Cards[1]}`}
+                              boxSize={["2rem", "3rem"]}
+                              margin="0.5rem"
+                              id="cards-positionA"
+                            />
+                          )}
+                          {gameState.value <= 9 && (
+                            <Image
+                              key={2}
+                              src={`/cards/${player1Cards[2]}`}
+                              boxSize={["2rem", "3rem"]}
+                              margin="0.5rem"
+                              id="cards-positionA"
+                            />
+                          )}
+                        </Flex>
+                      )}
 
-                        <Box
-                          color={"Yellow"}
-                          fontSize={["1.4rem", "5rem"]}
-                          width={["20%", "20%"]}
-                          // backgroundColor='red'
-                          className="players"
-                          id="playerB"
-
-                          mt={["1rem"]}
+                      <Box
+                        color={"Yellow"}
+                        fontSize={["1.4rem", "5rem"]}
+                        width={["20%", "20%"]}
+                        // backgroundColor='red'
+                        className="players"
+                        id="playerB"
+                        mt={["1rem"]}
+                      >
+                        {/* PLAYER B */}
+                      </Box>
+                      {gameState.value < 14 && ( //update 14 to 10
+                        <Flex
+                          position="absolute"
+                          width="40%"
+                          top="16.5rem"
+                          id="playerB-Card"
+                          flexDirection="row"
+                          // marginLeft={["11rem", "20rem"]}
+                          // marginTop={"5rem"}
                         >
-                          PLAYER B
-                        </Box>
-                        {
-                          gameState.value < 14 && //update 14 to 10
-                          (
-                            <Flex
-                              position='absolute'
-                              width="40%"
-                              top='16.5rem'
-                              id="playerB-Card"
-                              flexDirection='row'
-                            // marginLeft={["11rem", "20rem"]}
-                            // marginTop={"5rem"}
-                            >
-                              {/* uncomment */}
-                              {/* {player2Cards.map((card, index) => (
+                          {/* uncomment */}
+                          {/* {player2Cards.map((card, index) => (
                                 <Image
                                   key={index}
                                   src={`/cards/${card}`}
@@ -720,47 +699,40 @@ const displayPlayerCards = (cards, setPlayerCards) => {
                                   id="cards-positionB"
                                 />
                               ))} */}
-                              {
-                                gameState.value <= 12 && (
-                                  <Image
-                                  key={0}
-                                  src={`/cards/${player2Cards[0]}`}
-                                  boxSize={["2rem","3rem"]}
-                                  margin="0.5rem"
-                                  marginTop={"-5rem"}
-                                  id="cards-positionB"
-                                />
-                                )
-                              }
-                              {
-                                gameState.value <= 10 && (
-                                  <Image
-                                  key={1}
-                                  src={`/cards/${player2Cards[1]}`}
-                                  boxSize={["2rem","3rem"]}
-                                  margin="0.5rem"
-                                  marginTop={"-5rem"}
-                                  id="cards-positionB"
-                                />
-                                )
-                              }
-                              {
-                                gameState.value <= 8 && (
-                                  <Image
-                                  key={2}
-                                  src={`/cards/${player2Cards[2]}`}
-                                  boxSize={["2rem","3rem"]}
-                                  margin="0.5rem"
-                                  marginTop={"-5rem"}
-                                  id="cards-positionB"
-                                />
-                                )
-                              }
-                              
-                            </Flex>
+                          {gameState.value <= 12 && (
+                            <Image
+                              key={0}
+                              src={`/cards/${player2Cards[0]}`}
+                              boxSize={["2rem", "3rem"]}
+                              margin="0.5rem"
+                              marginTop={"-5rem"}
+                              id="cards-positionB"
+                            />
                           )}
-                      </Flex>
-                    )}
+                          {gameState.value <= 10 && (
+                            <Image
+                              key={1}
+                              src={`/cards/${player2Cards[1]}`}
+                              boxSize={["2rem", "3rem"]}
+                              margin="0.5rem"
+                              marginTop={"-5rem"}
+                              id="cards-positionB"
+                            />
+                          )}
+                          {gameState.value <= 8 && (
+                            <Image
+                              key={2}
+                              src={`/cards/${player2Cards[2]}`}
+                              boxSize={["2rem", "3rem"]}
+                              margin="0.5rem"
+                              marginTop={"-5rem"}
+                              id="cards-positionB"
+                            />
+                          )}
+                        </Flex>
+                      )}
+                    </Flex>
+                  )}
                   <Box
                     fontWeight={"1000"}
                     border={"1px solid white"}
@@ -797,7 +769,7 @@ const displayPlayerCards = (cards, setPlayerCards) => {
                   boxShadow="4px 4px 10px rgba(3, 0, 2, 0.6)"
                   display="flex"
                   borderRadius="1rem"
-                  mt={["5rem" , ""]}
+                  mt={["5rem", ""]}
                 >
                   <Box
                     flex="1"
@@ -807,10 +779,18 @@ const displayPlayerCards = (cards, setPlayerCards) => {
                     borderRight="4px solid #668cff"
                     className="abc"
                   >
-                    <Text color={"#668cff"} fontSize={["17px", "18px"]} fontWeight="bold">
+                    <Text
+                      color={"#668cff"}
+                      fontSize={["17px", "18px"]}
+                      fontWeight="bold"
+                    >
                       Available Credit :
                     </Text>
-                    <Text color="#daa520" fontWeight={"500"} fontSize={["20px", "24px"]}>
+                    <Text
+                      color="#daa520"
+                      fontWeight={"500"}
+                      fontSize={["20px", "24px"]}
+                    >
                       {user?.coins && Math.max(0, user?.coins)}
                     </Text>
                   </Box>
@@ -819,7 +799,11 @@ const displayPlayerCards = (cards, setPlayerCards) => {
                     <Text color={"#668cff"} fontSize="18px" fontWeight="bold">
                       Match Id :
                     </Text>
-                    <Text color="#daa520" fontWeight={"500"} fontSize={["20px", "24px"]}>
+                    <Text
+                      color="#daa520"
+                      fontWeight={"500"}
+                      fontSize={["20px", "24px"]}
+                    >
                       {user?.userId}
                     </Text>
                   </Box>
@@ -885,81 +869,82 @@ const displayPlayerCards = (cards, setPlayerCards) => {
               Choose the Amount
             </Text>
 
-          <Box>
-            <Box
-            mt={["4rem" , ""]}
-              display={"flex"}
-              flexDirection={"row"}
-              id="amountbox"
+            <Box>
+              <Box
+                mt={["4rem", ""]}
+                display={"flex"}
+                flexDirection={"row"}
+                id="amountbox"
 
-            // ml={["0rem", "3rem"]}
-            >
-              {[
-                { value: 10, imageSrc: "/Coins/10's coin.webp" },
-                { value: 50, imageSrc: "/Coins/50's coin.webp" },
-                { value: 100, imageSrc: "/Coins/100's coin.webp" },
-                { value: 500, imageSrc: "/Coins/500's coin.webp" },
-                { value: 1000, imageSrc: "/Coins/1000's coin.webp" },
-                { value: 5000, imageSrc: "/Coins/5000's coin.webp" },
-              ].map((item, index) => (
+                // ml={["0rem", "3rem"]}
+              >
+                {[
+                  { value: 10, imageSrc: "/Coins/10's coin.webp" },
+                  { value: 50, imageSrc: "/Coins/50's coin.webp" },
+                  { value: 100, imageSrc: "/Coins/100's coin.webp" },
+                  { value: 500, imageSrc: "/Coins/500's coin.webp" },
+                  { value: 1000, imageSrc: "/Coins/1000's coin.webp" },
+                  { value: 5000, imageSrc: "/Coins/5000's coin.webp" },
+                ].map((item, index) => (
+                  <Button
+                    key={index}
+                    height="45px"
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    fontWeight="bold"
+                    variant="unstyled"
+                    _hover={{ height: "2rem" }}
+                    onClick={() => {
+                      setCoins(item.value);
+                      console.log(item.value);
+                    }}
+                  >
+                    <img
+                      height={"10rem"}
+                      src={item.imageSrc}
+                      alt={`${item.value}'s coin`}
+                      style={{ maxHeight: "55px" }}
+                    />
+                  </Button>
+                ))}
+              </Box>
+
+              <Box
+                mr={["2.2rem", "0rem"]}
+                ml={["1rem", "9rem"]}
+                mt={["5rem", "1rem"]}
+                id="playersbutton"
+              >
                 <Button
-                  key={index}
-                  height="45px"
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                  fontWeight="bold"
-                  variant="unstyled"
-                  _hover={{ height: "2rem" }}
-                  onClick={() => {
-                    setCoins(item.value);
-                    console.log(item.value);
+                  onClick={() => handleBait("0")}
+                  disabled={gameState?.value <= 10}
+                  width={"10rem"}
+                  height={"5rem"}
+                  bgGradient="linear(to-r, teal.200, blue.500)"
+                  _hover={{
+                    bgGradient: "linear(to-r, red.200, orange.500, yellow.400)", // Change colors on hover
                   }}
                 >
-                  <img
-                    height={"10rem"}
-                    src={item.imageSrc}
-                    alt={`${item.value}'s coin`}
-                    style={{ maxHeight: "55px" }}
-                  />
+                  Player A
                 </Button>
-              ))}
-            </Box>
-
-            <Box
-
-            mr={['2.2rem' , "0rem"]}
-            ml={["1rem" ,"9rem"]} mt={["5rem" , "1rem"]} id="playersbutton">
-              <Button
-                onClick={() => handleBait("0")}
-                disabled={gameState?.value <= 10}
-                width={"10rem"}
-                height={"5rem"}
-                bgGradient="linear(to-r, teal.200, blue.500)"
-                _hover={{
-                  bgGradient: "linear(to-r, red.200, orange.500, yellow.400)", // Change colors on hover
-                }}
-              >
-                Player A
-              </Button>
-              <Button
-                onClick={() => handleBait("1")}
-                disabled={gameState?.value <= 10}
-                width={"10rem"}
-                ml={"1rem"}
-                height={"5rem"}
-                bgGradient="linear(to-r, teal.200, blue.500)"
-                _hover={{
-                  bgGradient: "linear(to-r, red.200, orange.500, yellow.400)", // Change colors on hover
-                }}
-              >
-                Player B
-              </Button>
-            </Box>
+                <Button
+                  onClick={() => handleBait("1")}
+                  disabled={gameState?.value <= 10}
+                  width={"10rem"}
+                  ml={"1rem"}
+                  height={"5rem"}
+                  bgGradient="linear(to-r, teal.200, blue.500)"
+                  _hover={{
+                    bgGradient: "linear(to-r, red.200, orange.500, yellow.400)", // Change colors on hover
+                  }}
+                >
+                  Player B
+                </Button>
+              </Box>
             </Box>
           </Box>
         </Box>
-
       </ChakraProvider>
     </>
   );

@@ -307,319 +307,289 @@
     }
   } */
 
+/* 3Cards-Teen-Patti */
 
-  /* 3Cards-Teen-Patti */
-
-  @media screen and (min-width: 320px) {
-
-    #abcde {
-      height: 1rem;
-      margin-bottom: 0.5rem;
-    }
-  
-    #teenpattifreezeplacebettext {
-      font-size: 0.7rem;
-  
-    }
-  
-    #playerA {
-      position: absolute;
-      top: 9rem;
-      left: 2rem;
-      margin-left: 0rem;
-      font-size: 0.7rem;
-  
-    }
-  
-    #playerB {
-      position: absolute;
-  
-      /* background-color: red; */
-      top: 11rem;
-      left: 2rem;
-      margin-bottom: 5rem;
-      font-size: 0.7rem;
-  
-    }
-  
-    #teenpattimainimg {
-      width: 105.5%;
-  
-      /* margin-bottom: 60rem; */
-      /* background-color: red; */
-    }
-    #outputbox {
-      /* background-color: blue; */
-      width: 100%;
-      position: absolute;
-      top: 39rem;
-      justify-content: space-around;
-  
-      font-size: 1rem;
-    }
-  
-  
-    #amountbox {
-  
-      width: 90%;
-      /* background-color: yellow; */
-      justify-content: space-around;
-      position: absolute;
-      top: 29rem;
-      left: 0.5rem;
-  
-    }
-  
-    #chooseamount {
-      position: absolute;
-      top: 36.2rem;
-      left: 5.2rem;
-      font-size: 1rem;
-    }
-  
-    #playersbutton {
-      display: flex;
-      position: absolute;
-      right: 0rem;
-      top: 32rem;
-      left:0rem;
-      /* background-color: black; */
-      width: 20rem;
-  
-    }
-  
-  
+@media screen and (min-width: 320px) {
+  #abcde {
+    height: 1rem;
+    margin-bottom: 0.5rem;
   }
-  
-  @media screen and (min-width: 350px) {
-    #playerA-Card{
-      top: 8.5rem;
-      left: 7rem;
-    }
-    #playerB-Card{
-      top: 18rem;
-      left: 7rem;
-    }
-  
-    #abcde {
-      height: 1rem;
-      margin-bottom: 0.5rem;
-    }
-  
-    #teenpattifreezeplacebettext {
-      font-size: 0.7rem;
-  
-    }
-  
-    #playerA {
-      position: absolute;
-      top: 10rem;
-      left: 2rem;
-      margin-left: 0rem;
-      font-size: 0.7rem;
-  
-    }
-  
-    #playerB {
-      position: absolute;
-  
-      /* background-color: red; */
-      top: 12rem;
-      left: 2rem;
-      margin-bottom: 5rem;
-      font-size: 0.7rem;
-  
-    }
-  
-    #teenpattimainimg {
-      width: 105.5%;
-  
-      /* margin-bottom: 60rem; */
-      /* background-color: red; */
-    }
-    #outputbox {
-      /* background-color: blue; */
-      width: 100%;
-      position: absolute;
-      top: 39rem;
-      justify-content: space-around;
-  
-      font-size: 1rem;
-    }
-  
-  
-    #amountbox {
-  
-      width: 90%;
-      /* background-color: yellow; */
-      justify-content: space-around;
-      position: absolute;
-      top: 29rem;
-      left: 0.5rem;
-  
-    }
-  
-    #chooseamount {
-      position: absolute;
-      top: 36.2rem;
-      left: 5.2rem;
-      font-size: 1rem;
-    }
-  
-    #playersbutton {
-      display: flex;
-      position: absolute;
-      right: 0rem;
-      top: 32rem;
-      /* background-color: black; */
-      width: 20rem;
-  
-    }
-  
-  
+
+  #teenpattifreezeplacebettext {
+    font-size: 0.7rem;
   }
-  
-  @media screen and (min-width: 375px) {
-    .players {
-      margin-left: 7rem;
-  
-    }
-  #playerA-Card{
+
+  #playerA {
+    position: absolute;
+    top: 9rem;
+    left: 2rem;
+    margin-left: 0rem;
+    font-size: 0.7rem;
+  }
+
+  #playerB {
+    position: absolute;
+
+    /* background-color: red; */
+    top: 11rem;
+    left: 2rem;
+    margin-bottom: 5rem;
+    font-size: 0.7rem;
+  }
+
+  #teenpattimainimg {
+    width: 105.5%;
+
+    /* margin-bottom: 60rem; */
+    /* background-color: red; */
+  }
+  #outputbox {
+    /* background-color: blue; */
+    width: 100%;
+    position: absolute;
+    top: 39rem;
+    justify-content: space-around;
+
+    font-size: 1rem;
+  }
+
+  #amountbox {
+    width: 90%;
+    /* background-color: yellow; */
+    justify-content: space-around;
+    position: absolute;
+    top: 29rem;
+    left: 0.5rem;
+  }
+
+  #chooseamount {
+    position: absolute;
+    top: 36.2rem;
+    left: 5.2rem;
+    font-size: 1rem;
+  }
+
+  #playersbutton {
+    display: flex;
+    position: absolute;
+    right: 0rem;
+    top: 32rem;
+    left: 0rem;
+    /* background-color: black; */
+    width: 20rem;
+  }
+}
+
+@media screen and (min-width: 350px) {
+  #playerA-Card {
+    top: 8.5rem;
+    left: 7rem;
+  }
+  #playerB-Card {
+    top: 18rem;
+    left: 7rem;
+  }
+
+  #abcde {
+    height: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  #teenpattifreezeplacebettext {
+    font-size: 0.7rem;
+  }
+
+  #playerA {
+    position: absolute;
+    top: 10rem;
+    left: 2rem;
+    margin-left: 0rem;
+    font-size: 0.7rem;
+  }
+
+  #playerB {
+    position: absolute;
+
+    /* background-color: red; */
+    top: 12rem;
+    left: 2rem;
+    margin-bottom: 5rem;
+    font-size: 0.7rem;
+  }
+
+  #teenpattimainimg {
+    width: 105.5%;
+
+    /* margin-bottom: 60rem; */
+    /* background-color: red; */
+  }
+  #outputbox {
+    /* background-color: blue; */
+    width: 100%;
+    position: absolute;
+    top: 39rem;
+    justify-content: space-around;
+
+    font-size: 1rem;
+  }
+
+  #amountbox {
+    width: 90%;
+    /* background-color: yellow; */
+    justify-content: space-around;
+    position: absolute;
+    top: 29rem;
+    left: 0.5rem;
+  }
+
+  #chooseamount {
+    position: absolute;
+    top: 36.2rem;
+    left: 5.2rem;
+    font-size: 1rem;
+  }
+
+  #playersbutton {
+    display: flex;
+    position: absolute;
+    right: 0rem;
+    top: 32rem;
+    /* background-color: black; */
+    width: 20rem;
+  }
+}
+
+@media screen and (min-width: 375px) {
+  .players {
+    margin-left: 7rem;
+  }
+  #playerA-Card {
     top: 9.5rem;
     left: 8rem;
   }
-  #playerB-Card{
+  #playerB-Card {
     top: 18rem;
     left: 8rem;
-  
   }
-    #winner-main {
-      left: 1rem;
-    }
-  
-    #outputbox {
-      /* background-color: blue; */
-      position: absolute;
-      top: 40rem;
-      justify-content: space-around;
-      /* left: 0.01rem; */
-      /* margin-right: 0.8rem; */
-      width: 100%;
-    }
-  
-    #chooseamount {
-      position: absolute;
-      top: 38.2rem;
-      left: 6.5rem;
-      font-size: 1rem;
-    }
-  #AspectRatio{
+  #winner-main {
+    left: 1rem;
+  }
+
+  #outputbox {
+    /* background-color: blue; */
+    position: absolute;
+    top: 40rem;
+    justify-content: space-around;
+    /* left: 0.01rem; */
+    /* margin-right: 0.8rem; */
+    width: 100%;
+  }
+
+  #chooseamount {
+    position: absolute;
+    top: 38.2rem;
+    left: 6.5rem;
+    font-size: 1rem;
+  }
+  #AspectRatio {
     width: 100%;
     height: 15rem;
   }
-    /* #teenpattimainimg {
+  /* #teenpattimainimg {
       width: 120%;
       /* margin-top: 0.2rem; */
-      /* height: auto;
+  /* height: auto;
       margin-bottom: -5rem; */
-      /* background-color: red; */
-    
-  
-    #amountbox {
-  
-      width: 95%;
-      /* background-color: yellow; */
-      justify-content: space-around;
-      position: absolute;
-      top: 30rem;
-      left: 0.5rem;
-      margin-right: 4rem;
-  
-    }
-  
-    #playerA {
-      position: absolute;
-      top:10.5rem;
-      left: 3rem;
-      margin-left: 0rem;
-      font-size: 0.7rem;
-  
-    }
-  
-    #playerB {
-      position: absolute;
-  
-      /* background-color: red; */
-      top: 12.5rem;
-      left: -4rem;
-      margin-bottom: 5rem;
-      font-size: 0.7rem;
-  
-    }
-  
-    #playersbutton {
-      display: flex;
-      position: absolute;
-      right: 1.7rem;
-      top: 83rem;
-      /* background-color: black; */
-      width: 20rem;
-    }
-  
+  /* background-color: red; */
+
+  #amountbox {
+    width: 95%;
+    /* background-color: yellow; */
+    justify-content: space-around;
+    position: absolute;
+    top: 30rem;
+    left: 0.5rem;
+    margin-right: 4rem;
   }
-  
-  @media screen and (min-width: 425px) {
-    .players {
-      margin-left: 5rem;
-      /* background-color: blue; */
-    }
-  
-    #playerA {
-      position: absolute;
-      top: 11.9rem;
-      left: 3rem;
-      margin-left: 0rem;
-      font-size: 0.9rem;
-  
-    }
-    #playerA-Card{
-      top: 11rem;
-    }
-    #playerB-Card{
-      top: 20.5rem;
-    }
-    #playerB {
-      position: absolute;
-  
-      /* background-color: red; */
-      top: 14.9rem;
-      left: -2rem;
-      margin-bottom: 5rem;
-      font-size: 0.9rem;
-  
-    }
-  
-    #winner-main {
-      left: 2.5rem;
-    }
-  
-    #outputbox {
-      /* background-color: blue; */
-      position: absolute;
-      top: 48rem;
-  
-      justify-content: space-around;
-      left: 0.01rem;
-      margin-right: 0.8rem;
-      width: 100%;
-    }
-  
-    #chooseamount {
-      position: absolute;
-      top: 42rem;
-      left: 5rem;
-      font-size: 1rem;
-    }
+
+  #playerA {
+    position: absolute;
+    top: 10.5rem;
+    left: 3rem;
+    margin-left: 0rem;
+    font-size: 0.7rem;
+  }
+
+  #playerB {
+    position: absolute;
+
+    /* background-color: red; */
+    top: 12.5rem;
+    left: -4rem;
+    margin-bottom: 5rem;
+    font-size: 0.7rem;
+  }
+
+  #playersbutton {
+    display: flex;
+    position: absolute;
+    right: 1.7rem;
+    top: 83rem;
+    /* background-color: black; */
+    width: 20rem;
+  }
+}
+
+@media screen and (min-width: 425px) {
+  .players {
+    margin-left: 5rem;
+    /* background-color: blue; */
+  }
+
+  #playerA {
+    position: absolute;
+    top: 11.9rem;
+    left: 3rem;
+    margin-left: 0rem;
+    font-size: 0.9rem;
+  }
+  #playerA-Card {
+    top: 11rem;
+  }
+  #playerB-Card {
+    top: 20.5rem;
+  }
+  #playerB {
+    position: absolute;
+
+    /* background-color: red; */
+    top: 14.9rem;
+    left: -2rem;
+    margin-bottom: 5rem;
+    font-size: 0.9rem;
+  }
+
+  #winner-main {
+    left: 2.5rem;
+  }
+
+  #outputbox {
+    /* background-color: blue; */
+    position: absolute;
+    top: 48rem;
+
+    justify-content: space-around;
+    left: 0.01rem;
+    margin-right: 0.8rem;
+    width: 100%;
+  }
+
+  #chooseamount {
+    position: absolute;
+    top: 42rem;
+    left: 5rem;
+    font-size: 1rem;
+  }
   /* 
     #teenpattimainimg {
       width: 108rem;
@@ -627,82 +597,77 @@
       height: 20rem;
       margin-bottom: 40rem;
       /* background-color: red; */
-    
-  
-    #amountbox {
-  
-      width: 70%;
-      /* background-color: yellow; */
-      justify-content: space-around;
-      position: absolute;
-      top: 35rem;
-      left: 0.5rem;
-      margin-right: 4rem;
-  
-    }
-  
-    #playersbutton {
-      display: flex;
-      position: absolute;
-      right: 3rem;
-      top: 40rem;
-      /* background-color: black; */
-      left: 0.1rem;
-      width: 21rem;
-    }
+
+  #amountbox {
+    width: 70%;
+    /* background-color: yellow; */
+    justify-content: space-around;
+    position: absolute;
+    top: 35rem;
+    left: 0.5rem;
+    margin-right: 4rem;
   }
-  @media screen and (min-width: 500px) {
-    .players {
-      margin-left: 5rem;
-      /* background-color: blue; */
-    }
-  
-    #playerA {
-      position: absolute;
-      top: 11.9rem;
-      left: 3rem;
-      margin-left: 0rem;
-      font-size: 0.9rem;
-  
-    }
-    #playerA-Card{
-      top: 11rem;
-    }
-    #playerB-Card{
-      top: 20.5rem;
-    }
-    #playerB {
-      position: absolute;
-  
-      /* background-color: red; */
-      top: 14.9rem;
-      left: -2rem;
-      margin-bottom: 5rem;
-      font-size: 0.9rem;
-  
-    }
-  
-    #winner-main {
-      left: 2.5rem;
-    }
-  
-    #outputbox {
-      /* background-color: blue; */
-      position: absolute;
-      top: 48rem;
-  
-      justify-content: space-around;
-      left: 0.01rem;
-      margin-right: 0.8rem;
-      width: 100%;
-    }
-  
-    #chooseamount {
-      position: absolute;
-      top: 28rem;
-      left: -10rem;
-      font-size: 1rem;
-    }
+
+  #playersbutton {
+    display: flex;
+    position: absolute;
+    right: 3rem;
+    top: 40rem;
+    /* background-color: black; */
+    left: 0.1rem;
+    width: 21rem;
+  }
+}
+@media screen and (min-width: 500px) {
+  .players {
+    margin-left: 5rem;
+    /* background-color: blue; */
+  }
+
+  #playerA {
+    position: absolute;
+    top: 11.9rem;
+    left: 3rem;
+    margin-left: 0rem;
+    font-size: 0.9rem;
+  }
+  #playerA-Card {
+    top: 11rem;
+  }
+  #playerB-Card {
+    top: 20.5rem;
+  }
+  #playerB {
+    position: absolute;
+
+    /* background-color: red; */
+    top: 14.9rem;
+    left: -2rem;
+    margin-bottom: 5rem;
+    font-size: 0.9rem;
+  }
+
+  #winner-main {
+    left: 2.5rem;
+  }
+
+  #outputbox {
+    /* background-color: blue; */
+    position: absolute;
+    top: 48rem;
+
+    justify-content: space-around;
+    left: 0.01rem;
+    margin-right: 0.8rem;
+    width: 100%;
+  }
+
+  #chooseamount {
+    position: absolute;
+    top: 28rem;
+    left: -10rem;
+    font-size: 1rem;
+  }
   /* 
     #teenpattimainimg {
       width: 108rem;
@@ -710,85 +675,78 @@
       height: 20rem;
       margin-bottom: 40rem;
       /* background-color: red; */
-    
-  
-    #amountbox {
-  
-      width: 70%;
-      /* background-color: yellow; */
-      justify-content: space-around;
-      position: absolute;
-      top: 30rem;
-      left: 0.5rem;
-      margin-right: 4rem;
-  
-    }
-  
-    #playersbutton {
-      display: flex;
-      position: absolute;
-      right: 3rem;
-      top: 39rem;
-      /* background-color: black; */
-      left: -8rem;
-      width: 21rem;
-    }
-  
+
+  #amountbox {
+    width: 70%;
+    /* background-color: yellow; */
+    justify-content: space-around;
+    position: absolute;
+    top: 30rem;
+    left: 0.5rem;
+    margin-right: 4rem;
   }
-  
-  
-  @media screen and (min-width: 600px) {
-    .players {
-      margin-left: 5rem;
-      /* background-color: blue; */
-    }
-  
-    #playerA {
-      position: absolute;
-      top: 11.9rem;
-      left: 3rem;
-      margin-left: 0rem;
-      font-size: 0.9rem;
-  
-    }
-    #playerA-Card{
-      top: 11rem;
-    }
-    #playerB-Card{
-      top: 20.5rem;
-    }
-    #playerB {
-      position: absolute;
-  
-      /* background-color: red; */
-      top: 14.9rem;
-      left: -2rem;
-      margin-bottom: 5rem;
-      font-size: 0.9rem;
-  
-    }
-  
-    #winner-main {
-      left: 2.5rem;
-    }
-  
-    #outputbox {
-      /* background-color: blue; */
-      position: absolute;
-      top: 48rem;
-  
-      justify-content: space-around;
-      left: 0.01rem;
-      margin-right: 0.8rem;
-      width: 100%;
-    }
-  
-    #chooseamount {
-      position: absolute;
-      top: 32rem;
-      left: -4rem;
-      font-size: 1rem;
-    }
+
+  #playersbutton {
+    display: flex;
+    position: absolute;
+    right: 3rem;
+    top: 39rem;
+    /* background-color: black; */
+    left: -8rem;
+    width: 21rem;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .players {
+    margin-left: 5rem;
+    /* background-color: blue; */
+  }
+
+  #playerA {
+    position: absolute;
+    top: 11.9rem;
+    left: 3rem;
+    margin-left: 0rem;
+    font-size: 0.9rem;
+  }
+  #playerA-Card {
+    top: 11rem;
+  }
+  #playerB-Card {
+    top: 20.5rem;
+  }
+  #playerB {
+    position: absolute;
+
+    /* background-color: red; */
+    top: 14.9rem;
+    left: -2rem;
+    margin-bottom: 5rem;
+    font-size: 0.9rem;
+  }
+
+  #winner-main {
+    left: 2.5rem;
+  }
+
+  #outputbox {
+    /* background-color: blue; */
+    position: absolute;
+    top: 48rem;
+
+    justify-content: space-around;
+    left: 0.01rem;
+    margin-right: 0.8rem;
+    width: 100%;
+  }
+
+  #chooseamount {
+    position: absolute;
+    top: 32rem;
+    left: -4rem;
+    font-size: 1rem;
+  }
   /* 
     #teenpattimainimg {
       width: 108rem;
@@ -796,386 +754,354 @@
       height: 20rem;
       margin-bottom: 40rem;
       /* background-color: red; */
-    
-  
-    #amountbox {
-  
-      width: 70%;
-      /* background-color: yellow; */
-      justify-content: space-around;
-      position: absolute;
-      top: 35rem;
-      left: 0.5rem;
-      margin-right: 4rem;
-  
-    }
-  
-    #playersbutton {
-      display: flex;
-      position: absolute;
-      right: 3rem;
-      top: 43rem;
-      /* background-color: black; */
-      left: -5rem;
-      width: 21rem;
-    }
+
+  #amountbox {
+    width: 70%;
+    /* background-color: yellow; */
+    justify-content: space-around;
+    position: absolute;
+    top: 35rem;
+    left: 0.5rem;
+    margin-right: 4rem;
   }
-  
-  
-  @media only screen and (min-width: 768px) {
-  
-    #winner-main {
-      left: 3.2rem;
-      font-size: 2rem;
-    }
-    #teenpattifreezeplacebettext {
-      font-size: 1rem;
-  
-    }
-    #winner {
-      height: 4rem;
-      width: 18rem;
-      font-size: 2rem;
-    }
-  
-    .players {
-      margin-left: 1rem;
-    }
-  
-    #playerA {
-      position: absolute;
-      top: 16rem;
-      width: 10rem;
-      left: 4.5rem;
-      margin-left: 0rem;
-      font-size: 2rem;
-  
-    }
-  
-    #playerB {
-      position: absolute;
-      width: 10rem;
-      /* background-color: red; */
-      top: 19rem;
-      left: 3.5rem;
-      margin-bottom: 5rem;
-      font-size: 2rem;
-  
-    }
-    #playerA-Card{
-      top: 14.5rem;
-    }
-    #playerB-Card{
-      top: 25rem;
-    }
-  
-    #teenpattimainimg {
-      width: 155%;
-  margin-left: -0.9rem;
-      height: 26rem;
-      /* margin-bottom: 60rem; */
-      /* background-color: red; */
-    }
-  
-    #outputbox {
-      /* background-color: blue; */
-      position: absolute;
-      top: 52rem;
-      justify-content: space-around;
-      left: 13rem;
-      margin-right: rem;
-      width: 35rem;
-    }
-  
-    #chooseamount {
-      position: absolute;
-      top: 37rem;
-      left: 8rem;
-      font-size: 1.5rem;
-    }
-  
-    #amountbox {
-  
-      width: 65%;
-      /* background-color: yellow; */
-      justify-content: space-around;
-      position: absolute;
-      top: 42rem;
-      left: 14.5rem;
-      margin-right: 4rem;
-  
-    }
-  
-    #playersbutton {
-      display: flex;
-      position: absolute;
-      right: 3rem;
-      top: 50rem;
-      /* background-color: black; */
-      left: 12rem;
-      width: 25rem;
-    }
+
+  #playersbutton {
+    display: flex;
+    position: absolute;
+    right: 3rem;
+    top: 43rem;
+    /* background-color: black; */
+    left: -5rem;
+    width: 21rem;
   }
-  
-  @media only screen and (min-width: 820px) {
-  
-    #winner-main {
-      left: 3.2rem;
-      font-size: 2rem;
-    }
-    #teenpattifreezeplacebettext {
-      font-size: 1rem;
-  
-    }
-    #winner {
-      height: 4rem;
-      width: 18rem;
-      font-size: 2rem;
-    }
-  
-    .players {
-      margin-left: 1rem;
-    }
-  
-    #playerA {
-      position: absolute;
-      top: 17rem;
-      width: 10rem;
-      left: 4.5rem;
-      margin-left: 0rem;
-      font-size: 1.5rem;
-  
-    }
-  
-    #playerB {
-      position: absolute;
-      width: 10rem;
-      /* background-color: red; */
-      top: 20rem;
-      left: 3.5rem;
-      margin-bottom: 5rem;
-      font-size: 1.5rem;
-  
-    }
-    #playerA-Card{
-      top: 14.5rem;
-      left: 14rem;
-    }
-    #playerB-Card{
-      top: 25rem;
-      left: 14rem;
-    }
-  
-    #teenpattimainimg {
-      width: 155%;
-  margin-left: -0.9rem;
-      height: 26rem;
-      /* margin-bottom: 60rem; */
-      /* background-color: red; */
-    }
-  
-    #outputbox {
-      /* background-color: blue; */
-      position: absolute;
-      top: 52rem;
-      justify-content: space-around;
-      left: 13rem;
-      margin-right: rem;
-      width: 35rem;
-    }
-  
-    #chooseamount {
-      position: absolute;
-      top: 37rem;
-      left: 8rem;
-      font-size: 1.5rem;
-    }
-  
-    #amountbox {
-  
-      width: 65%;
-      /* background-color: yellow; */
-      justify-content: space-around;
-      position: absolute;
-      top: 42rem;
-      left: 14.5rem;
-      margin-right: 4rem;
-  
-    }
-  
-    #playersbutton {
-      display: flex;
-      position: absolute;
-      right: 3rem;
-      top: 50rem;
-      /* background-color: black; */
-      left: 12rem;
-      width: 25rem;
-    }
+}
+
+@media only screen and (min-width: 768px) {
+  #winner-main {
+    left: 3.2rem;
+    font-size: 2rem;
   }
-  
-  @media screen and (min-width: 1024px) {
-    #winner {
-      height: 3rem;
-      font-size: 1.5rem;
-      width: 15rem;
-    }
-    #teenpattifreezeplacebettext {
-      font-size: 1rem;
-  
-    }
-    #winner-main {
-      left: 4rem;
-    }
-    #playerA-Card{
-      top: 14rem;
-    }
-    #playerB-Card{
-      top: 24rem;
-    }
-    #playerA {
-      left: 4rem;
-      top: 15.5rem;
-      font-size: 1.8rem;
-    }
-  
-    #playerB {
-      left: 2.2rem;
-      top: 18rem;
-      font-size: 1.8rem;
-    }
-  
-    .players {
-      margin-top: 0rem;
-      margin-left: 1.8rem;
-    }
-  
-    #outputbox {
-      position: relative;
-      /* background-color: blue; */
-      top: 0rem;
-      width: 47%;
-      left: 2.5rem;
-      height: 24.8rem;
-  
-    }
-  
-    #chooseamount {
-  
-      position: absolute;
-      top: 35.5rem;
-      left: 4rem;
-    }
-  
-    #teenpattimainimg {
-      width: 110%;
-  margin-left: -0.9rem;
-      height: auto;
-      /* margin-bottom: 60rem; */
-      /* background-color: red; */
-    }
-  
-    #amountbox {
-      position: absolute;
-      top: 40rem;
-      width: 50%;
-      left: 10.5rem;
-      /* background-color: yellow; */
-  
-  
-    }
-  
-    #playersbutton {
-  
-  
-      position: absolute;
-      top: 47rem;
-      left: 10rem;
-      width: 34rem;
-      /* background-color: black; */
-  
-    }
+  #teenpattifreezeplacebettext {
+    font-size: 1rem;
   }
-  
-  @media screen and (min-width: 1440px) {
-    #winner-main {
-      left: -16.5rem;
-      /* top: 50rem; */
-    }
-    #teenpattifreezeplacebettext {
-      font-size: 1.5rem;
-  
-    }
-    #winner {
-      top: -10rem;
-      height: 3rem;
-      font-size: 1.5rem;
-      width: 16rem;
-    
-      
-    }
-    #playerA-Card{
-      top: 20rem;
-    }
-    #playerB-Card{
-      top: 30rem;
-    }
-    #playerA {
-      left: 5rem;
-      top: 21rem;
-      font-size: 1.8rem;
-    }
-  
-    #playerB {
-      left: 3rem;
-      top: 24rem;
-      font-size: 1.8rem;
-    }
-    .players {
-      margin-left: 1.8rem;
-    }
-  
-    #outputbox {
-      position: relative;
-      /* background-color: blue; */
-      top: -1rem;
-      margin: 0;
-      width: 53%;
-      height: 32rem;
-  
-    }
-  
-    #chooseamount {
-  
-      position: absolute;
-      top: 42rem;
-      left: 12rem;
-    }
-  
-    #teenpattimainimg {
-      height: auto;
-      width: 104%;
-    
-      /* background-color: red; */
-    }
-  
-    #amountbox {
-      position: absolute;
-      top: 46rem;
-      margin-left: 4rem;
-      width: 40rem;
-      /* background-color: yellow; */
-    }
-  
-    #playersbutton {
-  
-  
-      position: absolute;
-      top: 55rem;
-      left: 15rem;
-      width: 25rem;
-      /* padding: 20rem; */
-      /* background-color: black; */
-  
-    }
+  #winner {
+    height: 4rem;
+    width: 18rem;
+    font-size: 2rem;
   }
+
+  .players {
+    margin-left: 1rem;
+  }
+
+  #playerA {
+    position: absolute;
+    top: 16rem;
+    width: 10rem;
+    left: 4.5rem;
+    margin-left: 0rem;
+    font-size: 2rem;
+  }
+
+  #playerB {
+    position: absolute;
+    width: 10rem;
+    /* background-color: red; */
+    top: 19rem;
+    left: 3.5rem;
+    margin-bottom: 5rem;
+    font-size: 2rem;
+  }
+  #playerA-Card {
+    top: 14.5rem;
+  }
+  #playerB-Card {
+    top: 25rem;
+  }
+
+  #teenpattimainimg {
+    width: 155%;
+    margin-left: -0.9rem;
+    height: 26rem;
+    /* margin-bottom: 60rem; */
+    /* background-color: red; */
+  }
+
+  #outputbox {
+    /* background-color: blue; */
+    position: absolute;
+    top: 52rem;
+    justify-content: space-around;
+    left: 13rem;
+    margin-right: rem;
+    width: 35rem;
+  }
+
+  #chooseamount {
+    position: absolute;
+    top: 37rem;
+    left: 8rem;
+    font-size: 1.5rem;
+  }
+
+  #amountbox {
+    width: 65%;
+    /* background-color: yellow; */
+    justify-content: space-around;
+    position: absolute;
+    top: 42rem;
+    left: 14.5rem;
+    margin-right: 4rem;
+  }
+
+  #playersbutton {
+    display: flex;
+    position: absolute;
+    right: 3rem;
+    top: 50rem;
+    /* background-color: black; */
+    left: 12rem;
+    width: 25rem;
+  }
+}
+
+@media only screen and (min-width: 820px) {
+  #winner-main {
+    left: 3.2rem;
+    font-size: 2rem;
+  }
+  #teenpattifreezeplacebettext {
+    font-size: 1rem;
+  }
+  #winner {
+    height: 4rem;
+    width: 18rem;
+    font-size: 2rem;
+  }
+
+  .players {
+    margin-left: 1rem;
+  }
+
+  #playerA {
+    position: absolute;
+    top: 17rem;
+    width: 10rem;
+    left: 4.5rem;
+    margin-left: 0rem;
+    font-size: 1.5rem;
+  }
+
+  #playerB {
+    position: absolute;
+    width: 10rem;
+    /* background-color: red; */
+    top: 20rem;
+    left: 3.5rem;
+    margin-bottom: 5rem;
+    font-size: 1.5rem;
+  }
+  #playerA-Card {
+    top: 14.5rem;
+    left: 14rem;
+  }
+  #playerB-Card {
+    top: 25rem;
+    left: 14rem;
+  }
+
+  #teenpattimainimg {
+    width: 155%;
+    margin-left: -0.9rem;
+    height: 26rem;
+    /* margin-bottom: 60rem; */
+    /* background-color: red; */
+  }
+
+  #outputbox {
+    /* background-color: blue; */
+    position: absolute;
+    top: 52rem;
+    justify-content: space-around;
+    left: 13rem;
+    margin-right: rem;
+    width: 35rem;
+  }
+
+  #chooseamount {
+    position: absolute;
+    top: 37rem;
+    left: 8rem;
+    font-size: 1.5rem;
+  }
+
+  #amountbox {
+    width: 65%;
+    /* background-color: yellow; */
+    justify-content: space-around;
+    position: absolute;
+    top: 42rem;
+    left: 14.5rem;
+    margin-right: 4rem;
+  }
+
+  #playersbutton {
+    display: flex;
+    position: absolute;
+    right: 3rem;
+    top: 50rem;
+    /* background-color: black; */
+    left: 12rem;
+    width: 25rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  #winner {
+    height: 3rem;
+    font-size: 1.5rem;
+    width: 15rem;
+  }
+  #teenpattifreezeplacebettext {
+    font-size: 1rem;
+  }
+  #winner-main {
+    left: 4rem;
+  }
+  #playerA-Card {
+    top: 14rem;
+  }
+  #playerB-Card {
+    top: 24rem;
+  }
+  #playerA {
+    left: 4rem;
+    top: 15.5rem;
+    font-size: 1.8rem;
+  }
+
+  #playerB {
+    left: 2.2rem;
+    top: 18rem;
+    font-size: 1.8rem;
+  }
+
+  .players {
+    margin-top: 0rem;
+    margin-left: 1.8rem;
+  }
+
+  #outputbox {
+    position: relative;
+    /* background-color: blue; */
+    top: 0rem;
+    width: 47%;
+    left: 2.5rem;
+    height: 24.8rem;
+  }
+
+  #chooseamount {
+    position: absolute;
+    top: 35.5rem;
+    left: 4rem;
+  }
+
+  #teenpattimainimg {
+    width: 110%;
+    margin-left: -0.9rem;
+    height: auto;
+    /* margin-bottom: 60rem; */
+    /* background-color: red; */
+  }
+
+  #amountbox {
+    position: absolute;
+    top: 40rem;
+    width: 50%;
+    left: 10.5rem;
+    /* background-color: yellow; */
+  }
+
+  #playersbutton {
+    position: absolute;
+    top: 47rem;
+    left: 10rem;
+    width: 34rem;
+    /* background-color: black; */
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  #winner-main {
+    left: -16.5rem;
+    /* top: 50rem; */
+  }
+  #teenpattifreezeplacebettext {
+    font-size: 1.5rem;
+  }
+  #winner {
+    top: -10rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    width: 16rem;
+  }
+  #playerA-Card {
+    top: 20rem;
+  }
+  #playerB-Card {
+    top: 30rem;
+  }
+  #playerA {
+    left: 5rem;
+    top: 21rem;
+    font-size: 1.8rem;
+  }
+
+  #playerB {
+    left: 3rem;
+    top: 24rem;
+    font-size: 1.8rem;
+  }
+  .players {
+    margin-left: 1.8rem;
+  }
+
+  #outputbox {
+    position: relative;
+    /* background-color: blue; */
+    top: -1rem;
+    margin: 0;
+    width: 53%;
+    height: 32rem;
+  }
+
+  #chooseamount {
+    position: absolute;
+    top: 42rem;
+    left: 12rem;
+  }
+
+  #teenpattimainimg {
+    height: auto;
+    width: 104%;
+
+    /* background-color: red; */
+  }
+
+  #amountbox {
+    position: absolute;
+    top: 46rem;
+    margin-left: 4rem;
+    width: 40rem;
+    /* background-color: yellow; */
+  }
+
+  #playersbutton {
+    position: absolute;
+    top: 55rem;
+    left: 15rem;
+    width: 25rem;
+    /* padding: 20rem; */
+    /* background-color: black; */
+  }
+}
