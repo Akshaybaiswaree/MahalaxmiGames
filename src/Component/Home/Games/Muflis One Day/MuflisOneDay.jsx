@@ -250,7 +250,7 @@ export default function MuflisOneDay() {
                 fontSize="18px"
                 color={index % 2 === 0 ? "#black" : "#553325"}
               >
-                {winHistory[index] && winHistory[index]}
+                {/* {winHistory[index] && winHistory[index]} */}
               </Text>
             </Text>
           ))}

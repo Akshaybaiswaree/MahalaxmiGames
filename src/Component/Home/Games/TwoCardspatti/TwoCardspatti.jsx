@@ -31,14 +31,16 @@ export default function TwoCardsTeenPatti() {
   const [countdown, setCountdown] = useState(null);
   const [userBalance, setUserBalance] = useState(null);
   const [User, setUser] = useState(null);
+  const [gameId, setgameId] = useState(null);
   const [selectedCoin, setSelectedCoin] = useState("10");
   const [playerHands, setPlayerHands] = useState([]);
   const [winner, setWinner] = useState(null);
   const [selectedChoice, setSelectedChoice] = useState(null);
   const [player1Cards, setPlayer1Cards] = useState([]);
-  const [player2Cards, setPlayer2Cards] = useState([]);
+  const [player2Cards, setPlayer2Cards] = useState([]); 
   const [gamehistory, setGamehistory] = useState([]);
   const [isButtonDisabled, setButtonDisabled] = useState();
+  const [currentBet, setCurrentBet] = useState(0);
 
   useEffect(() => {
     const handleDealCards = (data) => {
@@ -74,8 +76,9 @@ export default function TwoCardsTeenPatti() {
     // };
 
     const handleNewBet = (bet) => {
-      // console.log("Received new bet:", bet);
+      console.log("Received new bet:", bet);
       setSelectedChoice(bet.choice);
+      console.log(bet?.Total);
     };
 
     const handleNewRound = () => {
@@ -85,7 +88,7 @@ export default function TwoCardsTeenPatti() {
     };
 
     const handleWinHistory = (data) => {
-      console.log("Received win history:", data);
+      // console.log("Received win history:", data);
       if (data && data.winStatuses) {
         setGamehistory(data.winStatuses);
       } else {
@@ -95,9 +98,9 @@ export default function TwoCardsTeenPatti() {
 
     const handleCountdown = (data) => {
       const isDisabled = data?.countdown <= 25;
-
+    data.countdown>=44?setCurrentBet(0):""
       setButtonDisabled(isDisabled);
-      console.log("data:", data.countdown);
+      // console.log("data:", data.countdown);
       setCountdown(data.countdown);
     };
     const handleBalanceUpdate = (data) => {
@@ -107,11 +110,16 @@ export default function TwoCardsTeenPatti() {
 
     const handleGetBalance = () => {
       socket.emit("getBalance");
+      console.log();
     };
     const handleuser = (data) => {
       setUser(data.user.userId);
       setUserBalance(data.user.balance);
-      // console.log("data123", data);
+      console.log("data123", data);
+    };
+    const handleGameId = (data) => {
+      console.log("Received GameId:", data.gameId);
+      setgameId(data.gameId);
     };
     handleGetBalance();
     socket.on("countdown", handleCountdown);
@@ -121,6 +129,7 @@ export default function TwoCardsTeenPatti() {
     socket.on("newRound", handleNewRound);
     socket.on("balanceUpdate", handleBalanceUpdate);
     socket.on("WinHistory", handleWinHistory);
+    socket.on("gameId", handleGameId);
     // socket.on("dealCards", handleDealCards);
 
     return () => {
@@ -131,11 +140,14 @@ export default function TwoCardsTeenPatti() {
       socket.off("balanceUpdate", handleBalanceUpdate);
       socket.off("getuser", handleuser);
       socket.off("WinHistory", handleWinHistory);
-    };
+      socket.off("gameId", handleGameId);
+    }; 
   }, []);
 
   const handlePlaceBet = (selectedChoice) => {
     const coins = parseInt(selectedCoin, 10); // Parse the selectedCoin to an integer
+    setCurrentBet((prev)=>prev+coins);
+
     socket.emit("placeBet", { selectedChoice, coins });
   };
 
@@ -203,8 +215,8 @@ export default function TwoCardsTeenPatti() {
                       position={"absolute"}
                       top="0"
                       left="0"
-                      width="18%"
-                      height="18%"
+                      width="25%"
+                      height="22%"
                       display="flex"
                       justifyContent="center"
                       alignItems="center"
@@ -327,49 +339,6 @@ export default function TwoCardsTeenPatti() {
                   </Box>
                 </AspectRatio>
 
-                {/* 10 Mini Boxes */}
-                {/* <Flex flexDirection={["column", "row"]} alignItems="center">
-                  <Flex width={["100%", "67%"]} p={1}>
-                    {[...Array(10)].map((_, index) => (
-                      <Box
-                        key={index}
-                        width="35px"
-                        height="35px"
-                        marginRight={["5px"]}
-                        display="flex"
-                        marginTop={"1rem"}
-                        justifyContent="center"
-                        alignItems="center"
-                        fontWeight="bold"
-                        border="2px solid #333"
-                      >
-                        <Text
-                          fontSize="14px"
-                          color={index % 2 === 0 ? "#333" : "#2b329b"}
-                        >
-                          {gamehistory}
-                        </Text>
-                      </Box>
-                    ))}
-                  </Flex>
-
-              
-
-                  <Flex flexDirection="row" alignItems="center">
-                    <Text> </Text>
-                    <Button
-                      flexDirection={["column", "row"]}
-                      alignItems="center"
-                      marginLeft="0rem"
-                      mt={["2", "5"]}
-                      variant="outline"
-                      colorScheme="blue"
-                      width="100%"
-                    >
-                      Player History
-                    </Button>
-                  </Flex>
-                </Flex> */}
                 <Flex flexDirection={["column", "row"]} alignItems="center">
                   {/* Box Items */}
                   <Box
@@ -383,6 +352,7 @@ export default function TwoCardsTeenPatti() {
                   >
                     Last Wins:
                   </Box>
+                  
 
                   <Flex width={["100%", "67%"]} p={1} flexWrap="wrap">
                     {gamehistory?.map((item, index) => (
@@ -407,12 +377,23 @@ export default function TwoCardsTeenPatti() {
                       </Box>
                     ))}
                   </Flex>
+                  <Box
+                    fontWeight={"700"}
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(to right, #A52A2A, #FF8C00)",
+                      WebkitBackgroundClip: "text",
+                      color: "transparent",
+                    }}
+                  >
+                    <>Last Bet Amount :{currentBet}</>
+                  </Box>
                 </Flex>
               </Box>
 
               <Box
                 marginX={["0rem", "-30rem", "5rem"]}
-                marginTop={["1rem", "38rem", "5rem"]}
+                marginTop={["0rem", "38rem", "5rem"]}
                 width={["100%", "50%"]}
                 id="playeryourbetdiv"
               >
@@ -489,7 +470,8 @@ export default function TwoCardsTeenPatti() {
                           // borderColor={'red'}
                           variant="unstyled"
                           _hover={{
-                            boxShadow: "0 8px 12px rgba(0, 0, 255, 0.8)",
+                            // boxShadow: "0 8px 12px rgba(0, 0, 255, 0.8)",
+                            boxShadow: "0 8px 12px rgba(255, 255, 255, 0.8)",
 
                             p: "px",
                             rounded: "full",
@@ -541,25 +523,6 @@ export default function TwoCardsTeenPatti() {
                         justifyContent="center"
                         alignItems="center"
                       >
-                        {/* Player Button 1 */}
-                        {/* <Button
-                           isDisabled={isButtonDisabled}
-                          width="90%"
-                          height={["50%", "80%"]}
-                          p={4}
-                          color="white"
-                          fontWeight="800"
-                          borderRadius="20%"
-                          bgGradient="linear(to-r, #0000FF, #FFA500)"
-                          _hover={{
-                            bg: "#FAEBD7",
-                            boxShadow: "dark-lg",
-                            color: "black",
-                          }}
-                          onClick={() => handlePlaceBet("PlayerA")}
-                        >
-                          Player A
-                        </Button> */}
                         <Button
                           isDisabled={isButtonDisabled}
                           width="90%"
@@ -569,15 +532,22 @@ export default function TwoCardsTeenPatti() {
                           fontWeight="800"
                           borderRadius="20%"
                           bgGradient="linear(to-r, #0000FF, #FFA500)"
-                          _hover={!isButtonDisabled && {
-                            bg: "#FAEBD7",
-                            boxShadow: "dark-lg",
-                            color: "black",
-                          }}
+                          _hover={
+                            !isButtonDisabled && {
+                              bg: "#FAEBD7",
+                              boxShadow: "dark-lg",
+                              color: "black",
+                            }
+                          }
                           onClick={() => handlePlaceBet("PlayerB")}
                         >
-                          {isButtonDisabled && <FaLock  size={35}  style={{  color: 'white', marginRight: '0.5rem' }} />}
-                          Player B
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{ color: "white", marginRight: "0.5rem" }}
+                            />
+                          )}
+                          Player A
                         </Button>
 
                         <Button
@@ -590,15 +560,21 @@ export default function TwoCardsTeenPatti() {
                           fontWeight="800"
                           borderRadius="20%"
                           bgGradient="linear(to-r, #0000FF, #FFA500)"
-                          _hover={!isButtonDisabled && {
-                            bg: "#FAEBD7",
-                            boxShadow: "dark-lg",
-                            color: "black",
-                          }}
-                    
+                          _hover={
+                            !isButtonDisabled && {
+                              bg: "#FAEBD7",
+                              boxShadow: "dark-lg",
+                              color: "black",
+                            }
+                          }
                           onClick={() => handlePlaceBet("PlayerB")}
                         >
-                          {isButtonDisabled && <FaLock size={35}  style={{  color: 'white', marginRight: '0.5rem' }}  />}
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{ color: "white", marginRight: "0.5rem" }}
+                            />
+                          )}
                           Player B
                         </Button>
                       </Box>
