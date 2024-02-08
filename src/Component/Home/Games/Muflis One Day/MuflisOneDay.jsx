@@ -422,7 +422,7 @@ export default function MuflisOneDay() {
                 fontWeight="bold"
                 color="white"
               >
-                ${Math.round(availableBalance * 100) / 100}
+                ${Math.round(  availableBalance * 100) / 100}
               </Text>
             </Box>
 
