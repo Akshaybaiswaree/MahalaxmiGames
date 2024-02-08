@@ -11,21 +11,22 @@ import { useEffect, useState } from "react";
 
 import { io } from "socket.io-client";
 
-const socket = io("https://highcardsbackend.onrender.com", {
+const socket = io("https://three2-cards-be.onrender.com", {
   query: {
     userId: Math.floor(Math.random() * Date.now()),
   },
   transports: ["websocket"],
 });
 
-export default function HighCard() {
+export default function ThirtyTwoCards() {
   const [timer, setTimer] = useState("");
-  const [availableCoins, setAvailableCoins] = useState("");
+  const [availableBalance, setAvailableBalance] = useState("");
   const [userId, setUserId] = useState("");
   const [matchId, setMatchId] = useState("");
-  const [cards, setCards] = useState([]);
-  const [winstatus, setWinStatus] = useState("");
+  const [gameCard, setGameCard] = useState([]);
+  const [gameCardValue, setGameCardValue] = useState([]);
   const [gameHistory, setGameHistory] = useState([]);
+  const [winStatus, setWinStatus] = useState("");
   const [coins, setCoins] = useState("");
   const [selectedCoins, setSelectedCoins] = useState("");
   const [docID, setDocId] = useState("");
@@ -34,51 +35,46 @@ export default function HighCard() {
 
   useEffect(() => {
     const handelTimer = (data) => {
-      // console.log("timer", data.timer);
+      // console.log("timer", data);
       setTimer(data.timer);
       data.timer >= 44 ? setBettingAmount(0) : "";
     };
 
     const handelUserDetails = (data) => {
-      console.log("userDetails", data.userData);
-      setAvailableCoins(data.userData.coins);
+      console.log("userDetails", data);
+      setAvailableBalance(data.userData.coins);
       setUserId(data.userData.userId);
     };
 
     const handelGameCreate = (data) => {
       console.log("gameCreate", data);
       setMatchId(data.gameCard.gameid);
-      setCards(data.gameCard.Cards);
+      setGameCard(data.gameCard.Cards);
+      setGameCardValue(data.gameCard.Cards);
+      setGameHistory(data.gameHistory);
       setWinStatus(data.gameCard.winstatus);
       setDocId(data.gameCard._id);
-      setGameHistory(data.gameHistory);
     };
-
-    // const handelGameHistory = (data) => {
-    //   console.log("gameHistory", data);
-    //   setGameHistory(data);
-    // };
 
     const handelGameResult = (data) => {
       console.log("gameResult", data);
-      setCards(data.gameCard.Cards);
+      setGameCard(data.gameCard.Cards);
       setWinStatus(data.gameCard.winstatus);
     };
 
-    const handelGameUserCoin = () => {
-      // console.log("gameUserCoin", data);
+    const handelGameUserCoin = (data) => {
+      console.log("gameUserCoin", data);
     };
 
     const handelUserBalanceUpdate = (data) => {
       console.log("gameUserBalanceUpdate", data);
-      setAvailableCoins(data.User.coins);
-      setUserId(data.User.userId);
+      setAvailableBalance(data.userData.coins);
+      setUserId(data.userData.userId);
     };
 
     socket.on("timer", handelTimer);
     socket.on("userDetails", handelUserDetails);
     socket.on("game:create", handelGameCreate);
-    // socket.on("game:history", handelGameHistory);
     socket.on("game:result", handelGameResult);
     socket.on("game:user-coin", handelGameUserCoin);
     socket.on("UserBalanceUpdate", handelUserBalanceUpdate);
@@ -87,19 +83,17 @@ export default function HighCard() {
       socket.off("timer", handelTimer);
       socket.off("userDetails", handelUserDetails);
       socket.off("game:create", handelGameCreate);
-      // socket.off("game:history", handelGameHistory);
       socket.off("game:result", handelGameResult);
       socket.off("game:user-coin", handelGameUserCoin);
       socket.off("UserBalanceUpdate", handelUserBalanceUpdate);
     };
   }, []);
-
   if (timer === 10) {
     socket.emit("getUserBalanceUpdate", userId);
   }
 
   const handelBet = (baitType) => {
-    if (availableCoins < 0) {
+    if (availableBalance < 0) {
       alert("Insufficient amount");
       return;
     }
@@ -113,8 +107,9 @@ export default function HighCard() {
       coins,
       gameId: docID,
     };
-    // console.log("betting", baitType, coins, docID);
-    setBettingAmount((prev) => prev + Number(coins))
+    console.log("betting", baitType, coins, docID);
+    setBettingAmount((prev) => prev + Number(coins));
+
     socket.emit("bait", data);
     console.log("bet", data);
   };
@@ -130,7 +125,7 @@ export default function HighCard() {
               borderRadius="10px"
               position="relative"
             >
-              High Card
+              32 Cards
             </Text>
             <Button variant="outline" colorScheme="blue" ml="2">
               Rules
@@ -139,7 +134,7 @@ export default function HighCard() {
           <AspectRatio height="50%" controls>
             <Box
               // border="4px solid #333"
-              backgroundImage="url('/HighCard/HighCard.webp')"
+              backgroundImage="url('/32Cards/32-Cards.webp')"
               display="flex"
               flexDirection="column"
               justifyContent="flex-start"
@@ -159,22 +154,21 @@ export default function HighCard() {
                 color="white"
                 fontWeight="bold"
               >
-                {timer - 25 < 0 ? "0" : timer - 25}
+                {/* {timer - 25 < 0 ? "0" : timer - 25} */}
+                {timer}
               </Text>
-              {timer - 25 <= -16 && (
-                <Text
-                  border="5px solid white"
-                  padding="24px"
-                  borderRadius="50%"
-                  position="absolute"
-                  top="0"
-                  left="0"
-                  color="white"
-                  fontWeight="bold"
-                >
-                  <span>Winner:{winstatus}</span>
-                </Text>
-              )}
+              <Text
+                border="5px solid white"
+                padding="24px"
+                borderRadius="50%"
+                position="absolute"
+                top="0"
+                left="0"
+                color="white"
+                fontWeight="bold"
+              >
+                <span>Winner : {winStatus ? winStatus : "waiting"}</span>
+              </Text>
 
               <Box
                 // border="2px solid yellow"
@@ -185,82 +179,139 @@ export default function HighCard() {
                 position="absolute"
                 bottom="0"
                 alignItems="center"
+                // justifyContent="center"
               >
                 <Box
-                  // border="1px solid pink"
-                  width="5.5%"
-                  height="61.5%"
-                  display="flex"
-                  // justifyContent="space-between"
-                  flexDirection="column"
+                  //   border="1px solid black"
+                  width="5.4%"
+                  height="50%"
                   position="absolute"
-                  left="38.8%"
-                  top="22.7%"
+                  left="27.3%"
+                  top="35.2%"
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="space-between"
                 >
-                  {timer - 25 <= 0 && (
+                  {gameCard[0] && (
                     <Image
-                      src={`/cards/${cards[0]}`}
+                      src={`/cards/${gameCard[0]?.cardName}`}
                       alt="0"
                       width="100%"
-                      height="29%"
+                      height="35%"
                     />
                   )}
-                  {timer - 25 <= -7 && (
-                    <Image
-                      src={`/cards/${cards[1]}`}
-                      alt="1"
-                      width="100%"
-                      height="29%"
-                      marginTop="10px"
-                    />
-                  )}
-                  {timer - 25 <= -9 && (
-                    <Image
-                      src={`/cards/${cards[2]}`}
-                      alt="2"
-                      width="100%"
-                      height="29%"
-                      marginTop="12px"
-                    />
-                  )}
+                  <Text
+                    // border="1px solid black"
+                    width="100%"
+                    fontWeight="bold"
+                    color="white"
+                    fontSize="22px"
+                    position="absolute"
+                    left="0"
+                    top="62%"
+                    align="center"
+                  >
+                    {gameCardValue[0]?.value ? gameCardValue[0]?.value : "0"}
+                  </Text>
                 </Box>
                 <Box
-                  // border="1px solid pink"
-                  width="5.5%"
-                  height="61.5%"
-                  display="flex"
-                  // justifyContent="space-between"
-                  flexDirection="column"
+                  // border="1px solid black"
+                  width="5.4%"
+                  height="50%"
                   position="absolute"
-                  right="40%"
-                  top="22.7%"
+                  left="40%"
+                  top="35.2%"
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="space-between"
                 >
-                  {timer - 25 <= -11 && (
+                  {gameCard[1] && (
                     <Image
-                      src={`/cards/${cards[3]}`}
-                      alt="3"
+                      src={`/cards/${gameCard[1]?.cardName}`}
+                      alt="0"
                       width="100%"
-                      height="29%"
+                      height="35%"
                     />
                   )}
-                  {timer - 25 <= -13 && (
+                  <Text
+                    // border="1px solid black"
+                    width="100%"
+                    fontWeight="bold"
+                    color="white"
+                    fontSize="22px"
+                    position="absolute"
+                    left="0"
+                    top="62%"
+                    align="center"
+                  >
+                    {gameCardValue[1]?.value ? gameCardValue[1]?.value : "0"}
+                  </Text>
+                </Box>
+                <Box
+                  // border="1px solid black"
+                  width="5.4%"
+                  height="50%"
+                  position="absolute"
+                  right="41.8%"
+                  top="35.2%"
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="space-between"
+                >
+                  {gameCard[2] && (
                     <Image
-                      src={`/cards/${cards[4]}`}
-                      alt="4"
+                      src={`/cards/${gameCard[2]?.cardName}`}
+                      alt="0"
                       width="100%"
-                      height="29%"
-                      marginTop="10px"
+                      height="35%"
                     />
                   )}
-                  {timer - 25 <= -15 && (
+                  <Text
+                    // border="1px solid black"
+                    width="100%"
+                    fontWeight="bold"
+                    color="white"
+                    fontSize="22px"
+                    position="absolute"
+                    left="0"
+                    top="62%"
+                    align="center"
+                  >
+                    {gameCardValue[2]?.value ? gameCardValue[2]?.value : "0"}
+                  </Text>
+                </Box>
+                <Box
+                  // border="1px solid black"
+                  width="5.4%"
+                  height="50%"
+                  position="absolute"
+                  right="29%"
+                  top="35.2%"
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="space-between"
+                >
+                  {gameCard[3] && (
                     <Image
-                      src={`/cards/${cards[5]}`}
-                      alt="5"
+                      src={`/cards/${gameCard[3]?.cardName}`}
+                      alt="0"
                       width="100%"
-                      height="29%"
-                      marginTop="12px"
+                      height="35%"
                     />
                   )}
+                  <Text
+                    // border="1px solid black"
+                    width="100%"
+                    fontWeight="bold"
+                    color="white"
+                    fontSize="22px"
+                    position="absolute"
+                    left="0"
+                    top="62%"
+                    align="center"
+                  >
+                    {gameCardValue[3]?.value ? gameCardValue[3]?.value : "0"}
+                  </Text>
                 </Box>
               </Box>
             </Box>
@@ -274,8 +325,8 @@ export default function HighCard() {
           display="flex"
           justifyContent="space-between"
         >
-          {[...Array(10)].map((_, index) => (
-            <Text
+          {gameHistory.map((e, index) => (
+            <Box
               border="1px solid black"
               backgroundColor="grey"
               key={index}
@@ -286,13 +337,13 @@ export default function HighCard() {
               align="center"
               fontWeight="bold"
             >
-              <Text fontSize="18px" color="#c32625">
-                {gameHistory[index] && gameHistory[index].join(", ")}
+              <Text fontSize="18px" color="#234c75">
+                {e}
               </Text>
-            </Text>
+            </Box>
           ))}
 
-          <Text>Match Id: {matchId}</Text>
+          <Text>Match Id: {matchId} </Text>
 
           <Button width="20%" colorScheme="blue">
             Player History
@@ -345,7 +396,7 @@ export default function HighCard() {
                 }}
                 onClick={() => {
                   setCoins(value);
-                  // console.log("coins", value)
+                  console.log("coins", value);
                   setSelectedCoins(index);
                 }}
               >
@@ -381,10 +432,10 @@ export default function HighCard() {
                 backgroundColor="#971b23"
                 color="white"
                 variant="unstyled"
-                onClick={() => handelBet(0, coins, docID)}
+                onClick={() => handelBet(8, coins, docID)}
                 isDisabled={timer - 25 <= 0 && buttonClick}
               >
-                P1 <span>5.88</span>
+                Player8<span>11.2</span>
               </Button>
               <Button
                 width="31%"
@@ -393,22 +444,10 @@ export default function HighCard() {
                 backgroundColor="#570c8a"
                 color="white"
                 variant="unstyled"
-                onClick={() => handelBet(1, coins, docID)}
+                onClick={() => handelBet(9, coins, docID)}
                 isDisabled={timer - 25 <= 0 && buttonClick}
               >
-                P2 <span>5.88</span>
-              </Button>
-              <Button
-                width="31%"
-                display="flex"
-                justifyContent="space-around"
-                backgroundColor="#244c82"
-                color="white"
-                variant="unstyled"
-                onClick={() => handelBet(2, coins, docID)}
-                isDisabled={timer - 25 <= 0 && buttonClick}
-              >
-                P3 <span>5.88</span>
+                Player9<span>4.95</span>
               </Button>
             </Box>
             <Box
@@ -425,10 +464,10 @@ export default function HighCard() {
                 backgroundColor="#489686"
                 color="white"
                 variant="unstyled"
-                onClick={() => handelBet(3, coins, docID)}
+                onClick={() => handelBet(10, coins, docID)}
                 isDisabled={timer - 25 <= 0 && buttonClick}
               >
-                P4 <span>5.88</span>
+                Player10<span>2.2</span>
               </Button>
               <Button
                 width="31%"
@@ -437,22 +476,10 @@ export default function HighCard() {
                 backgroundColor="#75380e"
                 color="white"
                 variant="unstyled"
-                onClick={() => handelBet(4, coins, docID)}
+                onClick={() => handelBet(11, coins, docID)}
                 isDisabled={timer - 25 <= 0 && buttonClick}
               >
-                P5 <span>5.88</span>
-              </Button>
-              <Button
-                width="31%"
-                display="flex"
-                justifyContent="space-around"
-                backgroundColor="#8a1752"
-                color="white"
-                variant="unstyled"
-                onClick={() => handelBet(5, coins, docID)}
-                isDisabled={timer - 25 <= 0 && buttonClick}
-              >
-                P6 <span>5.88</span>
+                Player11<span>1.08</span>
               </Button>
             </Box>
           </Box>
@@ -475,7 +502,7 @@ export default function HighCard() {
             align="center"
             borderRadius="1rem"
           >
-            <Box backgroundColor="#c12524" padding="0.5rem" borderRadius="1rem">
+            <Box backgroundColor="#234c75" padding="0.5rem" borderRadius="1rem">
               <Text fontSize="18px" fontWeight="bold" color="white">
                 Available Credit
               </Text>
@@ -485,7 +512,7 @@ export default function HighCard() {
                 fontWeight="bold"
                 color="white"
               >
-                ${Math.round(availableCoins * 100) / 100}
+                ${Math.round(availableBalance * 100) / 100}
               </Text>
             </Box>
 
@@ -497,7 +524,7 @@ export default function HighCard() {
                 {userId}
               </Text>
             </Box>
-            <Box backgroundColor="pink" padding="0.5rem" borderRadius="1rem">
+            <Box backgroundColor="blue" padding="0.5rem" borderRadius="1rem">
               <Text fontSize="18px" fontWeight="bold">
                 Betting Amount
               </Text>

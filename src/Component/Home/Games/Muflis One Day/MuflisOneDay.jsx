@@ -35,10 +35,11 @@ export default function MuflisOneDay() {
   const [selectedCoin, setSelectedCoin] = useState([]);
   const [selectedCoins, setSelectedCoins] = useState([]);
   const [gameId, setGameId] = useState("");
+  const [bettingAmount, setBettingAmount] = useState("");
 
   useEffect(() => {
     const handleDealCards = (data) => {
-      //   console.log("Deal Cards", data);
+      console.log("Deal Cards", data);
       setPlayerACards(data.singlecard.playerA);
       setPlayerBCards(data.singlecard.playerB);
       setWinnerStatus(data.winner);
@@ -46,8 +47,9 @@ export default function MuflisOneDay() {
     };
 
     const handleCountdown = (data) => {
-      //   console.log("timer", data);
+      console.log("timer", data);
       setTimer(data.countdown);
+      data.countdown >= 44 ? setBettingAmount(0) : "";
     };
 
     const handleNewBet = (data) => {
@@ -74,7 +76,7 @@ export default function MuflisOneDay() {
     };
 
     const handleWinHistory = (data) => {
-      //   console.log("Game History", data);
+      console.log("Game History", data);
       setWinHistory(data.winStatuses);
     };
 
@@ -110,6 +112,7 @@ export default function MuflisOneDay() {
       selectedChoice: baitType,
       coins,
     };
+    setBettingAmount((prev) => prev + Number(coins));
     socket.emit("placeBet", betData);
     console.log("selectedChoice", betData);
     console.log("selectedCoins", coins);
@@ -234,26 +237,28 @@ export default function MuflisOneDay() {
           position="relative"
           justifyContent="space-between"
         >
-          {[...Array(10)].map((_, index) => (
-            <Text
-              border="1px solid black"
-              backgroundColor="grey"
-              key={index}
-              fontSize="20px"
-              color={index % 2 === 0 ? "black" : "#553325"}
-              width="5%"
-              height="40%"
-              align="center"
-              fontWeight="bold"
-            >
-              <Text
-                fontSize="18px"
-                color={index % 2 === 0 ? "#black" : "#553325"}
+          {winHistory &&
+            winHistory.map((e, index) => (
+              <Box
+                border="1px solid black"
+                backgroundColor="grey"
+                key={index}
+                fontSize="20px"
+                color={index % 2 === 0 ? "black" : "#553325"}
+                width="5%"
+                height="40%"
+                align="center"
+                fontWeight="bold"
               >
-                {winHistory[index] && winHistory[index]}
-              </Text>
-            </Text>
-          ))}
+                <Text
+                  fontSize="18px"
+                  color={index % 2 === 0 ? "#black" : "#553325"}
+                >
+                  {/* {winHistory[index] && winHistory[index]} */}
+                  {e}
+                </Text>
+              </Box>
+            ))}
 
           <Text>Match Id:{gameId}</Text>
 
@@ -427,6 +432,14 @@ export default function MuflisOneDay() {
               </Text>
               <Text fontSize="18px" margin="0 0 0.5rem" fontWeight="bold">
                 {userId}
+              </Text>
+            </Box>
+            <Box backgroundColor="gold" padding="0.5rem" borderRadius="1rem">
+              <Text fontSize="18px" fontWeight="bold">
+                Betting Amount
+              </Text>
+              <Text fontSize="18px" margin="0 0 0.5rem" fontWeight="bold">
+                {bettingAmount ? bettingAmount : "0"}
               </Text>
             </Box>
           </Box>

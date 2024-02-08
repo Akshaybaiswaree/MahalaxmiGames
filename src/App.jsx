@@ -16,41 +16,15 @@ import MuflisOneDay from "./Component/Home/Games/Muflis One Day/MuflisOneDay";
 import Rootlayout from "./Component/RootLayout/Rootlayout";
 import TeenPatti from "./Component/Home/Games/TeenPatti/TeenPatti";
 import TeenPattiMuflis from "./Component/Home/Games/TeenPattiMuflis/TeenPattiMuflis";
+import ThirtyTwoCards from "./Component/Home/Games/ThirtyTwoCards/ThirtyTwoCards";
 import TwoCardsPattiTesting from "./Component/Home/Games/TwoCardspatti/TwoCardsPattiTesting";
 import TwoCardsTeenPatti from "./Component/Home/Games/TwoCardspatti/TwoCardspatti";
 
 // import ThirtyTwoCards from "./Component/Home/Games/32Cards/ThirtyTwoCards";
 
-
-
 // import HighCardTesting from "./Component/Home/Games/HighCard/highcardTesting";
 
-
-
-
-
-
-
-
-
-
-
-
-
 // import DragonTesting from "./Component/Home/Games/DragonTesting";
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -82,8 +56,7 @@ const router = createBrowserRouter(
 
         {/* <Route path="dragontigertesting" element={<DragonTesting />} /> */}
         <Route path="3cardsteenpatti" element={<TeenPatti />} />
-        {/* <Route path="thirtytwocards" element={<ThirtyTwoCards />} /> */}
-
+        <Route path="thirtytwocards" element={<ThirtyTwoCards />} />
         {/* <Route path="admin" element={<Admin />} /> */}
       </Route>
     </Route>
