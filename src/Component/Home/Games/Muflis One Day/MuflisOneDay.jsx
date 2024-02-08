@@ -42,7 +42,7 @@ export default function MuflisOneDay() {
       setPlayerACards(data.singlecard.playerA);
       setPlayerBCards(data.singlecard.playerB);
       setWinnerStatus(data.winner);
-      setWinHistory(data.winHistory);
+      // setWinHistory(data.winHistory);
     };
 
     const handleCountdown = (data) => {

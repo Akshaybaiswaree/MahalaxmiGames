@@ -23,7 +23,7 @@ import { io } from "socket.io-client";
 
 const socket = io("https://muflisteenpattibackend.onrender.com", {
   query: {
-    userId: Math.floor(Math.random() * Date.now()),
+    userId: "65ba39b7a2129497c4aa563a",
   },
   transports: ["websocket"],
 });
@@ -37,6 +37,7 @@ export default function TeenPattiMuflis() {
   const [player1Cards, setPlayer1Cards] = useState([]);
   const [player2Cards, setPlayer2Cards] = useState([]);
   const [buttonClick, setButtonClick] = useState(false);
+  const [gameHistory, setGameHistory] = useState([]);
 
   useEffect(() => {
     const handelTimer = (data) => {
@@ -45,14 +46,14 @@ export default function TeenPattiMuflis() {
     };
     const handelUserDetails = (data) => {
       setUser(data.user);
-      // console.log("UserDetails", data);
+      console.log("UserDetails", data);
     };
 
     const handelCards = (data) => {
       setMainCard(data.gameCard);
-
       setPlayer1Cards(data.gameCard.player1Cards);
       setPlayer2Cards(data.gameCard.player2Cards);
+      setGameHistory(data.gameHistory);
       console.log("Cards", data);
     };
 
@@ -284,7 +285,7 @@ export default function TeenPattiMuflis() {
             id="arry"
           >
             {[...Array(10)].map((_, index) => (
-              <Text
+              <Box
                 border="1px solid black"
                 backgroundColor="grey"
                 key={index}
@@ -298,10 +299,11 @@ export default function TeenPattiMuflis() {
                 <Text
                   fontSize="18px"
                   color={index % 2 === 0 ? "#black" : "#553325"}
+                  flexDirection="row"
                 >
-                  {index % 2 === 0 ? "B" : "A"}
+                  {gameHistory[index]}
                 </Text>
-              </Text>
+              </Box>
             ))}
             <Box
               display="flex"
@@ -590,7 +592,7 @@ export default function TeenPattiMuflis() {
                   Player ID
                 </Text>
                 <Text fontSize="18px" margin="0 0 0.5rem" fontWeight="bold">
-                  {user?.userId}
+                  {user?.mobileNumber}
                 </Text>
               </Box>
             </Box>

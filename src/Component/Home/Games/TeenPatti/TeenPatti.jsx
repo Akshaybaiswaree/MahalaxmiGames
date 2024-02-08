@@ -463,6 +463,8 @@ function TeenPatti() {
   const [swithCard, setSwitchCard] = useState(true);
   const [player1Cards, setPlayer1Cards] = useState([]);
   const [player2Cards, setPlayer2Cards] = useState([]);
+  const [gameHistory, setGameHistory] = useState([]);
+  
 
   useEffect(() => {
     // Listen for game state updates from the server
@@ -482,7 +484,7 @@ function TeenPatti() {
       // console.log(data.user.coins , "data");
       setUser(data.user);
       setCurrentPlayer((prevPlayer) => (prevPlayer === "A" ? "B" : "A"));
-      console.log(data, "data?.user");
+      // console.log(data, "data?.user");
     });
     socket.on("bait", (data) => {
       setUser(data);
@@ -495,12 +497,17 @@ function TeenPatti() {
       setMainCard(data.gameCard);
       displayPlayerCards(data.gameCard.player1Cards, setPlayer1Cards);
       displayPlayerCards(data.gameCard.player2Cards, setPlayer2Cards);
+      setGameHistory(data.gameHistory);
+      
     });
 
     return () => {
       socket.disconnect();
     };
   }, []);
+    if (gameState?.value === 3) {
+    socket.emit("getUpdatedUserDetails");
+  }
   // const displayPlayerCards = (cards, setPlayerCards) => {
   //   const displayedCards = cards.slice(0, 3); // Take only the first 3 cards
 
@@ -856,6 +863,28 @@ function TeenPatti() {
 
                 {/* BUTTONS FOR BET */}
               </Flex>
+
+              {[...Array(10)].map((_, index) => (
+              <Box
+                border="1px solid black"
+                backgroundColor="grey"
+                key={index}
+                fontSize={["15px", "20px"]}
+                color={index % 2 === 0 ? "black" : "#553325"}
+                width="5%"
+                height="40%"
+                // align="center"
+                fontWeight="bold"
+              >
+                <Text
+                  fontSize="18px"
+                  color={index % 2 === 0 ? "#black" : "#553325"}
+                  flexDirection="row"
+                >
+                  {gameHistory[index]}
+                </Text>
+              </Box>
+            ))}
             </Flex>
 
             <Text
