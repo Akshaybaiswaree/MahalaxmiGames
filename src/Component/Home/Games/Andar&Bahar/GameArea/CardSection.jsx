@@ -43,7 +43,7 @@ const CardSection = ({
 };
 
 CardSection.propTypes = {
-  title: PropTypes.string.isRequired,
+  // title: PropTypes.string.isRequired,
   cards: PropTypes.array.isRequired,
   position: PropTypes.string,
   bottom: PropTypes.string,
