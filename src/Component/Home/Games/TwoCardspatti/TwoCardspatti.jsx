@@ -15,6 +15,7 @@ import { useState, useEffect } from "react";
 // import Logo from "../../../images/32cardsA_v.jpeg";
 //  import backGroundImage from "./images/background_plus_cards.jpeg"
 import TwoCard from "../../Games/Images/2cardpatti.svg";
+import { FaLock } from "react-icons/fa";
 import "./TwoCardspatti.css";
 
 import { io } from "socket.io-client";
@@ -34,16 +35,22 @@ export default function TwoCardsTeenPatti() {
   const [playerHands, setPlayerHands] = useState([]);
   const [winner, setWinner] = useState(null);
   const [selectedChoice, setSelectedChoice] = useState(null);
-  const [player1Cards , setPlayer1Cards] =useState([]);
-  const [player2Cards , setPlayer2Cards] =useState([]);
+  const [player1Cards, setPlayer1Cards] = useState([]);
+  const [player2Cards, setPlayer2Cards] = useState([]);
+  const [gamehistory, setGamehistory] = useState([]);
+  const [isButtonDisabled, setButtonDisabled] = useState();
+
   useEffect(() => {
     const handleDealCards = (data) => {
-      // console.log(data, "playerHands123");
-        // handleGetBalance();
-        setTimeout(() => {
-          handleGetBalance();
-        }, 10000);
+      console.log(data, "playerHands123");
+      // handleGetBalance();
+      setTimeout(() => {
+        handleGetBalance();
+      }, 10000);
+
+      // setGamehistory(data.winHistory);
       const winner = data.winner;
+
       // console.log("Received dealt cards:", data);
       // console.log(data , "data")
       if (data.playerHands) {
@@ -58,12 +65,12 @@ export default function TwoCardsTeenPatti() {
         console.log("Player hands not found in data:", data);
       }
     };
-      // if (data.playerHands) {
-      //   setPlayerHands(data.playerHands);
-      //   setWinner(winner);
-      // } else {
-      //   console.log("Player hands not found in data:", data);
-      // }
+    // if (data.playerHands) {
+    //   setPlayerHands(data.playerHands);
+    //   setWinner(winner);
+    // } else {
+    //   console.log("Player hands not found in data:", data);
+    // }
     // };
 
     const handleNewBet = (bet) => {
@@ -77,8 +84,20 @@ export default function TwoCardsTeenPatti() {
       setPlayerHands([]);
     };
 
+    const handleWinHistory = (data) => {
+      console.log("Received win history:", data);
+      if (data && data.winStatuses) {
+        setGamehistory(data.winStatuses);
+      } else {
+        console.error("Invalid or missing win history data.");
+      }
+    };
+
     const handleCountdown = (data) => {
-      // console.log("data:", data);
+      const isDisabled = data?.countdown <= 25;
+
+      setButtonDisabled(isDisabled);
+      console.log("data:", data.countdown);
       setCountdown(data.countdown);
     };
     const handleBalanceUpdate = (data) => {
@@ -92,7 +111,7 @@ export default function TwoCardsTeenPatti() {
     const handleuser = (data) => {
       setUser(data.user.userId);
       setUserBalance(data.user.balance);
-      console.log("data123", data);
+      // console.log("data123", data);
     };
     handleGetBalance();
     socket.on("countdown", handleCountdown);
@@ -101,6 +120,7 @@ export default function TwoCardsTeenPatti() {
     socket.on("newBet", handleNewBet);
     socket.on("newRound", handleNewRound);
     socket.on("balanceUpdate", handleBalanceUpdate);
+    socket.on("WinHistory", handleWinHistory);
     // socket.on("dealCards", handleDealCards);
 
     return () => {
@@ -110,10 +130,10 @@ export default function TwoCardsTeenPatti() {
       socket.off("newRound", handleNewRound);
       socket.off("balanceUpdate", handleBalanceUpdate);
       socket.off("getuser", handleuser);
+      socket.off("WinHistory", handleWinHistory);
     };
   }, []);
 
- 
   const handlePlaceBet = (selectedChoice) => {
     const coins = parseInt(selectedCoin, 10); // Parse the selectedCoin to an integer
     socket.emit("placeBet", { selectedChoice, coins });
@@ -122,10 +142,8 @@ export default function TwoCardsTeenPatti() {
   return (
     <>
       <ChakraProvider>
-        <Box m={"0.6rem"} 
-        width={["19rem", "100%"]}
-        >
-          <Box maxW={["100vw", "100vw"]} id="main-div">
+        <Box width={["19rem", "100%"]}>
+          <Box bg={"#451212"} maxW={["100vw", "100vw"]} id="main-div">
             <Flex
               align="left-top"
               justify="left-top"
@@ -134,22 +152,19 @@ export default function TwoCardsTeenPatti() {
               flexDirection={["column", "row"]}
             >
               <Box
-                width={["100%", "70%"]}
+                width={["100%", "80%"]}
                 marginTop="0px"
                 marginRight="-4rem"
                 marginBottom="1rem"
               >
-                <Flex 
-                justify="space-between"
-                 align="center" 
-                 mb="2"
-                 >
+                <Flex justify="space-between" align="center" mb="2">
                   <Text
                     fontSize={["20px", "24px"]}
                     fontWeight="bold"
                     borderRadius="10px"
                     position="relative"
                     marginLeft={["5px", "0px"]}
+                    color={"white"}
                   >
                     2 Cards Teen Patti
                   </Text>
@@ -198,20 +213,13 @@ export default function TwoCardsTeenPatti() {
                       // background="linear-gradient(to bottom right, violet, blue)"
                       background="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
                     >
-                      {countdown <= 25 ? "Freeze" : "Place  Bet"}
+                      {/* {countdown <= 25 ? "Freeze" : "Place  Bet"} */}
+                      {countdown <= 8
+                        ? "Winner: " + winner
+                        : countdown <= 25
+                        ? "Freeze"
+                        : "Place Bet"}
                     </Box>
-
-                    {countdown <= 8 && (
-                      <Box mt={["2rem", "2rem"]} id="winner">
-                        <Button
-                          w={["8rem", "12rem"]}
-                          fontSize={["15px", "lg"]}
-                          color="#A52A2A"
-                        >
-                          Winner : {winner}
-                        </Button>
-                      </Box>
-                    )}
 
                     <Box
                       fontWeight={"900"}
@@ -229,7 +237,6 @@ export default function TwoCardsTeenPatti() {
                       justifyContent="center"
                       alignItems="center"
                       fontSize="lg"
-                      //  background="linear-gradient(to bottom right, golden, yellow)"
                       background=" linear-gradient(to bottom right, #640E18, #CC1D31,#DAA520)"
                       marginRight={"1rem"}
                       color="white"
@@ -238,169 +245,90 @@ export default function TwoCardsTeenPatti() {
                         <p>{Math.max(0, countdown - 25)}</p>
                       )}
                     </Box>
-                    {/* {countdown <= 15 && (
-                      <>
-                        <Box
-                          position={"absolute"}
-                          top={["2.5rem", "15rem", "17.5rem"]}
-                          left={["2rem", "2rem" , "3rem"]}
-                          id="player"
-                        >
-                          <Text mb={["1rem", "2rem"]}>Player A</Text>
-                          <Text>Player B</Text>
-                        </Box>
-                      </>
-                    )} */}
 
                     <Flex
-                      direction="column"
+                      justifyContent={"space-between"}
+                      gap={"0.7rem"}
+                      direction="row"
                       position={"absolute"}
-                      top={["60%" , "62.5%"]}
-                      left={["44%"]}
-                      id="playerCard"
+                      top={["60%", "63%"]}
+                      left={["44%", "45%"]}
+                      // id="playerCard"
                     >
-                      {/* {countdown <= 12 && (
-                        <Flex direction="row">
-                          {playerHands?.PlayerA &&
-                            Object.entries(playerHands?.PlayerA).map(
-                              ([player, card], index) => (
-                                <Box key={index}>
-                                  {card && (
-                                    <Image
-                                      bg={"red"}
-                                      src={`/cards/${card}`}
-                                      boxSize={["1.8rem", "2rem"]}
-                                      margin="0.5rem"
-                                      alt={`${card}`}
-                                    />
-                                  )}
-                                </Box>
-                              )
-                            )}
-                        </Flex>
-                      )} */}
-                       <Flex
-                        direction="row"
-                        top={["2rem"]}
-                       >
-                        
-                       {countdown <= 13  && (
-                        <Flex >
-                          {/* {playerHands?.PlayerA &&
-                            Object.entries(playerHands?.PlayerA).map( */}
-                                <Box key={1}
-                                // style="margin-left:-1rem"
-                                // style={{marginTop: '0rem', marginLeft: '0.6rem' }}
-                                marginTop={["-0.1rem","-0.2rem"]}
-                                marginLeft={["-0.15rem","0.05rem"]}
-                                >
-                                    <Image
-                                      bg={"red"}
-                                      src={`/cards/${player1Cards[1]}`}
-                                      // position={'absolute'}
-                                      // top={'1rem'}
-                                      // boxSize={["1.8rem", "2.9rem"]}
-                                      height={["2.5 rem","3.5rem"]}
-                                      width={["1.9rem" , "2.6rem"]}
-                                     
-                                      margin="0.5rem"
-                                      // alt={`${card}`}
-                                    />
-                                </Box>
-                        </Flex>
-                      )}
-                        {countdown <= 11 && (
-                        <Flex>
-                             <Box 
-                                key={0}
-                                // style={{marginTop: '0.2rem', marginLeft: '0.4rem' }}
-                                marginTop={["0.1rem","0.1rem"]}
-                                marginLeft={["-0.2rem","0.7rem"]}
-                                 >
-                                    <Image
-                                      bg={"red"}
-                                      src={`/cards/${player1Cards[0]}`}
-                                      // boxSize={["1.8rem", "2.7rem"]}
-                                      width={["" , ""]}
-                                      height={["1.8rem","3rem"]}
-                                      margin="0.3rem"
-                                      // top={"80rem"}
-                                      // alt={`${card}`}
-                                    />
-                                </Box>
-                        </Flex>
-                      )}
-                    </Flex>
-                      {/* {countdown <= 12 && (
-                        <Flex direction="row">
-                          {playerHands?.PlayerB &&
-                            Object.entries(playerHands?.PlayerB).map(
-                              ([player, card], index) => (
-                                <Box key={index}>
-                                  {card && (
-                                    <Image
-                                      src={`/cards/${card}`}
-                                      boxSize={["1.8rem", "2rem"]}
-                                      margin="0.5rem"
-                                      alt={`${card}`}
-                                    />
-                                  )}
-                                </Box>
-                              )
-                            )}
-                        </Flex>
-                      )} */}
-                    
-                       <Flex 
-                       direction="row" 
-                       id="playerCard2"
-                       >
-                         {countdown <= 12 && (
-                         <Flex>
-                                <Box
-                                 key={0}
-                                //  style={{marginTop: '0.9rem', marginLeft: '0.1rem' }}
-                                marginTop={["-0.1rem","0.3rem"]}
-                                // marginTop={["-0.1rem","-0.2rem"]}
-                                 marginLeft={["-0.2rem","-0.5rem"]}
-                                 id="player1card1"
-                                >
-                                    <Image
-                                      src={`/cards/${player2Cards[0]}`}
-                                      // boxSize={["1.8rem", "2.9rem"]}
-                                      height={["1.8rem","3rem"]}
-                                      // margin="0.5rem"
-                                      width={["1.9rem" , "2.6rem"]}
-                                      // alt={`${card}`}
-                                    />
-                                  </Box>
-                           </Flex>
-                           )}
+                      <Box>
+                        {countdown <= 14 && (
+                          <Box
+                            key={1}
+                            height={["20.5 rem", "0.5rem"]}
+                            width={["1.9rem", "3.2rem"]}
+                          >
+                            <Image src={`/cards/${player1Cards[1]}`} />
+                          </Box>
+                        )}
+                      </Box>
+                      <Box>
+                        {countdown <= 12 && (
+                          <Box
+                            key={1}
+                            height={["2.5 rem", "0.5rem"]}
+                            width={["1.9rem", "3.2rem"]}
+                          >
+                            <Image
+                              src={`/cards/${player1Cards[0]}`}
+                              // boxSize={["1.8rem", "2.7rem"]}
 
-                          {countdown <= 10 && (
-                         <Flex>
-                                <Box key={1}
-                                //  style={{marginTop: '0.9rem', marginLeft: '0.4rem' }}
-                                 marginTop={["-0.1rem","0.8rem"]}
-                                 marginLeft={["-0.4rem","0.4rem"]}
-                                 >
-                                    <Image
-                                      src={`/cards/${player2Cards[1]}`}
-                                      height={["1.8rem","3rem"]}
-                                      margin="0.5rem"
-                                 
-                                      // alt={`${card}`}
-                                    />
-                                </Box>
-                          </Flex>
-                             )} 
-                       </Flex>
+                              // top={"80rem"}
+                              // alt={`${card}`}
+                            />
+                          </Box>
+                        )}
+                      </Box>
+                    </Flex>
+                    <Flex
+                      justifyContent={"space-between"}
+                      gap={"0.7rem"}
+                      direction="row"
+                      position={"absolute"}
+                      top={["77%", "78%"]}
+                      left={["44%", "45%"]}
+                    >
+                      <Box>
+                        {countdown <= 13 && (
+                          <Box
+                            key={0}
+                            height={["2.5 rem", "0.5rem"]}
+                            width={["1.9rem", "3.2rem"]}
+                            //  style={{marginTop: '0.9rem', marginLeft: '0.1rem' }}
+                          >
+                            <Image
+                              src={`/cards/${player2Cards[0]}`}
+                              // boxSize={["1.8rem", "2.9rem"]}
+                            />
+                          </Box>
+                        )}
+                      </Box>
+                      <Box>
+                        {countdown <= 11 && (
+                          <Box
+                            key={1}
+                            height={["2.5 rem", "0.5rem"]}
+                            width={["1.9rem", "3.2rem"]}
+                            //  style={{marginTop: '0.9rem', marginLeft: '0.4rem' }}
+                          >
+                            <Image
+                              src={`/cards/${player2Cards[1]}`}
+
+                              // alt={`${card}`}
+                            />
+                          </Box>
+                        )}
+                      </Box>
                     </Flex>
                   </Box>
                 </AspectRatio>
 
                 {/* 10 Mini Boxes */}
-                <Flex flexDirection={["column", "row"]} alignItems="center">
+                {/* <Flex flexDirection={["column", "row"]} alignItems="center">
                   <Flex width={["100%", "67%"]} p={1}>
                     {[...Array(10)].map((_, index) => (
                       <Box
@@ -419,12 +347,13 @@ export default function TwoCardsTeenPatti() {
                           fontSize="14px"
                           color={index % 2 === 0 ? "#333" : "#2b329b"}
                         >
-                          {index % 2 === 0 ? "A" : "B"}
+                          {gamehistory}
                         </Text>
                       </Box>
                     ))}
                   </Flex>
-                  {/* Text and Button */}
+
+              
 
                   <Flex flexDirection="row" alignItems="center">
                     <Text> </Text>
@@ -440,19 +369,55 @@ export default function TwoCardsTeenPatti() {
                       Player History
                     </Button>
                   </Flex>
+                </Flex> */}
+                <Flex flexDirection={["column", "row"]} alignItems="center">
+                  {/* Box Items */}
+                  <Box
+                    fontWeight={"700"}
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(to right, #A52A2A, #FF8C00)",
+                      WebkitBackgroundClip: "text",
+                      color: "transparent",
+                    }}
+                  >
+                    Last Wins:
+                  </Box>
+
+                  <Flex width={["100%", "67%"]} p={1} flexWrap="wrap">
+                    {gamehistory?.map((item, index) => (
+                      <Box
+                        key={index}
+                        width={["35px", "35px"]} // Adjusted width for responsiveness
+                        height={["45px", "35px"]} // Adjusted height for responsiveness
+                        marginRight="5px" // Added right margin to each item
+                        marginBottom="5px" // Added bottom margin for spacing
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        fontWeight="bold"
+                        border="2px solid white"
+                      >
+                        <Text
+                          fontSize="14px"
+                          color={index % 2 === 0 ? "white" : "red"}
+                        >
+                          {item}
+                        </Text>
+                      </Box>
+                    ))}
+                  </Flex>
                 </Flex>
-                {/* New Box */}
               </Box>
 
               <Box
-                marginX={["0rem", "-30rem" ,"5rem" ]}
-                marginTop={["2rem", "38rem" , "5rem"]}
-            
+                marginX={["0rem", "-30rem", "5rem"]}
+                marginTop={["1rem", "38rem", "5rem"]}
                 width={["100%", "50%"]}
                 id="playeryourbetdiv"
               >
                 <Flex
-                  width={[ "95%","110%"]}
+                  width={["95%", "110%"]}
                   flexDirection="row"
                   border="3px solid #333"
                   borderRadius="10px"
@@ -473,7 +438,7 @@ export default function TwoCardsTeenPatti() {
                   <Box
                     flex="1"
                     width="48%"
-                    backgroundColor="#86A7FC"
+                    backgroundColor="orange"
                     textAlign="center"
                     borderRightRadius="10px"
                   >
@@ -484,16 +449,14 @@ export default function TwoCardsTeenPatti() {
                   </Box>
                 </Flex>
                 {/* New Box  */}
-                <Box width="90%"
-                 id ="placeyourbet"
-                 >
+                <Box width="90%" id="placeyourbet">
                   <Flex flexDirection="column" alignItems="center">
                     <Text
                       fontSize="20px"
                       fontWeight="bold"
                       marginLeft={["0.5rem"]}
                       mt={"1rem"}
-                     
+                      color={"white"}
                     >
                       Place Your Bet
                     </Text>
@@ -539,7 +502,7 @@ export default function TwoCardsTeenPatti() {
                             // console.log(item.value);
                           }}
                         >
-                          {console.log(selectedCoin, "selectedCoin")}
+                          {/* {console.log(selectedCoin, "selectedCoin")} */}
                           <img
                             src={item.imageSrc}
                             alt={`${item.value}'s coin`}
@@ -577,45 +540,65 @@ export default function TwoCardsTeenPatti() {
                         display="flex"
                         justifyContent="center"
                         alignItems="center"
-                     
                       >
                         {/* Player Button 1 */}
-                        <Button
+                        {/* <Button
+                           isDisabled={isButtonDisabled}
                           width="90%"
                           height={["50%", "80%"]}
                           p={4}
                           color="white"
                           fontWeight="800"
-                          borderRadius="md"
+                          borderRadius="20%"
                           bgGradient="linear(to-r, #0000FF, #FFA500)"
-
                           _hover={{
-                            bg:"#FAEBD7",
-                               boxShadow: "dark-lg",
-                               color:"black"
-                             }}
+                            bg: "#FAEBD7",
+                            boxShadow: "dark-lg",
+                            color: "black",
+                          }}
                           onClick={() => handlePlaceBet("PlayerA")}
                         >
                           Player A
-                        </Button>
-
+                        </Button> */}
                         <Button
+                          isDisabled={isButtonDisabled}
                           width="90%"
                           height={["50%", "80%"]}
                           marginLeft="1rem"
                           color="white"
                           fontWeight="800"
-                          borderRadius="md"
+                          borderRadius="20%"
                           bgGradient="linear(to-r, #0000FF, #FFA500)"
-
-                          _hover={{
-                         bg:"#FAEBD7",
+                          _hover={!isButtonDisabled && {
+                            bg: "#FAEBD7",
                             boxShadow: "dark-lg",
-                            color:"black"
+                            color: "black",
                           }}
-                          
                           onClick={() => handlePlaceBet("PlayerB")}
                         >
+                          {isButtonDisabled && <FaLock  size={35}  style={{  color: 'white', marginRight: '0.5rem' }} />}
+                          Player B
+                        </Button>
+
+                        <Button
+                          isDisabled={isButtonDisabled}
+                          // {<FaLock isDisabled={isButtonDisabled} />}
+                          width="90%"
+                          height={["50%", "80%"]}
+                          marginLeft="1rem"
+                          color="white"
+                          fontWeight="800"
+                          borderRadius="20%"
+                          bgGradient="linear(to-r, #0000FF, #FFA500)"
+                          _hover={!isButtonDisabled && {
+                            bg: "#FAEBD7",
+                            boxShadow: "dark-lg",
+                            color: "black",
+                          }}
+                    
+                          onClick={() => handlePlaceBet("PlayerB")}
+                        >
+                          {isButtonDisabled && <FaLock size={35}  style={{  color: 'white', marginRight: '0.5rem' }}  />}
                           Player B
                         </Button>
                       </Box>

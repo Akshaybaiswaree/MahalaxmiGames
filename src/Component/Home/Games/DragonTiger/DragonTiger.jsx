@@ -1,5 +1,3 @@
-import "./DragonTiger.css";
-
 import {
   AspectRatio,
   Box,
@@ -26,28 +24,20 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
+
 import React, { useEffect, useRef, useState } from "react";
 
+//  import Gamingimage from "../Games/images/GAMING GIRL 1.svg";
 import Gamingimage from "../../Games/Images/GAMING GIRL 1.svg";
-import NoteIcon from "@mui/icons-material/Note";
+import "./DragonTiger.css";
+
+import { io } from "socket.io-client";
+import pann from "../../Games/Images/Pann.svg";
 import flower from "../../Games/Images/Flower.svg";
 import heart from "../../Games/Images/Heart.svg";
 import heart1 from "../../Games/Images/Heart1.svg";
-import { io } from "socket.io-client";
-import pann from "../../Games/Images/Pann.svg";
 import vector from "../../Games/Images/Vector-1.svg";
-
-//  import Gamingimage from "../Games/images/GAMING GIRL 1.svg";
-
-
-
-
-
-
-
-
-
-
+import NoteIcon from "@mui/icons-material/Note";
 const socket = io("https://dragontiger-backend.onrender.com", {
   query: {
     userId: Math.floor(Math.random() * Date.now()),
@@ -143,7 +133,9 @@ export default function DragonTiger() {
   return (
     <>
       <ChakraProvider>
-        <Box m={"0.5rem"} maxW={["90.5 vw", "83.5vw"]}>
+        <Box 
+        bg={' '}
+        m={"0.5rem"} maxW={["90.5vw", "83.5vw"]}>
           <Flex direction={["column", "row "]}>
             <Box width={["105%", "34%"]}>
               <Box
@@ -179,7 +171,7 @@ export default function DragonTiger() {
                     <Button
                       mb={"1rem"}
                       mt={"1rem"}
-                      ml={["0.2rem", "1rem"]}
+                      ml={["-2.2rem", "1rem"]}
                       fontWeight={"600"}
                       width={["10.5rem", "14rem"]}
                       background="linear-gradient(to bottom right , #668cff , #a64dff)"
@@ -355,21 +347,43 @@ export default function DragonTiger() {
                       {gameState?.value < 20 ? "Freeze" : "Place  Bet"}
                     </Box>
 
-                    <Box>
-                      {gameState.value < 10 && (
+                    <Box id="winnerbox">
+                      {(gameState.value > 10) && (
                         <Button
                           // background="linear-gradient(to bottom right,#ED9203, #323349, #880000)"
                           background="linear-gradient(to bottom right, #ED9203, #C7E600)"
-                          height={["2rem", "4rem"]}
-                          width={["12rem", "14rem"]}
-                          mt={["rem", "1rem"]}
-                          ml={["2rem", ""]}
+                          // height={["2rem", "4rem"]}
+                          // width={["12rem", "14rem"]}
+                          // mt={["rem", "1rem"]}
+                          // ml={["2rem", ""]}
+                          // position={"absolute"}
+                          visibility={"hidden"}
                         >
-                          Winner: {mainCard?.winstatus} {mainCard?.winCardSuit}
+                          ainner: {mainCard?.winstatus} {mainCard?.winCardSuit}
+                          
                           {/* Winner: {mainCard?.winCardSuit} */}
                         </Button>
                       )}
                     </Box>
+                    <Box 
+                    id="winnerbox">
+                      {gameState.value <= 10 && (
+                        <Button
+                          // background="linear-gradient(to bottom right,#ED9203, #323349, #880000)"
+                          background="linear-gradient(to bottom right, #ED9203, #C7E600)"
+                          // height={["2rem", "4rem"]}
+                          // width={["12rem", "14rem"]}
+                          // mt={["rem", "1rem"]}
+                          // ml={["2rem", ""]}
+                          // position={"absolute"}
+                        >
+                          Winner: {mainCard?.winstatus} {mainCard?.winCardSuit}
+                          
+                          {/* Winner: {mainCard?.winCardSuit} */}
+                        </Button>
+                      )}
+                    </Box>
+                    
 
                     <Box
                       fontWeight={"900"}
@@ -393,21 +407,27 @@ export default function DragonTiger() {
                     >
                       {gameState?.value && Math.max(0, gameState.value - 20)}
                     </Box>
-                    {gameState.value >= 1 && (
+                    {gameState.value >= -10 && (
                       <React.Fragment>
                         <Flex
-                          marginTop={["9rem", "13rem"]}
+                          marginTop={["13.8rem", "14rem"]}
                           ml={["0.5rem", "2rem"]}
-                          width={["15rem", "20rem"]}
+                          width={["15rem", "19rem"]}
+                          id="playercard1"
                         >
                           <Stack direction="column" width={["10rem", "12rem"]}>
-                            <Box color={"Yellow"} fontSize={["1.4rem", "2rem"]}>
-                              {/* Dragon */}
-                            </Box>
-                            {gameState.value < 14 && (
+                            {/* <Box color={"Yellow"} fontSize={["1.4rem", "2rem"]}>
+                              Dragon
+                            </Box> */}
+                            {gameState.value < 150 && (
                               <Box
                                 fontStyle={"yellow"}
-                                width={["1.5rem", "3rem"]}
+                                // width={["1.5rem", "3rem"]}
+                                // width={"2rem"}
+                                // height={"2rem"}
+                                // marginLeft={["-0.8rem", "0.4rem"]}
+                                id="playercard11"
+
                               >
                                 <Image src={`/cards/${mainCard?.dragoncard}`} />
                               </Box>
@@ -415,15 +435,21 @@ export default function DragonTiger() {
                           </Stack>
 
                           <Stack
-                            ml={"3rem"}
+                            // ml={"3rem"}
                             width={["6rem", "8rem"]}
                             direction="column"
                           >
-                            <Box color={"Yellow"} fontSize={["1.4rem", "2rem"]}>
-                              {/* Tiger */}
-                            </Box>
-                            {gameState.value < 15 && (
-                              <Box width={["1.5rem", "3rem"]}>
+                            {/* <Box color={"Yellow"} fontSize={["1.4rem", "2rem"]}>
+                              Tiger
+                            </Box> */}
+                            {gameState.value < 140 && (
+                              <Box 
+                              // width={["1.5rem", "3rem"]}
+                              // width={"2rem"}
+                              // height={"2rem"}
+                              // marginLeft={["4.4rem", "  3.2rem"]}
+                              id="playercard12"
+                              >
                                 <Image src={`/cards/${mainCard?.tigercard}`} />
                               </Box>
                             )}
@@ -526,7 +552,7 @@ export default function DragonTiger() {
                   <Box
                     mb={["1rem", ""]}
                     mt={["2rem", "1rem"]}
-                    ml={["8rem", "12rem"]}
+                    ml={["5rem", "12rem"]}
                   >
                     <Button
                       _hover={{ backgroundColor: "blue.500", color: "white" }}
@@ -541,7 +567,7 @@ export default function DragonTiger() {
                   </Box>
                   <Box
                     mt={["rem", "1.5rem"]}
-                    ml={["2rem", "5rem"]}
+                    ml={["0.5rem", "5rem"]}
                     display="flex"
                   >
                     {gamehistory.map((item, index) => (
@@ -576,14 +602,14 @@ export default function DragonTiger() {
                       _hover={{ bg: " #d9d9d9" }}
                       width={["14rem", "16rem"]}
                       mb={["1rem", "1rem"]}
-                      marginLeft="2rem"
+                      marginLeft={["-0.5rem","2rem"]}
                     >
                       <Text fontWeight={"700"}> PlayerId : {user?.userId}</Text>
                     </Button>
                     <Button
                       flexDirection="row"
                       alignItems="center"
-                      marginLeft="2rem"
+                      marginLeft={["-0.5rem","2rem"]}
                       variant="outline"
                       width={["14rem", "16rem"]}
                       borderRadius={"10px"}
@@ -751,101 +777,12 @@ export default function DragonTiger() {
               </Stack>
             </Box>
           </Flex>
-          {/*<Box p="1" display="flex">
-            <Table
-              mt={["1rem", "0rem"]}
-              width={["24rem", "30rem"]}
-              // width="15px"
-              //  width={["60%", "45%"]}
-              style={{
-                borderCollapse: "separate",
-                borderSpacing: "1px",
-                borderRadius: "3px",
-              }}
-            >
-              <Thead>
-                <Tr>
-                  <Th width={["1rem", "8.8rem"]} bg={"#F09403"}>
-                    Place The Bet
-                  </Th>
-                  <Th bg={"#F09403"} textAlign="center">
-                    Red
-                  </Th>
-                  <Th bg={"#F09403"} textAlign="center">
-                    Black
-                  </Th>
-                </Tr>
-              </Thead>
-              <Tbody bg={"#780200"}>
-                <Tr>
-                  <Td bg={"#F09403"}>Dragon</Td>
-                  <Td
-                    onClick={() =>
-                      handleBait({
-                        baitType: "dragon",
-                        baitOn: "color",
-                        color: "red",
-                      })
-                    }
-                    _hover={{ bg: "#FFF5EE" }}
-                    textAlign="center"
-                  >
-                    <Image src={`/cards/${"Red 2 cards.svg"}`} />
-                    <Td color={"#668CFF"}>1.98</Td>
-                  </Td>
-                  <Td
-                    onClick={() =>
-                      handleBait({
-                        baitType: "dragon",
-                        baitOn: "color",
-                        color: "black",
-                      })
-                    }
-                    _hover={{ bg: "#FFF5EE" }}
-                    textAlign="center"
-                  >
-                    <Image src={`/cards/${"black 2 cards.svg"}`} />
-                    <Td color={"#668CFF"}>1.98</Td>
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td bg={"#F09403"}>Tiger</Td>
-                  <Td
-                    onClick={() =>
-                      handleBait({
-                        baitType: "dragon",
-                        baitOn: "color",
-                        color: "red",
-                      })
-                    }
-                    _hover={{ bg: "#FFF5EE" }}
-                    textAlign="center"
-                  >
-                    <Image src={`/cards/${"Red 2 cards.svg"}`} />
-                    <Td color={"#668CFF"}>1.98</Td>
-                  </Td>
-                  <Td
-                    onClick={() =>
-                      handleBait({
-                        baitType: "dragon",
-                        baitOn: "color",
-                        color: "black",
-                      })
-                    }
-                    _hover={{ bg: "#FFF5EE" }}
-                    textAlign="center"
-                  >
-                    <Image src={`/cards/${"black 2 cards.svg"}`} />
-                    <Td color={"#668CFF"}>1.98</Td>
-                  </Td>
-                </Tr>
-              </Tbody>
-            </Table>
-                  </Box> */}
+          
 
           <Box
             p="1"
             width={["100%", "80%"]}
+            
             // // maxW={["50vw" , "50vw"]}
           >
             <Table
@@ -866,145 +803,21 @@ export default function DragonTiger() {
                 </Tr>
               </Thead>
 
-              {/*    <Tbody bg={"#780200"}>
-                <Tr>
-                  <Td
-                    padding={["1.7rem"]}
-                    display={"flex"}
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                    // width={["30rem", "7.8rem"]}
-                    bg={"#F09403"}
-                  >
-                    Dragon
-                  </Td>
-                  <Td
-                    onClick={() =>
-                      handleBait({
-                        baitType: "dragon",
-                        baitOn: "suit",
-                        suit: "heart",
-                      })
-                    }
-                    _hover={{ bg: "#FFF5EE" }}
-                    textAlign="center"
-                  >
-                    <Image src={`/cards/${"heart (1) 1.svg"}`} />
-                  </Td>
-                  <Td
-                    onClick={() =>
-                      handleBait({
-                        baitType: "dragon",
-                        baitOn: "suit",
-                        suit: "club",
-                      })
-                    }
-                    _hover={{ bg: "#FFF5EE" }}
-                    textAlign="center"
-                  >
-                    <Image src={`/cards/${"club 1.svg"}`} />
-                  </Td>
-                  <Td
-                    onClick={() =>
-                      handleBait({
-                        baitType: "dragon",
-                        baitOn: "suit",
-                        suit: "diamond",
-                      })
-                    }
-                    _hover={{ bg: "#FFF5EE" }}
-                    textAlign="center"
-                  >
-                    <Image src={`/cards/${"Clip path group.svg"}`} />
-                  </Td>
-                  <Td
-                    onClick={() =>
-                      handleBait({
-                        baitType: "dragon",
-                        baitOn: "suit",
-                        suit: "spade",
-                      })
-                    }
-                    _hover={{ bg: "#FFF5EE" }}
-                    textAlign="center"
-                  >
-                    <Image src={`/cards/${"Group 1000004933.svg"}`} />
-                  </Td>
-                </Tr>
+             
 
-                <Tr>
-                  <Td
-                    padding={["1.7rem"]}
-                    bg={"#F09403"}
-                    display={"flex"}
-                    alignItems={"center"}
-                    justifyContent={"center"}
-                    // width={["em", "7.8rem"]}
-                  >
-                    Tiger
-                  </Td>
-                  <Td
-                    onClick={() =>
-                      handleBait({
-                        baitType: "tiger",
-                        baitOn: "suit",
-                        suit: "heart",
-                      })
-                    }
-                    _hover={{ bg: "#FFF5EE" }}
-                    textAlign="center"
-                  >
-                    <Image src={`/cards/${"heart (1) 1.svg"}`} />
-                  </Td>
-                  <Td
-                    onClick={() =>
-                      handleBait({
-                        baitType: "tiger",
-                        baitOn: "suit",
-                        suit: "club",
-                      })
-                    }
-                    _hover={{ bg: "#FFF5EE" }}
-                    textAlign="center"
-                  >
-                    <Image src={`/cards/${"club 1.svg"}`} />
-                  </Td>
-                  <Td
-                    onClick={() =>
-                      handleBait({
-                        baitType: "tiger",
-                        baitOn: "suit",
-                        suit: "diamond",
-                      })
-                    }
-                    _hover={{ bg: "#FFF5EE" }}
-                    textAlign="center"
-                  >
-                    <Image src={`/cards/${"Clip path group.svg"}`} />
-                  </Td>
-                  <Td
-                    onClick={() =>
-                      handleBait({
-                        baitType: "tiger",
-                        baitOn: "suit",
-                        suit: "spade",
-                      })
-                    }
-                    _hover={{ bg: "#FFF5EE" }}
-                    textAlign="center"
-                  >
-                    <Image src={`/cards/${"Group 1000004933.svg"}`} />
-                  </Td>
-                </Tr>
-                  </Tbody>*/}
+              <div 
+              style={{ display: "flex" }}
+               className="boxes"
+              // marginLeft={["50rem",""]}
+              marginLeft={[" -100rem", "2rem"]}
 
-              <div style={{ display: "flex" }} className="boxes">
+              >
                 <div className="container">
                   <h6>DRAGON COLOUR</h6>
                   <div className="box1">
-                    <div className="white-box">
+                    < div className="white-box">
                       <div className="image">
-                        <img src={pann} alt="" />
+                        <img src={pann} alt="" />  
                         <img src={flower} alt="" />
                       </div>
                       <span>1.98</span>
@@ -1022,7 +835,7 @@ export default function DragonTiger() {
                 <div className="container">
                   <h6>TIGER COLOUR</h6>
                   <div className="box1">
-                    <div className="white-box">
+                     <div className="white-box">
                       <div className="image">
                         <img src={pann} alt="" />
                         <img src={flower} alt="" />
@@ -1041,7 +854,7 @@ export default function DragonTiger() {
               </div>
 
               <div className="cards">
-                <h6>
+                <h6 className="lasth6">
                   DRAGON <br />
                   SUIT 3.75
                 </h6>

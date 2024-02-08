@@ -37,11 +37,12 @@ function Rootlayout() {
 
         {/* Main Content */}
         <Box
-          mx={{ base: "1rem", md: "2rem" }}
+          mx={{ base: "1rem", md: "1rem" }}
           mr={{ base: "4rem" }}
-          marginLeft={{ base: "0rem", md: "1rem" }}
-          flexBasis={{ base: "300%", md: "80%" }}
+          marginLeft={{ base: "0rem", md: "0rem" }}
+          flexBasis={{ base: "300%", md: "100%" }}
           alignItems={{ base: "flex-start" }}
+          // bg={"#451212"} 
         >
           <Outlet />
         </Box>
