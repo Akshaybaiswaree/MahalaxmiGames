@@ -49,7 +49,7 @@ export default function MuflisOneDay() {
     const handleCountdown = (data) => {
       console.log("timer", data);
       setTimer(data.countdown);
-      data.countdown >= 44 ? setBettingAmount(0) : "";
+      data.countdown >= 120 ? setBettingAmount(0) : "";
     };
 
     const handleNewBet = (data) => {
