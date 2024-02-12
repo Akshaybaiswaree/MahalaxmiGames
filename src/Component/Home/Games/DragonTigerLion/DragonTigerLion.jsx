@@ -79,12 +79,23 @@ export default function TwoCardsTeenPatti() {
       socket.emit("getBalance");
     };
 
+    const handleWinHistory = (data) => {
+      console.log("Received win history:", data);
+      if (data && data.winStatuses) {
+        setGameHistory(data.winStatuses);
+      } else {
+        console.error("Invalid or missing win history data.");
+      }
+    };
+
     const handleBet = (data) => {
       setSelectBet(data.choice);
       setAvailableBal(data.userBalance);
       setDragonCards(data.DragenNumber);
       setTigerCards(data.TigerNumber);
       setLionCards(data.LionNumber);
+      // setGameHistory(data?.gameHistory)
+      console.log(data);
       // setButtonStatus1(true);
       // setButtonStatus2(true);
       // setButtonStatus3(true);
@@ -109,10 +120,10 @@ export default function TwoCardsTeenPatti() {
       // setButtonStatus3(true);
     };
 
-    const handleWinHistory = (data) => {
-      console.log("WinHistory", data);
-      setGameHistory(data.winStatuses);
-    };
+    // const handleWinHistory = (data) => {
+    //   console.log("WinHistory", data);
+    //   setGameHistory(data.winStatuses);
+    // };
 
     const handleGameId = (data) => {
       console.log("GameId", data);
@@ -634,7 +645,8 @@ export default function TwoCardsTeenPatti() {
             </Flex>
           </Box>
         </Box>
-      </ChakraProvider>
+        {/* </Box> */}
+        </ChakraProvider>
     </>
   );
 }

@@ -1,115 +1,4 @@
-@media screen and (min-width: 320px)    {
 
-  #third{
-      width: 100%;
-      height: 20rem;
-      right: 0rem;
-      top: 52rem;
-
-  }
-  #two{
-      top: 59rem;
-  }
-  #round1{
-      top: 2px;
-      left: 2px;
-      padding: 10px;
-  }
-  #round2{
-      padding: 5px;
-      top: 2px;
-      right: 2px;
-  }
-  .cardShow{
-      margin-left: 0.5rem;
-  }
-  #last{
-      top: 20rem;
-  }
-  #arry{
-      top: -36rem;
-  }
- .tableBox{
-  visibility: none;
- }
-
-}
-@media screen and (min-width: 350px) {
-
-  #two {
-      top: 59rem;
-  }
-
-  #arry {
-      width: 118%;
-  }
-
-  #match-id-btn {
-      right: 0.2rem;
-  }
-  #third{
-      width: 100%;
-      height: 20rem;
-      right: 0rem;
-      top: 54rem;
-
-  } 
-  /* #lastWin{
-      top: 120rem;
-  }
- */
-
-}
-@media screen and (min-width: 375px) {
-
-  #two {
-      top: 40rem;
-  }
-
-  #arry {
-      width: 118%;
-  }
-
-  #match-id-btn {
-      right: 0.2rem;
-  }
-  #third{
-      width: 100%;
-      height: 20rem;
-      right: 0rem;
-      top: 54rem;
-
-  } 
-
-
-}
-
-
-@media screen and (min-width: 425px) {
-
-  #two {
-      top: 34.5rem;
-  }
-
-  #arry {
-      width: 115%;
-  }
-
-  #match-id-btn {
-      right: 1.5rem;
-  }
-
-  #money {
-      margin-left: 0.5rem;
-      width: 80%;
-  }
-}
-
-@media screen and (max-width: 450px){
-#two {
-  top: 59rem;
-}
-}
 
 @media screen and (min-width: 768px){
 
@@ -151,11 +40,11 @@
       top: 73rem;
     
   }
-  #money {
+  /* #money {
       margin-left:8rem;
       width:80%;
       
-  }
+  } */
   #arry{
       top: 2rem;
   }
@@ -187,10 +76,10 @@
       right: 4rem;
   }
 
-  #money {
+  /* #money {
       margin-left: 9rem;
       width: 80%;
-  }
+  } */
 
   #money-Hover:hover {
       height: 3.8rem;
