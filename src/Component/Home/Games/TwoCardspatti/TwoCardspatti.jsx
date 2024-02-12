@@ -36,15 +36,16 @@ export default function TwoCardsTeenPatti() {
   const [playerHands, setPlayerHands] = useState([]);
   const [winner, setWinner] = useState(null);
   const [selectedChoice, setSelectedChoice] = useState(null);
+  const[playerid , setPlayerid] =useState("");
   const [player1Cards, setPlayer1Cards] = useState([]);
-  const [player2Cards, setPlayer2Cards] = useState([]); 
+  const [player2Cards, setPlayer2Cards] = useState([]);
   const [gamehistory, setGamehistory] = useState([]);
   const [isButtonDisabled, setButtonDisabled] = useState();
   const [currentBet, setCurrentBet] = useState(0);
 
   useEffect(() => {
     const handleDealCards = (data) => {
-      console.log(data, "playerHands123");
+      // console.log(data, "playerHands123");
       // handleGetBalance();
       setTimeout(() => {
         handleGetBalance();
@@ -78,6 +79,9 @@ export default function TwoCardsTeenPatti() {
     const handleNewBet = (bet) => {
       console.log("Received new bet:", bet);
       setSelectedChoice(bet.choice);
+      setPlayerid(bet._id)
+      console.lod(bet._id , "bet._id")
+        
       console.log(bet?.Total);
     };
 
@@ -98,7 +102,7 @@ export default function TwoCardsTeenPatti() {
 
     const handleCountdown = (data) => {
       const isDisabled = data?.countdown <= 25;
-    data.countdown>=44?setCurrentBet(0):""
+      data.countdown >= 44 ? setCurrentBet(0) : "";
       setButtonDisabled(isDisabled);
       // console.log("data:", data.countdown);
       setCountdown(data.countdown);
@@ -115,10 +119,10 @@ export default function TwoCardsTeenPatti() {
     const handleuser = (data) => {
       setUser(data.user.userId);
       setUserBalance(data.user.balance);
-      console.log("data123", data);
+      // console.log("data123", data);
     };
     const handleGameId = (data) => {
-      console.log("Received GameId:", data.gameId);
+      // console.log("Received GameId:", data.gameId);
       setgameId(data.gameId);
     };
     handleGetBalance();
@@ -141,12 +145,12 @@ export default function TwoCardsTeenPatti() {
       socket.off("getuser", handleuser);
       socket.off("WinHistory", handleWinHistory);
       socket.off("gameId", handleGameId);
-    }; 
+    };
   }, []);
 
   const handlePlaceBet = (selectedChoice) => {
     const coins = parseInt(selectedCoin, 10); // Parse the selectedCoin to an integer
-    setCurrentBet((prev)=>prev+coins);
+    setCurrentBet((prev) => prev + coins);
 
     socket.emit("placeBet", { selectedChoice, coins });
   };
@@ -260,36 +264,63 @@ export default function TwoCardsTeenPatti() {
 
                     <Flex
                       justifyContent={"space-between"}
-                      gap={"0.7rem"}
+                      gap={{base:"0.2rem",sm:"0.1rem" , md:"0.3rem" , lg:"0.2rem" , xl:"0.5rem" , "2xl":"0.4rem"}}
                       direction="row"
                       position={"absolute"}
-                      top={["60%", "63%"]}
-                      left={["44%", "45%"]}
+                      // top={["60%", "63%"]}
+                      // left={["44%", "45%"]}
+                       top={{base:"63%" , sm:"62%" , md:"68%" , lg:"63%" , xl:"63.5%" , "2xl": "63%"}}
+                       left={{base:"45.5%" , sm:"44%" , md:"50%" , lg:"44.5%" , xl:"44%" , "2xl": "43%"}}
                       // id="playerCard"
                     >
                       <Box>
-                        {countdown <= 14 && (
+                        {countdown <= 140 && (
                           <Box
                             key={1}
-                            height={["20.5 rem", "0.5rem"]}
-                            width={["1.9rem", "3.2rem"]}
+                            // height={["20.5 rem", "0.5rem"]}
+                      
                           >
-                            <Image src={`/cards/${player1Cards[1]}`} />
+                            <Image
+                           
+                                  
+                            width={{base:"1.8rem", sm:"2rem" , md:"2.4rem" , lg:"" , xl:"3.3rem" , "2xl" :"4rem"}}
+                              height={{
+                                base:"2.3rem",
+                                sm: "2rem",
+                                md: "1rem",
+                                lg: "2.4rem",
+                                xl: "3.2rem",
+                                "2xl": "4rem",
+                              }}
+                              // height={{base:"rem" , md:"3.5rem"}}
+                              src={`/cards/${player1Cards[1]}`}
+                            />
                           </Box>
                         )}
                       </Box>
                       <Box>
-                        {countdown <= 12 && (
+                        {countdown <= 120 && (
                           <Box
                             key={1}
-                            height={["2.5 rem", "0.5rem"]}
-                            width={["1.9rem", "3.2rem"]}
+                            // height={["2.5 rem", "0.5rem"]}
+                    
+                          
                           >
                             <Image
+                                width={{base:"2rem", sm:"2rem" , md:"2.4rem" , lg:"" , xl:"3.3rem" , "2xl" :"4rem"}}
+                               height={{
+                                base:"2.3rem",
+                                sm: "2rem",
+                                md: "1rem",
+                                lg: "2.4rem",
+                                xl: "3.2rem",
+                                "2xl": "4rem",
+                              }}
+                              // height={{ base: "rem", md: "3.5rem" }}
                               src={`/cards/${player1Cards[0]}`}
                               // boxSize={["1.8rem", "2.7rem"]}
 
-                              // top={"80rem"}
+                              // top={"80r em"}
                               // alt={`${card}`}
                             />
                           </Box>
@@ -297,22 +328,34 @@ export default function TwoCardsTeenPatti() {
                       </Box>
                     </Flex>
                     <Flex
-                      justifyContent={"space-between"}
-                      gap={"0.7rem"}
+                  
+                  gap={{base:"0.2rem",sm:"0.1rem" , md:"0.3rem" , lg:"0.2rem" , xl:"0.5rem" , "2xl":"0.4rem"}}
                       direction="row"
                       position={"absolute"}
-                      top={["77%", "78%"]}
-                      left={["44%", "45%"]}
+                      // top={["77%", "78%"]}
+                      // left={["44%", "45%"]}
+                      top={{base:"80%" , sm:"75 %" , md:"70%" , lg:"79%" , xl:"80%" , "2xl": "79%"}}
+                      left={{base:"45.3%" , sm:"45.5%" , md:"50%" , lg:"44.5%" , xl:"44%" , "2xl": "43%"}}
                     >
                       <Box>
-                        {countdown <= 13 && (
+                        {countdown <= 130 && (
                           <Box
                             key={0}
-                            height={["2.5 rem", "0.5rem"]}
-                            width={["1.9rem", "3.2rem"]}
+                            // height={["2.5 rem", "0.5rem"]}
+
                             //  style={{marginTop: '0.9rem', marginLeft: '0.1rem' }}
-                          >
+                          
+                            >
                             <Image
+                           width={{base:"1.8rem", sm:"2rem" , md:"2.4rem" , lg:"" , xl:"3.3rem" , "2xl" :"4rem"}}
+                               height={{
+                                base:"2.3rem",
+                                sm: "2rem",
+                                md: "1rem",
+                                lg: "2.4rem",
+                                xl: "3.2rem",
+                                "2xl": "4rem",
+                              }}
                               src={`/cards/${player2Cards[0]}`}
                               // boxSize={["1.8rem", "2.9rem"]}
                             />
@@ -320,14 +363,23 @@ export default function TwoCardsTeenPatti() {
                         )}
                       </Box>
                       <Box>
-                        {countdown <= 11 && (
+                        {countdown <= 110 && (
                           <Box
                             key={1}
-                            height={["2.5 rem", "0.5rem"]}
-                            width={["1.9rem", "3.2rem"]}
-                            //  style={{marginTop: '0.9rem', marginLeft: '0.4rem' }}
-                          >
+                            // height={["2.5 rem", "0.5rem"]}
+                      
+                       
+                            >
                             <Image
+                                 width={{base:"2rem", sm:"2rem" , md:"2.4rem" , lg:"" , xl:"3.3rem" , "2xl" :"4rem"}}
+                                height={{
+                                  base:"2.3rem",
+                                  sm: "2rem",
+                                  md: "1rem",
+                                  lg: "2.4rem",
+                                  xl: "3.2rem",
+                                  "2xl": "4rem",
+                                }}
                               src={`/cards/${player2Cards[1]}`}
 
                               // alt={`${card}`}
@@ -339,9 +391,24 @@ export default function TwoCardsTeenPatti() {
                   </Box>
                 </AspectRatio>
 
-                <Flex flexDirection={["column", "row"]} alignItems="center">
+                <Flex flexDirection={["column", "column"]} alignItems="center">
+
                   {/* Box Items */}
-                  <Box
+
+                  <Button
+                  bg={'black'}
+                    fontWeight={"700"}
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(to right, #A52A2A, #FF8C00)",
+                      WebkitBackgroundClip: "text",
+                      color: "transparent",
+                    }}
+                  >
+                   <>Player Id:<Text color={"white"}>{playerid}</Text></> 
+                  </Button>
+                  <Button
+                  bg={'black'}
                     fontWeight={"700"}
                     style={{
                       backgroundImage:
@@ -351,8 +418,7 @@ export default function TwoCardsTeenPatti() {
                     }}
                   >
                     Last Wins:
-                  </Box>
-                  
+                  </Button>
 
                   <Flex width={["100%", "67%"]} p={1} flexWrap="wrap">
                     {gamehistory?.map((item, index) => (
@@ -365,8 +431,10 @@ export default function TwoCardsTeenPatti() {
                         display="flex"
                         justifyContent="center"
                         alignItems="center"
+                        textAlign={"center"}
                         fontWeight="bold"
                         border="2px solid white"
+                     
                       >
                         <Text
                           fontSize="14px"
@@ -378,6 +446,7 @@ export default function TwoCardsTeenPatti() {
                     ))}
                   </Flex>
                   <Box
+              
                     fontWeight={"700"}
                     style={{
                       backgroundImage:
@@ -386,7 +455,7 @@ export default function TwoCardsTeenPatti() {
                       color: "transparent",
                     }}
                   >
-                    <>Last Bet Amount :{currentBet}</>
+                    <>Last Bet Amount :<Text color={'white'}>{currentBet}</Text></>
                   </Box>
                 </Flex>
               </Box>

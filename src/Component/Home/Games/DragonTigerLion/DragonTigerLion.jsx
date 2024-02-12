@@ -36,13 +36,14 @@ export default function DragonTigerLion() {
   const [winnerStatus, setWinnerStatus] = useState("Wait!!");
   const [buttonClick, setButtonClick] = useState(false);
   const [selectedCoins, setSelectedCoins] = useState(null);
+  const [gameHistory, setGameHistory] = useState(null);
 
   // console.log("availableBal", availableBal);
   // console.log("selectCoins", selectCoins);
 
   useEffect(() => {
     const handleGameCards = (data) => {
-      // console.log("CardsData:-", data);
+      //  console.log("CardsData:-", data);
       if (data.playerHands) {
         setDragonCards(data.playerHands.Dragen);
         setTigerCards(data.playerHands.Tiger);
@@ -73,12 +74,23 @@ export default function DragonTigerLion() {
       socket.emit("getBalance");
     };
 
+    const handleWinHistory = (data) => {
+      console.log("Received win history:", data);
+      if (data && data.winStatuses) {
+        setGameHistory(data.winStatuses);
+      } else {
+        console.error("Invalid or missing win history data.");
+      }
+    };
+
     const handleBet = (data) => {
       setSelectBet(data.choice);
       setAvailableBal(data.userBalance);
       setDragonCards(data.DragenNumber);
       setTigerCards(data.TigerNumber);
       setLionCards(data.LionNumber);
+      // setGameHistory(data?.gameHistory)
+      console.log(data);
       // setButtonStatus1(true);
       // setButtonStatus2(true);
       // setButtonStatus3(true);
@@ -110,6 +122,7 @@ export default function DragonTigerLion() {
     socket.on("newBet", handleBet);
     socket.on("newRound", handleNewRound);
     socket.on("dealCards", handleGameCards);
+    socket.on("WinHistory", handleWinHistory);
     return () => {
       socket.off("countdown", handleTimer);
       socket.off("balanceUpdate", handlePlayerBalance);
@@ -117,6 +130,7 @@ export default function DragonTigerLion() {
       socket.off("newBet", handleBet);
       socket.off("newRound", handleNewRound);
       socket.off("dealCards", handleGameCards);
+      socket.off("WinHistory", handleWinHistory);
     };
   }, []);
   if (timer === 40) {
@@ -159,7 +173,13 @@ export default function DragonTigerLion() {
   return (
     <>
       <ChakraProvider>
+       <Box  
+       width={'100vw'}
+       height={"100vh"}
+    
+       bg={' #000080'}>
         <Box
+       
           marginBottom={["9rem", "0rem"]}
           id="first"
           //  p={4}
@@ -306,7 +326,8 @@ export default function DragonTigerLion() {
           display="flex"
           // position="relative"
         >
-          {[...Array(10)].map((_, index) => (
+          {/* {[...Array(1())].map((_, index) => ( */}
+          {gameHistory?.map((item, index) => (
             <Text
               mb={{ base: "1rem", md: -1 }}
               border="2px solid grey"
@@ -320,56 +341,14 @@ export default function DragonTigerLion() {
               fontWeight="bold"
               id="array"
             >
-              {index % 3 === 0 ? "D" : index % 3 === 1 ? "T" : "L"}
+              {item}
+              {/* {console.log(item , "item")} */}
+              {/* {gameHistory} */}
             </Text>
           ))}
-
-          {/* <Text
-            mb={{ base: "1rem", md: -1 }} // Adjust margin-bottom for different screen sizes
-            ml={{ base: "0.2rem", md: -2 }} // Adjust margin-left for different screen sizes
-            top={{ base: "3.5rem" }}
-            width={{ base: "75%", md: "65%" }} // Adjust width for different screen sizes
-            position="absolute"
-            // bottom="0"
-            // left="10%"
-            fontWeight="bold"
-            border="2px solid darkblue"
-            padding="0"
-            className="matchID"
-          >
-            Match Id: {matchId}
-          </Text> */}
-
-          {/* <Button
-            width={{ base: "23%", md: "20%" }}
-            fontSize={{ base: "0.8rem", md: "1rem" }}
-            padding={{ base: "1rem" }}
-            variant="outline"
-            colorScheme="blue"
-            position="absolute"
-            bottom="0"
-            right={{ base: "0", md: "10%" }}
-            // width="20%"
-            // variant="outline"
-            // colorScheme="blue"
-            // position="absolute"
-            // bottom="0"
-            // right="10%"
-          
-          >
-            Player History
-          </Button> */}
         </Box>
 
         <Box
-          // width={{ base: '95%', sm: '80%', md: '30%', lg: '30%' }}
-          // top={{ base: '106%', md: '35%' }}
-          // right={{ base: '0rem', md: '0' }}
-          // left={{ base: '0.7rem', md: '66rem' }}
-          // height={{ base: '80%', md: '70%', lg: '80%', xl: '90%' }}
-          // border="2px solid red"
-          // marginTop="8rem"
-          // height="100%"
           position="absolute"
           display="flex"
           justifyContent="space-between"
@@ -521,7 +500,8 @@ export default function DragonTigerLion() {
             </Button>
           </Box>
         </Box>
-      </ChakraProvider>
+        </Box>
+        </ChakraProvider>
     </>
   );
 }

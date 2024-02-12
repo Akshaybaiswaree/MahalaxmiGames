@@ -104,19 +104,6 @@ export default function DragonTiger() {
     socket.emit("getUpdatedUserDetails");
   }
 
-  // const handleBait = (baitType) => {
-  //   if (user?.coins <= 0) {
-  //     alert("Insufficient Coins");
-  //     return; // Stop execution if coins are 0 or less
-  //   }
-  //   const bait = {
-  //     baitType,
-  //     coins,
-  //     cardId: mainCard._id,
-  //   };
-  //   console.log(bait, "bait");
-  //   socket.emit("bait", bait);
-  // };
   const handleBait = ({ baitType, baitOn, suit, color }) => {
     const bait = {
       baitType,
@@ -147,23 +134,25 @@ export default function DragonTiger() {
                 {/* Rules and Regulation */}
                 <Flex>
                   <Box
-                    textAlign={"center"}
-                    fontSize={["24px", "28px"]}
-                    ml={["1.2rem", "0rem"]}
-                    fontWeight="bold"
-                    borderRadius="10px"
-                    mt={"1rem"}
-                    mb={"1rem"}
+                    // textAlign={"center"}
+                    // fontSize={["24px", "28px"]}
+                    // ml={["1.2rem", "0rem"]}
+                    // fontWeight="bold"
+                    // borderRadius="10px"
+                    // mt={"1rem"}
+                    // mb={"1rem"}
+                    className="topleft"
                   >
                     Dragon
                   </Box>
                   <Box
-                    textAlign={"center"}
-                    fontSize={["24px", "28px"]}
-                    fontWeight="bold"
-                    borderRadius="10px"
-                    mt={"1rem"}
-                    mb={"1rem"}
+                    // textAlign={"center"}
+                    // fontSize={["24px", "28px"]}
+                    // fontWeight="bold"
+                    // borderRadius="10px"
+                    // mt={"1rem"}
+                    // mb={"1rem"}
+                    className="topright"
                   >
                     Tiger
                   </Box>
@@ -171,15 +160,16 @@ export default function DragonTiger() {
                     <Button
                       mb={"1rem"}
                       mt={"1rem"}
-                      ml={["-2.2rem", "1rem"]}
+                      // ml={["-2.2rem", "1rem"]}
                       fontWeight={"600"}
-                      width={["10.5rem", "14rem"]}
+                      // width={["10.5rem", "14rem"]}
                       background="linear-gradient(to bottom right , #668cff , #a64dff)"
                       _hover={{ bg: " #d9d9d9" }}
                       color="black"
                       onClick={onOpen}
+                      className="ruleandregulation"
                     >
-                      Rules and Regulation
+                      Rules 
                     </Button>
                   </Box>
                   <Modal
@@ -227,17 +217,11 @@ export default function DragonTiger() {
                           PAYOUT
                         </Button>
                         <br />
-                        {/* Payout as per the bet placed Dragon 1 to 0.98 Tiger 1 to
-                    0.98 Tie (Rank Only) 1 to 10 Even 1 to 1.1 Odd 1 to 0.8 Red
-                    1 to 0.98 Black 1 to 0.98 Suit 1 to 2.75 */}
+                        
                         <TableContainer>
                           <Table size="sm">
                             <Thead>
-                              {/* <Tr>
-                            <Th>To convert</Th>
-                            <Th>into</Th>
-                            
-                          </Tr> */}
+                             
                             </Thead>
                             <Tbody>
                               <Tr>
@@ -278,26 +262,13 @@ export default function DragonTiger() {
                                 <Td>1 to 2.75</Td>
                               </Tr>
                             </Tbody>
-                            {/* <Tfoot>
-                          <Tr>
-                            <Th>To convert</Th>
-                            <Th>into</Th>
-                            <Th isNumeric>multiply by</Th>
-                          </Tr>
-                        </Tfoot> */}
+                           
                           </Table>
                         </TableContainer>
                       </ModalBody>
 
                       <ModalFooter>
-                        {/* <Button
-                      width={"4rem"}
-                      colorScheme="blue"
-                      mr={3}
-                      onClick={onClose}
-                    >
-                      Close
-                    </Button> */}
+                       
                       </ModalFooter>
                     </ModalContent>
                   </Modal>
@@ -323,6 +294,7 @@ export default function DragonTiger() {
                     alignItems="top"
                     position="relative"
                     width={"60%"}
+                    className="mainlef"
                   >
                     <Box
                       fontWeight={"900"}
@@ -347,7 +319,7 @@ export default function DragonTiger() {
                       {gameState?.value < 20 ? "Freeze" : "Place  Bet"}
                     </Box>
 
-                    <Box id="winnerbox">
+                    <Box >
                       {(gameState.value > 10) && (
                         <Button
                           // background="linear-gradient(to bottom right,#ED9203, #323349, #880000)"
@@ -410,15 +382,14 @@ export default function DragonTiger() {
                     {gameState.value >= -10 && (
                       <React.Fragment>
                         <Flex
-                          marginTop={["13.8rem", "14rem"]}
-                          ml={["0.5rem", "2rem"]}
-                          width={["15rem", "19rem"]}
+                          // marginTop={["13.8rem", "14rem"]}
+                          // ml={["0.5rem", "2rem"]}
+                          // width={["15rem", "19rem"]}
                           id="playercard1"
+                          // backgroundColor={"black"}
                         >
                           <Stack direction="column" width={["10rem", "12rem"]}>
-                            {/* <Box color={"Yellow"} fontSize={["1.4rem", "2rem"]}>
-                              Dragon
-                            </Box> */}
+                           
                             {gameState.value < 150 && (
                               <Box
                                 fontStyle={"yellow"}
@@ -427,6 +398,7 @@ export default function DragonTiger() {
                                 // height={"2rem"}
                                 // marginLeft={["-0.8rem", "0.4rem"]}
                                 id="playercard11"
+                                // backgroundColor={"black"}
 
                               >
                                 <Image src={`/cards/${mainCard?.dragoncard}`} />
@@ -439,9 +411,7 @@ export default function DragonTiger() {
                             width={["6rem", "8rem"]}
                             direction="column"
                           >
-                            {/* <Box color={"Yellow"} fontSize={["1.4rem", "2rem"]}>
-                              Tiger
-                            </Box> */}
+                           
                             {gameState.value < 140 && (
                               <Box 
                               // width={["1.5rem", "3rem"]}
@@ -472,87 +442,83 @@ export default function DragonTiger() {
                 id="secondss"
               >
                 <Box
-                  marginLeft={["rem", "7rem"]}
-                  marginTop={["1rem", "4rem"]}
-                  width={["95%", "130%"]}
+                  // marginLeft={["rem", "7rem"]}
+                  // marginTop={["1rem", "4rem"]}
+                  // width={["95%", "130%"]}
                   //  backgroundColor={"red"}
+                  className="rightBox"
                 >
                   <Flex
-                    width={["100%", "100%"]}
-                    flexDirection="row"
-                    border="5px solid #668cff"
-                    boxShadow="4px 4px 10px rgba(3, 0, 2, 0.6)"
-                    display="flex"
-                    borderRadius="1rem"
-                    ml={["0.5rem", "3rem"]}
+                    // width={["100%", "100%"]}
+                    // flexDirection="row"
+                    // border="5px solid #668cff"
+                    // boxShadow="4px 4px 10px rgba(3, 0, 2, 0.6)"
+                    // display="flex"
+                    // borderRadius="1rem"
+                    // ml={["0.5rem", "3rem"]}
+                    // backgroundColor={"red"}
+
+                    className="rightBoxfirst"
                   >
                     <Box
-                      flex="1"
-                      width={["20%", "100%"]}
-                      backgroundColor="white"
-                      textAlign="center"
-                      borderRight="4px solid #668cff"
-                      borderLeftRadius="1rem"
+                      // flex="1"
+                      // width={["20%", "100%"]}
+                      // backgroundColor="white"
+                      // textAlign="center"
+                      // borderRight="4px solid #668cff"
+                      // borderLeftRadius="1rem"
+                      // backgroundColor={"black"}
+
+                      className="rightBoxavailablecredit"
                     >
                       <Text
-                        color={"#668cff"}
-                        fontSize={["16px", "18px"]}
-                        fontWeight="bold"
+                        // color={"#668cff"}
+                        // fontSize={["16px", "18px"]}
+                        // fontWeight="bold"
+                        // backgroundColor={"red"}
+                        className="rightBoxavailabelcredittext"
                       >
                         Available Credit :
                       </Text>
-                      <Text fontWeight={"500"} fontSize={["20px", "24px"]}>
-                        {/* {gameState?.value && Math.max(0, gameState.value - 15)} */}
+                      <Text 
+                      fontWeight={"500"} 
+                      fontSize={["20px", "24px"]}
+                    // backgroundColor={"yellow"}
+                      >
+                      
                         {user?.coins && Math.max(0, user?.coins)}
                       </Text>
                     </Box>
 
-                    <Box flex="1" width="46%" textAlign="center">
+                    <Box 
+                    // flex="1"
+                    //  width="46%" 
+                    //  textAlign="center"
+                     className="matchidbox"
+                     >
                       <Text
-                        color={"#668cff"}
-                        fontSize={["16px", "18px"]}
-                        fontWeight="bold"
+                        // color={"#668cff"}
+                        // fontSize={["16px", "18px"]}
+                        // fontWeight="bold"
+                        className="matchid"
+                      
                       >
                         Match Id :
                       </Text>
-                      <Text fontWeight={"500"} fontSize={["19px", "24px"]}>
+                      <Text 
+                      fontWeight={"500"}
+                       fontSize={["19px", "24px"]}
+                       >
                         {user?.userId}
                       </Text>
                     </Box>
                   </Flex>
-                  {/* <Stack
-                    ml={["1rem", "6rem"]}
-                    mt={"1rem"}
-                    flexDirection="row"
-                    alignItems="center"
-                  >
-                    {[...Array(8)].map((_, index) => (
-                      <Box
-                        key={index}
-                        width="35px"
-                        height="35px"
-                        marginRight={["5px", "10px"]}
-                        display="flex"
-                        justifyContent="center"
-                        alignItems="center"
-                        fontWeight="bold"
-                        border="5px solid #333"
-                      >
-                        <Text
-                          fontSize="14px"
-                          color={index % 2 === 0 ? "#333" : "#2b329b"}
-                        >
-                          {index % 2 === 0 ? "D" : "T"} 
-                        {gamehistory}
-                        </Text>
-                      </Box>
-                    ))}
-                    
-                  </Stack> */}
+                  
                   <Box
-                    mb={["1rem", ""]}
-                    mt={["2rem", "1rem"]}
-                    ml={["5rem", "12rem"]}
+                    // mb={["1rem", ""]}
+                    // mt={["2rem", "1rem"]}
+                    // ml={["5rem", "12rem"]}
+                    className="bethistorybox"
                   >
                     <Button
                       _hover={{ backgroundColor: "blue.500", color: "white" }}
@@ -560,29 +526,31 @@ export default function DragonTiger() {
                       p={4}
                       borderRadius="md"
                       bg={"orange"}
-                      width={["10rem", "10rem"]}
+                      width={["10rem"]}
                     >
                       Bet History
                     </Button>
                   </Box>
                   <Box
-                    mt={["rem", "1.5rem"]}
-                    ml={["0.5rem", "5rem"]}
-                    display="flex"
+                    // mt={["", "1.5rem"]}
+                    // ml={["0.5rem", "5rem"]}
+                    // display="flex"
+                    className="itembox"
                   >
                     {gamehistory.map((item, index) => (
                       <Box
                         color={"blue"}
                         p={"2px"}
                         key={index}
-                        marginRight={["10px", "10px"]}
-                        width={["25px", "30px"]}
+                        marginRight={["10px"]}
+                        // width={["25px", "30px"]}
                         height="30px"
                         border="2px solid black"
                         borderRadius="5px"
                         display="flex"
                         alignItems="center"
                         justifyContent="center"
+                        className="historymap"
                       >
                         {item}
                       </Box>
@@ -594,28 +562,32 @@ export default function DragonTiger() {
                     alignItems={"center"}
                     mb={"1rem"}
                     mt={"1rem"}
-                    ml={["3rem"]}
+                    ml={["7rem"]}
                     id="playerId"
                   >
                     <Button
                       background="linear-gradient(to bottom right , #989BDE , #656794 )"
                       _hover={{ bg: " #d9d9d9" }}
-                      width={["14rem", "16rem"]}
-                      mb={["1rem", "1rem"]}
-                      marginLeft={["-0.5rem","2rem"]}
+
+                      className="playerid"
+                      // width={["14rem", "16rem"]}
+                      // mb={["1rem", "1rem"]}
+                      // marginLeft={["-0.5rem","2rem"]}
+                    
                     >
                       <Text fontWeight={"700"}> PlayerId : {user?.userId}</Text>
                     </Button>
                     <Button
                       flexDirection="row"
                       alignItems="center"
-                      marginLeft={["-0.5rem","2rem"]}
+                      // marginLeft={["-0.5rem","2rem"]}
                       variant="outline"
-                      width={["14rem", "16rem"]}
+                      // width={["14rem", "16rem"]}
                       borderRadius={"10px"}
                       background="linear-gradient(to bottom right, #ED9203, #C7E600)"
                       _hover={{ bg: "#ffff00" }}
                       fontWeight={"700"}
+                      className="plyaerhistory"
                     >
                       Player History
                     </Button>
@@ -623,32 +595,34 @@ export default function DragonTiger() {
 
                   {/* New Box */}
                   <Box width={["100%", "100%"]}>
-                    <Box marginLeft={["1rem", "12rem"]}>
+                    <Box 
+                    // marginLeft={["1rem", "12rem"]}
+                    className="chooseyour">
                       <Text
-                        mt={"1rem"}
-                        mb={"0.6rem"}
+                        mt={"1.5rem"}
+                        mb={"1rem"}
                         fontSize="15px"
                         fontWeight="bold"
+                        className="choose"
                       >
                         Choose Your Amount
-                      </Text>
-                      {/* <Text fontSize="15px" fontWeight="bold">
-                        Amount
-                      </Text> */}
-                    </Box>
+                       </Text>
+                      
+                     </Box>
                     <Flex
-                      ml={["0rem", "3rem"]}
+                      // ml={["0rem", "3rem"]}
                       border={"6px solid lightgreen"}
                       borderRadius={"20px"}
-                      width={["105%", "100%"]}
-                      flexDirection={["", "row"]}
+                      // width={["105%", "100%"]}
+                      // flexDirection={["", "row"]}
                       id="money"
                     >
                       <Flex
                         width={["95%", "100%"]}
                         flexWrap={["nowrap", "wrap"]}
                         justifyContent={["center"]}
-                        marginTop={["", "0"]}
+                        className="moneyin"
+                        
                         // ml={["0rem", "3rem"]}
                       >
                         {[
@@ -663,7 +637,7 @@ export default function DragonTiger() {
                             ml={["0.8rem", "0rem"]}
                             key={index}
                             height="45px"
-                            margin={["rem", "0.5rem"]}
+                           
                             display="flex"
                             justifyContent="center"
                             alignItems="center"
@@ -672,7 +646,7 @@ export default function DragonTiger() {
                             _hover={{ height: "2rem" }}
                             onClick={() => {
                               setCoins(item.value);
-                              console.log(item.value);
+                            
                             }}
                           >
                             <img
@@ -701,6 +675,7 @@ export default function DragonTiger() {
                         width={["100%", "100%"]}
                         borderRadius="10px"
                         position="relative"
+                        className="tie"
                       >
                         {/* Left Button */}
                         <Button
@@ -750,6 +725,7 @@ export default function DragonTiger() {
                         {/* Right Button */}
                         <Button
                           fontWeight={"700"}
+                          
                           onClick={() =>
                             handleBait({
                               baitType: "tiger",
@@ -809,7 +785,7 @@ export default function DragonTiger() {
               style={{ display: "flex" }}
                className="boxes"
               // marginLeft={["50rem",""]}
-              marginLeft={[" -100rem", "2rem"]}
+             
 
               >
                 <div className="container">
@@ -822,7 +798,7 @@ export default function DragonTiger() {
                       </div>
                       <span>1.98</span>
                     </div>
-                    <div className="white-box">
+                      <div className="white-box">
                       <div className="image">
                         <img src={heart1} alt="" />
                         <img src={flower} alt="" />
@@ -832,7 +808,7 @@ export default function DragonTiger() {
                   </div>
                 </div>
 
-                <div className="container">
+                <div className="container2">
                   <h6>TIGER COLOUR</h6>
                   <div className="box1">
                      <div className="white-box">
