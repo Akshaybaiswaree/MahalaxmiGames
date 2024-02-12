@@ -120,10 +120,10 @@ export default function TwoCardsTeenPatti() {
       // setButtonStatus3(true);
     };
 
-    const handleWinHistory = (data) => {
-      console.log("WinHistory", data);
-      setGameHistory(data.winStatuses);
-    };
+    // const handleWinHistory = (data) => {
+    //   console.log("WinHistory", data);
+    //   setGameHistory(data.winStatuses);
+    // };
 
     const handleGameId = (data) => {
       console.log("GameId", data);
@@ -645,7 +645,7 @@ export default function TwoCardsTeenPatti() {
             </Flex>
           </Box>
         </Box>
-        </Box>
+        {/* </Box> */}
         </ChakraProvider>
     </>
   );

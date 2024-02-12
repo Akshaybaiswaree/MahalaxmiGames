@@ -394,6 +394,7 @@ export default function TwoCardsTeenPatti() {
                 <Flex flexDirection={["column", "column"]} alignItems="center">
 
                   {/* Box Items */}
+                  
 
                   <Button
                   bg={'black'}
