@@ -1,7 +1,3 @@
-
-
-// import "./TwoCardspatti.css";
-
 import {
   AspectRatio,
   Box,
@@ -95,15 +91,9 @@ export default function DragonTigerLion() {
       setLionCards(data.LionNumber);
       // setGameHistory(data?.gameHistory)
       console.log(data);
-      // setButtonStatus1(true);
-      // setButtonStatus2(true);
-      // setButtonStatus3(true);
 
       console.log("new bet:-", data);
-      // console.log("new bet Choice:-", data.choice);
-      // console.log("new bet balance:-", data.userBalance);
-      // console.log("DragenNumber:-", data.DragenNumber);
-      // console.log("TigerNumber:-", data.TigerNumber);
+
       // console.log("LionNumber:-", data.LionNumber);
     };
 
@@ -114,15 +104,7 @@ export default function DragonTigerLion() {
       setLionCards([]);
       // setGamesCards([]);
       setWinnerStatus(null);
-      // setButtonStatus1(true);
-      // setButtonStatus2(true);
-      // setButtonStatus3(true);
     };
-
-    // const handleWinHistory = (data) => {
-    //   console.log("WinHistory", data);
-    //   setGameHistory(data.winStatuses);
-    // };
 
     const handleGameId = (data) => {
       console.log("GameId", data);
@@ -181,7 +163,7 @@ export default function DragonTigerLion() {
     <>
       <ChakraProvider>
         <Box width={["19rem", "100%"]}>
-          <Box bg={"#451212"} maxW={["100vw", "100vw"]} id="main-div">
+          <Box bg={"black"} maxW={["100vw", "100vw"]} id="main-div">
             <Flex
               align="left-top"
               justify="left-top"
@@ -372,10 +354,7 @@ export default function DragonTigerLion() {
                               }}
                               // height={{ base: "rem", md: "3.5rem" }}
                               src={`/cards/${tigerCards}`}
-                              // boxSize={["1.8rem", "2.7rem"]}
-
-                              // top={"80r em"}
-                              // alt={`${card}`}
+                              
                             />
                           </Box>
                         )}
@@ -403,109 +382,14 @@ export default function DragonTigerLion() {
                                 xl: "3.2rem",
                                 "2xl": "4rem",
                               }}
-                              // height={{ base: "rem", md: "3.5rem" }}
+                         
                               src={`/cards/${lionCards}`}
-                              // boxSize={["1.8rem", "2.7rem"]}
-
-                              // top={"80r em"}
-                              // alt={`${card}`}
+                          
                             />
                           </Box>
                         )}
                       </Box>
                     </Flex>
-                    {/* <Flex
-                      gap={{
-                        base: "0.2rem",
-                        sm: "0.1rem",
-                        md: "0.3rem",
-                        lg: "0.2rem",
-                        xl: "0.5rem",
-                        "2xl": "0.4rem",
-                      }}
-                      direction="row"
-                      position={"absolute"}
-                      // top={["77%", "78%"]}
-                      // left={["44%", "45%"]}
-                      top={{
-                        base: "80%",
-                        sm: "75 %",
-                        md: "70%",
-                        lg: "79%",
-                        xl: "80%",
-                        "2xl": "79%",
-                      }}
-                      left={{
-                        base: "45.3%",
-                        sm: "45.5%",
-                        md: "50%",
-                        lg: "44.5%",
-                        xl: "44%",
-                        "2xl": "43%",
-                      }}
-                    >
-                      <Box>
-                        {countdown <= 13 && (
-                          <Box
-                            key={0}
-                            // height={["2.5 rem", "0.5rem"]}
-
-                            //  style={{marginTop: '0.9rem', marginLeft: '0.1rem' }}
-                          >
-                            <Image
-                              width={{
-                                base: "1.8rem",
-                                sm: "2rem",
-                                md: "2.4rem",
-                                lg: "",
-                                xl: "3.3rem",
-                                "2xl": "4rem",
-                              }}
-                              height={{
-                                base: "2.3rem",
-                                sm: "2rem",
-                                md: "1rem",
-                                lg: "2.4rem",
-                                xl: "3.2rem",
-                                "2xl": "4rem",
-                              }}
-                              src={`/cards/${player2Cards[0]}`}
-                              // boxSize={["1.8rem", "2.9rem"]}
-                            />
-                          </Box>
-                        )}
-                      </Box>
-                      <Box>
-                        {countdown <= 11 && (
-                          <Box
-                            key={1}
-                            // height={["2.5 rem", "0.5rem"]}
-                          >
-                            <Image
-                              width={{
-                                base: "2rem",
-                                sm: "2rem",
-                                md: "2.4rem",
-                                lg: "",
-                                xl: "3.3rem",
-                                "2xl": "4rem",
-                              }}
-                              height={{
-                                base: "2.3rem",
-                                sm: "2rem",
-                                md: "1rem",
-                                lg: "2.4rem",
-                                xl: "3.2rem",
-                                "2xl": "4rem",
-                              }}
-                              src={`/cards/${player2Cards[1]}`}
-
-                              // alt={`${card}`}
-                            />
-                          </Box>
-                        )}
-                      </Box>
-                    </Flex> */}
                   </Box>
                 </AspectRatio>
 

@@ -12,7 +12,7 @@ import {
 import { useEffect, useState } from "react";
 
 import { FaLock } from "react-icons/fa";
-import TwoCard from "../../Games/Images/2cardpatti.svg";
+import TwoCard from "../../Games/Images/2cardteenpatti.svg";
 import { io } from "socket.io-client";
 
 //import PopUp from "./PopUp";
@@ -199,6 +199,7 @@ export default function TwoCardsTeenPatti() {
                     alignItems="top"
                     color="white"
                     className="firstBox"
+                    position={"absolute"}
                   >
                     <Box
                       fontWeight={"900"}
@@ -256,36 +257,14 @@ export default function TwoCardsTeenPatti() {
                     </Box>
 
                     <Flex
-                      justifyContent={"space-between"}
-                      gap={{
-                        base: "0.2rem",
-                        sm: "0.1rem",
-                        md: "0.3rem",
-                        lg: "0.2rem",
-                        xl: "0.5rem",
-                        "2xl": "0.4rem",
-                      }}
+               
+                      // justifyContent={"space-between"}
+                      gap="0.5rem"
                       direction="row"
-                      position={"absolute"}
-                      // top={["60%", "63%"]}
-                      // left={["44%", "45%"]}
-                      top={{
-                        base: "63%",
-                        sm: "62%",
-                        md: "68%",
-                        lg: "63%",
-                        xl: "63.5%",
-                        "2xl": "63%",
-                      }}
-                      left={{
-                        base: "45.5%",
-                        sm: "44%",
-                        md: "50%",
-                        lg: "44.5%",
-                        xl: "44%",
-                        "2xl": "43%",
-                      }}
-                      // id="playerCard"
+                      position={"relative"}
+                      // top={"5.2rem"}
+                      top={{base:"5.2rem"  , lg:"5.8rem" , xl:"8.4rem"}}
+                      left={{base:"-3rem" , lg:"-3.6rem" , xl:"-5rem"}}
                     >
                       <Box>
                         {countdown <= 14 && (
@@ -299,15 +278,15 @@ export default function TwoCardsTeenPatti() {
                                 sm: "2rem",
                                 md: "2.4rem",
                                 lg: "",
-                                xl: "3.3rem",
+                                xl: "3.5rem",
                                 "2xl": "4rem",
                               }}
                               height={{
                                 base: "2.3rem",
                                 sm: "2rem",
                                 md: "1rem",
-                                lg: "2.4rem",
-                                xl: "3.2rem",
+                                lg: "2.6rem",
+                                xl: "3.5rem",
                                 "2xl": "4rem",
                               }}
                               // height={{base:"rem" , md:"3.5rem"}}
@@ -328,15 +307,15 @@ export default function TwoCardsTeenPatti() {
                                 sm: "2rem",
                                 md: "2.4rem",
                                 lg: "",
-                                xl: "3.3rem",
+                                xl: "3.5rem",
                                 "2xl": "4rem",
                               }}
                               height={{
                                 base: "2.3rem",
                                 sm: "2rem",
                                 md: "1rem",
-                                lg: "2.4rem",
-                                xl: "3.2rem",
+                                lg: "2.6rem",
+                                xl: "3.5rem",
                                 "2xl": "4rem",
                               }}
                               // height={{ base: "rem", md: "3.5rem" }}
@@ -350,35 +329,13 @@ export default function TwoCardsTeenPatti() {
                         )}
                       </Box>
                     </Flex>
-                    <Flex
-                      gap={{
-                        base: "0.2rem",
-                        sm: "0.1rem",
-                        md: "0.3rem",
-                        lg: "0.2rem",
-                        xl: "0.5rem",
-                        "2xl": "0.4rem",
-                      }}
-                      direction="row"
-                      position={"absolute"}
-                      // top={["77%", "78%"]}
-                      // left={["44%", "45%"]}
-                      top={{
-                        base: "80%",
-                        sm: "75 %",
-                        md: "70%",
-                        lg: "79%",
-                        xl: "80%",
-                        "2xl": "79%",
-                      }}
-                      left={{
-                        base: "45.3%",
-                        sm: "45.5%",
-                        md: "50%",
-                        lg: "44.5%",
-                        xl: "44%",
-                        "2xl": "43%",
-                      }}
+                    <Flex  
+                    gap="0.5rem"
+                    direction="row"
+                    position={"relative"}
+                    top={{base:"2.8rem"  , lg:"3.3rem" ,xl:"4.85rem"}}
+                    // left={"3.4rem"}
+                    left={{base:"3.3rem" , lg:"3.6rem" , xl:"5rem"}}
                     >
                       <Box>
                         {countdown <= 13 && (
@@ -394,15 +351,15 @@ export default function TwoCardsTeenPatti() {
                                 sm: "2rem",
                                 md: "2.4rem",
                                 lg: "",
-                                xl: "3.3rem",
+                                xl: "3.5rem",
                                 "2xl": "4rem",
                               }}
                               height={{
                                 base: "2.3rem",
                                 sm: "2rem",
                                 md: "1rem",
-                                lg: "2.4rem",
-                                xl: "3.2rem",
+                                lg: "2.6rem",
+                                xl: "3.5rem",
                                 "2xl": "4rem",
                               }}
                               src={`/cards/${player2Cards[0]}`}
@@ -423,15 +380,15 @@ export default function TwoCardsTeenPatti() {
                                 sm: "2rem",
                                 md: "2.4rem",
                                 lg: "",
-                                xl: "3.3rem",
+                                xl: "3.5rem",
                                 "2xl": "4rem",
                               }}
                               height={{
                                 base: "2.3rem",
                                 sm: "2rem",
                                 md: "1rem",
-                                lg: "2.4rem",
-                                xl: "3.2rem",
+                                lg: "2.6rem",
+                                xl: "3.5rem",
                                 "2xl": "4rem",
                               }}
                               src={`/cards/${player2Cards[1]}`}
