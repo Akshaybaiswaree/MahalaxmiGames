@@ -257,17 +257,16 @@ export default function TwoCardsTeenPatti() {
                     </Box>
 
                     <Flex
-               
                       // justifyContent={"space-between"}
                       gap="0.5rem"
                       direction="row"
                       position={"relative"}
                       // top={"5.2rem"}
-                      top={{base:"5.2rem"  , lg:"5.8rem" , xl:"8.4rem"}}
-                      left={{base:"-3rem" , lg:"-3.6rem" , xl:"-5rem"}}
+                      top={{ base: "5.2rem", lg: "5.8rem", xl: "8.4rem" }}
+                      right={{ base: "-3rem", lg: "-3.6rem", xl: "-5rem" }}
                     >
                       <Box>
-                        {countdown <= 14 && (
+                        {countdown <= 19 && (
                           <Box
                             key={1}
                             // height={["20.5 rem", "0.5rem"]}
@@ -296,7 +295,7 @@ export default function TwoCardsTeenPatti() {
                         )}
                       </Box>
                       <Box>
-                        {countdown <= 12 && (
+                        {countdown <= 17 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
@@ -329,16 +328,16 @@ export default function TwoCardsTeenPatti() {
                         )}
                       </Box>
                     </Flex>
-                    <Flex  
-                    gap="0.5rem"
-                    direction="row"
-                    position={"relative"}
-                    top={{base:"2.8rem"  , lg:"3.3rem" ,xl:"4.85rem"}}
-                    // left={"3.4rem"}
-                    left={{base:"3.3rem" , lg:"3.6rem" , xl:"5rem"}}
+                    <Flex
+                      gap="0.5rem"
+                      direction="row"
+                      position={"relative"}
+                      top={{ base: "2.8rem", lg: "3.3rem", xl: "4.85rem" }}
+                      // left={"3.4rem"}
+                      left={{ base: "3.3rem", lg: "3.6rem", xl: "5rem" }}
                     >
                       <Box>
-                        {countdown <= 13 && (
+                        {countdown <= 18 && (
                           <Box
                             key={0}
                             // height={["2.5 rem", "0.5rem"]}
@@ -369,7 +368,7 @@ export default function TwoCardsTeenPatti() {
                         )}
                       </Box>
                       <Box>
-                        {countdown <= 11 && (
+                        {countdown <= 16 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
