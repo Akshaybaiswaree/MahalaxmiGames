@@ -274,7 +274,7 @@ export default function TwoCardsTeenPatti() {
                       // id="playerCard"
                     >
                       <Box>
-                        {countdown <= 140 && (
+                        {countdown <= 14 && (
                           <Box
                             key={1}
                             // height={["20.5 rem", "0.5rem"]}
@@ -299,7 +299,7 @@ export default function TwoCardsTeenPatti() {
                         )}
                       </Box>
                       <Box>
-                        {countdown <= 120 && (
+                        {countdown <= 12 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
@@ -338,7 +338,7 @@ export default function TwoCardsTeenPatti() {
                       left={{base:"45.3%" , sm:"45.5%" , md:"50%" , lg:"44.5%" , xl:"44%" , "2xl": "43%"}}
                     >
                       <Box>
-                        {countdown <= 130 && (
+                        {countdown <= 13 && (
                           <Box
                             key={0}
                             // height={["2.5 rem", "0.5rem"]}
@@ -363,7 +363,7 @@ export default function TwoCardsTeenPatti() {
                         )}
                       </Box>
                       <Box>
-                        {countdown <= 110 && (
+                        {countdown <= 11 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
