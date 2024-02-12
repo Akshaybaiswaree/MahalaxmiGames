@@ -1,5 +1,3 @@
-
-
 // import "./TwoCardspatti.css";
 
 import {
@@ -615,7 +613,9 @@ export default function DragonTigerLion() {
                       Available Credit
                     </Text>
                     <Text fontSize={["20px", "24px"]}>
-                      {availableBal ? availableBal : "Loading..."}
+                      {`${Math.round(availableBal * 100) / 100} ? ${
+                        Math.round(availableBal * 100) / 100
+                      } : "Loading..."`}
                     </Text>
                   </Box>
 

@@ -551,7 +551,9 @@ export default function TwoCardsTeenPatti() {
                       Available Credit
                     </Text>
                     <Text fontSize={["20px", "24px"]}>
-                      {userBalance ? userBalance : "Loading..."}
+                      {`${Math.round(userBalance * 100) / 100} ? ${
+                        Math.round(userBalance * 100) / 100
+                      } : "Loading..."`}
                     </Text>
                   </Box>
 
