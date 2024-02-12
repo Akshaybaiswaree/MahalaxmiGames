@@ -510,14 +510,14 @@ import { io } from "socket.io-client";
 // import Logo from "../../../images/32cardsA_v.jpeg";
 //  import backGroundImage from "./images/background_plus_cards.jpeg"
 
-const socket = io("https://twocardtp.onrender.com/", {
+const socket = io("https://muflish-one-days.onrender.com/", {
   query: {
     userId: Math.floor(Math.random() * Date.now()),
   },
   transports: ["websocket"],
 });
 
-export default function TwoCardsTeenPatti() {
+export default function MuflisOneDay() {
   const [countdown, setCountdown] = useState(null);
   const [userBalance, setUserBalance] = useState(null);
   const [gameId, setGameId] = useState(null);
@@ -664,7 +664,7 @@ export default function TwoCardsTeenPatti() {
                     marginLeft={["5px", "0px"]}
                     color={"white"}
                   >
-                    2 Cards Teen Patti
+                    Muflis One Day
                   </Text>
                   <Button
                     variant="outline"
@@ -1042,9 +1042,10 @@ export default function TwoCardsTeenPatti() {
                       Available Credit
                     </Text>
                     <Text fontSize={["20px", "24px"]}>
-                      {`${Math.round(userBalance * 100) / 100} ? ${
+                      {userBalance ? userBalance : "0"}
+                      {/* {`${Math.round(userBalance * 100) / 100} ? ${
                         Math.round(userBalance * 100) / 100
-                      } : "Loading..."`}
+                      } : "Loading..."`} */}
                     </Text>
                   </Box>
 

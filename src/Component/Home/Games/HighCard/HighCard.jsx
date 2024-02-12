@@ -587,8 +587,9 @@ export default function HighCard() {
                       Available Credit
                     </Text>
                     <Text fontSize={["20px", "24px"]}>
-                      {`${Math.round(availableCoins * 100) / 100} ? 
-                      ${Math.round(availableCoins * 100) / 100} : "Loading" `}
+                      {availableCoins ? availableCoins : "0"}
+                      {/* {`${Math.round(availableCoins * 100) / 100} ? 
+                      ${Math.round(availableCoins * 100) / 100} : "Loading" `} */}
                     </Text>
                   </Box>
 
