@@ -5,16 +5,19 @@ import PropTypes from "prop-types";
 
 const MainCardSection = ({ mainCard }) => (
   <Box
-    // border="1px solid black"
-    width="5.5%"
-    // height="13%"
+    width="7%"
+    height="8%"
     position="absolute"
-    bottom="23%"
-    right="19.5%"
-    // id="maincardsection"
+    bottom="30%"
+    right="7%"
+    id="maincardsection"
     // border="5px solid black"
   >
-    <Card card={mainCard?.main_card} index="main" />
+    <Text textColor="white"
+    id="maincardsectiontext">
+      Main Card
+    </Text>
+    <Card card={mainCard.main_card} index="main" />
   </Box>
 );
 
