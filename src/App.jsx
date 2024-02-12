@@ -11,6 +11,7 @@ import DragonTiger from "./Component/Home/Games/DragonTiger/DragonTiger";
 import DragonTigerLion from "./Component/Home/Games/DragonTigerLion/DragonTigerLion";
 import HighCard from "./Component/Home/Games/HighCard/HighCard";
 import Home from "./Component/Home/Home";
+import Login from "./Component/Login/Login";
 import Mainpage from "./Component/Mainpage";
 import MuflisOneDay from "./Component/Home/Games/Muflis One Day/MuflisOneDay";
 import Rootlayout from "./Component/RootLayout/Rootlayout";
@@ -34,9 +35,9 @@ const router = createBrowserRouter(
       {/* <Route path="SignUp" element={<Login />} /> */}
       {/* <Route path="racegame" element={<RaceGame />} /> */}
       <Route path="app1" element={<App1 />} />
+      <Route index element={<Login />} />
 
       <Route path="/" element={<Rootlayout />}>
-        <Route index element={<Mainpage />} />
         <Route path="mainpage" element={<Mainpage />} />
         <Route path="home" element={<Home />} />
         <Route path="dragontiger" element={<DragonTiger />} />

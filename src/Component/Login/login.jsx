@@ -25,7 +25,7 @@ import { useState } from "react";
 
 
 
-export default function Register() {
+export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({ mobile_no: "", password: "" });
   const navigate = useNavigate();
@@ -111,7 +111,7 @@ export default function Register() {
               id="password"
               isRequired
             >
-              <FormLabel>Password</FormLabel>
+              <FormLabel>OTP</FormLabel>
               <InputGroup>
                 <Input type={showPassword ? "text" : "password"} />
                 <InputRightElement h={"full"}>
@@ -139,14 +139,14 @@ export default function Register() {
                 Login
               </Button>
             </Stack>
-            <Stack pt={6}>
+            {/* <Stack pt={6}>
               <Text align={"center"}>
                 Not Registered?{" "}
                 <Link href="./RegisterPage" color={"blue.400"}>
                   Register here
                 </Link>
               </Text>
-            </Stack>
+            </Stack> */}
           </Stack>
         </Box>
       </Stack>

@@ -431,7 +431,7 @@ export default function MuflisOneDay() {
                 Player ID
               </Text>
               <Text fontSize="18px" margin="0 0 0.5rem" fontWeight="bold">
-                {userId}
+                {userId ? userId : "wait"}
               </Text>
             </Box>
             <Box backgroundColor="gold" padding="0.5rem" borderRadius="1rem">
