@@ -93,15 +93,9 @@ export default function DragonTigerLion() {
       setLionCards(data.LionNumber);
       // setGameHistory(data?.gameHistory)
       console.log(data);
-      // setButtonStatus1(true);
-      // setButtonStatus2(true);
-      // setButtonStatus3(true);
 
       console.log("new bet:-", data);
-      // console.log("new bet Choice:-", data.choice);
-      // console.log("new bet balance:-", data.userBalance);
-      // console.log("DragenNumber:-", data.DragenNumber);
-      // console.log("TigerNumber:-", data.TigerNumber);
+
       // console.log("LionNumber:-", data.LionNumber);
     };
 
@@ -112,15 +106,7 @@ export default function DragonTigerLion() {
       setLionCards([]);
       // setGamesCards([]);
       setWinnerStatus(null);
-      // setButtonStatus1(true);
-      // setButtonStatus2(true);
-      // setButtonStatus3(true);
     };
-
-    // const handleWinHistory = (data) => {
-    //   console.log("WinHistory", data);
-    //   setGameHistory(data.winStatuses);
-    // };
 
     const handleGameId = (data) => {
       console.log("GameId", data);
@@ -371,10 +357,7 @@ export default function DragonTigerLion() {
                               }}
                               // height={{ base: "rem", md: "3.5rem" }}
                               src={`/cards/${tigerCards}`}
-                              // boxSize={["1.8rem", "2.7rem"]}
-
-                              // top={"80r em"}
-                              // alt={`${card}`}
+                              
                             />
                           </Box>
                         )}
@@ -402,12 +385,9 @@ export default function DragonTigerLion() {
                                 xl: "3.2rem",
                                 "2xl": "4rem",
                               }}
-                              // height={{ base: "rem", md: "3.5rem" }}
+                         
                               src={`/cards/${lionCards}`}
-                              // boxSize={["1.8rem", "2.7rem"]}
-
-                              // top={"80r em"}
-                              // alt={`${card}`}
+                          
                             />
                           </Box>
                         )}
