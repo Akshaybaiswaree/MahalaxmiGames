@@ -1,3 +1,5 @@
+// import "./TwoCardspatti.css";
+
 import {
   AspectRatio,
   Box,
@@ -163,7 +165,7 @@ export default function DragonTigerLion() {
     <>
       <ChakraProvider>
         <Box width={["19rem", "100%"]}>
-          <Box bg={"black"} maxW={["100vw", "100vw"]} id="main-div">
+          <Box bg={"#35495e"} maxW={["100vw", "100vw"]} id="main-div">
             <Flex
               align="left-top"
               justify="left-top"
@@ -269,6 +271,7 @@ export default function DragonTigerLion() {
                     </Box>
 
                     <Flex
+                    border={"1px solid black"}
                       justifyContent={"space-between"}
                       gap={{
                         base: "0.2rem",
@@ -286,7 +289,7 @@ export default function DragonTigerLion() {
                         base: "63%",
                         sm: "62%",
                         md: "68%",
-                        lg: "63%",
+                        // lg: "63%",
                         xl: "63.5%",
                         "2xl": "63%",
                       }}
@@ -294,7 +297,7 @@ export default function DragonTigerLion() {
                         base: "45.5%",
                         sm: "44%",
                         md: "50%",
-                        lg: "44.5%",
+                        // lg: "44.5%",
                         xl: "44%",
                         "2xl": "43%",
                       }}
@@ -329,7 +332,7 @@ export default function DragonTigerLion() {
                           </Box>
                         )}
                       </Box>
-                      <Box>
+                       <Box>
                         {timer <= 12 && (
                           <Box
                             key={1}
@@ -360,7 +363,7 @@ export default function DragonTigerLion() {
                         )}
                       </Box>
                       <Box>
-                        {timer <= 12 && (
+                        {timer <= 10 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
@@ -389,6 +392,7 @@ export default function DragonTigerLion() {
                           </Box>
                         )}
                       </Box>
+                     
                     </Flex>
                   </Box>
                 </AspectRatio>
@@ -403,11 +407,11 @@ export default function DragonTigerLion() {
                       backgroundImage:
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
-                      color: "transparent",
+                      color: "#1d1716",
                     }}
                   >
                     <>
-                      Player Id :{" "}
+                      Player Id :
                       <Text color={"white"} align={"center"}>
                         {playerId ? playerId : "Loading..."}
                       </Text>
@@ -420,7 +424,7 @@ export default function DragonTigerLion() {
                       backgroundImage:
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
-                      color: "transparent",
+                      color: "#1d1716",
                     }}
                   >
                     Last Wins:
@@ -449,7 +453,7 @@ export default function DragonTigerLion() {
                       >
                         <Text
                           fontSize="14px"
-                          color={index % 2 === 0 ? "white" : "red"}
+                          color={index % 2 === 0 ? "white" : "black"}
                           align={"center"}
                         >
                           {item}
@@ -463,7 +467,7 @@ export default function DragonTigerLion() {
                       backgroundImage:
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
-                      color: "transparent",
+                      color: "#1d1716",
                     }}
                   >
                     <>
@@ -499,21 +503,24 @@ export default function DragonTigerLion() {
                       Available Credit
                     </Text>
                     <Text fontSize={["20px", "24px"]}>
-                      {availableBal ? availableBal : "Loading..."}
+                      {availableBal ? availableBal : "0"}
+                      {/* {`${Math.round(availableBal * 100) / 100} ? ${
+                        Math.round(availableBal * 100) / 100
+                      } : "Loading..."`} */}
                     </Text>
                   </Box>
 
                   <Box
                     flex="1"
                     width="48%"
-                    backgroundColor="orange"
+                    backgroundColor="#393e46"
                     textAlign="center"
                     borderRightRadius="10px"
                   >
-                    <Text fontSize="18px" fontWeight="bold">
+                    <Text fontSize="18px" fontWeight="bold" color={"white"}>
                       Match Id:
                     </Text>
-                    <Text fontSize={["20px", "24px"]}>
+                    <Text fontSize={["20px", "24px"]} color={"white"}>
                       {matchId ? matchId : "Loading..."}
                     </Text>
                   </Box>
@@ -620,7 +627,7 @@ export default function DragonTigerLion() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          bgGradient="linear(to-r, #0000FF, #FFA500)"
+                          bgGradient="linear(to-r,#a7bcb9, #3e4a61)"
                           _hover={
                             !isButtonDisabled && {
                               bg: "#FAEBD7",
@@ -629,6 +636,8 @@ export default function DragonTigerLion() {
                             }
                           }
                           onClick={() => handleBetting("Dragen")}
+                          display={"flex"}
+                          justifyContent={"space-around"}
                         >
                           {isButtonDisabled && (
                             <FaLock
@@ -636,7 +645,7 @@ export default function DragonTigerLion() {
                               style={{ color: "white", marginRight: "0.5rem" }}
                             />
                           )}
-                          Dragon
+                          Dragon <span>2.94</span>
                         </Button>
 
                         <Button
@@ -648,7 +657,7 @@ export default function DragonTigerLion() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          bgGradient="linear(to-r, #0000FF, #FFA500)"
+                          bgGradient="linear(to-r,#a7bcb9, #3e4a61)"
                           _hover={
                             !isButtonDisabled && {
                               bg: "#FAEBD7",
@@ -657,6 +666,8 @@ export default function DragonTigerLion() {
                             }
                           }
                           onClick={() => handleBetting("Tiger")}
+                          display={"flex"}
+                          justifyContent={"space-around"}
                         >
                           {isButtonDisabled && (
                             <FaLock
@@ -664,7 +675,7 @@ export default function DragonTigerLion() {
                               style={{ color: "white", marginRight: "0.5rem" }}
                             />
                           )}
-                          Tiger
+                          Tiger <span>2.94</span>
                         </Button>
                         <Button
                           isDisabled={isButtonDisabled}
@@ -675,7 +686,7 @@ export default function DragonTigerLion() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          bgGradient="linear(to-r, #0000FF, #FFA500)"
+                          bgGradient="linear(to-r,#a7bcb9, #3e4a61)"
                           _hover={
                             !isButtonDisabled && {
                               bg: "#FAEBD7",
@@ -684,6 +695,8 @@ export default function DragonTigerLion() {
                             }
                           }
                           onClick={() => handleBetting("Lion")}
+                          display={"flex"}
+                          justifyContent={"space-evenly"}
                         >
                           {isButtonDisabled && (
                             <FaLock
@@ -691,7 +704,7 @@ export default function DragonTigerLion() {
                               style={{ color: "white", marginRight: "0.5rem" }}
                             />
                           )}
-                          Lion
+                          Lion <span> 2.94</span>
                         </Button>
                       </Box>
                     </Box>
