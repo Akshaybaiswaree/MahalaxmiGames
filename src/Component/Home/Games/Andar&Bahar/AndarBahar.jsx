@@ -127,7 +127,7 @@ const AndarBahar = () => {
   };
 
   return (
-    <ChakraProvider>
+   
       <>
         <Box
           // border="1px solid black"
@@ -504,7 +504,7 @@ const AndarBahar = () => {
           </Box>
         </Box>
       </>
-    </ChakraProvider>
+   
   );
 };
 
