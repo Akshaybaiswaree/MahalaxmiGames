@@ -257,13 +257,14 @@ export default function TwoCardsTeenPatti() {
                     </Box>
 
                     <Flex
+                    border={"1px solid green"}
                       // justifyContent={"space-between"}
                       gap="0.5rem"
                       direction="row"
                       position={"relative"}
                       // top={"5.2rem"}
                       top={{ base: "5.2rem", lg: "5.8rem", xl: "8.4rem" }}
-                      right={{ base: "-3rem", lg: "-3.6rem", xl: "-5rem" }}
+                      left={{ base: "-3rem", lg: "-3.6rem", xl: "-5rem" }}
                     >
                       <Box>
                         {countdown <= 19 && (
@@ -329,6 +330,7 @@ export default function TwoCardsTeenPatti() {
                       </Box>
                     </Flex>
                     <Flex
+                         border={"1px solid green"}
                       gap="0.5rem"
                       direction="row"
                       position={"relative"}
