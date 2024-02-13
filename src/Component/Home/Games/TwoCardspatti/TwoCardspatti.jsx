@@ -262,8 +262,8 @@ export default function TwoCardsTeenPatti() {
                       direction="row"
                       position={"relative"}
                       // top={"5.2rem"}
-                      top={{ base: "5.3rem", lg: "5.8rem", xl: "9.1rem" }}
-                      left={{ base: "-3.2rem", lg: "-3.6rem", xl: "-5rem" }}
+                      top={{ base: "5.3rem", lg: "5.8rem", xl: "9rem" }}
+                      left={{ base: "-3.5rem", lg: "-3.6rem", xl: "-5.8rem" }}
                     >
                       <Box>
                         {countdown <= 190 && (
@@ -334,7 +334,7 @@ export default function TwoCardsTeenPatti() {
                       position={"relative"}
                       top={{ base: "2.9rem", lg: "3.3rem", xl: "5.4rem" }}
                       // left={"3.4rem"}
-                      left={{ base: "3.4rem", lg: "3.6rem", xl: "5rem" }}
+                      left={{ base: "3.4rem", lg: "3.6rem", xl: "5.4rem" }}
                     >
                       <Box>
                         {countdown <= 180 && (
