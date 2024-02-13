@@ -639,7 +639,7 @@ export default function DragonTigerLion() {
                               style={{ color: "white", marginRight: "0.5rem" }}
                             />
                           )}
-                          Drag<span>2.94</span>
+                          Dragon<span>2.94</span>
                         </Button>
 
                         <Button
