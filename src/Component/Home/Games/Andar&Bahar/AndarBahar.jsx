@@ -1,65 +1,79 @@
-import { Box, Button, ChakraProvider, Text } from "@chakra-ui/react";
+import {
+  AspectRatio,
+  Box,
+  Button,
+  ChakraProvider,
+  Flex,
+  Image,
+  Text,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
+import BettingAmountButton from "./BettingButtons/BettingAmountButton";
+import BettingButtons from "./BettingButtons/BettingButtons";
 import CardSection from "./GameArea/CardSection";
 import CounterBox from "./GameArea/CounterBox";
+import GameArea from "./GameArea/GameArea";
 import MainCardSection from "./GameArea/MainCardSection";
+import UserInfo from "./UserInfo/UserInfo";
 import WinStatusBanner from "./GameArea/WinStatusBanner";
 import { io } from "socket.io-client";
 
 const socket = io("https://andarbaharbacked.onrender.com", {
   query: {
-    userID: "65c4a6874c68b332fd697164",
+    userId: Math.floor(Math.random() * Date.now()),
   },
   transports: ["websocket"],
 });
 const AndarBahar = () => {
   const [gameState, setGameState] = useState({ value: "waiting" });
   const [user, setUser] = useState(null);
-  const [coins, setCoins] = useState(0);
-  const [mainCard, setMainCard] = useState({});
+  const [coins, setCoins] = useState(50);
+  const [mainCard, setMainCard] = useState([]);
   const [andarCards, setAndarCards] = useState([]);
   const [baharCards, setBaharCards] = useState([]);
   const [buttonClick1, setButtonClick1] = useState(false);
   const [buttonClick2, setButtonClick2] = useState(false);
-  const [selectedCoins, setSelectedCoins] = useState(null);
-  const [gameHistory, setGameHistory] = useState([]);
-  const [bettingAmount, setBettingAmount] = useState("");
 
-  // console.log("user", user);
-  // console.log("mainCard", mainCard);
+  console.log("user", user);
+  console.log("mainCard", mainCard);
 
   useEffect(() => {
     const handleGameUpdate = (updatedGameState) => {
       setGameState(updatedGameState.gamestate);
-      updatedGameState.gamestate.value - 25 === 20 ? setBettingAmount(0) : "";
+      // setMainCard(updatedGameState.mainCard);
+
+      // if(updatedGameState.gamestate.value === 0){
+      //   setButtonClick1(true);
+      //   setButtonClick2(true);
+      //   return 0;
+      // }
+
+      if (updatedGameState.gamestate.value === 10) {
+        socket.emit("gameCards", updatedGameState.mainCard._id);
+      }
     };
 
     const handleUserDetails = (data) => {
-      // console.log("handleUserDetails", data);
       setUser(data.user);
     };
 
-    const handlebet = (data) => {
-      console.log("newbet", data);
+    const handleBait = (data) => {
       setUser(data);
     };
 
     const handleMainCard = (data) => {
-      // console.log("mainCard123", data.mainCard);
       setMainCard(data.mainCard);
-      setGameHistory(data.gameHistory);
     };
     socket.on("gameUpdate", handleGameUpdate);
     socket.on("userDetails", handleUserDetails);
     socket.on("Main_Card", handleMainCard);
-    socket.on("bet", handlebet);
+    socket.on("bait", handleBait);
 
     return () => {
       socket.off("gameUpdate", handleGameUpdate);
       socket.off("userDetails", handleUserDetails);
-      socket.off("Main_Card", handleMainCard);
-      socket.off("bet", handlebet);
+      socket.off("bait", handleBait);
     };
   }, []);
 
@@ -106,402 +120,349 @@ const AndarBahar = () => {
     });
   }
 
-  const handelBet = (betType) => {
-    if (user?.coins <= 10) {
-      alert("Insufficient Funds");
-      return;
-    }
+  const handleBait = (baitType) => {
     if (gameState?.value > 0) {
       setButtonClick1(true);
       setButtonClick2(true);
     }
-
-    const bet = {
-      betType,
+    if (user?.coins <= 0) {
+      alert("Insufficient Funds");
+      return;
+    }
+    const bait = {
+      baitType,
       coins,
       cardId: mainCard._id,
     };
-    setBettingAmount((prev) => prev + Number(coins));
-    socket.emit("bet", bet);
-    console.log("betting", bet);
+    socket.emit("bait", bait);
   };
 
   return (
    
       <>
+        <Box width="65%">
+          <Flex justify="space-between" align="center" mb="2">
+            <Text
+              fontSize="24px"
+              fontWeight="bold"
+              borderRadius="10px"
+              position="relative"
+            >
+              Andar Bahar
+            </Text>
+            <Button variant="outline" colorScheme="blue" ml="2">
+              Rules
+            </Button>
+          </Flex>
+          <Box
+            width="100%"
+            height="90vh"
+            // border="10px solid #333"
+            backgroundImage="url('/Andar&BaharImage/Andar&BaharAvatar.webp')"
+            backgroundSize="cover"
+            backgroundPosition={`center 100%`}
+            backgroundRepeat="no-repeat"
+            display="flex"
+            position="relative"
+            id="andarbaharImg"
+          >
+            <WinStatusBanner
+              winStatus={mainCard.winstatus}
+              gameState={gameState}
+            />
+            <CounterBox
+              value={gameState.value - 25 < 0 ? "0" : gameState.value - 25}
+              width="13%"
+              height="18%"
+              position="absolute"
+              top="5"
+              right="6"
+              color="white"
+            />
+
+            <CounterBox
+              value={gameState.value - 25 < 0 ? "Freeze" : "Place Bet"}
+              width="20%"
+              height="22%"
+              position="absolute"
+              top="3"
+              left="3"
+              color="white"
+              alignItems="center"
+            />
+            <MainCardSection mainCard={mainCard} />
+            <Box width="15%">
+              <Text
+                color="white"
+                fontWeight="bold"
+                position="absolute"
+                bottom="38%"
+                left="10%"
+                id="andarcardstext"
+              >
+                Andar Cards
+              </Text>
+              <Text
+                color="white"
+                fontWeight="bold"
+                position="absolute"
+                bottom="10%"
+                left="10%"
+                id="baharcardstext"
+              >
+                Bahar Cards
+              </Text>
+            </Box>
+            {/* {gameState?.value <= 20 && (
+              <Box width="100%">
+                <CardSection
+                  // title="Andar cards"
+                  cards={andarCards}
+                  position="absolute"
+                  bottom="25%"
+                  middle="15%"
+                  right="20%"
+                  transform="translateX(-50%)"
+                  flexDirection="row-reverse"
+                />
+
+                <CardSection
+                  // title="Bahar cards"
+                  cards={baharCards}
+                  position="absolute"
+                  bottom="10%"
+                  middle="15%"
+                  right="20%"
+                  transform="translateX(-50%)"
+                  flexDirection="row-reverse"
+                />
+              </Box>
+            )} */}
+            {gameState?.value <= 20 && (
+              <Box width="100%">
+                <Box
+                  width="6%"
+                  height="13%"
+                  position="absolute"
+                  bottom="25%"
+                  middle="15%"
+                  right="20%"
+                  transform="translateX(-50%)"
+                  id="andarhiddencards"
+                  display="flex"
+                  flexDirection="row-reverse"
+                >
+                  {andarCards
+                    .slice()
+                    .reverse()
+                    .map((card, index) => (
+                      <img
+                        key={index}
+                        src={`./cards/${card}`}
+                        alt={`Andar Card ${index}`}
+                      />
+                    ))}
+                </Box>
+
+                <Box
+                  width="6%"
+                  height="13%"
+                  position="absolute"
+                  bottom="10%"
+                  middle="15%"
+                  right="20%"
+                  transform="translateX(-50%)"
+                  id="baharhiddencards"
+                  display="flex"
+                  flexDirection="row-reverse"
+                >
+                  {baharCards
+                    .slice()
+                    .reverse()
+                    .map((card, index) => (
+                      <img
+                        key={index}
+                        src={`./cards/${card}`}
+                        alt={`Bahar Card ${index}`}
+                      />
+                    ))}
+                </Box>
+              </Box>
+            )}
+          </Box>
+        </Box>
+
+        {/* 10 Mini Boxes */}
         <Box
-          // border="1px solid black"
-          backgroundColor="black"
-          height="120%"
+          width="65%"
+          height="15%"
+          // border="2px solid darkgreen"
+          display="flex"
+          position="relative"
+          id="andarbaharidhistory"
+        >
+          {[...Array(10)].map((_, index) => (
+            <Text
+              border="2px solid grey"
+              key={index}
+              fontSize="20px"
+              color={index % 2 === 0 ? "#333" : "#2b329b"}
+              width="100%"
+              height="45%"
+              align="center"
+              justifyContent="space-around"
+              fontWeight="bold"
+            >
+              {/* {index % 3 === 0 ? "D" : index % 3 === 1 ? "T" : "L"} */}
+
+              {/* {index % 2 === 0 ? "#333" : "#2b329b"} */}
+
+              {index % 2 === 0 ? "A" : "B"}
+            </Text>
+          ))}
+
+          <Text
+            position="absolute"
+            bottom="0"
+            // left="10%"
+            fontWeight="bold"
+            border="2px solid darkblue"
+            padding="0.3rem"
+            id="andarbaharmatchID"
+          >
+            Match Id: {user?._id}
+          </Text>
+          <Button
+            width="20%"
+            variant="outline"
+            colorScheme="blue"
+            position="absolute"
+            bottom="0"
+            right="10%"
+            id="andarbaharplayerhistory"
+          >
+            Player History
+          </Button>
+        </Box>
+        <Box
+          // border="5px dotted blue"
+          width="30%"
+          height="80%"
+          position="absolute"
+          right="0"
+          top="35%"
+          display="flex"
+          justifyContent="space-between"
+          flexDirection="column"
+          id="andarbaharscoreboard"
         >
           <Box
-            width="60%"
-            // backgroundColor="black"
-            // border="1px solid red"
-            height="100%"
+            border="20px solid #333"
+            width="100%"
+            justifyContent="center"
+            align="center"
+            borderRadius="10%"
           >
-            <Box
-              // border="2px solid black"
-              backgroundColor="#222222"
-              justifyContent="space-between"
-              display="flex"
-            >
-              <Text
-                fontSize="24px"
-                fontWeight="bold"
-                borderRadius="10px"
-                position="relative"
-                color="white"
-              >
-                Andar Bahar
+            <Box backgroundColor="#2d6431" padding="0.5rem">
+              <Text fontSize="18px" fontWeight="bold">
+                Available Credit
               </Text>
-              <Button variant="outline" colorScheme="blue" ml="2">
-                Rules
-              </Button>
-            </Box>
-
-            <Box
-              width="100%"
-              height="60%"
-              // border="10px solid red"
-              backgroundImage="url('/public/Andar&BaharImage/Andar Bahar Table.webp')"
-              backgroundSize="cover"
-              backgroundPosition={`center 100%`}
-              backgroundRepeat="no-repeat"
-              display="flex"
-              position="relative"
-              // id="andarbaharImg"
-            >
-              <WinStatusBanner
-                winStatus={mainCard.winstatus}
-                gameState={gameState}
-              />
-              <CounterBox
-                value={gameState.value - 25 < 0 ? "0" : gameState.value - 25}
-                width="13%"
-                height="18%"
-                position="absolute"
-                top="5"
-                right="6"
-                color="white"
-              />
-
-              <CounterBox
-                value={gameState.value - 25 < 0 ? "Freeze" : "Place Bet"}
-                width="20%"
-                height="22%"
-                position="absolute"
-                top="3"
-                left="3"
-                color="white"
-                alignItems="center"
-              />
-              <MainCardSection mainCard={mainCard} />
-              {gameState?.value <= 20 && (
-                <Box width="100%">
-                  <CardSection
-                    // title="Andar cards"
-                    cards={andarCards}
-                    position="absolute"
-                    bottom="32%"
-                    right="27%"
-                    transform="translateX(-50%)"
-                    flexDirection="row-reverse"
-                  />
-
-                  <CardSection
-                    border="1px solid black"
-                    // title="Bahar cards"
-                    cards={baharCards}
-                    position="absolute"
-                    bottom="12.5%"
-                    right="27%"
-                    transform="translateX(-50%)"
-                    flexDirection="row-reverse"
-                  />
-                </Box>
+              {/* <Text fontSize="18px" margin="0 0 0.5rem">
+                ${user?._id}
+              </Text> */}
+              {user?.coins > 0 ? (
+                <Text fontSize="24px">${user?.coins}</Text>
+              ) : (
+                <Text fontSize="24px">$0</Text>
               )}
             </Box>
 
-            {/* 10 Mini Boxes */}
-            <Box
-              // border="2px solid #866637"
-              display="flex"
-              justifyContent="center"
-              // position="absolute"
-              width="100%"
-              // backgroundColor="#3e3e3e"
-              height="5%"
-            >
-              <Box
-                // border="1px solid black"
-                display="flex"
-                width="60%"
-              >
-                {gameHistory &&
-                  gameHistory.map((e, index) => (
-                    <Box
-                      border="1px solid #c2c2c2"
-                      backgroundColor="grey"
-                      key={index}
-                      fontSize="20px"
-                      color="white"
-                      width="100%"
-                      height="100%"
-                      align="center"
-                      display="flex"
-                      justifyContent="center"
-                    >
-                      {e ? e : "Loading..."}
-                    </Box>
-                  ))}
-              </Box>
-              <Box align="center">
-                <Text display="flex" color="white" align="center">
-                  Match Id: {mainCard?._id ? mainCard._id : "Loading..."}
-                </Text>
-              </Box>
-              <Box
-                width="20%"
-                // height="100%"
-                align="center"
-                // border="1px solid black"
-              >
-                <Button
-                  backgroundColor="#674716"
-                  variant="unstyled"
-                  width="100%"
-                  // height="100%"
-                  color="white"
-                  borderRadius="10%"
-                  align="center"
-                >
-                  Player History
-                </Button>
-              </Box>
-            </Box>
-            {/* Betting Area */}
-
-            <Box
-              width="100%"
-              border="4px solid #333"
-              height="27%"
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-              justifyContent="space-around"
-              backgroundColor="#2d2820"
-              marginTop="1%"
-              borderRadius="1rem"
-            >
-              <Box
-                // border="1px solid black"
-                width="90%"
-                height="50%"
-                display="flex"
-                justifyContent="space-around"
-                align="center"
-              >
-                <Box color="#b97f2b" align="center">
-                  Last Wins :
-                  <Text color="white" fontSize="20px">
-                    {gameHistory[9]}
-                  </Text>
-                </Box>
-                <Box width="50%" height="45%" align="center">
-                  <Box
-                    border="2px solid white"
-                    display="flex"
-                    borderRadius="5rem"
-                    backgroundColor="transparent"
-                  >
-                    {[
-                      { value: 10, imageName: "10's coin.webp" },
-                      { value: 50, imageName: "50's coin.webp" },
-                      { value: 100, imageName: "100's coin.webp" },
-                      { value: 500, imageName: "500's coin.webp" },
-                      { value: 1000, imageName: "1000's coin.webp" },
-                      { value: 5000, imageName: "5000's coin.webp" },
-                    ].map(({ value, imageName }, index) => (
-                      <Box
-                        key={index}
-                        display="flex"
-                        justifyContent="space-around"
-                        align="center"
-                        // width="30%"
-                        // height="30%"
-                      >
-                        <Button
-                          // border="2px solid grey"
-                          variant="unstyled"
-                          _hover={{
-                            width: selectedCoins === index ? "90%" : "90%",
-                            height: selectedCoins === index ? "90%" : "90%",
-                            cursor: "pointer",
-                          }}
-                          onClick={() => {
-                            setCoins(value);
-                            console.log("coins", value);
-                            setSelectedCoins(index);
-                          }}
-                        >
-                          <img
-                            src={`/Coins/${imageName}`}
-                            alt={`Image for ${imageName}`}
-                            width="90%"
-                            height="90%"
-                          />
-                        </Button>
-                      </Box>
-                    ))}
-                  </Box>
-                </Box>
-                <Box color="#b97f2b" align="center">
-                  Betting Amount :
-                  <Text color="white">
-                    {bettingAmount ? bettingAmount : "0"}
-                  </Text>
-                </Box>
-              </Box>
-              <Box
-                width="90%"
-                height="100%"
-                border="2px solid #4c3513"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                backgroundColor="black"
-                borderRadius="1rem"
-                flexDirection="row"
-              >
-                <Box
-                  border="2px solid #4c3513"
-                  width="80%"
-                  height="90%"
-                  display="flex"
-                  alignItems="center"
-                  // backgroundColor="linear(#fff,black)"
-                  bgGradient="linear(to-r,#8d1820, #2b5995)"
-                  borderRadius="1rem"
-                >
-                  <Box
-                    width="100%"
-                    height="100%"
-                    alignItems="center"
-                    display="flex"
-                    justifyContent="space-around"
-                  >
-                    <Button
-                      width="80%"
-                      height="100%"
-                      display="flex"
-                      justifyContent="space-around"
-                      backgroundColor="#8d1820"
-                      color="white"
-                      variant="unstyled"
-                      onClick={() => handelBet("0")}
-                      isDisabled={gameState.value - 25 <= 0 && buttonClick1}
-                      _hover={{
-                        backgroundColor: "orange",
-                      }}
-                    >
-                      Andar<span>1.98</span>
-                    </Button>
-                  </Box>
-                  <Box
-                    width="100%"
-                    height="100%"
-                    alignItems="center"
-                    display="flex"
-                    justifyContent="space-around"
-                  >
-                    <Button
-                      width="80%"
-                      height="100%"
-                      display="flex"
-                      justifyContent="space-around"
-                      backgroundColor="#2b5995"
-                      color="white"
-                      variant="unstyled"
-                      onClick={() => handelBet("1")}
-                      isDisabled={gameState.value - 25 <= 0 && buttonClick2}
-                      _hover={{
-                        backgroundColor: "yellow",
-                      }}
-                    >
-                      Bahar<span>1.98</span>
-                    </Button>
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-
-            {/* Side Part */}
-            <Box
-              // border="5px dotted blue"
-              width="30%"
-              height="30%"
-              position="absolute"
-              right="10"
-              top="28%"
-              display="flex"
-              flexDirection="column"
-            >
-              <Box
-                border="2px solid #333"
-                width="100%"
-                justifyContent="center"
-                align="center"
-                borderRadius="1rem"
-              >
-                <Box
-                  backgroundColor="#234c75"
-                  padding="0.5rem"
-                  borderRadius="1rem"
-                >
-                  <Text fontSize="18px" fontWeight="bold" color="white">
-                    Available Credit
-                  </Text>
-                  <Text
-                    fontSize="18px"
-                    margin="0 0 0.5rem"
-                    fontWeight="bold"
-                    color="white"
-                  >
-                    💰
-                    {Math.round(user?.coins * 100) / 100
-                      ? Math.round(user?.coins * 100) / 100
-                      : "Loading... "}
-                  </Text>
-                </Box>
-
-                <Box
-                  backgroundColor="#e0e0e0"
-                  padding="0.5rem"
-                  borderRadius="1rem"
-                >
-                  <Text fontSize="18px" fontWeight="bold">
-                    Player ID
-                  </Text>
-                  <Text fontSize="18px" margin="0 0 0.5rem" fontWeight="bold">
-                    {user?.mobileNumber ? user?.mobileNumber : "Loading..."}
-                  </Text>
-                </Box>
-                <Box
-                  backgroundColor="blue"
-                  padding="0.5rem"
-                  borderRadius="1rem"
-                >
-                  <Text fontSize="18px" fontWeight="bold">
-                    Betting Amount
-                  </Text>
-                  <Text fontSize="18px" margin="0 0 0.5rem" fontWeight="bold">
-                    {bettingAmount ? bettingAmount : "0"}
-                  </Text>
-                </Box>
-              </Box>
+            <Box backgroundColor="#e0e0e0" padding="0.5rem">
+              <Text fontSize="18px" fontWeight="bold">
+                Player ID
+              </Text>
+              <Text fontSize="18px" margin="0 0 0.5rem">
+                {user?.userId}
+              </Text>
             </Box>
           </Box>
+
+          {/* New Box */}
+          <Text align="center" fontWeight="bold">
+            Place Your Bet!
+          </Text>
+          <Box
+            border="5px solid #4790b5"
+            width="100%"
+            height="16%"
+            display="flex"
+            justifyContent="space-around"
+            alignItems="center"
+            borderRadius="5rem"
+            backgroundColor="black"
+          >
+            {[
+              { value: 10, imageSrc: "/Coins/10's coin.webp" },
+              { value: 50, imageSrc: "/Coins/50's coin.webp" },
+              { value: 100, imageSrc: "/Coins/100's coin.webp" },
+              { value: 500, imageSrc: "/Coins/500's coin.webp" },
+              { value: 1000, imageSrc: "/Coins/1000's coin.webp" },
+              { value: 5000, imageSrc: "/Coins/5000's coin.webp" },
+            ].map(({ value, imageSrc }, index) => (
+              <BettingAmountButton
+                key={index}
+                value={value}
+                imageSrc={imageSrc}
+                setCoins={setCoins}
+              />
+            ))}
+          </Box>
+
+          {/* Player Button */}
+          {/* {gameState?.value - 20 > 0 && ( */}
+          <Box
+            border="2px solid red"
+            width="100%"
+            flexDirection="row"
+            height="30%"
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            backgroundColor="lightgray"
+          >
+            <Button
+              width="47%"
+              height="80%"
+              display="flex"
+              justifyContent="space-around"
+              variant="unstyled"
+              fontSize="1.5rem"
+              textColor="white"
+              backgroundColor="#640e18"
+              borderRadius="1rem"
+              onClick={() => handleBait(0)}
+              isDisabled={gameState?.value - 25 < 0 && buttonClick1}
+            >
+              Andar <span>1.98</span>
+            </Button>
+
+            <Button
+              width="47%"
+              height="80%"
+              display="flex"
+              justifyContent="space-around"
+              variant="unstyled"
+              fontSize="1.5rem"
+              textColor="white"
+              backgroundColor="#1c3e6b"
+              borderRadius="1rem"
+              onClick={() => handleBait(1)}
+              isDisabled={gameState?.value - 25 < 0 && buttonClick2}
+            >
+              Bahar <span>1.98</span>
+            </Button>
+          </Box>
+          {/* )} */}
         </Box>
       </>
    

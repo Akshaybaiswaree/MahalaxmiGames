@@ -11,7 +11,7 @@ import DragonTiger from "./Component/Home/Games/DragonTiger/DragonTiger";
 import DragonTigerLion from "./Component/Home/Games/DragonTigerLion/DragonTigerLion";
 import HighCard from "./Component/Home/Games/HighCard/HighCard";
 import Home from "./Component/Home/Home";
-import Login from "./Component/Login/Login";
+// import Login from "./Component/Login/Login";
 import Mainpage from "./Component/Mainpage";
 import MuflisOneDay from "./Component/Home/Games/Muflis One Day/MuflisOneDay";
 import Rootlayout from "./Component/RootLayout/Rootlayout";
@@ -20,6 +20,7 @@ import TeenPattiMuflis from "./Component/Home/Games/TeenPattiMuflis/TeenPattiMuf
 import ThirtyTwoCards from "./Component/Home/Games/ThirtyTwoCards/ThirtyTwoCards";
 import TwoCardsPattiTesting from "./Component/Home/Games/TwoCardspatti/TwoCardsPattiTesting";
 import TwoCardsTeenPatti from "./Component/Home/Games/TwoCardspatti/TwoCardspatti";
+import Login from "./Component/Login/login";
 
 // import ThirtyTwoCards from "./Component/Home/Games/32Cards/ThirtyTwoCards";
 

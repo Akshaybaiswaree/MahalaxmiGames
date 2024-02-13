@@ -8,27 +8,25 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Link,
   Stack,
-  Text,
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 // import { API_URL } from "../components/api";
-
-
-
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({ mobile_no: "", password: "" });
   const navigate = useNavigate();
+  const mobileNumber =
+    "http://ec2-23-22-31-134.compute-1.amazonaws.com:5100/userMaster/verifyMobile";
+  // const verifyMobile = "http://ec2-23-22-31-134.compute-1.amazonaws.com:5100/userMaster/verifyOtp"
   const toast = useToast();
   const handleChange = (e) => {
     setData({ ...data, [e.target.id]: e.target.value });
@@ -37,22 +35,22 @@ export default function Login() {
     console.log(data);
 
     axios
-      .post(`${API_URL}/user/login`, data)
-      .then((res) => {
-        console.log(res.data);
-        if (res.status === 200) {
+      .post(`${mobileNumber}`, data)
+      .then((req) => {
+        console.log("mobilenumber", req.data);
+        if (req.status === 200) {
           toast({
-            title: res.data.message,
+            title: req.data.message,
             // description: "We've created your account for you.",
             status: "success",
             duration: 3000,
             position: "top",
             isClosable: true,
           });
-          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("token", req.data.token);
           localStorage.setItem("auth", true);
-          if (res.data.type == "admin") {
-            navigate("/admin");
+          if (req.data.type == "mainpage") {
+            navigate("/mainpage");
           } else {
             navigate("/");
           }
@@ -139,14 +137,22 @@ export default function Login() {
                 Login
               </Button>
             </Stack>
-            {/* <Stack pt={6}>
-              <Text align={"center"}>
-                Not Registered?{" "}
-                <Link href="./RegisterPage" color={"blue.400"}>
-                  Register here
-                </Link>
-              </Text>
-            </Stack> */}
+
+            <Stack onClick={() => handleSubmit()} spacing={10} pt={2}>
+              <NavLink to="/mainpage" align="center">
+                <Button
+                  loadingText="Submitting"
+                  size="lg"
+                  bg={"blue.400"}
+                  color={"white"}
+                  _hover={{
+                    bg: "blue.500",
+                  }}
+                >
+                  Login With Demo
+                </Button>
+              </NavLink>
+            </Stack>
           </Stack>
         </Box>
       </Stack>

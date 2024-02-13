@@ -25,7 +25,7 @@ const CounterBox = ({
     alignItems="center"
     justifyContent="center"
     border="10px solid white"
-    // id="freezorplaceround"
+    id="freezorplaceround"
   >
     <Text id="freezeplacebettext" fontWeight="bold" textColor={color} fontSize="1.5rem">
       {value}
