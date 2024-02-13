@@ -22,3 +22,20 @@
     gap: 5rem; /* Adjust the gap value as per your requirement */
   }
 }
+
+@media screen and (max-width: 1448) and (min-width: 1373) {
+  .gapdragontigerlion {
+   
+    gap: 20rem; /* Adjust the gap value as per your requirement */
+  }
+}
+
+
+@media screen and (max-width: 1100) and (min-width: 977) {
+  .gapdragontigerlion {
+ 
+    gap: 2rem; /* Adjust the gap value as per your requirement */
+  }
+}
+
+
