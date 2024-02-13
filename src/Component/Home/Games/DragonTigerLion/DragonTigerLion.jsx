@@ -603,7 +603,7 @@ export default function DragonTigerLion() {
                       alignItems="center"
                     >
                       <Box
-                        width="90%"
+                         width={["90%" ,"100%"]}
                         height="100%"
                         position="relative"
                         // border="2px solid #333"
@@ -614,7 +614,7 @@ export default function DragonTigerLion() {
                       >
                         <Button
                           isDisabled={isButtonDisabled}
-                          width="90%"
+                          width={["90%" ,"100%"]} 
                           height={["50%", "80%"]}
                           marginLeft="1rem"
                           color="black"
@@ -639,13 +639,13 @@ export default function DragonTigerLion() {
                               style={{ color: "white", marginRight: "0.5rem" }}
                             />
                           )}
-                          Dragon <span>2.94</span>
+                          Drag<span>2.94</span>
                         </Button>
 
                         <Button
                           isDisabled={isButtonDisabled}
                           // {<FaLock isDisabled={isButtonDisabled} />}
-                          width="90%"
+                          width={["90%" ,"100%"]}
                           height={["50%", "80%"]}
                           marginLeft="1rem"
                           color="black"
@@ -666,7 +666,7 @@ export default function DragonTigerLion() {
                         >
                           {isButtonDisabled && (
                             <FaLock
-                              size={35}
+                              size={35 }
                               style={{ color: "white", marginRight: "0.5rem" }}
                             />
                           )}
@@ -675,7 +675,7 @@ export default function DragonTigerLion() {
                         <Button
                           isDisabled={isButtonDisabled}
                           // {<FaLock isDisabled={isButtonDisabled} />}
-                          width="90%"
+                          width={["90%" ,"100%"]}
                           height={["50%", "80%"]}
                           marginLeft="1rem"
                           color="black"

@@ -8,7 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-
+import "./HighCard.css";
 import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
@@ -272,6 +272,7 @@ export default function HighCard() {
                             // height={["20.5 rem", "0.5rem"]}
                           >
                             <Image
+                             className="highcardheight"
                               width={{
                                 base: "1.5rem",
                                 sm: "1.5rem",
@@ -301,6 +302,7 @@ export default function HighCard() {
                             // height={["2.5 rem", "0.5rem"]}
                           >
                             <Image
+                             className="highcardheight"
                               width={{
                                 base: "1.4rem",
                                 sm: "1.5rem",
@@ -334,6 +336,7 @@ export default function HighCard() {
                             // height={["2.5 rem", "0.5rem"]}
                           >
                             <Image
+                             className="highcardheight"
                               width={{
                                 base: "1.4rem",
                                 sm: "1.5rem",
@@ -400,6 +403,7 @@ export default function HighCard() {
                             //  style={{marginTop: '0.9rem', marginLeft: '0.1rem' }}
                           >
                             <Image
+                             className="highcardheight"
                               width={{
                                 base: "1.5rem",
                                 sm: "2rem",
@@ -429,6 +433,7 @@ export default function HighCard() {
                             // height={["2.5 rem", "0.5rem"]}
                           >
                             <Image
+                             className="highcardheight"
                               width={{
                                 base: "1.5rem",
                                 sm: "2rem",
@@ -459,6 +464,7 @@ export default function HighCard() {
                             // height={["2.5 rem", "0.5rem"]}
                           >
                             <Image
+                            className="highcardheight"
                               width={{
                                 base: "1.5rem",
                                 sm: "2rem",
