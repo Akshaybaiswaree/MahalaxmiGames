@@ -1,4 +1,4 @@
-
+import "./DragonTigerLion.css";
 
 import {
   AspectRatio,
@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
-import "./DragonTigerLion.css";
+
 const userId = Math.floor(Math.random() * Date.now());
 // console.log("userId on the client side:", userId);
 
@@ -698,7 +698,6 @@ export default function DragonTigerLion() {
                             />
                           )}
                           <Text style={{ position: "absolute", zIndex: "1" }}>
-                            {" "}
                             Tiger<span>2.94</span>
                           </Text>
                         </Button>
@@ -736,9 +735,7 @@ export default function DragonTigerLion() {
                               }}
                             />
                           )}
-                          <Text style={{ position: "absolute", zIndex: "1" }}>
-                            {" "}
-                            Lion<span>2.94</span>
+                          <Text style={{ position: "absolute", zIndex: "1" }}>                            Lion<span>2.94</span>
                           </Text>
                         </Button>
                       </Box>
