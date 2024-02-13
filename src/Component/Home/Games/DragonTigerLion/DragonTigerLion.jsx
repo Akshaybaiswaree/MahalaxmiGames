@@ -1,4 +1,4 @@
-// import "./TwoCardspatti.css";
+ import "./DragontigerLion.css";
 
 import {
   AspectRatio,
@@ -272,12 +272,13 @@ export default function DragonTigerLion() {
                     <Flex
                       // border={"1px solid black"}
                       justifyContent={"space-between"}
+                      className="gapdragontigerlion"
                       gap={{
-                        base: "4rem",
-                        sm: "4rem",
-                        md: "4.5rem",
+                        base: "5.3rem",
+                        sm: "rem",
+                        md: "1.5rem",
                         lg: "5rem",
-                        xl: "5.5rem",
+                        xl: "7.3rem",
                         "2xl": "6rem",
                       }}
                       direction="row"
@@ -294,7 +295,7 @@ export default function DragonTigerLion() {
                         base: "19.6%",
                         sm: "19.6%",
                         md: "19.6%",
-                        lg: "19.6%",
+                        lg: "20%",
                         xl: "19.6%",
                         "2xl": "19.6%",
                       }}
@@ -309,7 +310,7 @@ export default function DragonTigerLion() {
                               width={{
                                 base: "1.8rem",
                                 sm: "2rem",
-                                md: "2.4rem",
+                                md: "2rem",
                                 lg: "",
                                 xl: "3.3rem",
                                 "2xl": "4rem",
@@ -317,7 +318,7 @@ export default function DragonTigerLion() {
                               height={{
                                 base: "2.3rem",
                                 sm: "2rem",
-                                md: "1rem", // Adjust the height as needed
+                                md: "1.6rem", // Adjust the height as needed
                                 lg: "2.4rem",
                                 xl: "3.2rem",
                                 "2xl": "4rem",
@@ -337,7 +338,7 @@ export default function DragonTigerLion() {
                               width={{
                                 base: "1.8rem",
                                 sm: "2rem",
-                                md: "2.4rem",
+                                md: "2rem",
                                 lg: "",
                                 xl: "3.3rem",
                                 "2xl": "4rem",
@@ -345,7 +346,7 @@ export default function DragonTigerLion() {
                               height={{
                                 base: "2.3rem",
                                 sm: "2rem",
-                                md: "1rem", // Adjust the height as needed
+                                md: "1.6rem", // Adjust the height as needed
                                 lg: "2.4rem",
                                 xl: "3.2rem",
                                 "2xl": "4rem",
@@ -365,7 +366,7 @@ export default function DragonTigerLion() {
                               width={{
                                 base: "1.8rem",
                                 sm: "2rem",
-                                md: "2.4rem",
+                                md: "2rem",
                                 lg: "",
                                 xl: "3.3rem",
                                 "2xl": "4rem",
@@ -373,7 +374,7 @@ export default function DragonTigerLion() {
                               height={{
                                 base: "2.3rem",
                                 sm: "2rem",
-                                md: "1rem", // Adjust the height as needed
+                                md: "1.6rem", // Adjust the height as needed
                                 lg: "2.4rem",
                                 xl: "3.2rem",
                                 "2xl": "4rem",
@@ -425,6 +426,8 @@ export default function DragonTigerLion() {
                     p={1}
                     flexWrap="wrap"
                     align={"center"}
+                    textAlign={'center'}
+                    justifyContent={'center'}
                   >
                     {gameHistory?.map((item, index) => (
                       <Box
@@ -477,9 +480,13 @@ export default function DragonTigerLion() {
                 id="playeryourbetdiv"
               >
                 <Flex
+                justifyContent={"center"}
+                alignItems={'center'}
+                textAlign={'center'}
+                ml={{base:"0.6rem" , md:"rem" }}
                   width={["95%", "110%"]}
                   flexDirection="row"
-                  border="3px solid #333"
+                  // border="3px solid #333"
                   borderRadius="10px"
                 >
                   <Box
@@ -489,7 +496,7 @@ export default function DragonTigerLion() {
                     background=" linear-gradient(179.7deg, rgb(197, 214, 227) 2.9%, rgb(144, 175, 202) 97.1%)"
                     textAlign="center"
                     borderRadius="10px"
-                    border={"4px solid grey"}
+                    border={"4px solid black"}
                   >
                     <Text fontSize={["18px", "18px"]} fontWeight="bold">
                       Available Credit
@@ -503,7 +510,7 @@ export default function DragonTigerLion() {
                   </Box>
 
                   <Box
-                    border={"4px solid grey"}
+                    border={"4px solid black"}
                     flex="1"
                     width="48%"
                     background="linear-gradient(179.7deg, rgb(197, 214, 227) 2.9%, rgb(144, 175, 202) 97.1%)"
@@ -524,7 +531,7 @@ export default function DragonTigerLion() {
                     <Text
                       fontSize="20px"
                       fontWeight="bold"
-                      marginLeft={["0.5rem"]}
+                      marginLeft={["2.9rem" , "0.5rem"]}
                       mt={"1rem"}
                       color={"white"}
                     >
@@ -603,7 +610,7 @@ export default function DragonTigerLion() {
                       alignItems="center"
                     >
                       <Box
-                         width={["90%" ,"100%"]}
+                        width={["110%", "120%"]}
                         height="100%"
                         position="relative"
                         // border="2px solid #333"
@@ -614,9 +621,9 @@ export default function DragonTigerLion() {
                       >
                         <Button
                           isDisabled={isButtonDisabled}
-                          width={["90%" ,"100%"]} 
+                          width={["80%", "100%"]}
                           height={["50%", "80%"]}
-                          marginLeft="1rem"
+                          marginLeft="2rem"
                           color="black"
                           fontWeight="800"
                           borderRadius="20%"
@@ -633,19 +640,34 @@ export default function DragonTigerLion() {
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
-                          {isButtonDisabled && (
+                          {/* {isButtonDisabled && (
                             <FaLock
                               size={35}
                               style={{ color: "white", marginRight: "0.5rem" }}
                             />
                           )}
-                          Dragon<span>2.94</span>
+                       <Text>  Dragon<span>2.94</span></Text>  */}
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
+                            {" "}
+                            Dragon<span>2.94</span>
+                          </Text>
                         </Button>
 
                         <Button
                           isDisabled={isButtonDisabled}
                           // {<FaLock isDisabled={isButtonDisabled} />}
-                          width={["90%" ,"100%"]}
+                          width={["80%", "100%"]}
                           height={["50%", "80%"]}
                           marginLeft="1rem"
                           color="black"
@@ -664,18 +686,27 @@ export default function DragonTigerLion() {
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
-                          {isButtonDisabled && (
+                         {isButtonDisabled && (
                             <FaLock
-                              size={35 }
-                              style={{ color: "white", marginRight: "0.5rem" }}
+                              size={35}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
                             />
                           )}
-                          Tiger <span>2.94</span>
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
+                            {" "}
+                            Tiger<span>2.94</span>
+                          </Text>
                         </Button>
                         <Button
                           isDisabled={isButtonDisabled}
                           // {<FaLock isDisabled={isButtonDisabled} />}
-                          width={["90%" ,"100%"]}
+                          width={["80%", "100%"]}
+                          marginRight={["2rem", "0rem"]}
                           height={["50%", "80%"]}
                           marginLeft="1rem"
                           color="black"
@@ -694,13 +725,21 @@ export default function DragonTigerLion() {
                           display={"flex"}
                           justifyContent={"space-evenly"}
                         >
-                          {isButtonDisabled && (
+                           {isButtonDisabled && (
                             <FaLock
                               size={35}
-                              style={{ color: "white", marginRight: "0.5rem" }}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
                             />
                           )}
-                          Lion <span> 2.94</span>
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
+                            {" "}
+                            Lion<span>2.94</span>
+                          </Text>
                         </Button>
                       </Box>
                     </Box>
