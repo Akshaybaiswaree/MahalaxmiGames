@@ -1,151 +1,321 @@
-
-
-@media screen and (min-width: 768px){
-
-#two{
-  width: 90%;
-  right: 2.5rem;
-  top: 51rem;
+@media screen and (min-width: 768px) {
+    /* Add your CSS rules for screens wider than 768px here */
 }
-#match-id-btn {
-  right: 9rem;
-  top: 3rem;
-}
-#third{
-  width: 90%;
-  right: 2rem;
-  top: 83rem;
 
+@media screen and (min-width: 820px) {
+    #two {
+        width: 77%;
+        right: 1rem;
+        position: absolute;
+        top: 89rem;
+    }
+    #third {
+        width: 77%;
+        right: 1rem;
+        top: 55rem;
+    }
+    #arry {
+        width: 100%;
+        margin-bottom: 1rem;
+        top: 1rem;
+    }
+    #match-id-btn {
+        top: 2.5rem;
+        /* left: 1rem; */
+    }
+    .cardShow {
+        margin-left: 0.8rem;
+    }
 }
-#money {
-  margin-left:8rem;
-  width:80%;
-  
-}
-}
-@media screen and (min-width: 820px){
 
-  #two{
-      width: 65%;
-      right: 2.5rem;
-      top: 51rem;
-  }
-  #match-id-btn {
-      right: 9rem;
-      top: 3rem;
-  }
-  #third{
-      width: 65%;
-      right: 2rem;
-      top: 73rem;
-    
-  }
-  /* #money {
-      margin-left:8rem;
-      width:80%;
-      
-  } */
-  #arry{
-      top: 2rem;
-  }
-  .cardShow{
-      margin-left: 0.8rem;
-  }
-  }
-
+@media screen and (max-width: 720px) {
+    #two {
+        width: 100%;
+        right: 0.1rem;
+        left: 0.1rem;
+        margin: 0 auto;
+        top: 89rem;
+    }
+    #tableBox {
+        margin-top: -10rem;
+    }
+    #first {
+        width: 110%;
+    }
+    #arry {
+        width: 100%;
+        margin-bottom: 2rem;
+        top: 1rem;
+    }
+    #match-id-btn {
+        top: 2.5rem;
+        left: 1rem;
+    }
+    #third {
+        width: 100%;
+        right: 0.1rem;
+        left: 0.1rem;
+        margin: 0 auto;
+        top: 58rem;
+    }
+    .cardShow {
+        margin-left: 0.8rem;
+    }
+}
 
 @media screen and (min-width: 1024px) {
-  #first {
-      width: 59%;
-  }
-
-  #two {
-      top: 12.5rem;
-      right: 0.1rem;
-      width: 35%;
-  }
-
-  #arry {
-      width: 60%;
-      margin-bottom: 4rem;
-
-  }
-
-  #match-id-btn {
-      top: 2.5rem;
-      right: 4rem;
-  }
-
-  /* #money {
-      margin-left: 9rem;
-      width: 80%;
-  } */
-
-  #money-Hover:hover {
-      height: 3.8rem;
-  }
-  #third{
-      width: 80%;
-      right: 2rem;
-      top: 48rem;
-    
-  }
-  #round1{
-      top: 5px;
-      left: 5px;
-      padding: 24px;
-  }
-  #round2{
-      padding: 24px;
-      top: 5px;
-      right: 5px;
-  }
+    #first {
+        width: 59%;
+    }
+    #two {
+        top: 12.5rem;
+        right: 0.1rem;
+        width: 35%;
+    }
+    #arry {
+        width: 60%;
+        margin-bottom: 4rem;
+    }
+    #match-id-btn {
+        top: 2.5rem;
+        right: 4rem;
+    }
+    #money-Hover:hover {
+        height: 3.8rem;
+    }
+    #third {
+        width: 50%;
+        right: 17rem;
+        left: 12rem;
+        top: 48rem;
+    }
+    #round1 {
+        top: 5px;
+        left: 5px;
+        padding: 24px;
+    }
+    #round2 {
+        padding: 24px;
+        top: 5px;
+        right: 5px;
+    }
 }
 
 @media screen and (min-width: 1440px) {
+    #first {
+        width: 59%;
+        top: 5rem;
+    }
+    #two {
+        top: 10.3rem;
+    }
+    #arry {
+        width: 30%;
+        top: 6rem;
+    }
+    #match-id-btn {
+        right: -24rem;
+        top: -0.5rem;
+    }
+    #money {
+        margin-left: 0.2rem;
+        width: 93%;
+    }
+    #money-Hover {
+        margin-left: 1.5rem;
+    }
+    #money-Hover:hover {
+        height: 3.8rem;
+    }
+    #third {
+        width: 50%;
+        height: 19rem;
+        right: 0.5rem;
+        top: 70rem;
+        left: 17rem;
+    }
+    .cardShow {
+        margin-left: 1rem;
+    }
+}
 
-  #first {
-      width: 59%;
-      top: 5rem;
-  }
-  #two {
-      top: 9.5rem;
-  }
+@media screen and (max-width: 540px) {
+    #first {
+        width: 113%;
+        top: 0.6rem;
+    }
+    #two {
+        top: 63rem;
+        width: 100%;
+        left: 0%;
+        right: 0%;
+        margin: 0 auto;
+    }
+    #tableBox {
+        margin-top: -10rem;
+    }
+    #arry {
+        width: 100%;
+        top: 1rem;
+        bottom: 4rem;
+    }
+    #match-id-btn {
+        top: 0.8rem;
+    }
+    #money {
+        margin-left: 0.2rem;
+        width: 93%;
+    }
+    #money-Hover {
+        margin-left: 1.5rem;
+    }
+    #money-Hover:hover {
+        height: 3.8rem;
+    }
+    #third {
+        width: 100%;
+        height: 19rem;
+        left: 0rem;
+        margin: 0 auto;
+        top: 48rem;
+    }
+    .cardShow {
+        margin-left: 0.3rem;
+    }
+}
 
-  #arry {
-      width: 30%;
-      top: 1rem;
+@media screen and (max-width: 480px) {
+    #first {
+        width: 157%;
+        top: 0.5rem;
+    }
+    #two {
+        top: 63rem;
+        width: 100%;
+        left: 0%;
+        right: 0%;
+        margin: 0 auto;
+    }
+    #tableBox {
+        margin-top: -16rem;
+    }
+    #arry {
+        width: 100%;
+        top: 1rem;
+        /* left: 2rem; */
+        /* position: absolute; */
+    }
+    #match-id-btn {
+        top: 0.8rem;
+        /* left: 1rem; */
+        /* margin-left: 1rem; */
+    }
+    #money {
+        margin-left: 0.2rem;
+        width: 93%;
+    }
+    #money-Hover {
+        margin-left: 1.5rem;
+    }
+    #money-Hover:hover {
+        height: 3.8rem;
+    }
+    #third {
+        width: 100%;
+        height: 19rem;
+        left: 0%;
+        right: 0%;
+        margin: 0 auto;
+        margin-top: 0rem;
+    }
+    .cardShow {
+        margin-left: 0.6rem;
+    }
+}
 
-  }
+@media screen and (max-width: 450px) {
+    #first {
+        width: 145%;
+        top: 0.5rem;
+    }
+    #third {
+        width: 100%;
+        height: 19rem;
+        left: 0%;
+        right: 0%;
+        margin: 0 auto;
+        margin-top: 3rem;
+    }
+    #two {
+        width: 100%;
+        position: absolute;
+        margin-top: 1rem;
+    }
+    #tableBox {
+        margin-top: -16rem;
+    }
+    .cardShow {
+        margin-left: 0.6rem;
+    }
+}
 
-  #match-id-btn {
-      right: -24rem;
-      top: -0.5rem;
-  }
+@media screen and (max-width: 420px) {
+    #first {
+        width: 135%;
+        top: 0.5rem;
+    }
+    #third {
+        width: 100%;
+        height: 19rem;
+        left: 0%;
+        right: 0%;
+        margin: 0 auto;
+        margin-top: 2rem;
+    }
+    #two {
+        width: 100%;
+        /* left: 0%; */
+        /* right: 0%; */
+        /* margin: 0 auto; */
+        /* display: flex; */
+        /* position: absolute; */
+        margin-top: -2rem;
+    }
+    #tableBox {
+        margin-top: -16rem;
+    }
+    .cardShow {
+        margin-left: 0.6rem;
+    }
+}
 
-  #money {
-      margin-left: 0.2rem;
-      width: 93%;
-    /* background-color: white; */
-  }
-  #money-Hover{
-      margin-left: 1.5rem;
-    
-      
-  }
-  #money-Hover:hover {
-      height: 3.8rem;
-  }
-  #third{
-      width: 48%;
-      height: 19rem;
-      right: 0.5rem;
-      top: 60rem;
-      left: 15rem;
-    
-  }
-  .cardShow{
-      margin-left: 1rem;
-  }
-
+@media screen and (max-width: 400px) {
+    #first {
+        width: 125%;
+        top: 0.5rem;
+    }
+    #third {
+        width: 100%;
+        height: 19rem;
+        left: 2%;
+        right: 1%;
+        margin: 0 auto;
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #two {
+        left: 2%;
+        right: 1%;
+        width: 100%;
+        position: absolute;
+        margin-top: -2rem;
+    }
+    #tableBox {
+        margin-top: -10rem;
+    }
+    .cardShow {
+        margin-left: 0.6rem;
+    }
 }
