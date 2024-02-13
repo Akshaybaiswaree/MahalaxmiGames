@@ -1,4 +1,4 @@
- import "./DragontigerLion.css";
+
 
 import {
   AspectRatio,
@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
-
+import "./DragonTigerLion.css";
 const userId = Math.floor(Math.random() * Date.now());
 // console.log("userId on the client side:", userId);
 
@@ -301,7 +301,7 @@ export default function DragonTigerLion() {
                       }}
                     >
                       <Box>
-                        {timer <= 14 && (
+                        {timer <= 140 && (
                           <Box
                             key={1}
                             // height={["20.5 rem", "0.5rem"]}
@@ -329,7 +329,7 @@ export default function DragonTigerLion() {
                         )}
                       </Box>
                       <Box>
-                        {timer <= 12 && (
+                        {timer <= 120 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
@@ -357,7 +357,7 @@ export default function DragonTigerLion() {
                         )}
                       </Box>
                       <Box>
-                        {timer <= 10 && (
+                        {timer <= 100 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}

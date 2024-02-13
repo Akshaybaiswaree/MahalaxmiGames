@@ -1,7 +1,6 @@
-
-@media screen and (max-width:379px) {
+@media screen and (max-width: 380px) {
   .gapdragontigerlion {
-    gap: 4rem; /* Adjust the gap value as per your requirement */
+    gap: 4.3rem; /* Adjust the gap value as per your requirement */
   }
 }
 
