@@ -277,7 +277,7 @@ export default function DragonTigerLion() {
                         base: "5.3rem",
                         sm: "rem",
                         md: "1.5rem",
-                        lg: "5rem",
+                        lg: "5.4rem",
                         xl: "7.3rem",
                         "2xl": "6rem",
                       }}

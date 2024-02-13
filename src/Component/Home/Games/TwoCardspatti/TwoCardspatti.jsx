@@ -262,11 +262,11 @@ export default function TwoCardsTeenPatti() {
                       direction="row"
                       position={"relative"}
                       // top={"5.2rem"}
-                      top={{ base: "5.3rem", lg: "5.8rem", xl: "8.4rem" }}
+                      top={{ base: "5.3rem", lg: "5.8rem", xl: "9.1rem" }}
                       left={{ base: "-3.2rem", lg: "-3.6rem", xl: "-5rem" }}
                     >
                       <Box>
-                        {countdown <= 19 && (
+                        {countdown <= 190 && (
                           <Box
                             key={1}
                             // height={["20.5 rem", "0.5rem"]}
@@ -295,7 +295,7 @@ export default function TwoCardsTeenPatti() {
                         )}
                       </Box>
                       <Box>
-                        {countdown <= 17 && (
+                        {countdown <= 170 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
@@ -332,12 +332,12 @@ export default function TwoCardsTeenPatti() {
                       gap="0.5rem"
                       direction="row"
                       position={"relative"}
-                      top={{ base: "2.9rem", lg: "3.3rem", xl: "4.85rem" }}
+                      top={{ base: "2.9rem", lg: "3.3rem", xl: "5.4rem" }}
                       // left={"3.4rem"}
                       left={{ base: "3.4rem", lg: "3.6rem", xl: "5rem" }}
                     >
                       <Box>
-                        {countdown <= 18 && (
+                        {countdown <= 180 && (
                           <Box
                             key={0}
                             // height={["2.5 rem", "0.5rem"]}
@@ -368,7 +368,7 @@ export default function TwoCardsTeenPatti() {
                         )}
                       </Box>
                       <Box>
-                        {countdown <= 16 && (
+                        {countdown <= 160 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
@@ -439,6 +439,9 @@ export default function TwoCardsTeenPatti() {
                     p={1}
                     flexWrap="wrap"
                     align={"center"}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    textAlign={'center'}
                   >
                     {gameHistory?.map((item, index) => (
                       <Box
@@ -538,6 +541,7 @@ export default function TwoCardsTeenPatti() {
                       marginLeft={["0.5rem"]}
                       mt={"1rem"}
                       color={"white"}
+                      ml={{base:"3rem", md:"0rem"}}
                     >
                       Place Your Bet
                     </Text>
