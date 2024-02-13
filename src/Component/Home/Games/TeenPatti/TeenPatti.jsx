@@ -200,7 +200,7 @@ function TeenPatti() {
                     )}
                      
                   </Box>
-                 {gameState.value = 13}
+                  {/* logic to display cards  */}
                   {gameState.value >= 1 && (
                     <Flex direction="row" position="absolute" top="9rem" justifyContent="center">                     
                       {gameState.value < 14 && (
