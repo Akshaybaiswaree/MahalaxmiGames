@@ -1,425 +1,3 @@
-// import {
-//   AspectRatio,
-//   Box,
-//   Button,
-//   Center,
-//   ChakraProvider,
-//   Flex,
-//   HStack,
-//   Image,
-//   Stack,
-//   Table,
-//   TableCaption,
-//   TableContainer,
-//   Tbody,
-//   Td,
-//   Text,
-//   Tfoot,
-//   Th,
-//   Thead,
-//   Tr,
-// } from "@chakra-ui/react";
-// import React, { useEffect, useState } from "react";
-// import { io } from "socket.io-client";
-// import Teenpatti from "../../Games/Images/TeenPatti.svg";
-// import "./Teenpatti.css";
-
-// const socket = io("https://teenpattibackend.onrender.com", {
-//   query: {
-//     userId: Math.floor(Math.random() * Date.now()),
-//   },
-//   transports: ["websocket"],
-// });
-// function TeenPatti() {
-//   const [gameState, setGameState] = useState({ value: "waiting" });
-//   const [user, setUser] = useState(null);
-//   const [coins, setCoins] = useState(50);
-//   const [mainCard, setMainCard] = useState([]);
-//   const [player1Cards, setPlayer1Cards] = useState([]);
-//   const [player2Cards, setPlayer2Cards] = useState([]);
-
-//   useEffect(() => {
-//     // Listen for game state updates from the server
-//     socket.on(
-//       "gameUpdate",
-//       (updatedGameState) => {
-//         setGameState(updatedGameState?.gamestate);
-
-//         // console.log(updatedGameState, "updatedGameState");
-//         // setMainCard(updatedGameState.gameCard);
-//         //  console.log(updatedGameState.gameCard, "updatedGameState");
-//       },
-//       [gameState?.value]
-//     );
-
-//     socket.on("userDetails", (data) => {
-//       // console.log(data.user.coins , "data");
-//       setUser(data.user);
-//       console.log(data, "data?.user");
-//     });
-//     socket.on("bait", (data) => {
-//       setUser(data);
-//       // console.log(data);
-//       // setUser(data.user);
-//     });
-
-//     socket.on("Main_Card", (data) => {
-//       setMainCard(data.gameCard);
-//       displayPlayerCards(data.gameCard.player1Cards, setPlayer1Cards);
-//       displayPlayerCards(data.gameCard.player2Cards, setPlayer2Cards);
-//       console.log(data, "data");
-//     });
-
-//     // console.log(mainCard , "maincard");
-
-//     return () => {
-//       // Clean up socket connection on component unmount
-
-//       socket.disconnect();
-//     };
-//   }, []);
-//   const displayPlayerCards = (cards, setPlayerCards) => {
-//     const displayedCards = cards.slice(0, 3); // Take only the first 3 cards
-
-//     // Update state directly with the first 3 cards
-//     setPlayerCards(displayedCards);
-//   };
-
-//   const handleBait = (baitType) => {
-//     if (user?.coins <= 0) {
-//       alert("Insufficient Coins");
-//       return; // Stop execution if coins are 0 or less
-//     }
-//     const bait = {
-//       baitType,
-//       coins,
-//       cardId: mainCard._id,
-//     };
-//     console.log(bait, "bait");
-//     socket.emit("bait", bait);
-//   };
-
-//   return (
-//     <>
-//       <ChakraProvider>
-//         <Box m={"0.6rem"}>
-//           <Flex justifyContent={"space-between"}>
-//             <AspectRatio
-//               width={["45%", "70%"]}
-//               minHeight="50%"
-//               borderRadius="10px"
-//               controls
-//               ml={["2.5rem", "0rem"]}
-//               id="teenpattimainimg"
-//             >
-//               <Box
-//                 height="90%" // Adjust the height as needed
-//                 // background="linear-gradient(#c86363, #51a454, #517a9c)"
-
-//                 backgroundImage={Teenpatti}
-//                 backgroundSize="cover"
-//                 display="flex"
-//                 flexDirection="column"
-//                 justifyContent="flex-start"
-//                 alignItems="top"
-//                 position="relative"
-//                 width={"80%"}
-//               >
-//                 <Box
-//                   fontWeight={"1000"}
-//                   border={"1px solid white"}
-//                   borderRadius={"50%"}
-//                   padding={"2px"}
-//                   mt={"2rem"}
-//                   ml={"1rem"}
-//                   position={"absolute"}
-//                   top="0"
-//                   left="0"
-//                   width="18%"
-//                   height="18%"
-//                   display="flex"
-//                   justifyContent="center"
-//                   alignItems="center"
-//                   fontSize="lg"
-//                   color="white"
-//                   background="linear-gradient(to right,#809fff ,#0000FF)"
-//                   id="teenpattifreezeplacebettext"
-//                 >
-//                   {gameState?.value <= 20 ? "Freeze" : "Place  Bet"}
-//                 </Box>
-//                 <Box>
-//                   {gameState.value < 8 && (
-//                     <Button
-//                       // background="linear-gradient(to bottom right,#ED9203, #323349, #880000)"
-//                       background="linear-gradient(to bottom right, #ED9203, #C7E600)"
-//                       height={"4rem"}
-//                       width={"9rem"}
-//                       marginTop={["5rem", ""]}
-//                     >
-//                       Winner: {mainCard?.winstatus}
-//                     </Button>
-//                   )}
-//                 </Box>
-
-//                 {gameState.value >= 1 && (
-//                   <Flex flexWrap="wrap">
-//                     <Box
-//                       color={"Yellow"}
-//                       fontSize="1rem"
-//                       width="120%"
-//                       className="players"
-//                       id="playerA"
-//                       mt={["", "-1rem"]}
-//                     >
-//                       PLAYER A
-//                     </Box>
-//                     {gameState.value < 12 && (
-//                       <Flex
-//                         Flex
-//                         width="40%"
-//                         marginLeft={["5rem", "20rem"]}
-//                         marginTop={"-3rem"}
-//                       >
-//                         {player1Cards.map((card, index) => (
-//                           <Image
-//                             key={index}
-//                             src={`/cards/${card}`}
-//                             boxSize="2rem"
-//                             margin="0.5rem"
-//                             id="cards-positionA"
-//                           />
-//                         ))}
-//                       </Flex>
-//                     )}
-
-//                     <Box
-//                       color={"Yellow"}
-//                       fontSize={["1.4rem", "5rem"]}
-//                       width="100%"
-//                       className="players"
-//                       id="playerB"
-
-//                       mt={["1rem"]}
-//                     >
-//                       PLAYER B
-//                     </Box>
-//                     {gameState.value < 10 && (
-//                       <Flex
-//                         width="40%"
-//                         marginLeft={["5rem", "20rem"]}
-//                         marginTop={"-3rem"}
-//                       >
-//                         {player2Cards.map((card, index) => (
-//                           <Image
-//                             key={index}
-//                             src={`/cards/${card}`}
-//                             boxSize="2rem"
-//                             margin="0.5rem"
-//                             marginTop={"-5rem"}
-//                             id="cards-positionB"
-//                           />
-//                         ))}
-//                       </Flex>
-//                     )}
-//                   </Flex>
-//                 )}
-//                 <Box
-//                   fontWeight={"1000"}
-//                   border={"1px solid white"}
-//                   borderRadius={"50%"}
-//                   padding={"2px"}
-//                   mt={"2rem"}
-//                   ml={"1rem"}
-//                   position={"absolute"}
-//                   top="0"
-//                   right="0"
-//                   width="15%"
-//                   height="17%"
-//                   display="flex"
-//                   justifyContent="center"
-//                   alignItems="center"
-//                   fontSize="lg"
-//                   //   background="linear-gradient(to right, teal.200, blue.500)"
-//                   background="linear-gradient(to right, #809fff, #0000FF)"
-//                   marginRight={"1rem"}
-//                   color="white"
-//                 >
-//                   {gameState?.value && Math.max(0, gameState.value - 20)}
-//                 </Box>
-//               </Box>
-//             </AspectRatio>
-
-//             <Flex flexDirection={"column"} id="outputbox">
-//               <Box
-//                 ml={["1.5rem", ""]}
-//                 height={"5rem"}
-//                 // width="100%"
-//                 flexDirection="row"
-//                 border="5px solid #668cff"
-//                 boxShadow="4px 4px 10px rgba(3, 0, 2, 0.6)"
-//                 display="flex"
-//                 borderRadius="1rem"
-//               >
-//                 <Box
-//                   flex="1"
-//                   //   width={["10%", "44%"]}
-//                   backgroundColor="white"
-//                   textAlign="center"
-//                   borderRight="4px solid #668cff"
-//                   className="abc"
-//                 >
-//                   <Text color={"#668cff"} fontSize="18px" fontWeight="bold">
-//                     Available Credit :
-//                   </Text>
-//                   <Text color="#daa520" fontWeight={"500"} fontSize="24px">
-//                     {user?.coins && Math.max(0, user?.coins)}
-//                   </Text>
-//                 </Box>
-
-//                 <Box flex="1" textAlign="center">
-//                   <Text color={"#668cff"} fontSize="18px" fontWeight="bold">
-//                     Match Id :
-//                   </Text>
-//                   <Text color="#daa520" fontWeight={"500"} fontSize="24px">
-//                     {user?.userId}
-//                   </Text>
-//                 </Box>
-//               </Box>
-//               <TableContainer ml={["1rem", ""]} mt={"1rem"}>
-//                 <Table
-//                   borderRadius={"1rem"}
-//                   border="1px solid 5pxblack"
-//                   bg={"black"}
-//                   variant="simple"
-//                 >
-//                   <Thead></Thead>
-//                   <Tbody>
-//                     <Tr
-//                       borderRadius={"2rem"}
-//                       boxShadow="0 14px 18px rgba(0,1 0, 20, 0.1)"
-//                       color="black"
-//                       bg="lightgray"
-//                     >
-//                       <Td>Hands</Td>
-//                       <Td>Payout</Td>
-//                       <Td></Td>
-//                     </Tr>
-//                     <Tr color="white">
-//                       <Td>Pair</Td>
-
-//                       <Td isNumeric>1 to 2</Td>
-//                     </Tr>
-//                     <Tr color="white">
-//                       <Td>Flush</Td>
-//                       <Td isNumeric>1 to 6</Td>
-//                     </Tr>
-//                     <Tr color="white">
-//                       <Td>Straight</Td>
-//                       <Td isNumeric>1 to 8</Td>
-//                     </Tr>
-//                     <Tr color="white">
-//                       <Td>Straight flush</Td>
-//                       <Td isNumeric>1 to 24</Td>
-//                     </Tr>
-//                   </Tbody>
-//                   <Tfoot>
-//                     <Tr color="white">
-//                       <Th color="white">Trio</Th>
-//                       <Td isNumeric>1 to 36</Td>
-//                     </Tr>
-//                   </Tfoot>
-//                 </Table>
-//               </TableContainer>
-
-//               {/* BUTTONS FOR BET */}
-//             </Flex>
-//           </Flex>
-
-//           <Text
-//             mt={["-10rem", "1rem"]}
-//             mb={"1rem"}
-//             fontSize={"1.3rem"}
-//             fontWeight={"bold"}
-//             ml={["", "16rem"]}
-//             id="chooseamount"
-//           >
-//             Choose the Amount
-//           </Text>
-
-//           <Box
-//             display={"flex"}
-//             flexDirection={"row"}
-//             id="amountbox"
-
-//             // ml={["0rem", "3rem"]}
-//           >
-//             {[
-//               { value: 10, imageSrc: "/Coins/10's coin.webp" },
-//               { value: 50, imageSrc: "/Coins/50's coin.webp" },
-//               { value: 100, imageSrc: "/Coins/100's coin.webp" },
-//               { value: 500, imageSrc: "/Coins/500's coin.webp" },
-//               { value: 1000, imageSrc: "/Coins/1000's coin.webp" },
-//               { value: 5000, imageSrc: "/Coins/5000's coin.webp" },
-//             ].map((item, index) => (
-//               <Button
-//                 key={index}
-//                 height="45px"
-//                 display="flex"
-//                 justifyContent="center"
-//                 alignItems="center"
-//                 fontWeight="bold"
-//                 variant="unstyled"
-//                 _hover={{ height: "2rem" }}
-//                 onClick={() => {
-//                   setCoins(item.value);
-//                   console.log(item.value);
-//                 }}
-//               >
-//                 <img
-//                   height={"10rem"}
-//                   src={item.imageSrc}
-//                   alt={`${item.value}'s coin`}
-//                   style={{ maxHeight: "55px" }}
-//                 />
-//               </Button>
-//             ))}
-//           </Box>
-
-//           <Box ml={["12rem"]} mt={"1rem"} id="playersbutton">
-//             <Button
-//               onClick={() => handleBait("0")}
-//               disabled={gameState?.value <= 10}
-//               width={"10rem"}
-//               height={"5rem"}
-//               bgGradient="linear(to-r, teal.200, blue.500)"
-//               _hover={{
-//                 bgGradient: "linear(to-r, red.200, orange.500, yellow.400)", // Change colors on hover
-//               }}
-//             >
-//               Player A
-//             </Button>
-//             <Button
-//               onClick={() => handleBait("1")}
-//               disabled={gameState?.value <= 10}
-//               width={"10rem"}
-//               ml={"1rem"}
-//               height={"5rem"}
-//               bgGradient="linear(to-r, teal.200, blue.500)"
-//               _hover={{
-//                 bgGradient: "linear(to-r, red.200, orange.500, yellow.400)", // Change colors on hover
-//               }}
-//             >
-//               Player B
-//             </Button>
-//           </Box>
-//         </Box>
-//       </ChakraProvider>
-//     </>
-//   );
-// }
-
-// export default TeenPatti;
-
 import "./Teenpatti.css";
 
 import {
@@ -538,18 +116,24 @@ function TeenPatti() {
 
   return (
     <>
-      <ChakraProvider>
-        <Box maxW={"100vw"}>
-          <Box m={"0"}>
-            <Flex justifyContent={"space-between"}>
+      <Box bg="gray.700" h="141.5vh" w={{base:"100vw", md:"85vw"}}>
+        <Box maxW={"90vw"}>
+          <Box m={"0"} >
+            <Flex
+              justifyContent={{base:"center", md:"space-between"}}
+              direction={{ base: "column", md: "row" }}
+              // position="absolute"
+              
+            >
               <AspectRatio
                 width={["95vw", "70%"]}
                 // backgroundColor='red'
                 // minHeight="50%"
                 borderRadius="10px"
                 controls
-                // ml={["2.5rem", "0rem"]}
+                ml={["0rem", "0.9rem"]}
                 //  id='AspectRatio'
+                // position="absolute"
               >
                 <Box
                   height="auto" // Adjust the height as needed
@@ -557,16 +141,19 @@ function TeenPatti() {
 
                   // backgroundImage={Teenpatti}
                   backgroundImage="url('/public/MuflisTeenPatti/MuflisTeenPatti.webp')"
-                  backgroundSize="cover"
-                  display="flex"
-                  flexDirection="column"
+                  backgroundSize="contain"
+                  // display="flex"
+                  // flexDirection="column"
                   justifyContent="flex-start"
                   alignItems="top"
                   position="relative"
+                  left="20"
                   backgroundPosition={`center 100%`}
-                  // width={"100%"}
+                 
                   id="teenpattimainimg"
+                  pl="4rem"
                 >
+                  
                   <Box
                     fontWeight={"1000"}
                     border={"1px solid white"}
@@ -576,7 +163,7 @@ function TeenPatti() {
                     ml={"1rem"}
                     position={"absolute"}
                     top="0"
-                    left="0"
+                    left="2"
                     width="18%"
                     height="18%"
                     display="flex"
@@ -586,6 +173,7 @@ function TeenPatti() {
                     color="white"
                     background="linear-gradient(to right,#809fff ,#0000FF)"
                     id="teenpattifreezeplacebettext"
+                    textAlign="center"
                   >
                     {gameState?.value <= 20 ? "Freeze" : "Place  Bet"}
                   </Box>
@@ -608,134 +196,107 @@ function TeenPatti() {
                       >
                         Winner: {mainCard?.winstatus}
                       </Button>
+                      
                     )}
+                     
                   </Box>
-
+                 {gameState.value = 13}
                   {gameState.value >= 1 && (
-                    <Flex flexWrap="wrap">
-                      <Box
-                        color={"Yellow"}
-                        fontSize="1rem"
-                        width={["20%", "20%"]}
-                        // backgroundColor='red'
-                        className="players"
-                        id="playerA"
-                        mt={["0", "-1rem"]}
-                      >
-                        {/* PLAYER A */}
-                      </Box>
+                    <Flex direction="row" position="absolute" top="9rem" justifyContent="center">                     
                       {gameState.value < 14 && (
                         <Flex
-                          position="absolute"
+                          position="relative"
                           width="40%"
                           flexDirection="row"
                           // border='2px'
-                          top="8rem"
-                          id="playerA-Card"
+                          top={{base:"3.7rem", md:"15.2rem"}}
+                          left={{base:"-3.8rem", md:"-7.9rem"}}
+                          // justifyContent="space-between"
+                          // id="playerA-Card"
                           // marginLeft={["11rem", "20rem"]}
                           // marginTop={"9rem"}
+                          // bg="red"
                         >
-                          {/* {player1Cards.map((card, index) => (
-                                <Image
-                                  key={index}
-                                  src={`/cards/${card}`}
-                                  boxSize={["2rem","3rem"]}
-                                  margin="0.5rem"
-                                  id="cards-positionA"
-                                />
-                              ))} */}
+                          
+                          
+                             
                           {gameState.value <= 14 && (
                             <Image
                               key={0}
                               src={`/cards/${player1Cards[0]}`}
                               boxSize={["2rem", "3rem"]}
-                              margin="0.5rem"
-                              id="cards-positionA"
+                              ml={{base:"0.5rem", md:"4.5rem"}}
+                              // id="cards-positionA"
                             />
-                          )}
+                         )}  
                           {gameState.value <= 11 && (
                             <Image
                               key={1}
                               src={`/cards/${player1Cards[1]}`}
                               boxSize={["2rem", "3rem"]}
-                              margin="0.5rem"
-                              id="cards-positionA"
+                              ml={{base:"0.5rem", md:"1.6rem"}}
+                              // id="cards-positionA"
                             />
-                          )}
+                           )}  
                           {gameState.value <= 9 && (
                             <Image
                               key={2}
                               src={`/cards/${player1Cards[2]}`}
                               boxSize={["2rem", "3rem"]}
-                              margin="0.5rem"
-                              id="cards-positionA"
+                              ml={{base:"0.5rem", md:"1.6rem"}}
+                              // id="cards-positionA"
                             />
-                          )}
+                          )} 
                         </Flex>
                       )}
 
-                      <Box
-                        color={"Yellow"}
-                        fontSize={["1.4rem", "5rem"]}
-                        width={["20%", "20%"]}
-                        // backgroundColor='red'
-                        className="players"
-                        id="playerB"
-                        mt={["1rem"]}
-                      >
-                        {/* PLAYER B */}
-                      </Box>
+                      
                       {gameState.value < 14 && ( //update 14 to 10
                         <Flex
-                          position="absolute"
+                          position="relative"
                           width="40%"
-                          top="16.5rem"
-                          id="playerB-Card"
+                          top={{base:"8.7rem", md:"20.2rem"}}
+                          left={{base:"-1.5rem", md:"0.5rem"}}
+                          // id="playerB-Card"
                           flexDirection="row"
                           // marginLeft={["11rem", "20rem"]}
                           // marginTop={"5rem"}
                         >
-                          {/* uncomment */}
-                          {/* {player2Cards.map((card, index) => (
-                                <Image
-                                  key={index}
-                                  src={`/cards/${card}`}
-                                  boxSize={["2rem","3rem"]}
-                                  margin="0.5rem"
-                                  marginTop={"-5rem"}
-                                  id="cards-positionB"
-                                />
-                              ))} */}
+                        
+                          
                           {gameState.value <= 12 && (
                             <Image
                               key={0}
                               src={`/cards/${player2Cards[0]}`}
                               boxSize={["2rem", "3rem"]}
-                              margin="0.5rem"
+                              ml={{base:"0.5rem", md:"-0.6rem"}}
                               marginTop={"-5rem"}
-                              id="cards-positionB"
+                              px={{base:"0", md:"1.5"}}
+                              // id="cards-positionB"
                             />
-                          )}
+                          )}  
                           {gameState.value <= 10 && (
                             <Image
                               key={1}
                               src={`/cards/${player2Cards[1]}`}
                               boxSize={["2rem", "3rem"]}
-                              margin="0.5rem"
+                              ml={{base:"0.5rem", md:"0.7rem"}}
                               marginTop={"-5rem"}
-                              id="cards-positionB"
+                              px={{base:"0", md:"1.5"}}
+                              // id="cards-positionB"
                             />
-                          )}
+                          )}  
                           {gameState.value <= 8 && (
                             <Image
                               key={2}
                               src={`/cards/${player2Cards[2]}`}
                               boxSize={["2rem", "3rem"]}
-                              margin="0.5rem"
+                              ml={{base:"0.5rem", md:"0.8rem"}}
                               marginTop={"-5rem"}
-                              id="cards-positionB"
+                              px={{base:"0", md:"1.5"}}
+                              // id="cards-positionB"
                             />
-                          )}
+                          )} 
                         </Flex>
                       )}
                     </Flex>
@@ -765,216 +326,266 @@ function TeenPatti() {
                   </Box>
                 </Box>
               </AspectRatio>
-
-              <Flex flexDirection={"column"} id="outputbox">
-                <Box
-                  // ml={["1.5rem", ""]}
-                  height={"5rem"}
-                  // width="100%"
-                  flexDirection="row"
-                  border="5px solid #668cff"
-                  boxShadow="4px 4px 10px rgba(3, 0, 2, 0.6)"
-                  display="flex"
-                  borderRadius="1rem"
-                  mt={["5rem", ""]}
+              <Flex direction={{ base: "row", md: "column" }} w={{ base: "95%", md: "50%" }} >
+                {/* credit and output box  */}
+                <Flex
+                  flexDirection={"column"}
+                  justifyContent="center"
+                  id="outputbox"
+                  mt={{base:"0rem", md:"5rem"}}
+                  borderBottomRadius="15px"
+                  w="85rem"
+                  gap="1"
+                  alignItems="center"
+                  
                 >
                   <Box
-                    flex="1"
-                    // width={["10%", "44%"]}
-                    backgroundColor="white"
-                    textAlign="center"
-                    borderRight="4px solid #668cff"
-                    className="abc"
+                    height={"5rem"}
+                    flexDirection="row"
+                    border="5px solid orange"
+                    boxShadow="4px 4px 10px rgba(3, 0, 2, 0.6)"
+                    display="flex"
+                    borderRadius="1rem"
+                    mt={["0.2rem", "2rem"]}
+                    pt="0.5rem"
+                    w={{base:"400px", md:"500px"}}
+                    bg="red"
                   >
-                    <Text
-                      color={"#668cff"}
-                      fontSize={["17px", "18px"]}
-                      fontWeight="bold"
+                    <Box
+                      flex="1"
+                      // width={["10%", "44%"]}
+                      // backgroundColor="white"
+                      textAlign="center"
+                      borderRight="4px solid #668cff"
+                      className="abc"
+                      w="100%"
                     >
-                      Available Credit :
-                    </Text>
-                    <Text
-                      color="#daa520"
-                      fontWeight={"500"}
-                      fontSize={["20px", "24px"]}
-                    >
-                      {user?.coins && Math.max(0, user?.coins)}
-                    </Text>
-                  </Box>
-
-                  <Box flex="1" textAlign="center">
-                    <Text color={"#668cff"} fontSize="18px" fontWeight="bold">
-                      Match Id :
-                    </Text>
-                    <Text
-                      color="#daa520"
-                      fontWeight={"500"}
-                      fontSize={["20px", "24px"]}
-                    >
-                      {user?.userId}
-                    </Text>
-                  </Box>
-                </Box>
-                <TableContainer ml={["0.1rem", ""]} mt={"1rem"}>
-                  <Table
-                    borderRadius={"1rem"}
-                    border="1px solid 5pxblack"
-                    bg={"black"}
-                    variant="simple"
-                  >
-                    <Thead></Thead>
-                    <Tbody>
-                      <Tr
-                        borderRadius={"2rem"}
-                        boxShadow="0 14px 18px rgba(0,1 0, 20, 0.1)"
+                      <Text
                         color="black"
-                        bg="lightgray"
+                        fontSize={["17px", "18px"]}
+                        fontWeight="bold"
                       >
-                        <Td>Hands</Td>
-                        <Td>Payout</Td>
-                        <Td></Td>
-                      </Tr>
-                      <Tr color="white">
-                        <Td>Pair</Td>
+                        Available Credit :
+                      </Text>
+                      <Text
+                        color="black"
+                        fontWeight={"500"}
+                        fontSize={["20px", "24px"]}
+                      >
+                        {user?.coins && Math.max(0, user?.coins)}
+                      </Text>
+                    </Box>
 
-                        <Td isNumeric>1 to 2</Td>
-                      </Tr>
-                      <Tr color="white">
-                        <Td>Flush</Td>
-                        <Td isNumeric>1 to 6</Td>
-                      </Tr>
-                      <Tr color="white">
-                        <Td>Straight</Td>
-                        <Td isNumeric>1 to 8</Td>
-                      </Tr>
-                      <Tr color="white">
-                        <Td>Straight flush</Td>
-                        <Td isNumeric>1 to 24</Td>
-                      </Tr>
-                    </Tbody>
-                    <Tfoot>
-                      <Tr color="white">
-                        <Th color="white">Trio</Th>
-                        <Td isNumeric>1 to 36</Td>
-                      </Tr>
-                    </Tfoot>
-                  </Table>
-                </TableContainer>
+                    <Box flex="1" textAlign="center">
+                      <Text color="black" fontSize="18px" fontWeight="bold">
+                        Match Id :
+                      </Text>
+                      <Text
+                        color="#daa520"
+                        fontWeight={"500"}
+                        fontSize={["20px", "24px"]}
+                      >
+                        {user?.userId}
+                      </Text>
+                    </Box>
+                  </Box>
+                  <Flex justifyContent="center" alignItems="center">
+                    <TableContainer ml={["0.1rem", "0"]} mt={"0rem"}  w={{base:"100vw", md:"500px"}}>
+                      <Table
+                        borderRadius={"2rem"}
+                        border="1px solid 5px black"
+                        bg={"black"}
+                        variant="simple"
+                        w={{base:"450px", md:"100%"}}
+                      
+                      >
+                        <Thead></Thead>
+                        <Tbody   borderRadius="5rem">
+                          <Tr
+                          
+                            boxShadow="0 14px 18px rgba(0,1 0, 20, 0.1)"
+                            color="white"
+                            // bg="lightgray"
+                        
+                          >
+                            <Td  textAlign="center">Hands</Td>
+                            <Td  textAlign="center">Payout</Td>
+                          
+                          </Tr>
+                          <Tr color="white">
+                            <Td textAlign="center">Pair</Td>
+                            <Td   textAlign="center">1 to 2</Td>
+                          </Tr>
+                          <Tr color="white" >
+                            <Td  textAlign="center">Flush</Td>
+                            <Td  textAlign="center" >1 to 6</Td>
+                          </Tr>
+                          <Tr color="white">
+                            <Td  textAlign="center">Straight</Td>
+                            <Td  textAlign="center" >1 to 8</Td>
+                          </Tr>
+                          <Tr color="white">
+                            <Td  textAlign="center">Straight flush</Td>
+                            <Td  textAlign="center" >1 to 24</Td>
+                          </Tr>
+                        </Tbody>
+                        <Tfoot>
+                          <Tr color="white">
+                            <Td  textAlign="center" color="white">Trio</Td>
+                            <Td  textAlign="center" >1 to 36</Td>
+                          </Tr>
+                        </Tfoot>
+                      </Table>
+                    </TableContainer>
+                  </Flex>
 
-                {/* BUTTONS FOR BET */}
+                  {/* BUTTONS FOR BET */}
+                </Flex>
+
+                {/* history section  */}
+
+                <Box display= "flex"  mt={{base:"0", md:"2"}} px={{base:"2", md:"6"}}  py ={{base:1}} justifyContent="center" alignItems="center" ml={{md:"5"}}>
+                  {[...Array(10)].map((_, index) => (
+                    <Box
+                      key={index}
+                      border="1px solid black"
+                      fontSize={["15px", "20px"]}
+                      color={index % 2 === 0 ? "black" : "red"}
+                      width={{ base: "39px", md: "15%" }}
+                      height={{ base: "40px", md: "40px" }}
+                      px="2"
+
+                      fontWeight="bold"
+                      marginRight="5px" // Add some margin between boxes
+                      borderRadius="20px"
+                      bg="red"
+                    >
+                      <Text
+                        fontSize={{ base: "14px", md: "12px" }}
+                        color={index % 2 === 0 ? "black" : "white"}
+                        textAlign="center"
+                        pt={{base:"2", md:"2"}}
+                        fw="bold"
+                      >
+                        {gameHistory[index]}
+                        {/* Hello */}
+                      </Text>
+                    </Box>
+                  ))}
+                </Box>
               </Flex>
-
-              {[...Array(10)].map((_, index) => (
-              <Box
-                border="1px solid black"
-                backgroundColor="grey"
-                key={index}
-                fontSize={["15px", "20px"]}
-                color={index % 2 === 0 ? "black" : "#553325"}
-                width="5%"
-                height="40%"
-                // align="center"
-                fontWeight="bold"
-              >
-                <Text
-                  fontSize="18px"
-                  color={index % 2 === 0 ? "#black" : "#553325"}
-                  flexDirection="row"
-                >
-                  {gameHistory[index]}
-                </Text>
-              </Box>
-            ))}
             </Flex>
 
-            <Text
-              mt={["-7rem", "2rem"]}
-              mb={"1rem"}
-              fontSize={"1.3rem"}
-              fontWeight={"bold"}
-              ml={["2rem", "16rem"]}
-              id="chooseamount"
-            >
-              Choose the Amount
-            </Text>
 
-            <Box>
-              <Box
-                mt={["4rem", ""]}
-                display={"flex"}
-                flexDirection={"row"}
-                id="amountbox"
-
-                // ml={["0rem", "3rem"]}
+            {/* Bet amount section  */}
+            <Box bg="black" h={{base:"20rem", md:"50px"}} w={{base:"28.5rem",md:"784.5px"}} >
+              <Text
+                mt={["-7rem", "3rem"]}
+                mb={"1rem"}
+                fontSize={"1.3rem"}
+                fontWeight={"bold"}
+                ml={["5rem", "16rem"]}
+                id="chooseamount"
+                color="white"
+                textAlign="center"
               >
-                {[
-                  { value: 10, imageSrc: "/Coins/10's coin.webp" },
-                  { value: 50, imageSrc: "/Coins/50's coin.webp" },
-                  { value: 100, imageSrc: "/Coins/100's coin.webp" },
-                  { value: 500, imageSrc: "/Coins/500's coin.webp" },
-                  { value: 1000, imageSrc: "/Coins/1000's coin.webp" },
-                  { value: 5000, imageSrc: "/Coins/5000's coin.webp" },
-                ].map((item, index) => (
+                Choose the Amount
+              </Text>
+
+              {/* coins  */}
+              <Box>
+                <Box
+                 w={{base:"500px", md:"300px"}}
+                 h="100"
+                  mt={["2.5rem", "1.7rem"]}
+                  display={"flex"}
+                  flexDirection={"row"}
+                  id="amountbox"
+                  justifyContent="space-around"
+                  // alignItems="center"
+                 
+                  ml={["-0.5rem", "5rem"]}
+                  px="1rem"
+                  gap="1"
+                  // bg="red"
+                >
+                  {[
+                    { value: 10, imageSrc: "/Coins/10's coin.webp" },
+                    { value: 50, imageSrc: "/Coins/50's coin.webp" },
+                    { value: 100, imageSrc: "/Coins/100's coin.webp" },
+                    { value: 500, imageSrc: "/Coins/500's coin.webp" },
+                    { value: 1000, imageSrc: "/Coins/1000's coin.webp" },
+                    { value: 5000, imageSrc: "/Coins/5000's coin.webp" },
+                  ].map((item, index) => (
+                    <Button
+                      key={index}
+                      // bg="blue"ioup8p9p
+                      height="75px"
+                      w="90px"
+                      display="flex"
+                      justifyContent="space-around"
+                      alignItems="center"
+                      fontWeight="bold"
+                      variant="unstyled"
+                      _hover={{ height: "2rem",  }}
+                      onClick={() => {
+                        setCoins(item.value);
+                        console.log(item.value);
+                      }}
+                    >
+                      <img
+                        height={"10rem"}
+                        src={item.imageSrc}
+                        alt={`${item.value}'s coin`}
+                        style={{ maxHeight: "65px" }}
+                      />
+                    </Button>
+                  ))}
+                </Box>
+
+                {/* Bet buttons  */}
+
+                <Box
+                  mr={["2.2rem", "0rem"]}
+                  ml={["3rem", "9rem"]}
+                  mt={["3.5rem", "-0.5rem"]}
+                  id="playersbutton"
+                  paddingBottom="1rem"
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                >
                   <Button
-                    key={index}
-                    height="45px"
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    fontWeight="bold"
-                    variant="unstyled"
-                    _hover={{ height: "2rem" }}
-                    onClick={() => {
-                      setCoins(item.value);
-                      console.log(item.value);
+                    onClick={() => handleBait("0")}
+                    disabled={gameState?.value <= 10}
+                    width={{base:"13rem", md:"20rem"}}
+                    height={"5rem"}
+                    bgGradient="linear(to-r, teal.200, blue.500)"
+                    _hover={{
+                      bgGradient: "linear(to-r, red.200, orange.500, yellow.400)", // Change colors on hover
                     }}
                   >
-                    <img
-                      height={"10rem"}
-                      src={item.imageSrc}
-                      alt={`${item.value}'s coin`}
-                      style={{ maxHeight: "55px" }}
-                    />
+                    Player A
                   </Button>
-                ))}
-              </Box>
-
-              <Box
-                mr={["2.2rem", "0rem"]}
-                ml={["1rem", "9rem"]}
-                mt={["5rem", "1rem"]}
-                id="playersbutton"
-              >
-                <Button
-                  onClick={() => handleBait("0")}
-                  disabled={gameState?.value <= 10}
-                  width={"10rem"}
-                  height={"5rem"}
-                  bgGradient="linear(to-r, teal.200, blue.500)"
-                  _hover={{
-                    bgGradient: "linear(to-r, red.200, orange.500, yellow.400)", // Change colors on hover
-                  }}
-                >
-                  Player A
-                </Button>
-                <Button
-                  onClick={() => handleBait("1")}
-                  disabled={gameState?.value <= 10}
-                  width={"10rem"}
-                  ml={"1rem"}
-                  height={"5rem"}
-                  bgGradient="linear(to-r, teal.200, blue.500)"
-                  _hover={{
-                    bgGradient: "linear(to-r, red.200, orange.500, yellow.400)", // Change colors on hover
-                  }}
-                >
-                  Player B
-                </Button>
+                  <Button
+                    onClick={() => handleBait("1")}
+                    disabled={gameState?.value <= 10}
+                    width={{base:"13rem", md:"20rem"}}
+                    ml={"1rem"}
+                    height={"5rem"}
+                    bgGradient="linear(to-r, teal.200, blue.500)"
+                    _hover={{
+                      bgGradient: "linear(to-r, red.200, orange.500, yellow.400)", // Change colors on hover
+                    }}
+                  >
+                    Player B
+                  </Button>
+                </Box>
               </Box>
             </Box>
           </Box>
         </Box>
-      </ChakraProvider>
+      </Box>
     </>
   );
 }
