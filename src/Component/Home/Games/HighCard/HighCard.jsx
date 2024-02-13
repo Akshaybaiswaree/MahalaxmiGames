@@ -37,9 +37,9 @@ export default function HighCard() {
   useEffect(() => {
     const handelTimer = (data) => {
       // console.log("timer", data.timer);
-      const isDisabled = data?.countdown <= 25;
       setTimer(data.timer);
       data.timer >= 44 ? setBettingAmount(0) : "";
+      const isDisabled = data?.timer <= 25;
       setButtonDisabled(isDisabled);
     };
 

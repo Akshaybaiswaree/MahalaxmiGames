@@ -189,7 +189,6 @@ const AndarBahar = () => {
               left="3"
               color="white"
               alignItems="center"
-              
             />
             <MainCardSection mainCard={mainCard} />
             <Box width="15%">
@@ -214,7 +213,7 @@ const AndarBahar = () => {
                 Bahar Cards
               </Text>
             </Box>
-            {gameState?.value <= 20 && (
+            {/* {gameState?.value <= 20 && (
               <Box width="100%">
                 <CardSection
                   // title="Andar cards"
@@ -237,6 +236,57 @@ const AndarBahar = () => {
                   transform="translateX(-50%)"
                   flexDirection="row-reverse"
                 />
+              </Box>
+            )} */}
+            {gameState?.value <= 20 && (
+              <Box width="100%">
+                <Box
+                  width="6%"
+                  height="13%"
+                  position="absolute"
+                  bottom="25%"
+                  middle="15%"
+                  right="20%"
+                  transform="translateX(-50%)"
+                  id="andarhiddencards"
+                  display="flex"
+                  flexDirection="row-reverse"
+                >
+                  {andarCards
+                    .slice()
+                    .reverse()
+                    .map((card, index) => (
+                      <img
+                        key={index}
+                        src={`./cards/${card}`}
+                        alt={`Andar Card ${index}`}
+                      />
+                    ))}
+                </Box>
+
+                <Box
+                  width="6%"
+                  height="13%"
+                  position="absolute"
+                  bottom="10%"
+                  middle="15%"
+                  right="20%"
+                  transform="translateX(-50%)"
+                  id="baharhiddencards"
+                  display="flex"
+                  flexDirection="row-reverse"
+                >
+                  {baharCards
+                    .slice()
+                    .reverse()
+                    .map((card, index) => (
+                      <img
+                        key={index}
+                        src={`./cards/${card}`}
+                        alt={`Bahar Card ${index}`}
+                      />
+                    ))}
+                </Box>
               </Box>
             )}
           </Box>
@@ -370,48 +420,48 @@ const AndarBahar = () => {
 
           {/* Player Button */}
           {/* {gameState?.value - 20 > 0 && ( */}
-            <Box
-              border="2px solid red"
-              width="100%"
-              flexDirection="row"
-              height="30%"
+          <Box
+            border="2px solid red"
+            width="100%"
+            flexDirection="row"
+            height="30%"
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            backgroundColor="lightgray"
+          >
+            <Button
+              width="47%"
+              height="80%"
               display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              backgroundColor="lightgray"
+              justifyContent="space-around"
+              variant="unstyled"
+              fontSize="1.5rem"
+              textColor="white"
+              backgroundColor="#640e18"
+              borderRadius="1rem"
+              onClick={() => handleBait(0)}
+              isDisabled={gameState?.value - 25 < 0 && buttonClick1}
             >
-              <Button
-                width="47%"
-                height="80%"
-                display="flex"
-                justifyContent="space-around"
-                variant="unstyled"
-                fontSize="1.5rem"
-                textColor="white"
-                backgroundColor="#640e18"
-                borderRadius="1rem"
-                onClick={() => handleBait(0)}
-                isDisabled={gameState?.value - 25 < 0 && buttonClick1}
-              >
-                Andar <span>1.98</span>
-              </Button>
+              Andar <span>1.98</span>
+            </Button>
 
-              <Button
-                width="47%"
-                height="80%"
-                display="flex"
-                justifyContent="space-around"
-                variant="unstyled"
-                fontSize="1.5rem"
-                textColor="white"
-                backgroundColor="#1c3e6b"
-                borderRadius="1rem"
-                onClick={() => handleBait(1)}
-                isDisabled={gameState?.value - 25 < 0 && buttonClick2}
-              >
-                Bahar <span>1.98</span>
-              </Button>
-            </Box>
+            <Button
+              width="47%"
+              height="80%"
+              display="flex"
+              justifyContent="space-around"
+              variant="unstyled"
+              fontSize="1.5rem"
+              textColor="white"
+              backgroundColor="#1c3e6b"
+              borderRadius="1rem"
+              onClick={() => handleBait(1)}
+              isDisabled={gameState?.value - 25 < 0 && buttonClick2}
+            >
+              Bahar <span>1.98</span>
+            </Button>
+          </Box>
           {/* )} */}
         </Box>
       </>

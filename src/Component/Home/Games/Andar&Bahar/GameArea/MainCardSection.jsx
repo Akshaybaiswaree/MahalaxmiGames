@@ -15,7 +15,7 @@ const MainCardSection = ({ mainCard }) => (
   >
     <Text textColor="white"
     id="maincardsectiontext">
-      Main Card
+      Joker
     </Text>
     <Card card={mainCard.main_card} index="main" />
   </Box>

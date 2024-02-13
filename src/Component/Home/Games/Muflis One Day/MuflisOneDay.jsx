@@ -25,98 +25,98 @@
 // });
 
 // export default function MuflisOneDay() {
-//   const [timer, setTimer] = useState("");
-//   const [availableBalance, setAvailableBalance] = useState("");
-//   const [userId, setUserId] = useState("");
-//   const [playerACards, setPlayerACards] = useState([]);
-//   const [playerBCards, setPlayerBCards] = useState([]);
-//   const [winnerStatus, setWinnerStatus] = useState("");
-//   const [winHistory, setWinHistory] = useState([]);
-//   const [selectedCoin, setSelectedCoin] = useState([]);
-//   const [selectedCoins, setSelectedCoins] = useState([]);
-//   const [gameId, setGameId] = useState("");
-//   const [bettingAmount, setBettingAmount] = useState("");
+// const [timer, setTimer] = useState("");
+// const [availableBalance, setAvailableBalance] = useState("");
+// const [userId, setUserId] = useState("");
+// const [playerACards, setPlayerACards] = useState([]);
+// const [playerBCards, setPlayerBCards] = useState([]);
+// const [winnerStatus, setWinnerStatus] = useState("");
+// const [winHistory, setWinHistory] = useState([]);
+// const [selectedCoin, setSelectedCoin] = useState([]);
+// const [selectedCoins, setSelectedCoins] = useState([]);
+// const [gameId, setGameId] = useState("");
+// const [bettingAmount, setBettingAmount] = useState("");
 
-//   useEffect(() => {
-//     const handleDealCards = (data) => {
-//       console.log("Deal Cards", data);
-//       setPlayerACards(data.singlecard.playerA);
-//       setPlayerBCards(data.singlecard.playerB);
-//       setWinnerStatus(data.winner);
-//       // setWinHistory(data.winHistory);
-//     };
-
-//     const handleCountdown = (data) => {
-//       console.log("timer", data);
-//       setTimer(data.countdown);
-//       data.countdown >= 120 ? setBettingAmount(0) : "";
-//     };
-
-//     const handleNewBet = (data) => {
-//       console.log("Betting", data);
-//       //   setSelectedChoice(data.choice);
-//     };
-
-//     const handleNewRound = () => {
-//       //   console.log("New Round", data);
-//       setPlayerACards([]);
-//       setPlayerBCards([]);
-//       setWinnerStatus("");
-//     };
-
-//     const handleBalanceUpdate = (data) => {
-//       //   console.log("New Balance", data);
-//       setAvailableBalance(data.balance);
-//     };
-
-//     const handleUser = (data) => {
-//       //   console.log("User Details", data);
-//       setAvailableBalance(data.user.balance);
-//       setUserId(data.user.userId);
-//     };
-
-//     const handleWinHistory = (data) => {
-//       console.log("Game History", data);
-//       setWinHistory(data.winStatuses);
-//     };
-
-//     const handleMatchId = (data) => {
-//       //   console.log("Match Id", data);
-//       setGameId(data.gameId);
-//     };
-
-//     socket.on("dealSingleCard", handleDealCards);
-//     socket.on("countdown", handleCountdown);
-//     socket.on("newBet", handleNewBet);
-//     socket.on("newRound", handleNewRound);
-//     socket.on("balanceUpdate", handleBalanceUpdate);
-//     socket.on("getuser", handleUser);
-//     socket.on("WinHistory", handleWinHistory);
-//     socket.on("gameId", handleMatchId);
-
-//     return () => {
-//       socket.off("dealSingleCard", handleDealCards);
-//       socket.off("countdown", handleCountdown);
-//       socket.off("newBet", handleNewBet);
-//       socket.off("newRound", handleNewRound);
-//       socket.off("balanceUpdate", handleBalanceUpdate);
-//       socket.off("getuser", handleUser);
-//       socket.off("WinHistory", handleWinHistory);
-//       socket.off("gameId", handleMatchId);
-//     };
-//   }, []);
-
-//   const handelPlaceBet = (baitType) => {
-//     const coins = parseInt(selectedCoin);
-//     const betData = {
-//       selectedChoice: baitType,
-//       coins,
-//     };
-//     setBettingAmount((prev) => prev + Number(coins));
-//     socket.emit("placeBet", betData);
-//     console.log("selectedChoice", betData);
-//     console.log("selectedCoins", coins);
+// useEffect(() => {
+//   const handleDealCards = (data) => {
+//     console.log("Deal Cards", data);
+//     setPlayerACards(data.singlecard.playerA);
+//     setPlayerBCards(data.singlecard.playerB);
+//     setWinnerStatus(data.winner);
+//     // setWinHistory(data.winHistory);
 //   };
+
+//   const handleCountdown = (data) => {
+//     console.log("timer", data);
+//     setTimer(data.countdown);
+//     data.countdown >= 120 ? setBettingAmount(0) : "";
+//   };
+
+//   const handleNewBet = (data) => {
+//     console.log("Betting", data);
+//     //   setSelectedChoice(data.choice);
+//   };
+
+//   const handleNewRound = () => {
+//     //   console.log("New Round", data);
+//     setPlayerACards([]);
+//     setPlayerBCards([]);
+//     setWinnerStatus("");
+//   };
+
+//   const handleBalanceUpdate = (data) => {
+//     //   console.log("New Balance", data);
+//     setAvailableBalance(data.balance);
+//   };
+
+//   const handleUser = (data) => {
+//     //   console.log("User Details", data);
+//     setAvailableBalance(data.user.balance);
+//     setUserId(data.user.userId);
+//   };
+
+//   const handleWinHistory = (data) => {
+//     console.log("Game History", data);
+//     setWinHistory(data.winStatuses);
+//   };
+
+//   const handleMatchId = (data) => {
+//     //   console.log("Match Id", data);
+//     setGameId(data.gameId);
+//   };
+
+//   socket.on("dealSingleCard", handleDealCards);
+//   socket.on("countdown", handleCountdown);
+//   socket.on("newBet", handleNewBet);
+//   socket.on("newRound", handleNewRound);
+//   socket.on("balanceUpdate", handleBalanceUpdate);
+//   socket.on("getuser", handleUser);
+//   socket.on("WinHistory", handleWinHistory);
+//   socket.on("gameId", handleMatchId);
+
+//   return () => {
+//     socket.off("dealSingleCard", handleDealCards);
+//     socket.off("countdown", handleCountdown);
+//     socket.off("newBet", handleNewBet);
+//     socket.off("newRound", handleNewRound);
+//     socket.off("balanceUpdate", handleBalanceUpdate);
+//     socket.off("getuser", handleUser);
+//     socket.off("WinHistory", handleWinHistory);
+//     socket.off("gameId", handleMatchId);
+//   };
+// }, []);
+
+// const handelPlaceBet = (baitType) => {
+//   const coins = parseInt(selectedCoin);
+//   const betData = {
+//     selectedChoice: baitType,
+//     coins,
+//   };
+//   setBettingAmount((prev) => prev + Number(coins));
+//   socket.emit("placeBet", betData);
+//   console.log("selectedChoice", betData);
+//   console.log("selectedCoins", coins);
+// };
 
 //   return (
 //     <>
@@ -312,9 +312,9 @@
 //                   cursor: "pointer",
 //                 }}
 //                 onClick={() => {
-//                   setSelectedCoin(value);
-//                   console.log("coins", value);
-//                   setSelectedCoins(index);
+// setSelectedCoin(value);
+// console.log("coins", value);
+// setSelectedCoins(index);
 //                 }}
 //               >
 //                 <img
@@ -503,12 +503,7 @@ import {
 import { useEffect, useState } from "react";
 
 import { FaLock } from "react-icons/fa";
-import TwoCard from "../../Games/Images/2cardpatti.svg";
 import { io } from "socket.io-client";
-
-//import PopUp from "./PopUp";
-// import Logo from "../../../images/32cardsA_v.jpeg";
-//  import backGroundImage from "./images/background_plus_cards.jpeg"
 
 const socket = io("https://muflish-one-days.onrender.com/", {
   query: {
@@ -516,125 +511,102 @@ const socket = io("https://muflish-one-days.onrender.com/", {
   },
   transports: ["websocket"],
 });
-
 export default function MuflisOneDay() {
-  const [countdown, setCountdown] = useState(null);
-  const [userBalance, setUserBalance] = useState(null);
-  const [gameId, setGameId] = useState(null);
-  const [selectedCoin, setSelectedCoin] = useState("10");
-  const [playerHands, setPlayerHands] = useState([]);
-  const [winner, setWinner] = useState(null);
-  const [selectedChoice, setSelectedChoice] = useState(null);
-  const [playerId, setPlayerId] = useState("");
-  const [player1Cards, setPlayer1Cards] = useState([]);
-  const [player2Cards, setPlayer2Cards] = useState([]);
-  const [gameHistory, setGameHistory] = useState([]);
+  const [timer, setTimer] = useState("");
+  const [availableBalance, setAvailableBalance] = useState("");
+  const [userId, setUserId] = useState("");
+  const [playerACards, setPlayerACards] = useState([]);
+  const [playerBCards, setPlayerBCards] = useState([]);
+  const [winnerStatus, setWinnerStatus] = useState("");
+  const [winHistory, setWinHistory] = useState([]);
+  const [selectedCoin, setSelectedCoin] = useState([]);
+  const [selectedCoins, setSelectedCoins] = useState([]);
+  const [gameId, setGameId] = useState("");
+  const [bettingAmount, setBettingAmount] = useState("");
   const [isButtonDisabled, setButtonDisabled] = useState();
-  const [currentBet, setCurrentBet] = useState(0);
 
   useEffect(() => {
     const handleDealCards = (data) => {
-      // console.log(data, "playerHands123");
-      // handleGetBalance();
-      setTimeout(() => {
-        handleGetBalance();
-      }, 10000);
+      console.log("Deal Cards", data);
+      setPlayerACards(data.singlecard.playerA);
+      setPlayerBCards(data.singlecard.playerB);
+      setWinnerStatus(data.winner);
 
-      // setgameHistory(data.winHistory);
-      const winner = data.winner;
-
-      // console.log("Received dealt cards:", data);
-      // console.log(data , "data")
-      if (data.playerHands) {
-        setPlayerHands(data.playerHands);
-        setWinner(winner);
-
-        // Extracting Player A and Player B cards separately
-        const { PlayerA, PlayerB } = data.playerHands;
-        setPlayer1Cards(PlayerA || []);
-        setPlayer2Cards(PlayerB || []);
-      } else {
-        console.log("Player hands not found in data:", data);
-      }
-    };
-
-    const handleNewBet = (bet) => {
-      console.log("Received new bet:", bet);
-      setSelectedChoice(bet.choice);
-      // setPlayerid(bet._id);
-      console.lod(bet._id, "bet._id");
-
-      console.log(bet?.Total);
-    };
-
-    const handleNewRound = () => {
-      //   console.log("Starting a new round");
-      setSelectedChoice(null);
-      setPlayerHands([]);
-    };
-
-    const handleWinHistory = (data) => {
-      // console.log("Received win history:", data);
-      if (data && data.winStatuses) {
-        setGameHistory(data.winStatuses);
-      } else {
-        console.error("Invalid or missing win history data.");
-      }
+      // setWinHistory(data.winHistory);
     };
 
     const handleCountdown = (data) => {
+      console.log("timer", data);
+      setTimer(data.countdown);
+      data.countdown >= 120 ? setBettingAmount(0) : "";
       const isDisabled = data?.countdown <= 25;
-      data.countdown >= 44 ? setCurrentBet(0) : "";
       setButtonDisabled(isDisabled);
-      // console.log("data:", data.countdown);
-      setCountdown(data.countdown);
-    };
-    const handleBalanceUpdate = (data) => {
-      //   console.log("Received balance update:", data);
-      setUserBalance(data.balance);
     };
 
-    const handleGetBalance = () => {
-      socket.emit("getBalance");
-      console.log();
+    const handleNewBet = (data) => {
+      console.log("Betting", data);
+      //   setSelectedChoice(data.choice);
     };
-    const handleuser = (data) => {
-      setPlayerId(data.user.userId);
-      setUserBalance(data.user.balance);
-      // console.log("data123", data);
+
+    const handleNewRound = () => {
+      //   console.log("New Round", data);
+      setPlayerACards([]);
+      setPlayerBCards([]);
+      setWinnerStatus("");
     };
-    const handleGameId = (data) => {
-      // console.log("Received GameId:", data.gameId);
+
+    const handleBalanceUpdate = (data) => {
+      //   console.log("New Balance", data);
+      setAvailableBalance(data.balance);
+    };
+
+    const handleUser = (data) => {
+      //   console.log("User Details", data);
+      setAvailableBalance(data.user.balance);
+      setUserId(data.user.userId);
+    };
+
+    const handleWinHistory = (data) => {
+      console.log("Game History", data);
+      setWinHistory(data.winStatuses);
+    };
+
+    const handleMatchId = (data) => {
+      //   console.log("Match Id", data);
       setGameId(data.gameId);
     };
-    handleGetBalance();
+
+    socket.on("dealSingleCard", handleDealCards);
     socket.on("countdown", handleCountdown);
-    socket.on("dealCards", handleDealCards);
-    socket.on("getuser", handleuser);
     socket.on("newBet", handleNewBet);
     socket.on("newRound", handleNewRound);
     socket.on("balanceUpdate", handleBalanceUpdate);
+    socket.on("getuser", handleUser);
     socket.on("WinHistory", handleWinHistory);
-    socket.on("gameId", handleGameId);
-    // socket.on("dealCards", handleDealCards);
+    socket.on("gameId", handleMatchId);
 
     return () => {
-      socket.off("dealCards", handleDealCards);
+      socket.off("dealSingleCard", handleDealCards);
       socket.off("countdown", handleCountdown);
       socket.off("newBet", handleNewBet);
       socket.off("newRound", handleNewRound);
       socket.off("balanceUpdate", handleBalanceUpdate);
-      socket.off("getuser", handleuser);
+      socket.off("getuser", handleUser);
       socket.off("WinHistory", handleWinHistory);
-      socket.off("gameId", handleGameId);
+      socket.off("gameId", handleMatchId);
     };
   }, []);
 
-  const handlePlaceBet = (selectedChoice) => {
-    const coins = parseInt(selectedCoin, 10); // Parse the selectedCoin to an integer
-    setCurrentBet((prev) => prev + coins);
-
-    socket.emit("placeBet", { selectedChoice, coins });
+  const handelPlaceBet = (baitType) => {
+    const coins = parseInt(selectedCoin);
+    const betData = {
+      selectedChoice: baitType,
+      coins,
+    };
+    setBettingAmount((prev) => prev + Number(coins));
+    socket.emit("placeBet", betData);
+    console.log("selectedChoice", betData);
+    console.log("selectedCoins", coins);
   };
 
   return (
@@ -680,7 +652,7 @@ export default function MuflisOneDay() {
                   <Box
                     border="4px solid #333"
                     height="50%"
-                    backgroundImage={TwoCard}
+                    backgroundImage="url('/MuflisOneDay/Muflis one day table.webp')"
                     backgroundSize="cover"
                     backgroundPosition={`center 100%`}
                     backgroundRepeat="no-repeat"
@@ -713,9 +685,9 @@ export default function MuflisOneDay() {
                     >
                       {/* {countdown <= 25 ? "Freeze" : "Place  Bet"}
                       {countdown <= 8 ? "Winner : " + winner : "Loading"} */}
-                      {countdown <= 8
-                        ? "Winner: " + winner
-                        : countdown <= 25
+                      {timer <= 8
+                        ? "Winner: " + winnerStatus
+                        : timer <= 25
                         ? "Freeze"
                         : "Place Bet"}
                     </Box>
@@ -743,7 +715,7 @@ export default function MuflisOneDay() {
                       {/* {Math.max(0, countdown) !== null && (
                         <p>{Math.max(0, countdown - 25)}</p>
                       )} */}
-                      {countdown - 25 <= 0 ? "0" : countdown - 25}
+                      {timer - 25 <= 0 ? "0" : timer - 25}
                     </Box>
 
                     <Flex
@@ -779,7 +751,7 @@ export default function MuflisOneDay() {
                       // id="playerCard"
                     >
                       <Box>
-                        {countdown <= 14 && (
+                        {timer <= 14 && (
                           <Box
                             key={1}
                             // height={["20.5 rem", "0.5rem"]}
@@ -802,13 +774,13 @@ export default function MuflisOneDay() {
                                 "2xl": "4rem",
                               }}
                               // height={{base:"rem" , md:"3.5rem"}}
-                              src={`/cards/${player1Cards[0]}`}
+                              src={`/cards/${playerACards[0]}`}
                             />
                           </Box>
                         )}
                       </Box>
                       <Box>
-                        {countdown <= 12 && (
+                        {timer <= 12 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
@@ -831,7 +803,40 @@ export default function MuflisOneDay() {
                                 "2xl": "4rem",
                               }}
                               // height={{ base: "rem", md: "3.5rem" }}
-                              src={`/cards/${player1Cards[1]}`}
+                              src={`/cards/${playerACards[1]}`}
+                              // boxSize={["1.8rem", "2.7rem"]}
+
+                              // top={"80r em"}
+                              // alt={`${card}`}
+                            />
+                          </Box>
+                        )}
+                      </Box>
+                      <Box>
+                        {timer <= 12 && (
+                          <Box
+                            key={1}
+                            // height={["2.5 rem", "0.5rem"]}
+                          >
+                            <Image
+                              width={{
+                                base: "2rem",
+                                sm: "2rem",
+                                md: "2.4rem",
+                                lg: "",
+                                xl: "3.3rem",
+                                "2xl": "4rem",
+                              }}
+                              height={{
+                                base: "2.3rem",
+                                sm: "2rem",
+                                md: "1rem",
+                                lg: "2.4rem",
+                                xl: "3.2rem",
+                                "2xl": "4rem",
+                              }}
+                              // height={{ base: "rem", md: "3.5rem" }}
+                              src={`/cards/${playerACards[2]}`}
                               // boxSize={["1.8rem", "2.7rem"]}
 
                               // top={"80r em"}
@@ -872,7 +877,7 @@ export default function MuflisOneDay() {
                       }}
                     >
                       <Box>
-                        {countdown <= 13 && (
+                        {timer <= 13 && (
                           <Box
                             key={0}
                             // height={["2.5 rem", "0.5rem"]}
@@ -896,14 +901,14 @@ export default function MuflisOneDay() {
                                 xl: "3.2rem",
                                 "2xl": "4rem",
                               }}
-                              src={`/cards/${player2Cards[0]}`}
+                              src={`/cards/${playerBCards[0]}`}
                               // boxSize={["1.8rem", "2.9rem"]}
                             />
                           </Box>
                         )}
                       </Box>
                       <Box>
-                        {countdown <= 11 && (
+                        {timer <= 11 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
@@ -925,7 +930,37 @@ export default function MuflisOneDay() {
                                 xl: "3.2rem",
                                 "2xl": "4rem",
                               }}
-                              src={`/cards/${player2Cards[1]}`}
+                              src={`/cards/${playerBCards[1]}`}
+
+                              // alt={`${card}`}
+                            />
+                          </Box>
+                        )}
+                      </Box>
+                      <Box>
+                        {timer <= 11 && (
+                          <Box
+                            key={1}
+                            // height={["2.5 rem", "0.5rem"]}
+                          >
+                            <Image
+                              width={{
+                                base: "2rem",
+                                sm: "2rem",
+                                md: "2.4rem",
+                                lg: "",
+                                xl: "3.3rem",
+                                "2xl": "4rem",
+                              }}
+                              height={{
+                                base: "2.3rem",
+                                sm: "2rem",
+                                md: "1rem",
+                                lg: "2.4rem",
+                                xl: "3.2rem",
+                                "2xl": "4rem",
+                              }}
+                              src={`/cards/${playerBCards[2]}`}
 
                               // alt={`${card}`}
                             />
@@ -952,7 +987,7 @@ export default function MuflisOneDay() {
                     <>
                       Player Id :{" "}
                       <Text color={"white"} align={"center"}>
-                        {playerId ? playerId : "Loading..."}
+                        {userId ? userId : "Loading..."}
                       </Text>
                     </>
                   </Button>
@@ -975,7 +1010,7 @@ export default function MuflisOneDay() {
                     flexWrap="wrap"
                     align={"center"}
                   >
-                    {gameHistory?.map((item, index) => (
+                    {winHistory?.map((item, index) => (
                       <Box
                         key={index}
                         width={["35px", "35px"]} // Adjusted width for responsiveness
@@ -1012,7 +1047,7 @@ export default function MuflisOneDay() {
                     <>
                       Last Bet Amount :
                       <Text color={"white"} align={"center"}>
-                        {currentBet}
+                        {bettingAmount}
                       </Text>
                     </>
                   </Box>
@@ -1042,7 +1077,7 @@ export default function MuflisOneDay() {
                       Available Credit
                     </Text>
                     <Text fontSize={["20px", "24px"]}>
-                      {userBalance ? userBalance : "0"}
+                      {availableBalance ? availableBalance : "0"}
                       {/* {`${Math.round(userBalance * 100) / 100} ? ${
                         Math.round(userBalance * 100) / 100
                       } : "Loading..."`} */}
@@ -1116,7 +1151,8 @@ export default function MuflisOneDay() {
                           // value={selectedCoin}
                           onClick={() => {
                             setSelectedCoin(item.value);
-                            // console.log(item.value);
+                            // console.log("coins", value);
+                            setSelectedCoins(index);
                           }}
                         >
                           {/* {console.log(selectedCoin, "selectedCoin")} */}
@@ -1174,7 +1210,7 @@ export default function MuflisOneDay() {
                               color: "black",
                             }
                           }
-                          onClick={() => handlePlaceBet("PlayerB")}
+                          onClick={() => handelPlaceBet("PlayerA")}
                         >
                           {isButtonDisabled && (
                             <FaLock
@@ -1202,7 +1238,7 @@ export default function MuflisOneDay() {
                               color: "black",
                             }
                           }
-                          onClick={() => handlePlaceBet("PlayerB")}
+                          onClick={() => handelPlaceBet("PlayerB")}
                         >
                           {isButtonDisabled && (
                             <FaLock

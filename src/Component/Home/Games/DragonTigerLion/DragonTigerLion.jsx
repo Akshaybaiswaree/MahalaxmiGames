@@ -285,37 +285,34 @@ export default function DragonTigerLion() {
                     </Box>
 
                     <Flex
-                    border={"1px solid black"}
+                      // border={"1px solid black"}
                       justifyContent={"space-between"}
                       gap={{
-                        base: "0.2rem",
-                        sm: "0.1rem",
-                        md: "0.3rem",
-                        lg: "0.2rem",
-                        xl: "0.5rem",
-                        "2xl": "0.4rem",
+                        base: "4rem",
+                        sm: "4rem",
+                        md: "4.5rem",
+                        lg: "5rem",
+                        xl: "5.5rem",
+                        "2xl": "6rem",
                       }}
                       direction="row"
                       position={"absolute"}
-                      // top={["60%", "63%"]}
-                      // left={["44%", "45%"]}
                       top={{
-                        base: "63%",
-                        sm: "62%",
-                        md: "68%",
-                        // lg: "63%",
-                        xl: "63.5%",
-                        "2xl": "63%",
+                        base: "68.8%",
+                        sm: "68.8%",
+                        md: "68.8%",
+                        lg: "68.8%",
+                        xl: "68.8%",
+                        "2xl": "68.8%",
                       }}
                       left={{
-                        base: "45.5%",
-                        sm: "44%",
-                        md: "50%",
-                        // lg: "44.5%",
-                        xl: "44%",
-                        "2xl": "43%",
+                        base: "19.6%",
+                        sm: "19.6%",
+                        md: "19.6%",
+                        lg: "19.6%",
+                        xl: "19.6%",
+                        "2xl": "19.6%",
                       }}
-                      // id="playerCard"
                     >
                       <Box>
                         {timer <= 14 && (
@@ -335,18 +332,17 @@ export default function DragonTigerLion() {
                               height={{
                                 base: "2.3rem",
                                 sm: "2rem",
-                                md: "1rem",
+                                md: "1rem", // Adjust the height as needed
                                 lg: "2.4rem",
                                 xl: "3.2rem",
                                 "2xl": "4rem",
                               }}
-                              // height={{base:"rem" , md:"3.5rem"}}
                               src={`/cards/${dragonCards}`}
                             />
                           </Box>
                         )}
                       </Box>
-                       <Box>
+                      <Box>
                         {timer <= 12 && (
                           <Box
                             key={1}
@@ -354,7 +350,7 @@ export default function DragonTigerLion() {
                           >
                             <Image
                               width={{
-                                base: "2rem",
+                                base: "1.8rem",
                                 sm: "2rem",
                                 md: "2.4rem",
                                 lg: "",
@@ -364,17 +360,12 @@ export default function DragonTigerLion() {
                               height={{
                                 base: "2.3rem",
                                 sm: "2rem",
-                                md: "1rem",
+                                md: "1rem", // Adjust the height as needed
                                 lg: "2.4rem",
                                 xl: "3.2rem",
                                 "2xl": "4rem",
                               }}
-                              // height={{ base: "rem", md: "3.5rem" }}
                               src={`/cards/${tigerCards}`}
-                              // boxSize={["1.8rem", "2.7rem"]}
-
-                              // top={"80r em"}
-                              // alt={`${card}`}
                             />
                           </Box>
                         )}
@@ -387,7 +378,7 @@ export default function DragonTigerLion() {
                           >
                             <Image
                               width={{
-                                base: "2rem",
+                                base: "1.8rem",
                                 sm: "2rem",
                                 md: "2.4rem",
                                 lg: "",
@@ -397,22 +388,16 @@ export default function DragonTigerLion() {
                               height={{
                                 base: "2.3rem",
                                 sm: "2rem",
-                                md: "1rem",
+                                md: "1rem", // Adjust the height as needed
                                 lg: "2.4rem",
                                 xl: "3.2rem",
                                 "2xl": "4rem",
                               }}
-                              // height={{ base: "rem", md: "3.5rem" }}
                               src={`/cards/${lionCards}`}
-                              // boxSize={["1.8rem", "2.7rem"]}
-
-                              // top={"80r em"}
-                              // alt={`${card}`}
                             />
                           </Box>
                         )}
                       </Box>
-                     
                     </Flex>
                   </Box>
                 </AspectRatio>
