@@ -30,7 +30,7 @@ export default function DragonTigerLion() {
   const [availableBal, setAvailableBal] = useState("");
   const [matchId, setMatchId] = useState("");
   const [selectBet, setSelectBet] = useState("");
-  const [selectCoins, setSelectCoins] = useState("10");
+  const [selectCoins, setSelectCoins] = useState("0");
   const [dragonCards, setDragonCards] = useState("");
   const [tigerCards, setTigerCards] = useState("");
   const [lionCards, setLionCards] = useState("");
@@ -59,6 +59,7 @@ export default function DragonTigerLion() {
       data.countdown >= 44 ? setCurrentBet(0) : "";
       setTimer(data.countdown);
       setButtonDisabled(isDisabled);
+      // data.countdown >= 44 ? handleBetting({}) : "";
     };
 
     const handlePlayerId = (data) => {
@@ -148,7 +149,6 @@ export default function DragonTigerLion() {
     // console.log("bettype", baitType);
 
     setCurrentBet((prev) => prev + coins);
-
     const coins = parseInt(selectCoins);
     // console.log("coins", coins);
 
@@ -232,8 +232,7 @@ export default function DragonTigerLion() {
                       alignItems="center"
                       fontSize={["10px", "sm"]}
                       color="white"
-                      // background="linear-gradient(to bottom right, violet, blue)"
-                      background="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
+                      background="linear-gradient(to top, #09203f 0%, #537895 100%)"
                     >
                       {/* {countdown <= 25 ? "Freeze" : "Place  Bet"}
                       {countdown <= 8 ? "Winner : " + winner : "Loading"} */}
@@ -260,7 +259,7 @@ export default function DragonTigerLion() {
                       justifyContent="center"
                       alignItems="center"
                       fontSize="lg"
-                      background=" linear-gradient(to bottom right, #640E18, #CC1D31,#DAA520)"
+                      background="linear-gradient(to top, #09203f 0%, #537895 100%)"
                       marginRight={"1rem"}
                       color="white"
                     >
@@ -352,10 +351,6 @@ export default function DragonTigerLion() {
                                 "2xl": "4rem",
                               }}
                               src={`/cards/${tigerCards}`}
-<<<<<<< HEAD
-=======
-                              
->>>>>>> 6ba087820b07bc7de951aaeb934455d5025c9a33
                             />
                           </Box>
                         )}
@@ -383,13 +378,7 @@ export default function DragonTigerLion() {
                                 xl: "3.2rem",
                                 "2xl": "4rem",
                               }}
-<<<<<<< HEAD
                               src={`/cards/${lionCards}`}
-=======
-                         
-                              src={`/cards/${lionCards}`}
-                          
->>>>>>> 6ba087820b07bc7de951aaeb934455d5025c9a33
                             />
                           </Box>
                         )}
@@ -413,7 +402,7 @@ export default function DragonTigerLion() {
                   >
                     <>
                       Player Id :
-                      <Text color={"white"} align={"center"}>
+                      <Text color={"#bae8e8"} align={"center"}>
                         {playerId ? playerId : "Loading..."}
                       </Text>
                     </>
@@ -454,7 +443,7 @@ export default function DragonTigerLion() {
                       >
                         <Text
                           fontSize="14px"
-                          color={index % 2 === 0 ? "white" : "black"}
+                          color={index % 2 === 0 ? "#2a2438" : "#bae8e8"}
                           align={"center"}
                         >
                           {item}
@@ -473,7 +462,7 @@ export default function DragonTigerLion() {
                   >
                     <>
                       Last Bet Amount :
-                      <Text color={"white"} align={"center"}>
+                      <Text color={"#bae8e8"} align={"center"}>
                         {currentBet}
                       </Text>
                     </>
@@ -496,9 +485,11 @@ export default function DragonTigerLion() {
                   <Box
                     flex="1"
                     width="48%"
-                    backgroundColor="white"
+                    // backgroundColor="white"
+                    background=" linear-gradient(179.7deg, rgb(197, 214, 227) 2.9%, rgb(144, 175, 202) 97.1%)"
                     textAlign="center"
                     borderRadius="10px"
+                    border={"4px solid grey"}
                   >
                     <Text fontSize={["18px", "18px"]} fontWeight="bold">
                       Available Credit
@@ -512,16 +503,17 @@ export default function DragonTigerLion() {
                   </Box>
 
                   <Box
+                    border={"4px solid grey"}
                     flex="1"
                     width="48%"
-                    backgroundColor="#393e46"
+                    background="linear-gradient(179.7deg, rgb(197, 214, 227) 2.9%, rgb(144, 175, 202) 97.1%)"
                     textAlign="center"
-                    borderRightRadius="10px"
+                    borderRadius="10px"
                   >
-                    <Text fontSize="18px" fontWeight="bold" color={"white"}>
+                    <Text fontSize="18px" fontWeight="bold" color={"black"}>
                       Match Id:
                     </Text>
-                    <Text fontSize={["20px", "24px"]} color={"white"}>
+                    <Text fontSize={["20px", "24px"]} color={"black"}>
                       {matchId ? matchId : "Loading..."}
                     </Text>
                   </Box>
@@ -625,13 +617,14 @@ export default function DragonTigerLion() {
                           width="90%"
                           height={["50%", "80%"]}
                           marginLeft="1rem"
-                          color="white"
+                          color="black"
                           fontWeight="800"
                           borderRadius="20%"
                           bgGradient="linear(to-r,#a7bcb9, #3e4a61)"
                           _hover={
                             !isButtonDisabled && {
-                              bg: "#FAEBD7",
+                              background:
+                                "linear-gradient(179.7deg, rgb(197, 214, 227) 2.9%, rgb(144, 175, 202) 97.1%)",
                               boxShadow: "dark-lg",
                               color: "black",
                             }
@@ -655,13 +648,14 @@ export default function DragonTigerLion() {
                           width="90%"
                           height={["50%", "80%"]}
                           marginLeft="1rem"
-                          color="white"
+                          color="black"
                           fontWeight="800"
                           borderRadius="20%"
                           bgGradient="linear(to-r,#a7bcb9, #3e4a61)"
                           _hover={
                             !isButtonDisabled && {
-                              bg: "#FAEBD7",
+                              background:
+                                "linear-gradient(179.7deg, rgb(197, 214, 227) 2.9%, rgb(144, 175, 202) 97.1%)",
                               boxShadow: "dark-lg",
                               color: "black",
                             }
@@ -684,13 +678,14 @@ export default function DragonTigerLion() {
                           width="90%"
                           height={["50%", "80%"]}
                           marginLeft="1rem"
-                          color="white"
+                          color="black"
                           fontWeight="800"
                           borderRadius="20%"
                           bgGradient="linear(to-r,#a7bcb9, #3e4a61)"
                           _hover={
                             !isButtonDisabled && {
-                              bg: "#FAEBD7",
+                              background:
+                                "linear-gradient(179.7deg, rgb(197, 214, 227) 2.9%, rgb(144, 175, 202) 97.1%)",
                               boxShadow: "dark-lg",
                               color: "black",
                             }
