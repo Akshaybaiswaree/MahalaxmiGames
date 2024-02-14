@@ -315,6 +315,7 @@ export default function DragonTiger() {
                       color="white"
                       // background="linear-gradient(to bottom right, violet, blue)"
                       background="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
+                      className="placebet"
                     >
                       {gameState?.value < 20 ? "Freeze" : "Place  Bet"}
                     </Box>
@@ -594,7 +595,8 @@ export default function DragonTiger() {
                   </Box>
 
                   {/* New Box */}
-                  <Box width={["100%", "100%"]}>
+                  <Box width={["100%", "100%"]}
+                  className="choosemain">
                     <Box 
                     // marginLeft={["1rem", "12rem"]}
                     className="chooseyour">
