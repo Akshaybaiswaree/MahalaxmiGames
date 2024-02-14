@@ -1,3 +1,5 @@
+import "./HighCard.css";
+
 import {
   AspectRatio,
   Box,
@@ -8,7 +10,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import "./HighCard.css";
+
 import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
@@ -193,7 +195,6 @@ export default function HighCard() {
                       // background="linear-gradient(to bottom right, violet, blue)"
                       // background="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
                       background="linear-gradient(to bottom right, #BDB76B, #FFFFFF)"
-
                     >
                       {/* {countdown <= 25 ? "Freeze" : "Place  Bet"}
                       {countdown <= 8 ? "Winner : " + winner : "Loading"} */}
@@ -225,7 +226,6 @@ export default function HighCard() {
                       // background="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
                       background="linear-gradient(to bottom right, #BDB76B, #FFFFFF)"
                       marginRight={"1rem"}
-                   
                     >
                       {/* {Math.max(0, countdown) !== null && (
                         <p>{Math.max(0, countdown - 25)}</p>
@@ -266,13 +266,13 @@ export default function HighCard() {
                       // id="playerCard"
                     >
                       <Box>
-                        {timer <= 14&& (
+                        {timer <= 14 && (
                           <Box
                             key={1}
                             // height={["20.5 rem", "0.5rem"]}
                           >
                             <Image
-                             className="highcardheight"
+                              className="highcardheight"
                               width={{
                                 base: "1.5rem",
                                 sm: "1.5rem",
@@ -302,7 +302,7 @@ export default function HighCard() {
                             // height={["2.5 rem", "0.5rem"]}
                           >
                             <Image
-                             className="highcardheight"
+                              className="highcardheight"
                               width={{
                                 base: "1.4rem",
                                 sm: "1.5rem",
@@ -336,7 +336,7 @@ export default function HighCard() {
                             // height={["2.5 rem", "0.5rem"]}
                           >
                             <Image
-                             className="highcardheight"
+                              className="highcardheight"
                               width={{
                                 base: "1.4rem",
                                 sm: "1.5rem",
@@ -403,7 +403,7 @@ export default function HighCard() {
                             //  style={{marginTop: '0.9rem', marginLeft: '0.1rem' }}
                           >
                             <Image
-                             className="highcardheight"
+                              className="highcardheight"
                               width={{
                                 base: "1.5rem",
                                 sm: "2rem",
@@ -433,7 +433,7 @@ export default function HighCard() {
                             // height={["2.5 rem", "0.5rem"]}
                           >
                             <Image
-                             className="highcardheight"
+                              className="highcardheight"
                               width={{
                                 base: "1.5rem",
                                 sm: "2rem",
@@ -458,13 +458,13 @@ export default function HighCard() {
                         )}
                       </Box>
                       <Box>
-                        {timer <= 9 && (
+                        {cards[5] && timer <= 9 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
                           >
                             <Image
-                            className="highcardheight"
+                              className="highcardheight"
                               width={{
                                 base: "1.5rem",
                                 sm: "2rem",
@@ -500,7 +500,7 @@ export default function HighCard() {
                     fontWeight={"700"}
                     style={{
                       backgroundImage:
-                      "linear-gradient(to right, #BDB76B, #FFFFFF)",
+                        "linear-gradient(to right, #BDB76B, #FFFFFF)",
                       WebkitBackgroundClip: "text",
                       color: "transparent",
                     }}
@@ -517,7 +517,7 @@ export default function HighCard() {
                     fontWeight={"700"}
                     style={{
                       backgroundImage:
-                      "linear-gradient(to right, #BDB76B, #FFFFFF)",
+                        "linear-gradient(to right, #BDB76B, #FFFFFF)",
                       WebkitBackgroundClip: "text",
                       color: "transparent",
                     }}
@@ -557,7 +557,7 @@ export default function HighCard() {
                     ))}
                   </Flex>
                   <Box
-                      //  bgGradient= "linear(to-r,#006400,)"
+                    //  bgGradient= "linear(to-r,#006400,)"
                     fontWeight={"700"}
                     style={{
                       backgroundImage:
@@ -601,7 +601,6 @@ export default function HighCard() {
                     </Text>
                     <Text fontSize={["20px", "24px"]}>
                       {availableCoins ? availableCoins : "0"}
-                   
                     </Text>
                   </Box>
 
@@ -630,10 +629,9 @@ export default function HighCard() {
                       marginLeft={["0.5rem"]}
                       mt={"1rem"}
                       color={"white"}
-                   
                       style={{
                         backgroundImage:
-                        "linear-gradient(to right, #BDB76B, #FFFFFF)",
+                          "linear-gradient(to right, #BDB76B, #FFFFFF)",
                         WebkitBackgroundClip: "text",
                         color: "transparent",
                       }}
@@ -732,8 +730,8 @@ export default function HighCard() {
                           fontWeight="800"
                           borderRadius="20%"
                           // bgGradient="linear(to-r, #0000FF, #FFA500)"
-                          bgGradient= "linear(to-r,#006400, #FFFFFF)"
-                        //  bgGradient: linear(to-r);
+                          bgGradient="linear(to-r,#006400, #FFFFFF)"
+                          //  bgGradient: linear(to-r);
 
                           _hover={
                             !isButtonDisabled && {
@@ -752,7 +750,10 @@ export default function HighCard() {
                               style={{ color: "black", marginRight: "0.5rem" }}
                             />
                           )}
-                       <Text color="black">  P1 <span>5.88</span></Text> 
+                          <Text color="black">
+                            {" "}
+                            P1 <span>5.88</span>
+                          </Text>
                         </Button>
 
                         <Button
@@ -764,7 +765,7 @@ export default function HighCard() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          bgGradient= "linear(to-r,#006400, #FFFFFF)"
+                          bgGradient="linear(to-r,#006400, #FFFFFF)"
                           _hover={
                             !isButtonDisabled && {
                               bg: "#006400",
@@ -782,7 +783,10 @@ export default function HighCard() {
                               style={{ color: "black", marginRight: "0.5rem" }}
                             />
                           )}
-                    <Text color="black">  P2 <span>5.88</span></Text> 
+                          <Text color="black">
+                            {" "}
+                            P2 <span>5.88</span>
+                          </Text>
                         </Button>
                         <Button
                           isDisabled={isButtonDisabled}
@@ -793,7 +797,7 @@ export default function HighCard() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          bgGradient= "linear(to-r,#006400, #FFFFFF)"
+                          bgGradient="linear(to-r,#006400, #FFFFFF)"
                           _hover={
                             !isButtonDisabled && {
                               bg: "#006400",
@@ -811,13 +815,15 @@ export default function HighCard() {
                               style={{ color: "black", marginRight: "0.5rem" }}
                             />
                           )}
-                           <Text color="black">  P3 <span>5.88</span></Text> 
+                          <Text color="black">
+                            {" "}
+                            P3 <span>5.88</span>
+                          </Text>
                         </Button>
                       </Box>
                     </Box>
                   </Flex>
                   <Flex
-         
                     flexDirection="row"
                     alignItems="center"
                     justifyContent="center"
@@ -825,8 +831,7 @@ export default function HighCard() {
                     width="111%"
                   >
                     <Box
-                
-                    marginTop={{base:"-3rem" , md:"1em"}}
+                      marginTop={{ base: "-3rem", md: "1em" }}
                       width="100%"
                       position="relative"
                       // border="2px solid #333"
@@ -839,8 +844,6 @@ export default function HighCard() {
                       alignItems="center"
                     >
                       <Box
-
-
                         width="90%"
                         height="100%"
                         position="relative"
@@ -858,7 +861,7 @@ export default function HighCard() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          bgGradient= "linear(to-r,#006400, #FFFFFF)"
+                          bgGradient="linear(to-r,#006400, #FFFFFF)"
                           _hover={
                             !isButtonDisabled && {
                               bg: "#006400",
@@ -876,7 +879,10 @@ export default function HighCard() {
                               style={{ color: "black", marginRight: "0.5rem" }}
                             />
                           )}
-                         <Text color="black">  P4 <span>5.88</span></Text> 
+                          <Text color="black">
+                            {" "}
+                            P4 <span>5.88</span>
+                          </Text>
                         </Button>
 
                         <Button
@@ -888,7 +894,7 @@ export default function HighCard() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          bgGradient= "linear(to-r,#006400, #FFFFFF)"
+                          bgGradient="linear(to-r,#006400, #FFFFFF)"
                           _hover={
                             !isButtonDisabled && {
                               bg: "#006400",
@@ -906,7 +912,10 @@ export default function HighCard() {
                               style={{ color: "black", marginRight: "0.5rem" }}
                             />
                           )}
-                         <Text color="black">  P5 <span>5.88</span></Text> 
+                          <Text color="black">
+                            {" "}
+                            P5 <span>5.88</span>
+                          </Text>
                         </Button>
                         <Button
                           isDisabled={isButtonDisabled}
@@ -917,7 +926,7 @@ export default function HighCard() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          bgGradient= "linear(to-r,#006400, #FFFFFF)"
+                          bgGradient="linear(to-r,#006400, #FFFFFF)"
                           _hover={
                             !isButtonDisabled && {
                               bg: "#006400",
@@ -935,7 +944,10 @@ export default function HighCard() {
                               style={{ color: "black", marginRight: "0.5rem" }}
                             />
                           )}
-                        <Text color="black">  P6 <span>5.88</span></Text> 
+                          <Text color="black">
+                            {" "}
+                            P6 <span>5.88</span>
+                          </Text>
                         </Button>
                       </Box>
                     </Box>

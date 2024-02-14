@@ -507,7 +507,7 @@ import { io } from "socket.io-client";
 
 const socket = io("https://muflish-one-days.onrender.com/", {
   query: {
-    userId: Math.floor(Math.random() * Date.now()),
+    userId: "65cc504c0039634a604b4de9",
   },
   transports: ["websocket"],
 });
@@ -562,8 +562,8 @@ export default function MuflisOneDay() {
 
     const handleUser = (data) => {
       //   console.log("User Details", data);
-      setAvailableBalance(data.user.balance);
-      setUserId(data.user.userId);
+      setAvailableBalance(data.user.coins);
+      setUserId(data.user.mobileNumber);
     };
 
     const handleWinHistory = (data) => {
@@ -1009,14 +1009,17 @@ export default function MuflisOneDay() {
                     p={1}
                     flexWrap="wrap"
                     align={"center"}
+                    justifyContent="center"
+                    alignItems="center"
+                    textAlign={"center"}
                   >
                     {winHistory?.map((item, index) => (
                       <Box
                         key={index}
-                        width={["35px", "35px"]} // Adjusted width for responsiveness
-                        height={["45px", "35px"]} // Adjusted height for responsiveness
-                        marginRight="5px" // Added right margin to each item
-                        marginBottom="5px" // Added bottom margin for spacing
+                        width={["35px", "35px"]}
+                        height={["45px", "35px"]}
+                        marginRight="5px"
+                        marginBottom="5px"
                         display="flex"
                         justifyContent="center"
                         alignItems="center"

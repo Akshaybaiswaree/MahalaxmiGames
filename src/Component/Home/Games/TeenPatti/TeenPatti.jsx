@@ -4,24 +4,18 @@ import {
   AspectRatio,
   Box,
   Button,
-  Center,
-  ChakraProvider,
   Flex,
-  HStack,
   Image,
-  Stack,
   Table,
-  TableCaption,
   TableContainer,
   Tbody,
   Td,
   Text,
   Tfoot,
-  Th,
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { io } from "socket.io-client";
 
@@ -29,7 +23,7 @@ import { io } from "socket.io-client";
 
 const socket = io("https://teenpattibackend.onrender.com", {
   query: {
-    userId: Math.floor(Math.random() * Date.now()),
+    userID: "65cc504c0039634a604b4de9",
   },
   transports: ["websocket"],
 });
@@ -42,7 +36,6 @@ function TeenPatti() {
   const [player1Cards, setPlayer1Cards] = useState([]);
   const [player2Cards, setPlayer2Cards] = useState([]);
   const [gameHistory, setGameHistory] = useState([]);
-  
 
   useEffect(() => {
     // Listen for game state updates from the server
@@ -59,9 +52,9 @@ function TeenPatti() {
     );
 
     socket.on("userDetails", (data) => {
-      // console.log(data.user.coins , "data");
+      console.log("UserDetails", data);
       setUser(data.user);
-      setCurrentPlayer((prevPlayer) => (prevPlayer === "A" ? "B" : "A"));
+      // setCurrentPlayer((prevPlayer) => (prevPlayer === "A" ? "B" : "A"));
       // console.log(data, "data?.user");
     });
     socket.on("bait", (data) => {
@@ -76,14 +69,13 @@ function TeenPatti() {
       displayPlayerCards(data.gameCard.player1Cards, setPlayer1Cards);
       displayPlayerCards(data.gameCard.player2Cards, setPlayer2Cards);
       setGameHistory(data.gameHistory);
-      
     });
 
     return () => {
       socket.disconnect();
     };
   }, []);
-    if (gameState?.value === 3) {
+  if (gameState?.value === 3) {
     socket.emit("getUpdatedUserDetails");
   }
   // const displayPlayerCards = (cards, setPlayerCards) => {
@@ -116,14 +108,13 @@ function TeenPatti() {
 
   return (
     <>
-      <Box bg="gray.700" h="141.5vh" w={{base:"100vw", md:"85vw"}}>
+      <Box bg="gray.700" h="141.5vh" w={{ base: "100vw", md: "85vw" }}>
         <Box maxW={"90vw"}>
-          <Box m={"0"} >
+          <Box m={"0"}>
             <Flex
-              justifyContent={{base:"center", md:"space-between"}}
+              justifyContent={{ base: "center", md: "space-between" }}
               direction={{ base: "column", md: "row" }}
               // position="absolute"
-              
             >
               <AspectRatio
                 width={["95vw", "70%"]}
@@ -149,11 +140,9 @@ function TeenPatti() {
                   position="relative"
                   left="20"
                   backgroundPosition={`center 100%`}
-                 
                   id="teenpattimainimg"
                   pl="4rem"
                 >
-                  
                   <Box
                     fontWeight={"1000"}
                     border={"1px solid white"}
@@ -196,107 +185,104 @@ function TeenPatti() {
                       >
                         Winner: {mainCard?.winstatus}
                       </Button>
-                      
                     )}
-                     
                   </Box>
                   {/* logic to display cards  */}
                   {gameState.value >= 1 && (
-                    <Flex direction="row" position="absolute" top="9rem" justifyContent="center">                     
+                    <Flex
+                      direction="row"
+                      position="absolute"
+                      top="9rem"
+                      justifyContent="center"
+                    >
                       {gameState.value < 14 && (
                         <Flex
                           position="relative"
                           width="40%"
                           flexDirection="row"
                           // border='2px'
-                          top={{base:"3.7rem", md:"15.2rem"}}
-                          left={{base:"-3.8rem", md:"-7.9rem"}}
+                          top={{ base: "3.7rem", md: "15.2rem" }}
+                          left={{ base: "-3.8rem", md: "-7.9rem" }}
                           // justifyContent="space-between"
                           // id="playerA-Card"
                           // marginLeft={["11rem", "20rem"]}
                           // marginTop={"9rem"}
                           // bg="red"
                         >
-                          
-                          
-                             
                           {gameState.value <= 14 && (
                             <Image
                               key={0}
                               src={`/cards/${player1Cards[0]}`}
                               boxSize={["2rem", "3rem"]}
-                              ml={{base:"0.5rem", md:"4.5rem"}}
+                              ml={{ base: "0.5rem", md: "4.5rem" }}
                               // id="cards-positionA"
                             />
-                         )}  
+                          )}
                           {gameState.value <= 11 && (
                             <Image
                               key={1}
                               src={`/cards/${player1Cards[1]}`}
                               boxSize={["2rem", "3rem"]}
-                              ml={{base:"0.5rem", md:"1.6rem"}}
+                              ml={{ base: "0.5rem", md: "1.6rem" }}
                               // id="cards-positionA"
                             />
-                           )}  
+                          )}
                           {gameState.value <= 9 && (
                             <Image
                               key={2}
                               src={`/cards/${player1Cards[2]}`}
                               boxSize={["2rem", "3rem"]}
-                              ml={{base:"0.5rem", md:"1.6rem"}}
+                              ml={{ base: "0.5rem", md: "1.6rem" }}
                               // id="cards-positionA"
                             />
-                          )} 
+                          )}
                         </Flex>
                       )}
 
-                      
                       {gameState.value < 14 && ( //update 14 to 10
                         <Flex
                           position="relative"
                           width="40%"
-                          top={{base:"8.7rem", md:"20.2rem"}}
-                          left={{base:"-1.5rem", md:"0.5rem"}}
+                          top={{ base: "8.7rem", md: "20.2rem" }}
+                          left={{ base: "-1.5rem", md: "0.5rem" }}
                           // id="playerB-Card"
                           flexDirection="row"
                           // marginLeft={["11rem", "20rem"]}
                           // marginTop={"5rem"}
                         >
-                        
-                          
                           {gameState.value <= 12 && (
                             <Image
                               key={0}
                               src={`/cards/${player2Cards[0]}`}
                               boxSize={["2rem", "3rem"]}
-                              ml={{base:"0.5rem", md:"-0.6rem"}}
+                              ml={{ base: "0.5rem", md: "-0.6rem" }}
                               marginTop={"-5rem"}
-                              px={{base:"0", md:"1.5"}}
+                              px={{ base: "0", md: "1.5" }}
                               // id="cards-positionB"
                             />
-                          )}  
+                          )}
                           {gameState.value <= 10 && (
                             <Image
                               key={1}
                               src={`/cards/${player2Cards[1]}`}
                               boxSize={["2rem", "3rem"]}
-                              ml={{base:"0.5rem", md:"0.7rem"}}
+                              ml={{ base: "0.5rem", md: "0.7rem" }}
                               marginTop={"-5rem"}
-                              px={{base:"0", md:"1.5"}}
+                              px={{ base: "0", md: "1.5" }}
                               // id="cards-positionB"
                             />
-                          )}  
+                          )}
                           {gameState.value <= 8 && (
                             <Image
                               key={2}
                               src={`/cards/${player2Cards[2]}`}
                               boxSize={["2rem", "3rem"]}
-                              ml={{base:"0.5rem", md:"0.8rem"}}
+                              ml={{ base: "0.5rem", md: "0.8rem" }}
                               marginTop={"-5rem"}
-                              px={{base:"0", md:"1.5"}}
+                              px={{ base: "0", md: "1.5" }}
                               // id="cards-positionB"
                             />
-                          )} 
+                          )}
                         </Flex>
                       )}
                     </Flex>
@@ -326,18 +312,20 @@ function TeenPatti() {
                   </Box>
                 </Box>
               </AspectRatio>
-              <Flex direction={{ base: "row", md: "column" }} w={{ base: "95%", md: "50%" }} >
+              <Flex
+                direction={{ base: "row", md: "column" }}
+                w={{ base: "95%", md: "50%" }}
+              >
                 {/* credit and output box  */}
                 <Flex
                   flexDirection={"column"}
                   justifyContent="center"
                   id="outputbox"
-                  mt={{base:"0rem", md:"5rem"}}
+                  mt={{ base: "0rem", md: "5rem" }}
                   borderBottomRadius="15px"
                   w="85rem"
                   gap="1"
                   alignItems="center"
-                  
                 >
                   <Box
                     height={"5rem"}
@@ -348,7 +336,7 @@ function TeenPatti() {
                     borderRadius="1rem"
                     mt={["0.2rem", "2rem"]}
                     pt="0.5rem"
-                    w={{base:"400px", md:"500px"}}
+                    w={{ base: "400px", md: "500px" }}
                     bg="red"
                   >
                     <Box
@@ -390,49 +378,51 @@ function TeenPatti() {
                     </Box>
                   </Box>
                   <Flex justifyContent="center" alignItems="center">
-                    <TableContainer ml={["0.1rem", "0"]} mt={"0rem"}  w={{base:"100vw", md:"500px"}}>
+                    <TableContainer
+                      ml={["0.1rem", "0"]}
+                      mt={"0rem"}
+                      w={{ base: "100vw", md: "500px" }}
+                    >
                       <Table
                         borderRadius={"2rem"}
                         border="1px solid 5px black"
                         bg={"black"}
                         variant="simple"
-                        w={{base:"450px", md:"100%"}}
-                      
+                        w={{ base: "450px", md: "100%" }}
                       >
                         <Thead></Thead>
-                        <Tbody   borderRadius="5rem">
+                        <Tbody borderRadius="5rem">
                           <Tr
-                          
                             boxShadow="0 14px 18px rgba(0,1 0, 20, 0.1)"
                             color="white"
                             // bg="lightgray"
-                        
                           >
-                            <Td  textAlign="center">Hands</Td>
-                            <Td  textAlign="center">Payout</Td>
-                          
+                            <Td textAlign="center">Hands</Td>
+                            <Td textAlign="center">Payout</Td>
                           </Tr>
                           <Tr color="white">
                             <Td textAlign="center">Pair</Td>
-                            <Td   textAlign="center">1 to 2</Td>
-                          </Tr>
-                          <Tr color="white" >
-                            <Td  textAlign="center">Flush</Td>
-                            <Td  textAlign="center" >1 to 6</Td>
+                            <Td textAlign="center">1 to 2</Td>
                           </Tr>
                           <Tr color="white">
-                            <Td  textAlign="center">Straight</Td>
-                            <Td  textAlign="center" >1 to 8</Td>
+                            <Td textAlign="center">Flush</Td>
+                            <Td textAlign="center">1 to 6</Td>
                           </Tr>
                           <Tr color="white">
-                            <Td  textAlign="center">Straight flush</Td>
-                            <Td  textAlign="center" >1 to 24</Td>
+                            <Td textAlign="center">Straight</Td>
+                            <Td textAlign="center">1 to 8</Td>
+                          </Tr>
+                          <Tr color="white">
+                            <Td textAlign="center">Straight flush</Td>
+                            <Td textAlign="center">1 to 24</Td>
                           </Tr>
                         </Tbody>
                         <Tfoot>
                           <Tr color="white">
-                            <Td  textAlign="center" color="white">Trio</Td>
-                            <Td  textAlign="center" >1 to 36</Td>
+                            <Td textAlign="center" color="white">
+                              Trio
+                            </Td>
+                            <Td textAlign="center">1 to 36</Td>
                           </Tr>
                         </Tfoot>
                       </Table>
@@ -444,7 +434,15 @@ function TeenPatti() {
 
                 {/* history section  */}
 
-                <Box display= "flex"  mt={{base:"0", md:"2"}} px={{base:"2", md:"6"}}  py ={{base:1}} justifyContent="center" alignItems="center" ml={{md:"5"}}>
+                <Box
+                  display="flex"
+                  mt={{ base: "0", md: "2" }}
+                  px={{ base: "2", md: "6" }}
+                  py={{ base: 1 }}
+                  justifyContent="center"
+                  alignItems="center"
+                  ml={{ md: "5" }}
+                >
                   {[...Array(10)].map((_, index) => (
                     <Box
                       key={index}
@@ -454,7 +452,6 @@ function TeenPatti() {
                       width={{ base: "39px", md: "15%" }}
                       height={{ base: "40px", md: "40px" }}
                       px="2"
-
                       fontWeight="bold"
                       marginRight="5px" // Add some margin between boxes
                       borderRadius="20px"
@@ -464,7 +461,7 @@ function TeenPatti() {
                         fontSize={{ base: "14px", md: "12px" }}
                         color={index % 2 === 0 ? "black" : "white"}
                         textAlign="center"
-                        pt={{base:"2", md:"2"}}
+                        pt={{ base: "2", md: "2" }}
                         fw="bold"
                       >
                         {gameHistory[index]}
@@ -476,9 +473,12 @@ function TeenPatti() {
               </Flex>
             </Flex>
 
-
             {/* Bet amount section  */}
-            <Box bg="black" h={{base:"20rem", md:"50px"}} w={{base:"28.5rem",md:"784.5px"}} >
+            <Box
+              bg="black"
+              h={{ base: "20rem", md: "50px" }}
+              w={{ base: "28.5rem", md: "784.5px" }}
+            >
               <Text
                 mt={["-7rem", "3rem"]}
                 mb={"1rem"}
@@ -495,15 +495,15 @@ function TeenPatti() {
               {/* coins  */}
               <Box>
                 <Box
-                 w={{base:"500px", md:"300px"}}
-                 h="100"
+                  w={{ base: "500px", md: "300px" }}
+                  h="100"
                   mt={["2.5rem", "1.7rem"]}
                   display={"flex"}
                   flexDirection={"row"}
                   id="amountbox"
                   justifyContent="space-around"
                   // alignItems="center"
-                 
+
                   ml={["-0.5rem", "5rem"]}
                   px="1rem"
                   gap="1"
@@ -527,7 +527,7 @@ function TeenPatti() {
                       alignItems="center"
                       fontWeight="bold"
                       variant="unstyled"
-                      _hover={{ height: "2rem",  }}
+                      _hover={{ height: "2rem" }}
                       onClick={() => {
                         setCoins(item.value);
                         console.log(item.value);
@@ -558,11 +558,12 @@ function TeenPatti() {
                   <Button
                     onClick={() => handleBait("0")}
                     disabled={gameState?.value <= 10}
-                    width={{base:"13rem", md:"20rem"}}
+                    width={{ base: "13rem", md: "20rem" }}
                     height={"5rem"}
                     bgGradient="linear(to-r, teal.200, blue.500)"
                     _hover={{
-                      bgGradient: "linear(to-r, red.200, orange.500, yellow.400)", // Change colors on hover
+                      bgGradient:
+                        "linear(to-r, red.200, orange.500, yellow.400)", // Change colors on hover
                     }}
                   >
                     Player A
@@ -570,12 +571,13 @@ function TeenPatti() {
                   <Button
                     onClick={() => handleBait("1")}
                     disabled={gameState?.value <= 10}
-                    width={{base:"13rem", md:"20rem"}}
+                    width={{ base: "13rem", md: "20rem" }}
                     ml={"1rem"}
                     height={"5rem"}
                     bgGradient="linear(to-r, teal.200, blue.500)"
                     _hover={{
-                      bgGradient: "linear(to-r, red.200, orange.500, yellow.400)", // Change colors on hover
+                      bgGradient:
+                        "linear(to-r, red.200, orange.500, yellow.400)", // Change colors on hover
                     }}
                   >
                     Player B

@@ -8,6 +8,7 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  Link,
   Stack,
   useColorModeValue,
   useToast,
@@ -22,26 +23,28 @@ import { useState } from "react";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
-  const [data, setData] = useState({ mobile_no: "", password: "" });
+  const [data, setData] = useState({ mobileNumber: "", otp: "" });
+
   const navigate = useNavigate();
   const mobileNumber =
     "http://ec2-23-22-31-134.compute-1.amazonaws.com:5100/userMaster/verifyMobile";
-  // const verifyMobile = "http://ec2-23-22-31-134.compute-1.amazonaws.com:5100/userMaster/verifyOtp"
+  const verifyOtp =
+    "http://ec2-23-22-31-134.compute-1.amazonaws.com:5100/userMaster/verifyOtp";
   const toast = useToast();
   const handleChange = (e) => {
     setData({ ...data, [e.target.id]: e.target.value });
+    // console.log("id", e.target.value);
   };
   const handleSubmit = () => {
-    console.log(data);
+    console.log("Submit details", data);
 
     axios
-      .post(`${mobileNumber}`, data)
+      .post(`${verifyOtp}`, data)
       .then((req) => {
-        console.log("mobilenumber", req.data);
+        console.log("otp", req.data);
         if (req.status === 200) {
           toast({
             title: req.data.message,
-            // description: "We've created your account for you.",
             status: "success",
             duration: 3000,
             position: "top",
@@ -49,7 +52,7 @@ export default function Login() {
           });
           localStorage.setItem("token", req.data.token);
           localStorage.setItem("auth", true);
-          if (req.data.type == "mainpage") {
+          if (req.status === 200) {
             navigate("/mainpage");
           } else {
             navigate("/");
@@ -58,22 +61,47 @@ export default function Login() {
       })
       .catch((error) => {
         if (error.response) {
-          // Handle other errors and responses here
           console.error("Error response from the server:", error.response.data);
           toast({
             title: error.response.data.message,
-            // description: "We've created your account for you.",
             status: "info",
             duration: 3000,
             position: "top",
             isClosable: true,
           });
         } else if (error.request) {
-          // Handle network issues
           console.error("Network error:", error.request);
         } else {
           console.error("Error:", error.message);
         }
+      });
+  };
+
+  const handleOtp = () => {
+    console.log("submit otp", data);
+    axios
+      .post(`${mobileNumber}`, data)
+      .then((response) => {
+        console.log("Mobile Number API Response:", response.data);
+        if (response.status === 200) {
+          toast({
+            title: response.data.message,
+            status: "success",
+            duration: 3000,
+            position: "top",
+            isClosable: true,
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error occurred while sending OTP request:", error);
+        toast({
+          title: "Error occurred while sending OTP request",
+          status: "error",
+          duration: 3000,
+          position: "top",
+          isClosable: true,
+        });
       });
   };
   return (
@@ -98,17 +126,27 @@ export default function Login() {
           <Stack spacing={4}>
             <FormControl
               onChange={(e) => handleChange(e)}
-              id="mobile_no"
+              id="mobileNumber"
               isRequired
             >
               <FormLabel>Mobile no</FormLabel>
               <Input type="number" />
             </FormControl>
-            <FormControl
-              onChange={(e) => handleChange(e)}
-              id="password"
-              isRequired
-            >
+
+            {/* <Input
+              type="text"
+              id="mobileNumber"
+              value={data.mobileNumber}
+              onChange={(e) =>
+                setVerifyMobileNumber({ mobileNumber: e.target.value })
+              }
+            /> */}
+
+            <Link align={"center"} onClick={() => handleOtp()}>
+              sent otp
+            </Link>
+
+            <FormControl onChange={(e) => handleChange(e)} id="otp" isRequired>
               <FormLabel>OTP</FormLabel>
               <InputGroup>
                 <Input type={showPassword ? "text" : "password"} />

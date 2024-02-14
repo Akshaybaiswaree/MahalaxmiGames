@@ -92,14 +92,14 @@ export default function TwoCardsTeenPatti() {
     };
 
     const handleCountdown = (data) => {
+      console.log("timer:", data.countdown);
       const isDisabled = data?.countdown <= 25;
       data.countdown >= 44 ? setCurrentBet(0) : "";
       setButtonDisabled(isDisabled);
-      // console.log("data:", data.countdown);
       setCountdown(data.countdown);
     };
     const handleBalanceUpdate = (data) => {
-      //   console.log("Received balance update:", data);
+        console.log("Received balance update:", data);
       setUserBalance(data.balance);
     };
 
@@ -110,7 +110,7 @@ export default function TwoCardsTeenPatti() {
     const handleuser = (data) => {
       setPlayerId(data.user.userId);
       setUserBalance(data.user.balance);
-      // console.log("data123", data);
+      console.log("userDetails:-", data);
     };
     const handleGameId = (data) => {
       // console.log("Received GameId:", data.gameId);
@@ -439,9 +439,9 @@ export default function TwoCardsTeenPatti() {
                     p={1}
                     flexWrap="wrap"
                     align={"center"}
-                    justifyContent={'center'}
-                    alignItems={'center'}
-                    textAlign={'center'}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    textAlign={"center"}
                   >
                     {gameHistory?.map((item, index) => (
                       <Box
@@ -541,7 +541,7 @@ export default function TwoCardsTeenPatti() {
                       marginLeft={["0.5rem"]}
                       mt={"1rem"}
                       color={"white"}
-                      ml={{base:"3rem", md:"0rem"}}
+                      ml={{ base: "3rem", md: "0rem" }}
                     >
                       Place Your Bet
                     </Text>

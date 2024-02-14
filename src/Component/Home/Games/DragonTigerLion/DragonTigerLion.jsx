@@ -277,8 +277,8 @@ export default function DragonTigerLion() {
                         base: "5.3rem",
                         sm: "rem",
                         md: "1.5rem",
-                        lg: "5.4rem",
-                        xl: "7.3rem",
+                        // lg: "2.5rem",
+                        xl: "7.5rem",
                         "2xl": "6rem",
                       }}
                       direction="row"
@@ -295,7 +295,7 @@ export default function DragonTigerLion() {
                         base: "19.6%",
                         sm: "19.6%",
                         md: "19.6%",
-                        lg: "20%",
+                        lg: "19.6%",
                         xl: "19.6%",
                         "2xl": "19.6%",
                       }}
@@ -426,8 +426,8 @@ export default function DragonTigerLion() {
                     p={1}
                     flexWrap="wrap"
                     align={"center"}
-                    textAlign={'center'}
-                    justifyContent={'center'}
+                    textAlign={"center"}
+                    justifyContent={"center"}
                   >
                     {gameHistory?.map((item, index) => (
                       <Box
@@ -480,10 +480,10 @@ export default function DragonTigerLion() {
                 id="playeryourbetdiv"
               >
                 <Flex
-                justifyContent={"center"}
-                alignItems={'center'}
-                textAlign={'center'}
-                ml={{base:"0.6rem" , md:"rem" }}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                  textAlign={"center"}
+                  ml={{ base: "0.6rem", md: "rem" }}
                   width={["95%", "110%"]}
                   flexDirection="row"
                   // border="3px solid #333"
@@ -531,7 +531,7 @@ export default function DragonTigerLion() {
                     <Text
                       fontSize="20px"
                       fontWeight="bold"
-                      marginLeft={["2.9rem" , "0.5rem"]}
+                      marginLeft={["2.9rem", "0.5rem"]}
                       mt={"1rem"}
                       color={"white"}
                     >
@@ -686,7 +686,7 @@ export default function DragonTigerLion() {
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
-                         {isButtonDisabled && (
+                          {isButtonDisabled && (
                             <FaLock
                               size={35}
                               style={{
@@ -724,7 +724,7 @@ export default function DragonTigerLion() {
                           display={"flex"}
                           justifyContent={"space-evenly"}
                         >
-                           {isButtonDisabled && (
+                          {isButtonDisabled && (
                             <FaLock
                               size={35}
                               style={{
@@ -735,7 +735,9 @@ export default function DragonTigerLion() {
                               }}
                             />
                           )}
-                          <Text style={{ position: "absolute", zIndex: "1" }}>                            Lion<span>2.94</span>
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
+                            {" "}
+                            Lion<span>2.94</span>
                           </Text>
                         </Button>
                       </Box>

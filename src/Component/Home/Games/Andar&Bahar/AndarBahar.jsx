@@ -454,7 +454,7 @@ import { io } from "socket.io-client";
 
 const socket = io("https://andarbaharbacked.onrender.com", {
   query: {
-    userID: "65c4a6874c68b332fd697164",
+    userID: "65cc504c0039634a604b4de9",
   },
   transports: ["websocket"],
 });
@@ -476,6 +476,8 @@ export default function AndarBahar() {
 
   useEffect(() => {
     const handleGameUpdate = (updatedGameState) => {
+       console.log("gamestate", updatedGameState);
+      
       setGameState(updatedGameState.gamestate);
       updatedGameState.gamestate.value - 25 === 20 ? setBettingAmount(0) : "";
       const isDisabled = updatedGameState.gamestate.value - 25 <= 0;
@@ -493,7 +495,7 @@ export default function AndarBahar() {
     };
 
     const handleMainCard = (data) => {
-      // console.log("mainCard123", data.mainCard);
+      console.log("mainCard123", data.mainCard);
       setMainCard(data.mainCard);
       setGameHistory(data.gameHistory);
     };
@@ -612,7 +614,7 @@ export default function AndarBahar() {
                   <Box
                     border="4px solid #333"
                     height="50%"
-                    backgroundImage="url('/public/Andar&BaharImage/Andar Bahar Table.webp')"
+                    backgroundImage="url('/Andar&BaharImage/Andar Bahar Table.webp')"
                     backgroundSize="cover"
                     backgroundPosition={`center 100%`}
                     backgroundRepeat="no-repeat"
@@ -745,7 +747,7 @@ export default function AndarBahar() {
                         "2xl": "28%",
                       }}
                     >
-                      <Box>
+                      {/* <Box>
                         {gameState?.value <= 18 && (
                           <Box key={0}>
                             {andarCards
@@ -778,7 +780,7 @@ export default function AndarBahar() {
                               ))}
                           </Box>
                         )}
-                      </Box>
+                      </Box> */}
                     </Flex>
                   </Box>
                 </AspectRatio>
@@ -1031,7 +1033,7 @@ export default function AndarBahar() {
                               color: "black",
                             }
                           }
-                          onClick={() => handleBetting("0")}
+                          onClick={() => handleBetting(0)}
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
@@ -1062,7 +1064,7 @@ export default function AndarBahar() {
                               color: "black",
                             }
                           }
-                          onClick={() => handleBetting("1")}
+                          onClick={() => handleBetting(1)}
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
