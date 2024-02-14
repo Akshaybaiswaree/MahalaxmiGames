@@ -96,7 +96,7 @@ export default function Login() {
       .catch((error) => {
         console.error("Error occurred while sending OTP request:", error);
         toast({
-          title: "Error occurred while sending OTP request",
+          title: "Please enter valid Mobile Number!!",
           status: "error",
           duration: 3000,
           position: "top",
