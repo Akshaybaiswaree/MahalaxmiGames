@@ -271,114 +271,119 @@ export default function DragonTigerLion() {
 
                     <Flex
                       // border={"1px solid black"}
-                      justifyContent={"space-between"}
-                      className="gapdragontigerlion"
-                      gap={{
-                        base: "5.3rem",
-                        sm: "rem",
-                        md: "1.5rem",
-                        // lg: "2.5rem",
-                        xl: "7.5rem",
-                        "2xl": "6rem",
-                      }}
+                      // justifyContent={"space-between"}
+                      className="gdragontigerlion"
+                      // gap={{
+                      //   base: "5.3rem",
+                      //   sm: "rem",
+                      //   md: "1.5rem",
+                      //   lg: "5.4rem",
+                      //   xl: "7.3rem",
+                      //   "2xl": "6rem",
+                      // }}
                       direction="row"
-                      position={"absolute"}
-                      top={{
-                        base: "68.8%",
-                        sm: "68.8%",
-                        md: "68.8%",
-                        lg: "68.8%",
-                        xl: "68.8%",
-                        "2xl": "68.8%",
-                      }}
-                      left={{
-                        base: "19.6%",
-                        sm: "19.6%",
-                        md: "19.6%",
-                        lg: "19.6%",
-                        xl: "19.6%",
-                        "2xl": "19.6%",
-                      }}
+                      // position={"absolute"}
+                      // top={{
+                      //   base: "68.8%",
+                      //   sm: "68.8%",
+                      //   md: "68.8%",
+                      //   lg: "68.8%",
+                      //   xl: "68.8%",
+                      //   "2xl": "68.8%",
+                      // }}
+                      // left={{
+                      //   base: "19.6%",
+                      //   sm: "19.6%",
+                      //   md: "19.6%",
+                      //   lg: "20%",
+                      //   xl: "19.6%",
+                      //   "2xl": "19.6%",
+                      // }}
                     >
-                      <Box>
+                      <Box className="cartbox1">
                         {timer <= 140 && (
                           <Box
                             key={1}
                             // height={["20.5 rem", "0.5rem"]}
+                            // className="dtlcard1"
                           >
                             <Image
-                              width={{
-                                base: "1.8rem",
-                                sm: "2rem",
-                                md: "2rem",
-                                lg: "",
-                                xl: "3.3rem",
-                                "2xl": "4rem",
-                              }}
-                              height={{
-                                base: "2.3rem",
-                                sm: "2rem",
-                                md: "1.6rem", // Adjust the height as needed
-                                lg: "2.4rem",
-                                xl: "3.2rem",
-                                "2xl": "4rem",
-                              }}
+                              // width={{
+                              //   base: "1.8rem",
+                              //   sm: "2rem",
+                              //   md: "2rem",
+                              //   lg: "",
+                              //   xl: "3.3rem",
+                              //   "2xl": "4rem",
+                              // }}
+                              // height={{
+                              //   base: "2.3rem",
+                              //   sm: "2rem",
+                              //   md: "1.6rem",
+                              //   lg: "2.4rem",
+                              //   xl: "3.2rem",
+                              //   "2xl": "4rem",
+                              // }}
+
+                              className="dtlcard1"
                               src={`/cards/${dragonCards}`}
                             />
                           </Box>
                         )}
                       </Box>
-                      <Box>
+                      <Box className="cartbox2">
                         {timer <= 120 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
                           >
                             <Image
-                              width={{
-                                base: "1.8rem",
-                                sm: "2rem",
-                                md: "2rem",
-                                lg: "",
-                                xl: "3.3rem",
-                                "2xl": "4rem",
-                              }}
-                              height={{
-                                base: "2.3rem",
-                                sm: "2rem",
-                                md: "1.6rem", // Adjust the height as needed
-                                lg: "2.4rem",
-                                xl: "3.2rem",
-                                "2xl": "4rem",
-                              }}
+                              // width={{
+                              //   base: "1.8rem",
+                              //   sm: "2rem",
+                              //   md: "2rem",
+                              //   lg: "",
+                              //   xl: "3.3rem",
+                              //   "2xl": "4rem",
+                              // }}
+                              // height={{
+                              //   base: "2.3rem",
+                              //   sm: "2rem",
+                              //   md: "1.6rem",
+                              //   lg: "2.4rem",
+                              //   xl: "3.2rem",
+                              //   "2xl": "4rem",
+                              // }}
+                              className="dtlcard2"
                               src={`/cards/${tigerCards}`}
                             />
                           </Box>
                         )}
                       </Box>
-                      <Box>
+                      <Box className="cartbox3">
                         {timer <= 100 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
                           >
                             <Image
-                              width={{
-                                base: "1.8rem",
-                                sm: "2rem",
-                                md: "2rem",
-                                lg: "",
-                                xl: "3.3rem",
-                                "2xl": "4rem",
-                              }}
-                              height={{
-                                base: "2.3rem",
-                                sm: "2rem",
-                                md: "1.6rem", // Adjust the height as needed
-                                lg: "2.4rem",
-                                xl: "3.2rem",
-                                "2xl": "4rem",
-                              }}
+                              // width={{
+                              //   base: "1.8rem",
+                              //   sm: "2rem",
+                              //   md: "2rem",
+                              //   lg: "",
+                              //   xl: "3.3rem",
+                              //   "2xl": "4rem",
+                              // }}
+                              // height={{
+                              //   base: "2.3rem",
+                              //   sm: "2rem",
+                              //   md: "1.6rem",
+                              //   lg: "2.4rem",
+                              //   xl: "3.2rem",
+                              //   "2xl": "4rem",
+                              // }}
+                              className="dtlcard3"
                               src={`/cards/${lionCards}`}
                             />
                           </Box>
@@ -389,8 +394,6 @@ export default function DragonTigerLion() {
                 </AspectRatio>
 
                 <Flex flexDirection={["column", "column"]} alignItems="center">
-                  {/* Box Items */}
-
                   <Button
                     bg={"black"}
                     fontWeight={"700"}
