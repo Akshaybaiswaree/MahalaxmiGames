@@ -37,39 +37,39 @@
          width: 100%;
     }
     #player1card1{
-         width: 1.2rem;
-        height: 1.4rem;
+         width: 1.5rem;
+        height: 1.3rem;
     }
     .playercardbox1{
         margin-left: 1.5rem;
-        margin-top: -1rem;
+        margin-top: -0.7rem;
     }
     .playercard1{
-        width: 1.3rem;
-        height: 1.5rem;
+        width: 1.6rem;
+        height: 1.7rem;
         /* margin-left: -1rem; */
     }
     .playercardbox2{
-        margin-top: -1rem;
+        margin-top: -0.7rem;
     }
     .playercard2{
-        width: 1.3rem;
-        height: 1.5rem;
+        width: 1.6rem;
+        height: 1.7rem;
     }
     .playercardbox3{
         margin-top: 0.8rem;
         margin-left: -1rem;
     }
     .playercard3{
-        width: 1.3rem;
-        height: 1.5rem;
+        width: 1.6rem;
+        height: 1.7rem;
     }
     .playercardbox4{
         margin-top: 0.8rem;
     }
     .playercard4{
-        width: 1.3rem;
-        height: 1.5rem;
+        width: 1.6rem;
+        height: 1.7rem;
     }
 }
 @media only screen and (min-width:360px)     {
@@ -111,111 +111,111 @@
          width: 100%;
     }
     #player1card1{
-         width: 1.2rem;
-        height: 1.4rem;
+         width: 1.5rem;
+        height: 1.6rem;
     }
     .playercardbox1{
         margin-left: 1.3rem;
-        margin-top: -1rem;
+        margin-top: -0.4rem;
     }
     .playercard1{
-        width: 1.3rem;
-        height: 1.7rem;
+        width: 1.6rem;
+        height: 1.9rem;
     }
     .playercardbox2{
-        margin-top: -1rem;
+        margin-top: -0.4rem;
     }
     .playercard2{
-        width: 1.3rem;
-        height: 1.7rem;
+        width: 1.6rem;
+        height: 1.9rem;
     }
     .playercardbox3{
-        margin-top: 0.8rem;
+        margin-top: 0.6rem;
         margin-left: -1rem;
     }
     .playercard3{
-        width: 1.3rem;
-        height: 1.7rem;
+        width: 1.6rem;
+        height: 1.9rem;
     }
     .playercardbox4{
-        margin-top: 0.8rem;
+        margin-top: 0.6rem;
     }
     .playercard4{
-        width: 1.3rem;
-        height: 1.7rem;
+        width: 1.6rem;
+        height: 1.9rem;
     }
 }
 @media only screen and (min-width:385px)     {
 
 
         .playercardbox1{
-            margin-left: 0.9rem;
-            margin-top: -0.15rem;
+            margin-left: 0.8rem;
+            margin-top: 0.1rem;
         }
         .playercard1{
-            width: 1.35rem;
-            height: 1.7rem;
+            width: 1.55rem;
+            height: 1.9rem;
             /* margin-left: -1rem; */
         }
         .playercardbox2{
-            margin-left: 0.05rem;
-            margin-top: -0.15rem;
+            margin-left: 0.005rem;
+            margin-top: 0.1rem;
         }
         .playercard2{
-            width: 1.35rem;
-            height: 1.7rem;
+            width: 1.55rem;
+            height: 1.9rem;
         }
         .playercardbox3{
-            margin-top: 0.8rem;
+            margin-top: 0.5rem;
             margin-left: -0.5rem;
         }
         .playercard3{
-            width: 1.35rem;
-            height: 1.7rem;
+            width: 1.55rem;
+            height: 1.9rem;
         }
         .playercardbox4{
-            margin-left:0.2rem ;
-            margin-top: 0.8rem;
+            margin-left:0.1rem ;
+            margin-top: 0.45rem;
         }
         .playercard4{
-            width: 1.35rem;
-            height: 1.7rem;
+            width: 1.55rem;
+            height: 1.9rem;
         }
 }
 @media only screen and (min-width:400px)     {
 
 
     .playercardbox1{
-        margin-left: 0.7rem;
-        margin-top: 0rem;
+        margin-left: 0.65rem;
+        margin-top: 0.5rem;
     }
     .playercard1{
-        width: 1.45rem;
-        height: 1.7rem;
+        width: 1.65rem;
+        height: 1.9rem;
     }
     .playercardbox2{
         margin-left: 0.05rem;
-        margin-top: 0rem;
+        margin-top: 0.5rem;
     }
     .playercard2{
-        width: 1.45rem;
-        height: 1.7rem;
+        width: 1.65rem;
+        height: 1.9rem;
     }
     .playercardbox3{
-        margin-top: 0.8rem;
+        margin-top: 0.6rem;
         margin-left: -0.2rem;
     }
     .playercard3{
-        width: 1.45rem;
-        height: 1.7rem;
+        width: 1.65rem;
+        height: 1.9rem;
     }
     .playercardbox4{
         margin-left:0.2rem ;
-        margin-top: 0.8rem;
+        margin-top: 0.6rem;
     }
     .playercard4{
-        width: 1.45rem;
-        height: 1.7rem;
+        width: 1.65rem;
+        height: 1.9rem;
     }
 }
 @media only screen and (min-width:415px)     {
@@ -223,36 +223,36 @@
 
             .playercardbox1{
                 margin-left: 0.3rem;
-                margin-top: 0.3rem;
+                margin-top: 0.7rem;
             }
             .playercard1{
-                width: 1.4rem;
-                height: 1.75rem;
+                width: 1.6rem;
+                height: 1.95rem;
                 /* margin-left: -1rem; */
             }
             .playercardbox2{
                 margin-left: 0rem;
-                margin-top: 0.3rem;
+                margin-top: 0.7rem;
             }
             .playercard2{
-                width: 1.4rem;
-                height: 1.75rem;
+                width: 1.6rem;
+                height: 1.95rem;
             }
             .playercardbox3{
-                margin-top: 0.8rem;
+                margin-top: 0.5rem;
                 margin-left: 0rem;
             }
             .playercard3{
-                width: 1.4rem;
-                height: 1.75rem;
+                width: 1.6rem;
+                height: 1.95rem;
             }
             .playercardbox4{
                 margin-left:0.2rem ;
-                margin-top: 0.8rem;
+                margin-top: 0.5rem;
             }
             .playercard4{
-                width: 1.4rem;
-                height: 1.75rem;
+                width: 1.6rem;
+                height: 1.95rem;
             }
 }
 @media only screen and (min-width:430px)     {
