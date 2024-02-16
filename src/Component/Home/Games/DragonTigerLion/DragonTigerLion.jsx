@@ -14,151 +14,80 @@ import { useEffect, useState } from "react";
 import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
-const userId = Math.floor(Math.random() * Date.now());
+// const userId = Math.floor(Math.random() * Date.now());
 // console.log("userId on the client side:", userId);
 
-const socket = io("https://dragenliontiger.onrender.com/", {
+const socket = io("https://dragontigerlionbackend.onrender.com/", {
   query: {
-    userId,
+    userID: "",
   },
   transports: ["websocket"],
 });
 
 export default function DragonTigerLion() {
-  const [timer, setTimer] = useState("");
-  const [playerId, setPlayerId] = useState("");
-  const [availableBal, setAvailableBal] = useState("");
-  const [matchId, setMatchId] = useState("");
-  const [selectBet, setSelectBet] = useState("");
-  const [selectCoins, setSelectCoins] = useState("0");
-  const [dragonCards, setDragonCards] = useState("");
-  const [tigerCards, setTigerCards] = useState("");
-  const [lionCards, setLionCards] = useState("");
-  const [winnerStatus, setWinnerStatus] = useState("Wait!!");
-  const [isButtonDisabled, setButtonDisabled] = useState();
+  const [gameState, setGameState] = useState({ value: "waiting" });
+  const [user, setUser] = useState(null);
+  const [coins, setCoins] = useState(0);
+  const [mainCard, setMainCard] = useState({});
   const [selectedCoins, setSelectedCoins] = useState(null);
   const [gameHistory, setGameHistory] = useState([]);
-  const [currentBet, setCurrentBet] = useState(0);
+  const [bettingAmount, setBettingAmount] = useState("");
+  const [isButtonDisabled, setButtonDisabled] = useState();
 
   useEffect(() => {
-    const handleGameCards = (data) => {
-      console.log("CardsData:-", data);
-      if (data.playerHands) {
-        setDragonCards(data.playerHands.Dragen);
-        setTigerCards(data.playerHands.Tiger);
-        setLionCards(data.playerHands.Lion);
-        // setGamesCards(data.playerHands);
-        setWinnerStatus(data.winner);
-      } else {
-        console.log("Cards is not here", data);
-      }
-    };
-
-    const handleTimer = (data) => {
-      const isDisabled = data?.countdown <= 25;
-      data.countdown >= 44 ? setCurrentBet(0) : "";
-      setTimer(data.countdown);
+    const handleGameUpdate = (data) => {
+      console.log("timer", data?.gamestate);
+      setGameState(data.gamestate);
+      data.gamestate.value - 25 === 20 ? setBettingAmount(0) : "";
+      const isDisabled = data.gamestate.value - 25 <= 0;
       setButtonDisabled(isDisabled);
-      // data.countdown >= 44 ? handleBetting({}) : "";
     };
 
-    const handlePlayerId = (data) => {
-      socket.emit("getuser", data);
-      setPlayerId(data.user.userId);
-      // setMatchId(data.user._id);
+    const handleUserDetails = (data) => {
+      console.log("UserDetails", data);
+      setUser(data.user);
     };
 
-    const handlePlayerBalance = (data) => {
-      // console.log("Received balance update:", data);
-      setAvailableBal(data.balance);
-    };
-
-    const handleGetUserBalance = () => {
-      socket.emit("getBalance");
-    };
-
-    const handleWinHistory = (data) => {
-      console.log("Received win history:", data);
-      if (data && data.winStatuses) {
-        setGameHistory(data.winStatuses);
-      } else {
-        console.error("Invalid or missing win history data.");
-      }
+    const handleMainCard = (data) => {
+      console.log("MainCard", data);
+      setMainCard(data.mainCard);
+      setGameHistory(data.gameHistory);
     };
 
     const handleBet = (data) => {
-      setSelectBet(data.choice);
-      setAvailableBal(data.userBalance);
-      setDragonCards(data.DragenNumber);
-      setTigerCards(data.TigerNumber);
-      setLionCards(data.LionNumber);
-      // setGameHistory(data?.gameHistory)
-      console.log(data);
-
-      console.log("new bet:-", data);
-
-      // console.log("LionNumber:-", data.LionNumber);
+      console.log("bet", data);
     };
 
-    const handleNewRound = () => {
-      setSelectBet(null);
-      setDragonCards([]);
-      setTigerCards([]);
-      setLionCards([]);
-      // setGamesCards([]);
-      setWinnerStatus(null);
-    };
-
-    const handleGameId = (data) => {
-      console.log("GameId", data);
-      setMatchId(data.gameId);
-    };
-
-    handleGetUserBalance();
-
-    socket.on("countdown", handleTimer);
-    socket.on("balanceUpdate", handlePlayerBalance);
-    socket.on("getuser", handlePlayerId);
-    socket.on("newBet", handleBet);
-    socket.on("newRound", handleNewRound);
-    socket.on("dealCards", handleGameCards);
-    socket.on("WinHistory", handleWinHistory);
-    socket.on("gameId", handleGameId);
+    socket.on("gameUpdate", handleGameUpdate);
+    socket.on("userDetails", handleUserDetails);
+    socket.on("Main_Card", handleMainCard);
+    socket.on("bet", handleBet);
 
     return () => {
-      socket.off("countdown", handleTimer);
-      socket.off("balanceUpdate", handlePlayerBalance);
-      socket.off("getuser", handlePlayerId);
-      socket.off("newBet", handleBet);
-      socket.off("newRound", handleNewRound);
-      socket.off("dealCards", handleGameCards);
-      socket.off("WinHistory", handleWinHistory);
-      socket.off("gameId", handleGameId);
+      socket.off("gameUpdate", handleGameUpdate);
+      socket.off("userDetails", handleUserDetails);
+      socket.off("Main_Card", handleMainCard);
+      socket.off("bet", handleBet);
     };
   }, []);
-  if (timer === 40) {
+  if (gameState?.value === 5) {
     socket.emit("getUpdatedUserDetails");
   }
 
-  const handleBetting = (baitType) => {
-    if (availableBal <= 0) {
+  const handleBetting = (betType) => {
+    if (user?.coins <= 10) {
       alert("Insufficient Funds");
       return;
     }
 
-    // console.log("bettype", baitType);
-
-    setCurrentBet((prev) => prev + coins);
-    const coins = parseInt(selectCoins);
-    // console.log("coins", coins);
-
-    const betData = {
-      selectedChoice: baitType,
+    const bet = {
+      betType,
       coins,
-      // cardId: playerId._id,
+      cardId: mainCard._id,
     };
-
-    socket.emit("placeBet", betData);
+    setBettingAmount((prev) => prev + Number(coins));
+    socket.emit("bet", bet);
+    console.log("betting", bet);
   };
 
   return (
@@ -234,11 +163,9 @@ export default function DragonTigerLion() {
                       color="white"
                       background="linear-gradient(to top, #09203f 0%, #537895 100%)"
                     >
-                      {/* {countdown <= 25 ? "Freeze" : "Place  Bet"}
-                      {countdown <= 8 ? "Winner : " + winner : "Loading"} */}
-                      {timer <= 8
-                        ? "Winner: " + winnerStatus
-                        : timer <= 25
+                      {gameState?.value <= 8
+                        ? "Winner: " + mainCard?.winstatus
+                        : gameState?.value <= 25
                         ? "Freeze"
                         : "Place Bet"}
                     </Box>
@@ -263,10 +190,7 @@ export default function DragonTigerLion() {
                       marginRight={"1rem"}
                       color="white"
                     >
-                      {/* {Math.max(0, countdown) !== null && (
-                        <p>{Math.max(0, countdown - 25)}</p>
-                      )} */}
-                      {timer - 25 <= 0 ? "0" : timer - 25}
+                      {gameState?.value - 25 <= 0 ? "0" : gameState?.value - 25}
                     </Box>
 
                     <Flex
@@ -301,7 +225,7 @@ export default function DragonTigerLion() {
                       }}
                     >
                       <Box>
-                        {timer <= 140 && (
+                        {gameState?.value <= 14 && (
                           <Box
                             key={1}
                             // height={["20.5 rem", "0.5rem"]}
@@ -323,13 +247,13 @@ export default function DragonTigerLion() {
                                 xl: "3.2rem",
                                 "2xl": "4rem",
                               }}
-                              src={`/cards/${dragonCards}`}
+                              src={`/cards/${mainCard?.dragoncard}`}
                             />
                           </Box>
                         )}
                       </Box>
                       <Box>
-                        {timer <= 120 && (
+                        {gameState?.value <= 12 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
@@ -351,13 +275,13 @@ export default function DragonTigerLion() {
                                 xl: "3.2rem",
                                 "2xl": "4rem",
                               }}
-                              src={`/cards/${tigerCards}`}
+                              src={`/cards/${mainCard?.tigercard}`}
                             />
                           </Box>
                         )}
                       </Box>
                       <Box>
-                        {timer <= 100 && (
+                        {gameState?.value <= 10 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
@@ -379,7 +303,7 @@ export default function DragonTigerLion() {
                                 xl: "3.2rem",
                                 "2xl": "4rem",
                               }}
-                              src={`/cards/${lionCards}`}
+                              src={`/cards/${mainCard?.lioncard}`}
                             />
                           </Box>
                         )}
@@ -404,7 +328,7 @@ export default function DragonTigerLion() {
                     <>
                       Player Id :
                       <Text color={"#bae8e8"} align={"center"}>
-                        {playerId ? playerId : "Loading..."}
+                        {user?.mobileNumber ? user?.mobileNumber : "Loading..."}
                       </Text>
                     </>
                   </Button>
@@ -466,7 +390,7 @@ export default function DragonTigerLion() {
                     <>
                       Last Bet Amount :
                       <Text color={"#bae8e8"} align={"center"}>
-                        {currentBet}
+                        {bettingAmount}
                       </Text>
                     </>
                   </Box>
@@ -501,11 +425,11 @@ export default function DragonTigerLion() {
                     <Text fontSize={["18px", "18px"]} fontWeight="bold">
                       Available Credit
                     </Text>
+
                     <Text fontSize={["20px", "24px"]}>
-                      {availableBal ? availableBal : "0"}
-                      {/* {`${Math.round(availableBal * 100) / 100} ? ${
-                        Math.round(availableBal * 100) / 100
-                      } : "Loading..."`} */}
+                      {Math.round(user?.coins * 100) / 100
+                        ? Math.round(user?.coins * 100) / 100
+                        : "Loading... "}
                     </Text>
                   </Box>
 
@@ -521,7 +445,7 @@ export default function DragonTigerLion() {
                       Match Id:
                     </Text>
                     <Text fontSize={["20px", "24px"]} color={"black"}>
-                      {matchId ? matchId : "Loading..."}
+                      {mainCard?.gameid ? mainCard?.gameid : "Loading..."}
                     </Text>
                   </Box>
                 </Flex>
@@ -576,7 +500,8 @@ export default function DragonTigerLion() {
                           // onInput={(e) => setSelectedCoin(e.target.value)}
                           // value={selectedCoin}
                           onClick={() => {
-                            setSelectCoins(item.value);
+                            // setSelectCoins(item.value);
+                            setCoins(item.value);
                             setSelectedCoins(index);
                           }}
                         >
@@ -636,7 +561,7 @@ export default function DragonTigerLion() {
                               color: "black",
                             }
                           }
-                          onClick={() => handleBetting("Dragen")}
+                          onClick={() => handleBetting("dragon")}
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
@@ -682,7 +607,7 @@ export default function DragonTigerLion() {
                               color: "black",
                             }
                           }
-                          onClick={() => handleBetting("Tiger")}
+                          onClick={() => handleBetting("tiger")}
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
@@ -720,7 +645,7 @@ export default function DragonTigerLion() {
                               color: "black",
                             }
                           }
-                          onClick={() => handleBetting("Lion")}
+                          onClick={() => handleBetting("lion")}
                           display={"flex"}
                           justifyContent={"space-evenly"}
                         >

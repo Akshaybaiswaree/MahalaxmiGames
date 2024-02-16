@@ -9,10 +9,52 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
+const fetchUserData = async () => {
+
+  try {
+    const response = await axios.get(
+      "https://mahalaxmiadminpanel-production-6234.up.railway.app/userMaster/getAllUserMasters"
+    );
+  console.log("middle response", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    return null;
+  }
+  
+};
 const Home = () => {
+  // Assuming you have state variables to hold the data
+  const [coinsData, setCoinsData] = useState(null);
+  const [mobileNumberData, setMobileNumberData] = useState(null);
+  const [idData, setIdData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch user data dynamically
+        const userData = await fetchUserData();
+        if (userData) {
+          // Assuming userData is an array and you need to choose one user's data
+          const user = userData; // You may need to modify this based on your API response
+          setCoinsData(user?.coins);
+          setMobileNumberData(user?.mobileNumber);
+          setIdData(user?._id);
+        } else {
+          console.log("Failed to fetch user data");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <>
       <Flex>
@@ -317,10 +359,19 @@ const Home = () => {
           }}
         >
           <GridItem colSpan={{ base: 4, md: 1 }}>
-            <NavLink to="/andarbahar">
+            <NavLink
+              to={{
+                pathname: "/andarbahar",
+                state: {
+                  coins: coinsData,
+                  mobileNumber: mobileNumberData,
+                  _id: idData,
+                },
+              }}
+            >
               <Box className="custom-box">
-                <Image src="/game card/Andar Bahar.png" alt=" ANDAR BAHAR" />
-                <span> ANDAR BAHAR (Virtual)</span>
+                <Image src="/game card/Andar Bahar.png" alt="ANDAR BAHAR" />
+                <span>ANDAR BAHAR (Virtual)</span>
               </Box>
             </NavLink>
           </GridItem>

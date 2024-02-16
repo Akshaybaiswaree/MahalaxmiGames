@@ -8,28 +8,29 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Link,
   Stack,
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { useEffect, useState } from "react";
 
 import axios from "axios";
-import { useState } from "react";
 
 // import { API_URL } from "../components/api";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({ mobileNumber: "", otp: "" });
+  const [userOtp, setUserOtp] = useState();
+  console.log("otp", userOtp?.otp);
 
   const navigate = useNavigate();
   const mobileNumber =
-    "http://ec2-23-22-31-134.compute-1.amazonaws.com:5100/userMaster/verifyMobile";
+    "https://mahalaxmiadminpanel-production-6234.up.railway.app/userMaster/verifyMobile";
   const verifyOtp =
-    "http://ec2-23-22-31-134.compute-1.amazonaws.com:5100/userMaster/verifyOtp";
+    "https://mahalaxmiadminpanel-production-6234.up.railway.app/userMaster/verifyOtp";
   const toast = useToast();
   const handleChange = (e) => {
     setData({ ...data, [e.target.id]: e.target.value });
@@ -37,7 +38,6 @@ export default function Login() {
   };
   const handleSubmit = () => {
     console.log("Submit details", data);
-
     axios
       .post(`${verifyOtp}`, data)
       .then((req) => {
@@ -53,7 +53,13 @@ export default function Login() {
           localStorage.setItem("token", req.data.token);
           localStorage.setItem("auth", true);
           if (req.status === 200) {
-            navigate("/mainpage");
+            navigate("/home", {
+              state: {
+                coins: req.data.coins,
+                mobileNumber: data.mobileNumber,
+                _id: req.data._id,
+              },
+            });
           } else {
             navigate("/");
           }
@@ -79,6 +85,7 @@ export default function Login() {
 
   const handleOtp = () => {
     console.log("submit otp", data);
+
     axios
       .post(`${mobileNumber}`, data)
       .then((response) => {
@@ -96,7 +103,7 @@ export default function Login() {
       .catch((error) => {
         console.error("Error occurred while sending OTP request:", error);
         toast({
-          title: "Please enter valid Mobile Number!!",
+          title: error.message,
           status: "error",
           duration: 3000,
           position: "top",
@@ -104,6 +111,9 @@ export default function Login() {
         });
       });
   };
+  useEffect((e) => {
+    setUserOtp(e?.user);
+  }, []);
   return (
     <Flex
       minH={"100vh"}
@@ -142,14 +152,30 @@ export default function Login() {
               }
             /> */}
 
-            <Link align={"center"} onClick={() => handleOtp()}>
+            {/* <Link align={"center"} onClick={() => handleOtp()}>
               sent otp
-            </Link>
+            </Link> */}
+            <Button
+              loadingText="Submitting"
+              size="sm"
+              bg={"blue.400"}
+              color={"white"}
+              _hover={{
+                bg: "blue.500",
+              }}
+              align={"center"}
+              onClick={() => handleOtp()}
+            >
+              Send OTP
+            </Button>
 
             <FormControl onChange={(e) => handleChange(e)} id="otp" isRequired>
-              <FormLabel>OTP</FormLabel>
+              <FormLabel>OTP {userOtp?.otp}</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? "text" : "password"} />
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  value={userOtp?.otp}
+                />
                 <InputRightElement h={"full"}>
                   <Button
                     variant={"ghost"}

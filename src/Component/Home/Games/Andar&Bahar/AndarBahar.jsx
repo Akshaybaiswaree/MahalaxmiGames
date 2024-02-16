@@ -452,6 +452,22 @@ import { useEffect, useState } from "react";
 import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
+// import axios from "axios";
+
+
+// const fetchUserData = async () => {
+//   try {
+//     const response = await axios.get(
+//       "https://mahalaxmiadminpanel-production-6234.up.railway.app/userMaster/getAllUserMasters"
+//     );
+//   console.log("game response", response.data);
+    
+//     return response.data;
+//   } catch (error) {
+//     console.error("Error fetching user data:", error);
+//     return null;
+//   }
+// };
 const socket = io("https://andarbaharbacked.onrender.com", {
   query: {
     userID: "65cc504c0039634a604b4de9",
@@ -476,8 +492,8 @@ export default function AndarBahar() {
 
   useEffect(() => {
     const handleGameUpdate = (updatedGameState) => {
-       console.log("gamestate", updatedGameState);
-      
+      console.log("gamestate", updatedGameState);
+
       setGameState(updatedGameState.gamestate);
       updatedGameState.gamestate.value - 25 === 20 ? setBettingAmount(0) : "";
       const isDisabled = updatedGameState.gamestate.value - 25 <= 0;
@@ -485,8 +501,8 @@ export default function AndarBahar() {
     };
 
     const handleUserDetails = (data) => {
-      // console.log("handleUserDetails", data);
-      setUser(data.user);
+      console.log("handleUserDetails", data);
+      setUser(data?.user);
     };
 
     const handlebet = (data) => {
@@ -499,6 +515,21 @@ export default function AndarBahar() {
       setMainCard(data.mainCard);
       setGameHistory(data.gameHistory);
     };
+
+    // const fetchData = async () => {
+    //   const userData = await fetchUserData();
+    //   if (userData && userData.length > 0) {
+    //     // Assuming userData is an array of users and you want to use the first user's data
+    //     const firstUser = userData;
+    //     setUser(firstUser);
+    //     // Update socket query with the user ID
+    //     socket.io.opts.query.userID = firstUser.userID;
+    //   } else {
+    //     console.log("Failed to fetch user data");
+    //   }
+    // };
+    // fetchData();
+    handleUserDetails();
     socket.on("gameUpdate", handleGameUpdate);
     socket.on("userDetails", handleUserDetails);
     socket.on("Main_Card", handleMainCard);
@@ -916,7 +947,8 @@ export default function AndarBahar() {
                       Match Id:
                     </Text>
                     <Text fontSize={["20px", "24px"]} color={"white"}>
-                      {mainCard?._id ? mainCard._id : "Loading..."}
+                       {mainCard?._id ? mainCard._id : "Loading..."}
+                      {/* {user?.userID ? user?.userID : "Loading..."} */}
                     </Text>
                   </Box>
                 </Flex>
