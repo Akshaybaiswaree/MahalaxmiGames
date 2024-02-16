@@ -726,13 +726,9 @@ import { useEffect, useState } from "react";
 import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
-//import PopUp from "./PopUp";
-// import Logo from "../../../images/32cardsA_v.jpeg";
-//  import backGroundImage from "./images/background_plus_cards.jpeg"
-
 const socket = io("https://muflisteenpattibackend.onrender.com", {
   query: {
-    userID: "65ba39b7a2129497c4aa563a",
+    userID: "65cc504c0039634a604b4de9",
   },
   transports: ["websocket"],
 });
@@ -758,8 +754,8 @@ export default function TeenPattiMuflis() {
       setButtonDisabled(isDisabled);
     };
     const handelUserDetails = (data) => {
-      setUser(data.user);
       console.log("UserDetails", data);
+      setUser(data.user);
     };
 
     const handelCards = (data) => {
@@ -767,6 +763,7 @@ export default function TeenPattiMuflis() {
       setPlayer1Cards(data.gameCard.player1Cards);
       setPlayer2Cards(data.gameCard.player2Cards);
       setGameHistory(data.gameHistory);
+      // setUser(data.gameCard)
       console.log("Cards", data);
     };
 
@@ -983,7 +980,7 @@ export default function TeenPattiMuflis() {
                           </Box>
                         )}
                       </Box>
-                        <Box className="playercardbox2">
+                      <Box className="playercardbox2">
                         {timer?.value <= 17 && (
                           <Box
                             key={1}
@@ -1089,7 +1086,7 @@ export default function TeenPattiMuflis() {
                           </Box>
                         )}
                       </Box>
-                       <Box className="playercardbox4">
+                      <Box className="playercardbox4">
                         {timer?.value <= 16 && (
                           <Box
                             key={1}
@@ -1250,7 +1247,8 @@ export default function TeenPattiMuflis() {
                       Match Id:
                     </Text>
                     <Text fontSize={["20px", "24px"]}>
-                      {mainCard._id ? mainCard._id : "Loading..."}
+                      {/* {user?.gameid ? user?.gameid  : "Loading..."} */}
+                      {mainCard?._id ? mainCard?._id : "Loading..."}
                     </Text>
                   </Box>
                 </Flex>
