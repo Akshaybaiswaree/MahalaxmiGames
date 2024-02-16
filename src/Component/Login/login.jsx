@@ -23,8 +23,6 @@ import axios from "axios";
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({ mobileNumber: "", otp: "" });
-  const [userOtp, setUserOtp] = useState();
-  console.log("otp", userOtp?.otp);
 
   const navigate = useNavigate();
   const mobileNumber =
@@ -50,7 +48,10 @@ export default function Login() {
             position: "top",
             isClosable: true,
           });
-          localStorage.setItem("token", req.data.token);
+          localStorage.setItem("userId", req.data.user._id);
+          localStorage.setItem("mobileNumber", req.data.user.mobileNumber);
+          localStorage.setItem("coins", req.data.user.coins);
+          console.log("token", req.data.user);
           localStorage.setItem("auth", true);
           if (req.status === 200) {
             navigate("/home", {
@@ -58,6 +59,7 @@ export default function Login() {
                 coins: req.data.coins,
                 mobileNumber: data.mobileNumber,
                 _id: req.data._id,
+                // console.log(req.data.coins, "coins"),
               },
             });
           } else {
@@ -111,9 +113,7 @@ export default function Login() {
         });
       });
   };
-  useEffect((e) => {
-    setUserOtp(e?.user);
-  }, []);
+
   return (
     <Flex
       minH={"100vh"}
@@ -170,12 +170,10 @@ export default function Login() {
             </Button>
 
             <FormControl onChange={(e) => handleChange(e)} id="otp" isRequired>
-              <FormLabel>OTP {userOtp?.otp}</FormLabel>
+              <FormLabel>OTP</FormLabel>
               <InputGroup>
                 <Input
-                  type={showPassword ? "text" : "password"}
-                  value={userOtp?.otp}
-                />
+                  type={showPassword ? "text" : "password"}                />
                 <InputRightElement h={"full"}>
                   <Button
                     variant={"ghost"}

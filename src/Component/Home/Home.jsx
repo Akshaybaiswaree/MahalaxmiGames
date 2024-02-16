@@ -6,6 +6,7 @@ import {
   GridItem,
   Image,
   Text,
+  Toast,
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
@@ -14,19 +15,48 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 
-const fetchUserData = async () => {
+// const fetchUserData = async () => {
+//   try {
+//     const response = await axios.post(
+//       "https://mahalaxmiadminpanel-production-6234.up.railway.app/userMaster/verifyMobile"
+//     );
+//     console.log("middle response", response.data);
+//     return response.data;
+//   } catch (error) {
+//     console.error("Error fetching user data:", error);
+//     return null;
+//   }
+// };
 
-  try {
-    const response = await axios.get(
-      "https://mahalaxmiadminpanel-production-6234.up.railway.app/userMaster/getAllUserMasters"
-    );
-  console.log("middle response", response.data);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-    return null;
-  }
-  
+const mobileNumber =
+  "https://mahalaxmiadminpanel-production-6234.up.railway.app/userMaster/verifyMobile";
+const fetchUserData = () => {
+  console.log("submit otp", data);
+
+  axios
+    .post(`${mobileNumber}`, data)
+    .then((response) => {
+      console.log("Mobile Number API Response:", response.data);
+      if (response.status === 200) {
+        Toast({
+          title: response.data.message,
+          status: "success",
+          duration: 3000,
+          position: "top",
+          isClosable: true,
+        });
+      }
+    })
+    .catch((error) => {
+      console.error("Error occurred while sending OTP request:", error);
+      Toast({
+        title: error.message,
+        status: "error",
+        duration: 3000,
+        position: "top",
+        isClosable: true,
+      });
+    });
 };
 const Home = () => {
   // Assuming you have state variables to hold the data
@@ -40,8 +70,7 @@ const Home = () => {
         // Fetch user data dynamically
         const userData = await fetchUserData();
         if (userData) {
-          // Assuming userData is an array and you need to choose one user's data
-          const user = userData; // You may need to modify this based on your API response
+          const user = userData;
           setCoinsData(user?.coins);
           setMobileNumberData(user?.mobileNumber);
           setIdData(user?._id);
