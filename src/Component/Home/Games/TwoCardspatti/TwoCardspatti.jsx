@@ -271,7 +271,7 @@ export default function TwoCardsTeenPatti() {
                       <Box
                        className="playercardbox1"
                        >
-                        {countdown <= 190 && (
+                        {countdown <= 19 && (
                           <Box
                             key={1}
                             // height={["20.5 rem", "0.5rem"]}
@@ -304,7 +304,7 @@ export default function TwoCardsTeenPatti() {
                       <Box
                        className="playercardbox2"
                        >
-                        {countdown <= 170 && (
+                        {countdown <= 17 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
@@ -349,7 +349,7 @@ export default function TwoCardsTeenPatti() {
                       <Box
                       className="playercardbox3"
                       >
-                        {countdown <= 180 && (
+                        {countdown <= 18 && (
                           <Box
                             key={0}
                             // height={["2.5 rem", "0.5rem"]}
@@ -384,7 +384,7 @@ export default function TwoCardsTeenPatti() {
                       <Box
                       className="playercardbox4"
                       >
-                        {countdown <= 160 && (
+                        {countdown <= 16 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}

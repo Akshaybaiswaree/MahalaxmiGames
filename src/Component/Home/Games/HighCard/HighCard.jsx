@@ -269,7 +269,7 @@ export default function HighCard() {
                       <Box
                       className="card1"
                       >
-                        {timer <= 140 && (
+                        {timer <= 14 && (
                           <Box
                             key={1}
                             // height={["20.5 rem", "0.5rem"]}
@@ -301,7 +301,7 @@ export default function HighCard() {
                       <Box
                       className="card2"
                       >
-                        {timer <= 130 && (
+                        {timer <= 13 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
@@ -337,7 +337,7 @@ export default function HighCard() {
                       <Box
                       className="card3"
                       >
-                        {timer <= 120 && (
+                        {timer <= 12 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
@@ -405,7 +405,7 @@ export default function HighCard() {
                       <Box
                       className="card4"
                       >
-                        {timer <= 110 && (
+                        {timer <= 11 && (
                           <Box
                             key={0}
                             // height={["2.5 rem", "0.5rem"]}
@@ -439,7 +439,7 @@ export default function HighCard() {
                       <Box
                       className="card5"
                       >
-                        {timer <= 100 && (
+                        {timer <= 10 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
@@ -472,7 +472,7 @@ export default function HighCard() {
                       <Box
                       className="card6"
                       >
-                        {timer <= 90 && (
+                        {timer <= 9 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}

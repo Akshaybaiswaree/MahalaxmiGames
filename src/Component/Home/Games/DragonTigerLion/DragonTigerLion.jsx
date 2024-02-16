@@ -301,7 +301,7 @@ export default function DragonTigerLion() {
                       // }}
                     >
                       <Box className="cartbox1">
-                        {timer <= 140 && (
+                        {timer <= 14 && (
                           <Box
                             key={1}
                             // height={["20.5 rem", "0.5rem"]}
@@ -332,7 +332,7 @@ export default function DragonTigerLion() {
                         )}
                       </Box>
                       <Box className="cartbox2">
-                        {timer <= 120 && (
+                        {timer <= 12 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
@@ -361,7 +361,7 @@ export default function DragonTigerLion() {
                         )}
                       </Box>
                       <Box className="cartbox3">
-                        {timer <= 100 && (
+                        {timer <= 10 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
