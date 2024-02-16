@@ -1,5 +1,3 @@
-import "./HighCard.css";
-
 import {
   AspectRatio,
   Box,
@@ -10,7 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-
+import "./HighCard.css";
 import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
@@ -169,12 +167,13 @@ export default function HighCard() {
                     backgroundPosition={`center 100%`}
                     backgroundRepeat="no-repeat"
                     display="flex"
-                    flexDirection="column"
+                    flexDirection="row"
                     justifyContent="flex-start"
                     alignItems="top"
                     color="white"
                     className="firstBox"
-                  >
+                    
+                  > 
                     <Box
                       fontWeight={"900"}
                       border={"1px solid white"}
@@ -195,6 +194,7 @@ export default function HighCard() {
                       // background="linear-gradient(to bottom right, violet, blue)"
                       // background="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
                       background="linear-gradient(to bottom right, #BDB76B, #FFFFFF)"
+
                     >
                       {/* {countdown <= 25 ? "Freeze" : "Place  Bet"}
                       {countdown <= 8 ? "Winner : " + winner : "Loading"} */}
@@ -226,6 +226,7 @@ export default function HighCard() {
                       // background="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
                       background="linear-gradient(to bottom right, #BDB76B, #FFFFFF)"
                       marginRight={"1rem"}
+                   
                     >
                       {/* {Math.max(0, countdown) !== null && (
                         <p>{Math.max(0, countdown - 25)}</p>
@@ -234,91 +235,95 @@ export default function HighCard() {
                     </Box>
 
                     <Flex
-                      justifyContent={"space-between"}
-                      gap={{
-                        base: "0.2rem",
-                        sm: "0.1rem",
-                        md: "0.1rem",
-                        lg: "0.1rem",
-                        xl: "0.3rem",
-                        "2xl": "0.4rem",
-                      }}
+                      // justifyContent={"space-between"}
+                      // gap={{
+                      //   base: "0.2rem",
+                      //   sm: "0.1rem",
+                      //   md: "0.1rem",
+                      //   lg: "0.1rem",
+                      //   xl: "0.3rem",
+                      //   "2xl": "0.4rem",
+                      // }}
                       direction="column"
-                      position={"absolute"}
+                      // position={"absolute"}
                       // top={["60%", "63%"]}
                       // left={["44%", "45%"]}
-                      top={{
-                        base: "60.5%",
-                        sm: "62%",
-                        md: "60%",
-                        lg: "60%",
-                        xl: "61%",
-                        "2xl": "63%",
-                      }}
-                      left={{
-                        base: "39%",
-                        sm: "40%",
-                        md: "39%",
-                        lg: "38%",
-                        xl: "38%",
-                        "2xl": "43%",
-                      }}
-                      // id="playerCard"
+                      // top={{
+                      //   base: "60.5%",
+                      //   sm: "62%",
+                      //   md: "60%",
+                      //   lg: "60%",
+                      //   xl: "61%",
+                      //   "2xl": "63%",
+                      // }}
+                      // left={{
+                      //   base: "39%",
+                      //   sm: "40%",
+                      //   md: "39%",
+                      //   lg: "38%",
+                      //   xl: "38%",
+                      //   "2xl": "43%",
+                      // }}
+                      id="playerCard"
                     >
-                      <Box>
+                      <Box
+                      className="card1"
+                      >
                         {timer <= 14 && (
                           <Box
                             key={1}
                             // height={["20.5 rem", "0.5rem"]}
                           >
                             <Image
-                              className="highcardheight"
-                              width={{
-                                base: "1.5rem",
-                                sm: "1.5rem",
-                                md: "1.5rem",
-                                lg: "1.6rem",
-                                xl: "2.5rem",
-                                "2xl": "4rem",
-                              }}
-                              height={{
-                                base: "2rem",
-                                sm: "1.5rem",
-                                md: "1.5rem",
-                                lg: "1.6rem",
-                                xl: "2.6rem",
-                                "2xl": "4rem",
-                              }}
+                            //  className=" card1"
+                              // width={{
+                              //   base: "1.5rem",
+                              //   sm: "1.5rem",
+                              //   md: "1.5rem",
+                              //   lg: "1.6rem",
+                              //   xl: "2.5rem",
+                              //   "2xl": "4rem",
+                              // }}
+                              // height={{
+                              //   base: "2rem",
+                              //   sm: "1.5rem",
+                              //   md: "1.5rem",
+                              //   lg: "1.6rem",
+                              //   xl: "2.6rem",
+                              //   "2xl": "4rem",
+                              // }}
                               // height={{base:"rem" , md:"3.5rem"}}
                               src={`/cards/${cards[0]}`}
                             />
                           </Box>
                         )}
                       </Box>
-                      <Box>
+                      <Box
+                      className="card2"
+                      >
                         {timer <= 13 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
                           >
                             <Image
-                              className="highcardheight"
-                              width={{
-                                base: "1.4rem",
-                                sm: "1.5rem",
-                                md: "1.5rem",
-                                lg: "1.6rem",
-                                xl: "2.5rem",
-                                "2xl": "4rem",
-                              }}
-                              height={{
-                                base: "2rem",
-                                sm: "1.5rem",
-                                md: "1.5rem",
-                                lg: "1.6rem",
-                                xl: "2.6rem",
-                                "2xl": "4rem",
-                              }}
+                            //  className=" card2"
+                              // width={{
+                              //   base: "1.4rem",
+                              //   sm: "1.5rem",
+                              //   md: "1.5rem",
+                              //   lg: "1.6rem",
+                              //   xl: "2.5rem",
+                              //   "2xl": "4rem",
+                              // }}
+                              // height={{
+                              //   base: "2rem",
+                              //   sm: "1.5rem",
+                              //   md: "1.5rem",
+                              //   lg: "1.6rem",
+                              //   xl: "2.6rem",
+                              //   "2xl": "4rem",
+                              // }}
                               // height={{ base: "rem", md: "3.5rem" }}
                               src={`/cards/${cards[1]}`}
                               // boxSize={["1.8rem", "2.7rem"]}
@@ -329,30 +334,32 @@ export default function HighCard() {
                           </Box>
                         )}
                       </Box>
-                      <Box>
+                      <Box
+                      className="card3"
+                      >
                         {timer <= 12 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
                           >
                             <Image
-                              className="highcardheight"
-                              width={{
-                                base: "1.4rem",
-                                sm: "1.5rem",
-                                md: "1.5rem",
-                                lg: "1.6rem",
-                                xl: "2.5rem",
-                                "2xl": "4rem",
-                              }}
-                              height={{
-                                base: "2rem",
-                                sm: "2rem",
-                                md: "2rem",
-                                lg: "1.6rem",
-                                xl: "2.7rem",
-                                "2xl": "4rem",
-                              }}
+                            //  className="card4"
+                              // width={{
+                              //   base: "1.4rem",
+                              //   sm: "1.5rem",
+                              //   md: "1.5rem",
+                              //   lg: "1.6rem",
+                              //   xl: "2.5rem",
+                              //   "2xl": "4rem",
+                              // }}
+                              // height={{
+                              //   base: "2rem",
+                              //   sm: "2rem",
+                              //   md: "2rem",
+                              //   lg: "1.6rem",
+                              //   xl: "2.7rem",
+                              //   "2xl": "4rem",
+                              // }}
                               // height={{ base: "rem", md: "3.5rem" }}
                               src={`/cards/${cards[2]}`}
                               // boxSize={["1.8rem", "2.7rem"]}
@@ -365,36 +372,39 @@ export default function HighCard() {
                       </Box>
                     </Flex>
                     <Flex
-                      gap={{
-                        base: "0.2rem",
-                        sm: "0.1rem",
-                        md: "0.3rem",
-                        lg: "0.2rem",
-                        xl: "0.3rem",
-                        "2xl": "0.4rem",
-                      }}
+                      // gap={{
+                      //   base: "0.2rem",
+                      //   sm: "0.1rem",
+                      //   md: "0.3rem",
+                      //   lg: "0.2rem",
+                      //   xl: "0.3rem",
+                      //   "2xl": "0.4rem",
+                      // }}
                       direction="column"
-                      position={"absolute"}
+                      // position={"absolute"}
                       // top={["77%", "78%"]}
                       // left={["44%", "45%"]}
-                      top={{
-                        base: "60.5%",
-                        sm: "62%",
-                        md: "65%",
-                        lg: "60.5%",
-                        xl: "61%",
-                        "2xl": "79%",
-                      }}
-                      left={{
-                        base: "54.3%",
-                        sm: "55.5%",
-                        md: "53%",
-                        lg: "53.5%",
-                        xl: "53.5%",
-                        "2xl": "43%",
-                      }}
+                      // top={{
+                      //   base: "60.5%",
+                      //   sm: "62%",
+                      //   md: "65%",
+                      //   lg: "60.5%",
+                      //   xl: "61%",
+                      //   "2xl": "79%",
+                      // }}
+                      // left={{
+                      //   base: "54.3%",
+                      //   sm: "55.5%",
+                      //   md: "53%",
+                      //   lg: "53.5%",
+                      //   xl: "53.5%",
+                      //   "2xl": "43%",
+                      // }}
+                      className="cardbox2"
                     >
-                      <Box>
+                      <Box
+                      className="card4"
+                      >
                         {timer <= 11 && (
                           <Box
                             key={0}
@@ -403,53 +413,55 @@ export default function HighCard() {
                             //  style={{marginTop: '0.9rem', marginLeft: '0.1rem' }}
                           >
                             <Image
-                              className="highcardheight"
-                              width={{
-                                base: "1.5rem",
-                                sm: "2rem",
-                                md: "2rem",
-                                lg: "1.6rem",
-                                xl: "2.5rem",
-                                "2xl": "4rem",
-                              }}
-                              height={{
-                                base: "2rem",
-                                sm: "2rem",
-                                md: "2rem",
-                                lg: "1.5rem",
-                                xl: "2.7rem",
-                                "2xl": "4rem",
-                              }}
+                             className="highcardheight"
+                              // width={{
+                              //   base: "1.5rem",
+                              //   sm: "2rem",
+                              //   md: "2rem",
+                              //   lg: "1.6rem",
+                              //   xl: "2.5rem",
+                              //   "2xl": "4rem",
+                              // }}
+                              // height={{
+                              //   base: "2rem",
+                              //   sm: "2rem",
+                              //   md: "2rem",
+                              //   lg: "1.5rem",
+                              //   xl: "2.7rem",
+                              //   "2xl": "4rem",
+                              // }}
                               src={`/cards/${cards[3]}`}
                               // boxSize={["1.8rem", "2.9rem"]}
                             />
                           </Box>
                         )}
                       </Box>
-                      <Box>
+                      <Box
+                      className="card5"
+                      >
                         {timer <= 10 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
                           >
                             <Image
-                              className="highcardheight"
-                              width={{
-                                base: "1.5rem",
-                                sm: "2rem",
-                                md: "2rem",
-                                lg: "1.6rem",
-                                xl: "2.5rem",
-                                "2xl": "4rem",
-                              }}
-                              height={{
-                                base: "2rem",
-                                sm: "2rem",
-                                md: "2rem",
-                                lg: "1.5rem",
-                                xl: "2.7rem",
-                                "2xl": "4rem",
-                              }}
+                             className="highcardheight"
+                              // width={{
+                              //   base: "1.5rem",
+                              //   sm: "2rem",
+                              //   md: "2rem",
+                              //   lg: "1.6rem",
+                              //   xl: "2.5rem",
+                              //   "2xl": "4rem",
+                              // }}
+                              // height={{
+                              //   base: "2rem",
+                              //   sm: "2rem",
+                              //   md: "2rem",
+                              //   lg: "1.5rem",
+                              //   xl: "2.7rem",
+                              //   "2xl": "4rem",
+                              // }}
                               src={`/cards/${cards[4]}`}
 
                               // alt={`${card}`}
@@ -457,30 +469,32 @@ export default function HighCard() {
                           </Box>
                         )}
                       </Box>
-                      <Box>
-                        {cards[5] && timer <= 9 && (
+                      <Box
+                      className="card6"
+                      >
+                        {timer <= 9 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
                           >
                             <Image
-                              className="highcardheight"
-                              width={{
-                                base: "1.5rem",
-                                sm: "2rem",
-                                md: "2rem",
-                                lg: "1.6rem",
-                                xl: "2.6rem",
-                                "2xl": "4rem",
-                              }}
-                              height={{
-                                base: "2rem",
-                                sm: "2rem",
-                                md: "2rem",
-                                lg: "1.55rem",
-                                xl: "2.6rem",
-                                "2xl": "4rem",
-                              }}
+                            className="highcardheight"
+                              // width={{
+                              //   base: "1.5rem",
+                              //   sm: "2rem",
+                              //   md: "2rem",
+                              //   lg: "1.6rem",
+                              //   xl: "2.6rem",
+                              //   "2xl": "4rem",
+                              // }}
+                              // height={{
+                              //   base: "2rem",
+                              //   sm: "2rem",
+                              //   md: "2rem",
+                              //   lg: "1.55rem",
+                              //   xl: "2.6rem",
+                              //   "2xl": "4rem",
+                              // }}
                               src={`/cards/${cards[5]}`}
 
                               // alt={`${card}`}
@@ -500,7 +514,7 @@ export default function HighCard() {
                     fontWeight={"700"}
                     style={{
                       backgroundImage:
-                        "linear-gradient(to right, #BDB76B, #FFFFFF)",
+                      "linear-gradient(to right, #BDB76B, #FFFFFF)",
                       WebkitBackgroundClip: "text",
                       color: "transparent",
                     }}
@@ -517,7 +531,7 @@ export default function HighCard() {
                     fontWeight={"700"}
                     style={{
                       backgroundImage:
-                        "linear-gradient(to right, #BDB76B, #FFFFFF)",
+                      "linear-gradient(to right, #BDB76B, #FFFFFF)",
                       WebkitBackgroundClip: "text",
                       color: "transparent",
                     }}
@@ -557,7 +571,7 @@ export default function HighCard() {
                     ))}
                   </Flex>
                   <Box
-                    //  bgGradient= "linear(to-r,#006400,)"
+                      //  bgGradient= "linear(to-r,#006400,)"
                     fontWeight={"700"}
                     style={{
                       backgroundImage:
@@ -601,6 +615,7 @@ export default function HighCard() {
                     </Text>
                     <Text fontSize={["20px", "24px"]}>
                       {availableCoins ? availableCoins : "0"}
+                   
                     </Text>
                   </Box>
 
@@ -629,9 +644,10 @@ export default function HighCard() {
                       marginLeft={["0.5rem"]}
                       mt={"1rem"}
                       color={"white"}
+                   
                       style={{
                         backgroundImage:
-                          "linear-gradient(to right, #BDB76B, #FFFFFF)",
+                        "linear-gradient(to right, #BDB76B, #FFFFFF)",
                         WebkitBackgroundClip: "text",
                         color: "transparent",
                       }}
@@ -730,8 +746,8 @@ export default function HighCard() {
                           fontWeight="800"
                           borderRadius="20%"
                           // bgGradient="linear(to-r, #0000FF, #FFA500)"
-                          bgGradient="linear(to-r,#006400, #FFFFFF)"
-                          //  bgGradient: linear(to-r);
+                          bgGradient= "linear(to-r,#006400, #FFFFFF)"
+                        //  bgGradient: linear(to-r);
 
                           _hover={
                             !isButtonDisabled && {
@@ -744,15 +760,27 @@ export default function HighCard() {
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
-                          {isButtonDisabled && (
+                          {/* {isButtonDisabled && (
                             <FaLock
                               size={35}
                               style={{ color: "black", marginRight: "0.5rem" }}
                             />
                           )}
-                          <Text color="black">
+                       <Text color="black">  P1 <span>5.88</span></Text>  */}
+                        {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
                             {" "}
-                            P1 <span>5.88</span>
+                            <Text color="black">  P1 <span>5.88</span></Text>
                           </Text>
                         </Button>
 
@@ -765,7 +793,7 @@ export default function HighCard() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          bgGradient="linear(to-r,#006400, #FFFFFF)"
+                          bgGradient= "linear(to-r,#006400, #FFFFFF)"
                           _hover={
                             !isButtonDisabled && {
                               bg: "#006400",
@@ -777,15 +805,27 @@ export default function HighCard() {
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
-                          {isButtonDisabled && (
+                          {/* {isButtonDisabled && (
                             <FaLock
                               size={35}
                               style={{ color: "black", marginRight: "0.5rem" }}
                             />
                           )}
-                          <Text color="black">
+                    <Text color="black">  P2 <span>5.88</span></Text>  */}
+                     {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
                             {" "}
-                            P2 <span>5.88</span>
+                            <Text color="black">  P2 <span>5.88</span></Text>
                           </Text>
                         </Button>
                         <Button
@@ -797,7 +837,7 @@ export default function HighCard() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          bgGradient="linear(to-r,#006400, #FFFFFF)"
+                          bgGradient= "linear(to-r,#006400, #FFFFFF)"
                           _hover={
                             !isButtonDisabled && {
                               bg: "#006400",
@@ -809,21 +849,34 @@ export default function HighCard() {
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
-                          {isButtonDisabled && (
+                          {/* {isButtonDisabled && (
                             <FaLock
                               size={35}
                               style={{ color: "black", marginRight: "0.5rem" }}
                             />
                           )}
-                          <Text color="black">
+                           <Text color="black">  P3 <span>5.88</span></Text>  */}
+                            {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
                             {" "}
-                            P3 <span>5.88</span>
+                            <Text color="black">  P3 <span>5.88</span></Text> 
                           </Text>
                         </Button>
                       </Box>
                     </Box>
                   </Flex>
                   <Flex
+         
                     flexDirection="row"
                     alignItems="center"
                     justifyContent="center"
@@ -831,7 +884,8 @@ export default function HighCard() {
                     width="111%"
                   >
                     <Box
-                      marginTop={{ base: "-3rem", md: "1em" }}
+                
+                    marginTop={{base:"-3rem" , md:"1em"}}
                       width="100%"
                       position="relative"
                       // border="2px solid #333"
@@ -844,6 +898,8 @@ export default function HighCard() {
                       alignItems="center"
                     >
                       <Box
+
+
                         width="90%"
                         height="100%"
                         position="relative"
@@ -861,7 +917,7 @@ export default function HighCard() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          bgGradient="linear(to-r,#006400, #FFFFFF)"
+                          bgGradient= "linear(to-r,#006400, #FFFFFF)"
                           _hover={
                             !isButtonDisabled && {
                               bg: "#006400",
@@ -873,15 +929,27 @@ export default function HighCard() {
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
-                          {isButtonDisabled && (
+                          {/* {isButtonDisabled && (
                             <FaLock
                               size={35}
                               style={{ color: "black", marginRight: "0.5rem" }}
                             />
                           )}
-                          <Text color="black">
+                         <Text color="black">  P4 <span>5.88</span></Text>  */}
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
                             {" "}
-                            P4 <span>5.88</span>
+                            <Text color="black">  P4 <span>5.88</span></Text>
                           </Text>
                         </Button>
 
@@ -894,7 +962,7 @@ export default function HighCard() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          bgGradient="linear(to-r,#006400, #FFFFFF)"
+                          bgGradient= "linear(to-r,#006400, #FFFFFF)"
                           _hover={
                             !isButtonDisabled && {
                               bg: "#006400",
@@ -906,15 +974,27 @@ export default function HighCard() {
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
-                          {isButtonDisabled && (
+                          {/* {isButtonDisabled && (
                             <FaLock
                               size={35}
                               style={{ color: "black", marginRight: "0.5rem" }}
                             />
                           )}
-                          <Text color="black">
+                         <Text color="black">  P5 <span>5.88</span></Text>  */}
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
                             {" "}
-                            P5 <span>5.88</span>
+                            <Text color="black">  P5 <span>5.88</span></Text>
                           </Text>
                         </Button>
                         <Button
@@ -926,7 +1006,7 @@ export default function HighCard() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          bgGradient="linear(to-r,#006400, #FFFFFF)"
+                          bgGradient= "linear(to-r,#006400, #FFFFFF)"
                           _hover={
                             !isButtonDisabled && {
                               bg: "#006400",
@@ -938,15 +1018,27 @@ export default function HighCard() {
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
-                          {isButtonDisabled && (
+                          {/* {isButtonDisabled && (
                             <FaLock
                               size={35}
                               style={{ color: "black", marginRight: "0.5rem" }}
                             />
                           )}
-                          <Text color="black">
+                        <Text color="black">  P6 <span>5.88</span></Text>  */}
+                         {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
                             {" "}
-                            P6 <span>5.88</span>
+                          <Text >  P6 <span>5.88</span></Text>  
                           </Text>
                         </Button>
                       </Box>
