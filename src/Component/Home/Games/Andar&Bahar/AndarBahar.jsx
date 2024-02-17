@@ -452,25 +452,12 @@ import { useEffect, useState } from "react";
 import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
-// import axios from "axios";
-
-
-// const fetchUserData = async () => {
-//   try {
-//     const response = await axios.get(
-//       "https://mahalaxmiadminpanel-production-6234.up.railway.app/userMaster/getAllUserMasters"
-//     );
-//   console.log("game response", response.data);
-    
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error fetching user data:", error);
-//     return null;
-//   }
-// };
+const userId = localStorage.getItem("userId");
+// const demoId = localStorage.getItem("demoId");
 const socket = io("https://andarbaharbacked.onrender.com", {
   query: {
-    userID: "65cc504c0039634a604b4de9",
+    // userID: userId || demoId,
+    userID: userId,
   },
   transports: ["websocket"],
 });
@@ -487,13 +474,32 @@ export default function AndarBahar() {
   const [bettingAmount, setBettingAmount] = useState("");
   const [isButtonDisabled, setButtonDisabled] = useState();
 
-  // console.log("user", user);
-  // console.log("mainCard", mainCard);
+  useEffect(() => {
+    const userID = localStorage.getItem("userId");
+    if (userID) {
+      socket.io.opts.query.userID = userID;
+      socket.disconnect();
+      socket.connect();
+    }
+  }, [localStorage.getItem("userId")]);
+  // useEffect(() => {
+  //   const userID = localStorage.getItem("userId");
+  //   const demoID = localStorage.getItem("demoId");
+  //   if (userID) {
+  //     socket.io.opts.query.userID = userID;
+  //     socket.disconnect();
+  //     socket.connect();
+  //   }
+  //   if (demoID) {
+  //     socket.io.opts.query.userID = demoID;
+  //     socket.disconnect();
+  //     socket.connect();
+  //   }
+  // }, [localStorage.getItem("userId"), localStorage.getItem("demoId")]);
 
   useEffect(() => {
     const handleGameUpdate = (updatedGameState) => {
       console.log("gamestate", updatedGameState);
-
       setGameState(updatedGameState.gamestate);
       updatedGameState.gamestate.value - 25 === 20 ? setBettingAmount(0) : "";
       const isDisabled = updatedGameState.gamestate.value - 25 <= 0;
@@ -516,19 +522,6 @@ export default function AndarBahar() {
       setGameHistory(data.gameHistory);
     };
 
-    // const fetchData = async () => {
-    //   const userData = await fetchUserData();
-    //   if (userData && userData.length > 0) {
-    //     // Assuming userData is an array of users and you want to use the first user's data
-    //     const firstUser = userData;
-    //     setUser(firstUser);
-    //     // Update socket query with the user ID
-    //     socket.io.opts.query.userID = firstUser.userID;
-    //   } else {
-    //     console.log("Failed to fetch user data");
-    //   }
-    // };
-    // fetchData();
     handleUserDetails();
     socket.on("gameUpdate", handleGameUpdate);
     socket.on("userDetails", handleUserDetails);
@@ -587,19 +580,21 @@ export default function AndarBahar() {
   }
 
   const handleBetting = (betType) => {
-    if (user?.coins <= 10) {
-      alert("Insufficient Funds");
-      return;
-    }
-
     const bet = {
       betType,
       coins,
       cardId: mainCard._id,
     };
-    setBettingAmount((prev) => prev + Number(coins));
+    if (user?.coins > 10) {
+      setBettingAmount((prev) => prev + Number(coins));
+      return;
+    }
     socket.emit("bet", bet);
     console.log("betting", bet);
+    if (user?.coins === 0) {
+      alert("Insufficient Funds");
+      return;
+    }
   };
 
   return (
@@ -930,7 +925,7 @@ export default function AndarBahar() {
                       💰
                       {Math.round(user?.coins * 100) / 100
                         ? Math.round(user?.coins * 100) / 100
-                        : "Loading... "}
+                        : "0"}
                     </Text>
                   </Box>
 
@@ -947,7 +942,7 @@ export default function AndarBahar() {
                       Match Id:
                     </Text>
                     <Text fontSize={["20px", "24px"]} color={"white"}>
-                       {mainCard?._id ? mainCard._id : "Loading..."}
+                      {mainCard?._id ? mainCard._id : "Loading..."}
                       {/* {user?.userID ? user?.userID : "Loading..."} */}
                     </Text>
                   </Box>

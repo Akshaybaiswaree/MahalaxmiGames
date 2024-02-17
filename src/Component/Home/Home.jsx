@@ -6,84 +6,15 @@ import {
   GridItem,
   Image,
   Text,
-  Toast,
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 
-import { NavLink } from "react-router-dom";
-import axios from "axios";
-
-// const fetchUserData = async () => {
-//   try {
-//     const response = await axios.post(
-//       "https://mahalaxmiadminpanel-production-6234.up.railway.app/userMaster/verifyMobile"
-//     );
-//     console.log("middle response", response.data);
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error fetching user data:", error);
-//     return null;
-//   }
-// };
-
-const mobileNumber =
-  "https://mahalaxmiadminpanel-production-6234.up.railway.app/userMaster/verifyMobile";
-const fetchUserData = () => {
-  console.log("submit otp", data);
-
-  axios
-    .post(`${mobileNumber}`, data)
-    .then((response) => {
-      console.log("Mobile Number API Response:", response.data);
-      if (response.status === 200) {
-        Toast({
-          title: response.data.message,
-          status: "success",
-          duration: 3000,
-          position: "top",
-          isClosable: true,
-        });
-      }
-    })
-    .catch((error) => {
-      console.error("Error occurred while sending OTP request:", error);
-      Toast({
-        title: error.message,
-        status: "error",
-        duration: 3000,
-        position: "top",
-        isClosable: true,
-      });
-    });
-};
 const Home = () => {
-  // Assuming you have state variables to hold the data
-  const [coinsData, setCoinsData] = useState(null);
-  const [mobileNumberData, setMobileNumberData] = useState(null);
-  const [idData, setIdData] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch user data dynamically
-        const userData = await fetchUserData();
-        if (userData) {
-          const user = userData;
-          setCoinsData(user?.coins);
-          setMobileNumberData(user?.mobileNumber);
-          setIdData(user?._id);
-        } else {
-          console.log("Failed to fetch user data");
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+//  const [ userId, setUserId] = useState()
+ const location = useLocation()
+console.log(location.state,"userId1234")
   return (
     <>
       <Flex>
@@ -391,12 +322,8 @@ const Home = () => {
             <NavLink
               to={{
                 pathname: "/andarbahar",
-                state: {
-                  coins: coinsData,
-                  mobileNumber: mobileNumberData,
-                  _id: idData,
-                },
               }}
+              data={location?.state}
             >
               <Box className="custom-box">
                 <Image src="/game card/Andar Bahar.png" alt="ANDAR BAHAR" />

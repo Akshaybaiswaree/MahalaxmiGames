@@ -23,6 +23,7 @@ import axios from "axios";
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({ mobileNumber: "", otp: "" });
+  // const [demo, setDemo] = useState ();
 
   const navigate = useNavigate();
   const mobileNumber =
@@ -49,19 +50,19 @@ export default function Login() {
             isClosable: true,
           });
           localStorage.setItem("userId", req.data.user._id);
-          localStorage.setItem("mobileNumber", req.data.user.mobileNumber);
-          localStorage.setItem("coins", req.data.user.coins);
+          // localStorage.setItem("mobileNumber", req.data.user.mobileNumber);
+          // localStorage.setItem("coins", req.data.user.coins);
           console.log("token", req.data.user);
           localStorage.setItem("auth", true);
           if (req.status === 200) {
             navigate("/home", {
               state: {
-                coins: req.data.coins,
-                mobileNumber: data.mobileNumber,
-                _id: req.data._id,
-                // console.log(req.data.coins, "coins"),
+                userId: req.data.user._id,
+                // mobileNumber: req.data.user.mobileNumber,
+                // coins: req.data.user.coins,
               },
             });
+            console.log("token", req.data.user._id);
           } else {
             navigate("/");
           }
@@ -114,6 +115,52 @@ export default function Login() {
       });
   };
 
+  // const handleSubmitDemo = () => {
+  //   console.log("submit otp", data);
+
+  //   axios
+  //     .post(`${mobileNumber}`, data)
+  //     .then((response) => {
+  //       console.log("Demo API Response:", response.data);
+  //       if (response.status === 200) {
+  //         toast({
+  //           title: response.data.message,
+  //           status: "success",
+  //           duration: 3000,
+  //           position: "top",
+  //           isClosable: true,
+  //         });
+  //         localStorage.setItem("demoId", response.data.demoId);
+  //         // localStorage.setItem("mobileNumber", req.data.user.mobileNumber);
+  //         // localStorage.setItem("coins", req.data.user.coins);
+  //         console.log("token", response.data.user);
+  //         localStorage.setItem("auth", true);
+  //         if (response.status === 200) {
+  //           navigate("/home", {
+  //             state: {
+  //               demoId: response.data.demoId,
+  //               // mobileNumber: req.data.user.mobileNumber,
+  //               // coins: req.data.user.coins,
+  //             },
+  //           });
+  //           console.log("token", response.data.demoId);
+  //         } else {
+  //           navigate("/");
+  //         }
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error occurred while sending OTP request:", error);
+  //       toast({
+  //         title: error.message,
+  //         status: "error",
+  //         duration: 3000,
+  //         position: "top",
+  //         isClosable: true,
+  //       });
+  //     });
+  // };
+
   return (
     <Flex
       minH={"100vh"}
@@ -137,24 +184,12 @@ export default function Login() {
             <FormControl
               onChange={(e) => handleChange(e)}
               id="mobileNumber"
-              isRequired
+              // isRequired
             >
               <FormLabel>Mobile no</FormLabel>
               <Input type="number" />
             </FormControl>
 
-            {/* <Input
-              type="text"
-              id="mobileNumber"
-              value={data.mobileNumber}
-              onChange={(e) =>
-                setVerifyMobileNumber({ mobileNumber: e.target.value })
-              }
-            /> */}
-
-            {/* <Link align={"center"} onClick={() => handleOtp()}>
-              sent otp
-            </Link> */}
             <Button
               loadingText="Submitting"
               size="sm"
@@ -169,11 +204,14 @@ export default function Login() {
               Send OTP
             </Button>
 
-            <FormControl onChange={(e) => handleChange(e)} id="otp" isRequired>
+            <FormControl
+              onChange={(e) => handleChange(e)}
+              id="otp"
+              // isRequired
+            >
               <FormLabel>OTP</FormLabel>
               <InputGroup>
-                <Input
-                  type={showPassword ? "text" : "password"}                />
+                <Input type={showPassword ? "text" : "password"} />
                 <InputRightElement h={"full"}>
                   <Button
                     variant={"ghost"}
@@ -200,8 +238,8 @@ export default function Login() {
               </Button>
             </Stack>
 
-            <Stack onClick={() => handleSubmit()} spacing={10} pt={2}>
-              <NavLink to="/mainpage" align="center">
+            {/* <Stack spacing={10} pt={2}>
+              <NavLink to="/home" align="center">
                 <Button
                   loadingText="Submitting"
                   size="lg"
@@ -214,7 +252,7 @@ export default function Login() {
                   Login With Demo
                 </Button>
               </NavLink>
-            </Stack>
+            </Stack> */}
           </Stack>
         </Box>
       </Stack>
