@@ -15,13 +15,10 @@ import { FaLock } from "react-icons/fa";
 import TwoCard from "../../Games/Images/2cardteenpatti.svg";
 import { io } from "socket.io-client";
 
-//import PopUp from "./PopUp";
-// import Logo from "../../../images/32cardsA_v.jpeg";
-//  import backGroundImage from "./images/background_plus_cards.jpeg"
-
+const userId = localStorage.getItem("userId");
 const socket = io("https://twocardtp.onrender.com/", {
   query: {
-    userId: Math.floor(Math.random() * Date.now()),
+    userId: userId,
   },
   transports: ["websocket"],
 });
@@ -39,8 +36,17 @@ export default function TwoCardsTeenPatti() {
   const [player2Cards, setPlayer2Cards] = useState([]);
   const [gameHistory, setGameHistory] = useState([]);
   const [isButtonDisabled, setButtonDisabled] = useState();
+  
   const [currentBet, setCurrentBet] = useState(0);
-
+  useEffect(() => {
+    const userID = localStorage.getItem("userId");
+    if (userID) {
+      socket.io.opts.query.userID = userID;
+      socket.disconnect();
+      socket.connect();
+    }
+  }, [localStorage.getItem("userId")]);
+  //
   useEffect(() => {
     const handleDealCards = (data) => {
       // console.log(data, "playerHands123");
@@ -108,8 +114,8 @@ export default function TwoCardsTeenPatti() {
       console.log();
     };
     const handleuser = (data) => {
-      setPlayerId(data.user.userId);
-      setUserBalance(data.user.balance);
+      setPlayerId(data.user.mobileNumber);
+      setUserBalance(data.user.coins);
       // console.log("data123", data);
     };
     const handleGameId = (data) => {
@@ -140,6 +146,9 @@ export default function TwoCardsTeenPatti() {
   }, []);
 
   const handlePlaceBet = (selectedChoice) => {
+    // if (user?.coins > 10) {
+    //   setBettingAmount((prev) => prev + Number(coins));
+    // }
     const coins = parseInt(selectedCoin, 10); // Parse the selectedCoin to an integer
     setCurrentBet((prev) => prev + coins);
 
@@ -149,9 +158,7 @@ export default function TwoCardsTeenPatti() {
   return (
     <>
       <ChakraProvider>
-        <Box
-     
-        width={["100%", "100%"]}>
+        <Box width={["100%", "100%"]}>
           <Box bg={"#451212"} maxW={["100vw", "100vw"]} id="main-div">
             <Flex
               align="left-top"
@@ -266,16 +273,12 @@ export default function TwoCardsTeenPatti() {
                       // top={"5.2rem"}
                       top={{ base: "5.3rem", lg: "5.8rem", xl: "9rem" }}
                       left={{ base: "-3.5rem", lg: "-3.6rem", xl: "-5.8rem" }}
-                      
                     >
-                      <Box
-                       className="playercardbox1"
-                       >
+                      <Box className="playercardbox1">
                         {countdown <= 19 && (
                           <Box
                             key={1}
                             // height={["20.5 rem", "0.5rem"]}
-                           
                           >
                             <Image
                               // width={{
@@ -301,9 +304,7 @@ export default function TwoCardsTeenPatti() {
                           </Box>
                         )}
                       </Box>
-                      <Box
-                       className="playercardbox2"
-                       >
+                      <Box className="playercardbox2">
                         {countdown <= 17 && (
                           <Box
                             key={1}
@@ -336,7 +337,7 @@ export default function TwoCardsTeenPatti() {
                             />
                           </Box>
                         )}
-                      </Box >
+                      </Box>
                     </Flex>
                     <Flex
                       gap="0.5rem"
@@ -346,14 +347,11 @@ export default function TwoCardsTeenPatti() {
                       // left={"3.4rem"}
                       left={{ base: "3.4rem", lg: "3.6rem", xl: "5.4rem" }}
                     >
-                      <Box
-                      className="playercardbox3"
-                      >
+                      <Box className="playercardbox3">
                         {countdown <= 18 && (
                           <Box
                             key={0}
                             // height={["2.5 rem", "0.5rem"]}
-                            
 
                             //  style={{marginTop: '0.9rem', marginLeft: '0.1rem' }}
                           >
@@ -381,9 +379,7 @@ export default function TwoCardsTeenPatti() {
                           </Box>
                         )}
                       </Box>
-                      <Box
-                      className="playercardbox4"
-                      >
+                      <Box className="playercardbox4">
                         {countdown <= 16 && (
                           <Box
                             key={1}
@@ -456,9 +452,9 @@ export default function TwoCardsTeenPatti() {
                     p={1}
                     flexWrap="wrap"
                     align={"center"}
-                    justifyContent={'center'}
-                    alignItems={'center'}
-                    textAlign={'center'}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    textAlign={"center"}
                   >
                     {gameHistory?.map((item, index) => (
                       <Box
@@ -558,7 +554,7 @@ export default function TwoCardsTeenPatti() {
                       marginLeft={["0.5rem"]}
                       mt={"1rem"}
                       color={"white"}
-                      ml={{base:"3rem", md:"0rem"}}
+                      ml={{ base: "3rem", md: "0rem" }}
                     >
                       Place Your Bet
                     </Text>
@@ -669,7 +665,7 @@ export default function TwoCardsTeenPatti() {
                             />
                           )}
                           Player A */}
-                           {isButtonDisabled && (
+                          {isButtonDisabled && (
                             <FaLock
                               size={35}
                               style={{
@@ -712,7 +708,7 @@ export default function TwoCardsTeenPatti() {
                             />
                           )}
                           Player B */}
-                           {isButtonDisabled && (
+                          {isButtonDisabled && (
                             <FaLock
                               size={35}
                               style={{

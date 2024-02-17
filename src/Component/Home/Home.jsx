@@ -12,9 +12,9 @@ import {
 import { NavLink, useLocation } from "react-router-dom";
 
 const Home = () => {
-//  const [ userId, setUserId] = useState()
- const location = useLocation()
-console.log(location.state,"userId1234")
+  //  const [ userId, setUserId] = useState()
+  const location = useLocation();
+  console.log(location.state, "userId1234");
   return (
     <>
       <Flex>
@@ -321,6 +321,88 @@ console.log(location.state,"userId1234")
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <NavLink
               to={{
+                pathname: "/dragontigerlion",
+              }}
+              data={location?.state}
+            >
+              <Box className="custom-box">
+                <Image
+                  src="/game card/Dragon Tiger Lion.png"
+                  alt="DRAGON TIGER LION"
+                />
+                <span> DRAGON TIGER LION</span>
+              </Box>
+            </NavLink>
+          </GridItem>
+
+          <GridItem colSpan={{ base: 4, md: 1 }}>
+            <NavLink
+              to={{
+                pathname: "/3cardsteenpatti",
+              }}
+              data={location?.state}
+            >
+              <Box className="custom-box">
+                <Image
+                  src="/game card/Teen Patti T20.png"
+                  alt="MULFIS TEENPATTI"
+                />
+                <span>3 CARDS TEEN PATTI</span>
+              </Box>
+            </NavLink>
+          </GridItem>
+
+          <GridItem colSpan={{ base: 4, md: 1 }}>
+            <NavLink
+              to={{
+                pathname: "/2cardsteenpatti",
+              }}
+              data={location?.state}
+            >
+              <Box className="custom-box">
+                <Image
+                  src="/game card/2 CARD TEEN PATTI.png"
+                  alt="2 CARDS TEEN PATTI"
+                />
+                <span>2 CARDS TEEN PATTI</span>
+              </Box>
+            </NavLink>
+          </GridItem>
+
+          <GridItem colSpan={{ base: 4, md: 1 }}>
+            <NavLink
+              to={{
+                pathname: "/teenpattimuflis",
+              }}
+              data={location?.state}
+            >
+              <Box className="custom-box">
+                <Image
+                  src="/game card/Teen Patti  Muflis.png"
+                  alt="3 PATTI MUFLIS"
+                />
+                <span>MUFLIS TEEN PATTI</span>
+              </Box>
+            </NavLink>
+          </GridItem>
+
+          <GridItem colSpan={{ base: 4, md: 1 }}>
+            <NavLink
+              to={{
+                pathname: "/highcards",
+              }}
+              data={location?.state}
+            >
+              <Box className="custom-box">
+                <Image src="/game card/HighCard.jpg" alt="TEENPATTI T20" />
+                <span>HIGH CARD</span>
+              </Box>
+            </NavLink>
+          </GridItem>
+
+          <GridItem colSpan={{ base: 4, md: 1 }}>
+            <NavLink
+              to={{
                 pathname: "/andarbahar",
               }}
               data={location?.state}
@@ -333,7 +415,12 @@ console.log(location.state,"userId1234")
           </GridItem>
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
-            <NavLink to="/dragontiger">
+            <NavLink
+              to={{
+                pathname: "/dragontiger",
+              }}
+              data={location?.state}
+            >
               <Box className="custom-box">
                 <Image src="/game card/Dragon  Tiger.png" alt="DRAGON TIGER" />
                 <span> DRAGON TIGER</span>
@@ -342,61 +429,12 @@ console.log(location.state,"userId1234")
           </GridItem>
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
-            <NavLink to="/dragontigerlion">
-              <Box className="custom-box">
-                <Image
-                  src="/game card/Dragon Tiger Lion.png"
-                  alt="DRAGON TIGER LION"
-                />
-                <span> DRAGON TIGER LION</span>
-              </Box>
-            </NavLink>
-          </GridItem>
-
-          <GridItem colSpan={{ base: 4, md: 1 }}>
-            <NavLink to="/3cardsteenpatti">
-              <Box className="custom-box">
-                <Image
-                  src="/game card/Teen Patti T20.png"
-                  alt="MULFIS TEENPATTI"
-                />
-                <span> 3 CARDS TEENPATTI </span>
-              </Box>
-            </NavLink>
-          </GridItem>
-
-          <GridItem colSpan={{ base: 4, md: 1 }}>
-            <NavLink to="/2cardsteenpatti">
-              <Box className="custom-box">
-                <Image
-                  src="/game card/2 CARD TEEN PATTI.png"
-                  alt="2 CARDS TEEN PATTI"
-                />
-                <span>2 CARDS TEEN PATTI</span>
-              </Box>
-            </NavLink>
-          </GridItem>
-
-          <GridItem colSpan={{ base: 4, md: 1 }}>
-            <NavLink to="/teenpattimuflis">
-              <Box className="custom-box">
-                <Image src="/game card/Teen Patti  Muflis.png" />
-                <span>3 PATTI MUFLIS</span>
-              </Box>
-            </NavLink>
-          </GridItem>
-
-          <GridItem colSpan={{ base: 4, md: 1 }}>
-            <NavLink to="/highcards">
-              <Box className="custom-box">
-                <Image src="/game card/HighCard.jpg" alt="TEENPATTI T20" />
-                <span> HIGH CARD</span>
-              </Box>
-            </NavLink>
-          </GridItem>
-
-          <GridItem colSpan={{ base: 4, md: 1 }}>
-            <NavLink to="/muflisoneday">
+            <NavLink
+              to={{
+                pathname: "/muflisoneday",
+              }}
+              data={location?.state}
+            >
               <Box className="custom-box">
                 <Image
                   src="/game card/MUFLIS ONE DAY.webp"
@@ -408,10 +446,15 @@ console.log(location.state,"userId1234")
           </GridItem>
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
-            <NavLink to="/thirtytwocards">
+            <NavLink
+              to={{
+                pathname: "/thirtytwocards",
+              }}
+              data={location?.state}
+            >
               <Box className="custom-box">
                 <Image src="/game card/32 CARD VR.png" alt="32 Cards" />
-                <span> 32 Cards </span>
+                <span>32 Cards</span>
               </Box>
             </NavLink>
           </GridItem>

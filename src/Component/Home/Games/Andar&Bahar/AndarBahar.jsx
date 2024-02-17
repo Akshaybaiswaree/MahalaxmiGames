@@ -591,7 +591,7 @@ export default function AndarBahar() {
     }
     socket.emit("bet", bet);
     console.log("betting", bet);
-    if (user?.coins === 0) {
+    if (user?.coins <= 10) {
       alert("Insufficient Funds");
       return;
     }

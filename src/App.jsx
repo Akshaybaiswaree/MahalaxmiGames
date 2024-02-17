@@ -17,19 +17,9 @@ import Rootlayout from "./Component/RootLayout/Rootlayout";
 import TeenPatti from "./Component/Home/Games/TeenPatti/TeenPatti";
 import TeenPattiMuflis from "./Component/Home/Games/TeenPattiMuflis/TeenPattiMuflis";
 import ThirtyTwoCards from "./Component/Home/Games/ThirtyTwoCards/ThirtyTwoCards";
-import TwoCardsPattiTesting from "./Component/Home/Games/TwoCardspatti/TwoCardsPattiTesting";
 import TwoCardsTeenPatti from "./Component/Home/Games/TwoCardspatti/TwoCardspatti";
 
 // import Login from "./Component/Login/Login";
-
-
-
-
-
-
-
-
-
 
 // import ThirtyTwoCards from "./Component/Home/Games/32Cards/ThirtyTwoCards";
 
@@ -44,7 +34,7 @@ const router = createBrowserRouter(
       {/* <Route path="SignUp" element={<SignUP />} /> */}
       {/* <Route path="SignUp" element={<Login />} /> */}
       {/* <Route path="racegame" element={<RaceGame />} /> */}
-   
+
       <Route index element={<Login />} />
 
       <Route path="/" element={<Rootlayout />}>
@@ -55,10 +45,7 @@ const router = createBrowserRouter(
         <Route path="teenpattimuflis" element={<TeenPattiMuflis />} />
         <Route path="muflisoneday" element={<MuflisOneDay />} />
         <Route path="2cardsteenpatti" element={<TwoCardsTeenPatti />} />
-        <Route
-          path="2cardsteenpattiTesting"
-          element={<TwoCardsPattiTesting />}
-        />
+
         <Route path="dragontigerlion" element={<DragonTigerLion />} />
         <Route path="muflisoneday" element={<MuflisOneDay />} />
         <Route path="highcards" element={<HighCard />} />

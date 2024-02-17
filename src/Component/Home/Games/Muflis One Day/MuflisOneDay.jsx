@@ -505,9 +505,10 @@ import { useEffect, useState } from "react";
 import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
+const userId = localStorage.getItem("userId");
 const socket = io("https://muflish-one-days.onrender.com/", {
   query: {
-    userId: "65cc504c0039634a604b4de9",
+    userId: userId,
   },
   transports: ["websocket"],
 });
@@ -524,6 +525,14 @@ export default function MuflisOneDay() {
   const [gameId, setGameId] = useState("");
   const [bettingAmount, setBettingAmount] = useState("");
   const [isButtonDisabled, setButtonDisabled] = useState();
+  useEffect(() => {
+    const userID = localStorage.getItem("userId");
+    if (userID) {
+      socket.io.opts.query.userID = userID;
+      socket.disconnect();
+      socket.connect();
+    }
+  }, [localStorage.getItem("userId")]);
 
   useEffect(() => {
     const handleDealCards = (data) => {
@@ -598,12 +607,20 @@ export default function MuflisOneDay() {
   }, []);
 
   const handelPlaceBet = (baitType) => {
+    if (availableBalance <= 10) {
+      alert("Insufficient fund!!");
+      return;
+    }
+
     const coins = parseInt(selectedCoin);
     const betData = {
       selectedChoice: baitType,
       coins,
     };
-    setBettingAmount((prev) => prev + Number(coins));
+    if (availableBalance > 10) {
+      setBettingAmount((prev) => prev + Number(coins));
+      return;
+    }
     socket.emit("placeBet", betData);
     console.log("selectedChoice", betData);
     console.log("selectedCoins", coins);

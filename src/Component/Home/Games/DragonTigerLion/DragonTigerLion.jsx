@@ -16,10 +16,10 @@ import { io } from "socket.io-client";
 
 // const userId = Math.floor(Math.random() * Date.now());
 // console.log("userId on the client side:", userId);
-
+const userId = localStorage.getItem("userId");
 const socket = io("https://dragontigerlionbackend.onrender.com/", {
   query: {
-    userID: "65cc504c0039634a604b4de9",
+       userID: userId,
   },
   transports: ["websocket"],
 });
@@ -33,7 +33,16 @@ export default function DragonTigerLion() {
   const [gameHistory, setGameHistory] = useState([]);
   const [bettingAmount, setBettingAmount] = useState("");
   const [isButtonDisabled, setButtonDisabled] = useState();
-
+  
+ useEffect(() => {
+    const userID = localStorage.getItem("userId");
+    if (userID) {
+      socket.io.opts.query.userID = userID;
+      socket.disconnect();
+      socket.connect();
+    }
+  }, [localStorage.getItem("userId")]);
+  
   useEffect(() => {
     const handleGameUpdate = (data) => {
       console.log("timer", data?.gamestate);
@@ -85,7 +94,10 @@ export default function DragonTigerLion() {
       coins,
       cardId: mainCard._id,
     };
-    setBettingAmount((prev) => prev + Number(coins));
+    if (user?.coins > 10) {
+      setBettingAmount((prev) => prev + Number(coins));
+      return;
+    }
     socket.emit("bet", bet);
     console.log("betting", bet);
   };
@@ -432,7 +444,7 @@ export default function DragonTigerLion() {
                     <Text fontSize={["20px", "24px"]}>
                       {Math.round(user?.coins * 100) / 100
                         ? Math.round(user?.coins * 100) / 100
-                        : "Loading... "}
+                        : "0"}
                     </Text>
                   </Box>
 
