@@ -710,7 +710,7 @@
 //   );
 // }
 
-import "./TeenPattiMuflis.css";
+
 
 import {
   AspectRatio,
@@ -725,7 +725,7 @@ import { useEffect, useState } from "react";
 
 import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
-
+import "./TeenPattiMuflis.css";
 //import PopUp from "./PopUp";
 // import Logo from "../../../images/32cardsA_v.jpeg";
 //  import backGroundImage from "./images/background_plus_cards.jpeg"
@@ -852,7 +852,7 @@ export default function TeenPattiMuflis() {
                     justifyContent="flex-start"
                     alignItems="top"
                     color="white"
-                    className="firstBox"
+                    className="muflisfirstBox"
                     position={"absolute"}
                   >
                     <Box
@@ -919,7 +919,7 @@ export default function TeenPattiMuflis() {
                       top={{ base: "5.3rem", lg: "5.8rem", xl: "9rem" }}
                       left={{ base: "-3.5rem", lg: "-3.6rem", xl: "-5.8rem" }}
                     >
-                      <Box className="playercardbox1">
+                      <Box className="muflisplayercardbox1">
                         {timer?.value <= 19 && (
                           <Box
                             key={1}
@@ -943,13 +943,13 @@ export default function TeenPattiMuflis() {
                               //   "2xl": "4rem",
                               // }}
                               // height={{base:"rem" , md:"3.5rem"}}
-                              className="playercard1"
+                              className="muflisplayercard1"
                               src={`/cards/${player1Cards[0]}`}
                             />
                           </Box>
                         )}
                       </Box>
-                      <Box className="playercardbox2">
+                      <Box className="muflisplayercardbox2">
                         {timer?.value <= 17 && (
                           <Box
                             key={1}
@@ -973,7 +973,7 @@ export default function TeenPattiMuflis() {
                               //   "2xl": "4rem",
                               // }}
                               // height={{ base: "rem", md: "3.5rem" }}
-                              className="playercard2"
+                              className="muflisplayercard2"
                               src={`/cards/${player1Cards[1]}`}
                               // boxSize={["1.8rem", "2.7rem"]}
 
@@ -983,8 +983,8 @@ export default function TeenPattiMuflis() {
                           </Box>
                         )}
                       </Box>
-                        <Box className="playercardbox2">
-                        {timer?.value <= 17 && (
+                        <Box className="muflisplayercardbox3">
+                        {timer?.value <= 15 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
@@ -1007,7 +1007,7 @@ export default function TeenPattiMuflis() {
                               //   "2xl": "4rem",
                               // }}
                               // height={{ base: "rem", md: "3.5rem" }}
-                              className="playercard2"
+                              className="muflisplayercard3"
                               src={`/cards/${player1Cards[2]}`}
                               // boxSize={["1.8rem", "2.7rem"]}
 
@@ -1026,7 +1026,7 @@ export default function TeenPattiMuflis() {
                       // left={"3.4rem"}
                       left={{ base: "3.4rem", lg: "3.6rem", xl: "5.4rem" }}
                     >
-                      <Box className="playercardbox3">
+                      <Box className="muflisplayercardbox4">
                         {timer?.value <= 18 && (
                           <Box
                             key={0}
@@ -1051,15 +1051,15 @@ export default function TeenPattiMuflis() {
                               //   xl: "3.5rem",
                               //   "2xl": "4rem",
                               // }}
-                              className="playercard3"
+                              className="muflisplayercard4"
                               src={`/cards/${player2Cards[0]}`}
                               // boxSize={["1.8rem", "2.9rem"]}
                             />
                           </Box>
                         )}
                       </Box>
-                      <Box className="playercardbox4">
-                        {timer?.value <= 16 && (
+                      <Box className="muflisplayercardbox5">
+                        {timer?.value <= 14 && (
                           <Box
                             key={1}
                             // height={["2.5 rem", "0.5rem"]}
@@ -1081,7 +1081,7 @@ export default function TeenPattiMuflis() {
                               //   xl: "3.5rem",
                               //   "2xl": "4rem",
                               // }}
-                              className="playercard4"
+                              className="muflisplayercard5"
                               src={`/cards/${player2Cards[1]}`}
 
                               // alt={`${card}`}
@@ -1089,7 +1089,7 @@ export default function TeenPattiMuflis() {
                           </Box>
                         )}
                       </Box>
-                       <Box className="playercardbox4">
+                       <Box className="muflisplayercardbox6">
                         {timer?.value <= 16 && (
                           <Box
                             key={1}
@@ -1112,7 +1112,7 @@ export default function TeenPattiMuflis() {
                               //   xl: "3.5rem",
                               //   "2xl": "4rem",
                               // }}
-                              className="playercard4"
+                              className="muflisplayercard6"
                               src={`/cards/${player2Cards[2]}`}
 
                               // alt={`${card}`}

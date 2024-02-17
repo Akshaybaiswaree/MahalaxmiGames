@@ -1003,7 +1003,7 @@ export default function HighCard() {
                           width="90%"
                           height={["50%", "80%"]}
                           marginLeft="1rem"
-                          color="white"
+                          color="black"
                           fontWeight="800"
                           borderRadius="20%"
                           bgGradient= "linear(to-r,#006400, #FFFFFF)"
