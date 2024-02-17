@@ -732,7 +732,7 @@ import "./TeenPattiMuflis.css";
 
 const socket = io("https://muflisteenpattibackend.onrender.com", {
   query: {
-    userID: "65ba39b7a2129497c4aa563a",
+    userID: "65cc504c0039634a604b4de9",
   },
   transports: ["websocket"],
 });
@@ -758,8 +758,8 @@ export default function TeenPattiMuflis() {
       setButtonDisabled(isDisabled);
     };
     const handelUserDetails = (data) => {
-      setUser(data.user);
       console.log("UserDetails", data);
+      setUser(data.user);
     };
 
     const handelCards = (data) => {
@@ -767,6 +767,7 @@ export default function TeenPattiMuflis() {
       setPlayer1Cards(data.gameCard.player1Cards);
       setPlayer2Cards(data.gameCard.player2Cards);
       setGameHistory(data.gameHistory);
+      // setUser(data.gameCard)
       console.log("Cards", data);
     };
 
@@ -1250,7 +1251,8 @@ export default function TeenPattiMuflis() {
                       Match Id:
                     </Text>
                     <Text fontSize={["20px", "24px"]}>
-                      {mainCard._id ? mainCard._id : "Loading..."}
+                      {/* {user?.gameid ? user?.gameid  : "Loading..."} */}
+                      {mainCard?._id ? mainCard?._id : "Loading..."}
                     </Text>
                   </Box>
                 </Flex>
