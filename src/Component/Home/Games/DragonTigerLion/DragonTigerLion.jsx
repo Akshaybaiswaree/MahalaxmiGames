@@ -14,12 +14,10 @@ import { useEffect, useState } from "react";
 import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
-// const userId = Math.floor(Math.random() * Date.now());
-// console.log("userId on the client side:", userId);
 const userId = localStorage.getItem("userId");
-const socket = io("https://dragontigerlionbackend.onrender.com/", {
+const socket = io("https://dragontigerlionbackend.onrender.com", {
   query: {
-       userID: userId,
+    userID: userId,
   },
   transports: ["websocket"],
 });
@@ -33,8 +31,8 @@ export default function DragonTigerLion() {
   const [gameHistory, setGameHistory] = useState([]);
   const [bettingAmount, setBettingAmount] = useState("");
   const [isButtonDisabled, setButtonDisabled] = useState();
-  
- useEffect(() => {
+
+  useEffect(() => {
     const userID = localStorage.getItem("userId");
     if (userID) {
       socket.io.opts.query.userID = userID;
@@ -42,10 +40,10 @@ export default function DragonTigerLion() {
       socket.connect();
     }
   }, [localStorage.getItem("userId")]);
-  
+
   useEffect(() => {
     const handleGameUpdate = (data) => {
-      console.log("timer", data?.gamestate);
+      // console.log("timer", data?.gamestate);
       setGameState(data.gamestate);
       data.gamestate.value - 25 === 20 ? setBettingAmount(0) : "";
       const isDisabled = data.gamestate.value - 25 <= 0;
@@ -84,22 +82,22 @@ export default function DragonTigerLion() {
   }
 
   const handleBetting = (betType) => {
-    if (user?.coins <= 10) {
-      alert("Insufficient Funds");
-      return;
-    }
-
+    console.log("bettype", betType);
     const bet = {
       betType,
       coins,
       cardId: mainCard._id,
     };
+    console.log("betting1234", betType, coins, mainCard._id);
+    socket.emit("bet", bet);
+    if (user?.coins <= 10) {
+      alert("Insufficient Funds");
+      return;
+    }
     if (user?.coins > 10) {
       setBettingAmount((prev) => prev + Number(coins));
       return;
     }
-    socket.emit("bet", bet);
-    console.log("betting", bet);
   };
 
   return (
@@ -205,62 +203,11 @@ export default function DragonTigerLion() {
                       {gameState?.value - 25 <= 0 ? "0" : gameState?.value - 25}
                     </Box>
 
-                    <Flex
-                      // border={"1px solid black"}
-                      // justifyContent={"space-between"}
-                      className="gdragontigerlion"
-                      // gap={{
-                      //   base: "5.3rem",
-                      //   sm: "rem",
-                      //   md: "1.5rem",
-                      //   lg: "5.4rem",
-                      //   xl: "7.3rem",
-                      //   "2xl": "6rem",
-                      // }}
-                      direction="row"
-                      // position={"absolute"}
-                      // top={{
-                      //   base: "68.8%",
-                      //   sm: "68.8%",
-                      //   md: "68.8%",
-                      //   lg: "68.8%",
-                      //   xl: "68.8%",
-                      //   "2xl": "68.8%",
-                      // }}
-                      // left={{
-                      //   base: "19.6%",
-                      //   sm: "19.6%",
-                      //   md: "19.6%",
-                      //   lg: "20%",
-                      //   xl: "19.6%",
-                      //   "2xl": "19.6%",
-                      // }}
-                    >
+                    <Flex className="gdragontigerlion" direction="row">
                       <Box className="cartbox1">
                         {gameState?.value <= 14 && (
-                          <Box
-                            key={1}
-                            // height={["20.5 rem", "0.5rem"]}
-                            // className="dtlcard1"
-                          >
+                          <Box key={1}>
                             <Image
-                              // width={{
-                              //   base: "1.8rem",
-                              //   sm: "2rem",
-                              //   md: "2rem",
-                              //   lg: "",
-                              //   xl: "3.3rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              // height={{
-                              //   base: "2.3rem",
-                              //   sm: "2rem",
-                              //   md: "1.6rem",
-                              //   lg: "2.4rem",
-                              //   xl: "3.2rem",
-                              //   "2xl": "4rem",
-                              // }}
-
                               className="dtlcard1"
                               src={`/cards/${mainCard?.dragoncard}`}
                             />
@@ -269,27 +216,8 @@ export default function DragonTigerLion() {
                       </Box>
                       <Box className="cartbox2">
                         {gameState?.value <= 12 && (
-                          <Box
-                            key={1}
-                            // height={["2.5 rem", "0.5rem"]}
-                          >
+                          <Box key={1}>
                             <Image
-                              // width={{
-                              //   base: "1.8rem",
-                              //   sm: "2rem",
-                              //   md: "2rem",
-                              //   lg: "",
-                              //   xl: "3.3rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              // height={{
-                              //   base: "2.3rem",
-                              //   sm: "2rem",
-                              //   md: "1.6rem",
-                              //   lg: "2.4rem",
-                              //   xl: "3.2rem",
-                              //   "2xl": "4rem",
-                              // }}
                               className="dtlcard2"
                               src={`/cards/${mainCard?.tigercard}`}
                             />
@@ -298,27 +226,8 @@ export default function DragonTigerLion() {
                       </Box>
                       <Box className="cartbox3">
                         {gameState?.value <= 10 && (
-                          <Box
-                            key={1}
-                            // height={["2.5 rem", "0.5rem"]}
-                          >
+                          <Box key={1}>
                             <Image
-                              // width={{
-                              //   base: "1.8rem",
-                              //   sm: "2rem",
-                              //   md: "2rem",
-                              //   lg: "",
-                              //   xl: "3.3rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              // height={{
-                              //   base: "2.3rem",
-                              //   sm: "2rem",
-                              //   md: "1.6rem",
-                              //   lg: "2.4rem",
-                              //   xl: "3.2rem",
-                              //   "2xl": "4rem",
-                              // }}
                               className="dtlcard3"
                               src={`/cards/${mainCard?.lioncard}`}
                             />
@@ -371,10 +280,10 @@ export default function DragonTigerLion() {
                     {gameHistory?.map((item, index) => (
                       <Box
                         key={index}
-                        width={["35px", "35px"]} // Adjusted width for responsiveness
-                        height={["45px", "35px"]} // Adjusted height for responsiveness
-                        marginRight="5px" // Added right margin to each item
-                        marginBottom="5px" // Added bottom margin for spacing
+                        width={["35px", "35px"]}
+                        height={["45px", "35px"]}
+                        marginRight="5px"
+                        marginBottom="5px"
                         display="flex"
                         justifyContent="center"
                         alignItems="center"
@@ -517,6 +426,7 @@ export default function DragonTigerLion() {
                           onClick={() => {
                             // setSelectCoins(item.value);
                             setCoins(item.value);
+                            console.log("coins", item.value);
                             setSelectedCoins(index);
                           }}
                         >
@@ -576,17 +486,13 @@ export default function DragonTigerLion() {
                               color: "black",
                             }
                           }
-                          onClick={() => handleBetting("dragon")}
+                          onClick={
+                            () => handleBetting("dragon")
+                            // console.log("dragon")
+                          }
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
-                          {/* {isButtonDisabled && (
-                            <FaLock
-                              size={35}
-                              style={{ color: "white", marginRight: "0.5rem" }}
-                            />
-                          )}
-                       <Text>  Dragon<span>2.94</span></Text>  */}
                           {isButtonDisabled && (
                             <FaLock
                               size={35}
@@ -599,7 +505,6 @@ export default function DragonTigerLion() {
                             />
                           )}
                           <Text style={{ position: "absolute", zIndex: "1" }}>
-                            {" "}
                             Dragon<span>2.94</span>
                           </Text>
                         </Button>
@@ -676,7 +581,6 @@ export default function DragonTigerLion() {
                             />
                           )}
                           <Text style={{ position: "absolute", zIndex: "1" }}>
-                            {" "}
                             Lion<span>2.94</span>
                           </Text>
                         </Button>
