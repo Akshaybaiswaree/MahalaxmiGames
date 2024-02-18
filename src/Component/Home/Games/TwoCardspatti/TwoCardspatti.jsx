@@ -41,7 +41,7 @@ export default function TwoCardsTeenPatti() {
   useEffect(() => {
     const userID = localStorage.getItem("userId");
     if (userID) {
-      socket.io.opts.query.userID = userID;
+      socket.io.opts.query.userId = userID;
       socket.disconnect();
       socket.connect();
     }
