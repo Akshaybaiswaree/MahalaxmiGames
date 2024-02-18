@@ -36,7 +36,7 @@ export default function TwoCardsTeenPatti() {
   const [player2Cards, setPlayer2Cards] = useState([]);
   const [gameHistory, setGameHistory] = useState([]);
   const [isButtonDisabled, setButtonDisabled] = useState();
-  
+
   const [currentBet, setCurrentBet] = useState(0);
   useEffect(() => {
     const userID = localStorage.getItem("userId");
@@ -523,10 +523,9 @@ export default function TwoCardsTeenPatti() {
                       Available Credit
                     </Text>
                     <Text fontSize={["20px", "24px"]}>
-                      {userBalance ? userBalance : "0"}
-                      {/* {`${Math.round(userBalance * 100) / 100} ? ${
-                        Math.round(userBalance * 100) / 100
-                      } : "Loading..."`} */}
+                      {Math.round(userBalance * 100) / 100
+                        ? Math.round(userBalance * 100) / 100
+                        : "0"}
                     </Text>
                   </Box>
 
@@ -656,7 +655,7 @@ export default function TwoCardsTeenPatti() {
                               color: "black",
                             }
                           }
-                          onClick={() => handlePlaceBet("PlayerB")}
+                          onClick={() => handlePlaceBet("PlayerA")}
                         >
                           {/* {isButtonDisabled && (
                             <FaLock

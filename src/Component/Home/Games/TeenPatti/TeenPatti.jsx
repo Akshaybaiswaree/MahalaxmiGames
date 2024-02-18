@@ -100,13 +100,6 @@ export default function TeenPatti() {
   };
 
   const handelBet = (baitType) => {
-    if (user?.coins <= 10) {
-      alert("Insufficient Coins");
-      return; // Stop execution if coins are 0 or less
-    }
-    if (user?.coins > 10) {
-      setBettingAmount((prev) => prev + Number(coins));
-    }
     const bait = {
       baitType,
       coins,
@@ -114,6 +107,13 @@ export default function TeenPatti() {
     };
     console.log(bait, "bait");
     socket.emit("bait", bait);
+    if (user?.coins <= 10) {
+      alert("Insufficient Coins");
+      return; // Stop execution if coins are 0 or less
+    }
+    if (user?.coins > 10) {
+      setBettingAmount((prev) => prev + Number(coins));
+    }
   };
   return (
     <>
