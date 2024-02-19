@@ -100,6 +100,11 @@ export default function TeenPatti() {
   };
 
   const handelBet = (baitType) => {
+    if (user?.coins < coins) {
+      const isDisabled = user?.coins < coins;
+      setButtonDisabled(isDisabled);
+      alert("Betting Amount is less than Balances.");
+    }
     const bait = {
       baitType,
       coins,

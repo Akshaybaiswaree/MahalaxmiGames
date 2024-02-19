@@ -77,7 +77,7 @@ export default function TwoCardsTeenPatti() {
       console.log("Received new bet:", bet);
       setSelectedChoice(bet.choice);
       // setPlayerid(bet._id);
-      console.lod(bet._id, "bet._id");
+      console.log(bet._id, "bet._id");
 
       console.log(bet?.Total);
     };
@@ -144,17 +144,22 @@ export default function TwoCardsTeenPatti() {
       socket.off("gameId", handleGameId);
     };
   }, []);
-
   const handlePlaceBet = (selectedChoice) => {
-    // if (user?.coins > 10) {
-    //   setBettingAmount((prev) => prev + Number(coins));
-    // }
-    const coins = parseInt(selectedCoin, 10); // Parse the selectedCoin to an integer
-    setCurrentBet((prev) => prev + coins);
-
-    socket.emit("placeBet", { selectedChoice, coins });
+    const coins = parseInt(selectedCoin);
+    if (userBalance > coins) {
+      setCurrentBet((prev) => prev + coins);
+      socket.emit("placeBet", { selectedChoice, coins });
+      console.log("placeBet", { selectedChoice, coins });
+    } else {
+      alert("Betting Amount is less than Balances.");
+    }
   };
 
+  // if (userBalance < coins) {
+  //   const isDisabled = userBalance < coins;
+  //   setButtonDisabled(isDisabled);
+  //   alert("Betting Amount is less than Balances.");
+  // }
   return (
     <>
       <ChakraProvider>

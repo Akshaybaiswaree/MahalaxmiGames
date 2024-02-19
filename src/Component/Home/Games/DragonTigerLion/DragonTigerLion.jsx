@@ -82,22 +82,18 @@ export default function DragonTigerLion() {
   }
 
   const handleBetting = (betType) => {
-    console.log("bettype", betType);
-    const bet = {
-      betType,
-      coins,
-      cardId: mainCard._id,
-    };
-    console.log("betting1234", betType, coins, mainCard._id);
-    socket.emit("bet", bet);
-    if (user?.coins <= 10) {
-      alert("Insufficient Funds");
-      return;
-    }
-    if (user?.coins > 10) {
+    if (user?.coins > coins) {
+      const bet = {
+        betType,
+        coins,
+        cardId: mainCard._id,
+      };
+      socket.emit("bet", bet);
+      console.log("betting1234", betType, coins, mainCard._id);
       setBettingAmount((prev) => prev + Number(coins));
-      return;
-    }
+    }else (
+      alert("Betting Amount is less than Balances.")
+    )
   };
 
   return (
