@@ -800,10 +800,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-
+import styled, { keyframes } from 'styled-components';
 import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
-
+import MuflisOneDayBG from "../../../images/muflisonedaybg.svg"
 const userId = localStorage.getItem("userId");
 const socket = io("https://muflish-one-days.onrender.com", {
   query: {
@@ -930,7 +930,9 @@ export default function MuflisOneDay() {
     <>
       <ChakraProvider>
         <Box width={["100%", "100%"]}>
-          <Box bg={"#757a79"} maxW={["100vw", "100vw"]} id="main-div">
+          <Box
+                   backgroundImage={MuflisOneDayBG}
+            maxW={["100vw", "100vw"]} id="main-div">
             <Flex
               align="left-top"
               justify="left-top"
@@ -967,6 +969,7 @@ export default function MuflisOneDay() {
                 </Flex>
                 <AspectRatio borderRadius="10px" controls>
                   <Box
+            
                     border="4px solid #333"
                     height="50%"
                     backgroundImage="url('/MuflisTeenPatti/MuflisTeenPatti.webp')"
@@ -985,7 +988,7 @@ export default function MuflisOneDay() {
                       fontWeight={"900"}
                       border={"1px solid white"}
                       borderRadius={"50%"}
-                      padding={"2px"}
+                      // padding={"2px"}
                       mt={"2rem"}
                       ml={"1rem"}
                       position={"absolute"}
@@ -998,8 +1001,10 @@ export default function MuflisOneDay() {
                       alignItems="center"
                       fontSize={["10px", "sm"]}
                       color="white"
-                      background="linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898"
-                    >
+                     // background="linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898"
+                     // background= "linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0.15) 100%), radial-gradient(at top center, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 120%), #99ddff, #1ab2ff"
+                     background="linear-gradient(to bottom right,#9494b8,  #52527a)"
+                   >
                       {timer <= 8
                         ? "Winner: " + winnerStatus
                         : timer <= 25
@@ -1011,7 +1016,7 @@ export default function MuflisOneDay() {
                       fontWeight={"900"}
                       border={"1px solid white"}
                       borderRadius={"50%"}
-                      padding={"2px"}
+                      // padding={"2px"}
                       mt={"2rem"}
                       ml={"1rem"}
                       position={"absolute"}
@@ -1023,7 +1028,8 @@ export default function MuflisOneDay() {
                       justifyContent="center"
                       alignItems="center"
                       fontSize="lg"
-                      background="linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898"
+                      //background="linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898"
+                      background="linear-gradient(to bottom right,#9494b8,  #52527a)"
                       marginRight={"1rem"}
                       color="white"
                     >
@@ -1032,16 +1038,22 @@ export default function MuflisOneDay() {
                     </Box>
 
                     <Flex
+                       
                       gap="0.5rem"
                       direction="row"
                       position={"relative"}
                       top={{ base: "5.3rem", lg: "5.8rem", xl: "9rem" }}
                       left={{ base: "-3.5rem", lg: "-3.6rem", xl: "-5.8rem" }}
                     >
-                      <Box className="muflisplayercardbox1">
+                      <Box 
+                       
+                      className="muflisplayercardbox1">
                         {timer <= 100 && (
-                          <Box key={1}>
+                          <Box
+                      
+                          key={1}>
                             <Image
+                             
                               className="muflisplayercard1"
                               src={`/cards/${playerACards[0]}`}
                             />
@@ -1050,8 +1062,11 @@ export default function MuflisOneDay() {
                       </Box>
                       <Box className="muflisplayercardbox2">
                         {timer <= 60 && (
-                          <Box key={1}>
+                          <Box
+                   
+                          key={1}>
                             <Image
+                         
                               className="muflisplayercard2"
                               src={`/cards/${playerACards[1]}`}
                             />
@@ -1061,10 +1076,12 @@ export default function MuflisOneDay() {
                       <Box className="muflisplayercardbox3">
                         {timer <= 20 && (
                           <Box
+                        
                             key={1}
                             // height={["2.5 rem", "0.5rem"]
                           >
                             <Image
+                         
                               className="muflisplayercard3"
                               src={`/cards/${playerACards[2]}`}
                             />
@@ -1082,8 +1099,11 @@ export default function MuflisOneDay() {
                     >
                       <Box className="muflisplayercardbox4">
                         {timer <= 80 && (
-                          <Box key={0}>
+                          <Box
+                      
+                          key={0}>
                             <Image
+                            
                               className="muflisplayercard4"
                               src={`/cards/${playerBCards[0]}`}
                             />
@@ -1092,8 +1112,11 @@ export default function MuflisOneDay() {
                       </Box>
                       <Box className="muflisplayercardbox5">
                         {timer <= 40 && (
-                          <Box key={1}>
+                          <Box
+                        
+                          key={1}>
                             <Image
+                             
                               className="muflisplayercard5"
                               src={`/cards/${playerBCards[1]}`}
                             />
@@ -1102,8 +1125,11 @@ export default function MuflisOneDay() {
                       </Box>
                       <Box className="muflisplayercardbox6">
                         {timer <= 20 && (
-                          <Box key={1}>
+                          <Box
+                       
+                          key={1}>
                             <Image
+                            
                               className="muflisplayercard6"
                               src={`/cards/${playerBCards[2]}`}
                             />
@@ -1124,7 +1150,7 @@ export default function MuflisOneDay() {
                       backgroundImage:
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
-                      color: "#263849",
+                      color: "#99ddff",
                     }}
                   >
                     <>
@@ -1141,7 +1167,7 @@ export default function MuflisOneDay() {
                       backgroundImage:
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
-                      color: "#263849",
+                      color: "#99ddff",
                     }}
                   >
                     Last Wins:
@@ -1170,11 +1196,16 @@ export default function MuflisOneDay() {
                         fontWeight="bold"
                         border="2px solid white"
                         align={"center"}
+                        borderRadius={'50%'}
                       >
                         <Text
                           fontSize="14px"
-                          color={index % 2 === 0 ? "white" : "black"}
+                          color={index % 2 === 0 ? "white" : "white"}
                           align={"center"}
+
+                          justifyContent={'center'}
+                          alignItems={'center'}
+                          textAlign={'center'}
                         >
                           {item}
                         </Text>
@@ -1187,7 +1218,7 @@ export default function MuflisOneDay() {
                       backgroundImage:
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
-                      color: "#263849",
+                      color: "#99ddff",
                     }}
                   >
                     <>
@@ -1211,6 +1242,10 @@ export default function MuflisOneDay() {
                   flexDirection="row"
                   // border="3px solid #333"
                   borderRadius="10px"
+                  textAlign="center"
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                  ml={{base:"0.6rem" ,}}
                 >
                   <Box
                     border="3px solid #333"
@@ -1218,7 +1253,8 @@ export default function MuflisOneDay() {
                     width="48%"
                     textAlign="center"
                     borderRadius="10px"
-                    background="radial-gradient(circle at -8.9% 51.2%, rgb(255, 124, 0) 0%, rgb(255, 124, 0) 15.9%, rgb(255, 163, 77) 15.9%, rgb(255, 163, 77) 24.4%, rgb(19, 30, 37) 24.5%, rgb(19, 30, 37) 66%)"
+                    // background="radial-gradient(circle at -8.9% 51.2%, rgb(255, 124, 0) 0%, rgb(255, 124, 0) 15.9%, rgb(255, 163, 77) 15.9%, rgb(255, 163, 77) 24.4%, rgb(19, 30, 37) 24.5%, rgb(19, 30, 37) 66%)"
+                    background="linear-gradient(to bottom right,#9494b8,  #52527a)"
                     color={"white"}
                   >
                     <Text fontSize={["18px", "18px"]} fontWeight="bold">
@@ -1235,10 +1271,14 @@ export default function MuflisOneDay() {
                     border="3px solid #333"
                     flex="1"
                     width="48%"
-                    background="radial-gradient(circle at -8.9% 51.2%, rgb(255, 124, 0) 0%, rgb(255, 124, 0) 15.9%, rgb(255, 163, 77) 15.9%, rgb(255, 163, 77) 24.4%, rgb(19, 30, 37) 24.5%, rgb(19, 30, 37) 66%)"
-                    textAlign="center"
+                 //   background="radial-gradient(circle at -8.9% 51.2%, rgb(255, 124, 0) 0%, rgb(255, 124, 0) 15.9%, rgb(255, 163, 77) 15.9%, rgb(255, 163, 77) 24.4%, rgb(19, 30, 37) 24.5%, rgb(19, 30, 37) 66%)"
+                 background="linear-gradient(to bottom right,#9494b8,  #52527a)"
+                  textAlign="center"
+                  justifyContent={'center'}
+                  alignItems={'center'}
                     borderRadius="10px"
                     color={"white"}
+                  
                   >
                     <Text fontSize="18px" fontWeight="bold">
                       Match Id:
@@ -1351,13 +1391,15 @@ export default function MuflisOneDay() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          background="linear-gradient(to right, #868f96 0%, #596164 100%)"
+                          // background="linear-gradient(to right, #868f96 0%, #596164 100%)"
+                          background="linear-gradient(to bottom right,#9494b8,  #52527a)"
                           display={"flex"}
                           justifyContent={"space-around"}
                           _hover={
                             !isButtonDisabled && {
-                              background:
-                                "linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%)",
+                             background:
+                             "linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%)",
+                             
                               boxShadow: "dark-lg",
                               color: "black",
                             }
@@ -1388,7 +1430,7 @@ export default function MuflisOneDay() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          background="linear-gradient(to right, #868f96 0%, #596164 100%)"
+                          background="linear-gradient(to bottom right,#9494b8,  #52527a)"
                           _hover={
                             !isButtonDisabled && {
                               background:
@@ -1428,3 +1470,4 @@ export default function MuflisOneDay() {
     </>
   );
 }
+

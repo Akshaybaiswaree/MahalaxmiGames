@@ -25,7 +25,8 @@
     "react-marquee-slider": "^1.1.5",
     "react-router-dom": "^6.21.1",
     "react-spring": "^9.7.3",
-    "socket.io-client": "^4.7.2"
+    "socket.io-client": "^4.7.2",
+    "styled-components": "^6.1.8"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
