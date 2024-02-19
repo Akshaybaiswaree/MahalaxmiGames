@@ -81,7 +81,12 @@ export default function DragonTigerLion() {
     socket.emit("getUpdatedUserDetails");
   }
 
+  
   const handleBetting = (betType) => {
+    if(user?.coins === 0){
+      alert("Insufficient Fund.")
+      return;
+    }
     if (user?.coins > coins) {
       const bet = {
         betType,
@@ -92,7 +97,7 @@ export default function DragonTigerLion() {
       console.log("betting1234", betType, coins, mainCard._id);
       setBettingAmount((prev) => prev + Number(coins));
     }else (
-      alert("Betting Amount is less than Balances.")
+      alert("Betting Amount is greater than Balances.")
     )
   };
 

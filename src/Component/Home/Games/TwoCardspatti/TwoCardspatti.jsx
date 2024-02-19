@@ -145,13 +145,17 @@ export default function TwoCardsTeenPatti() {
     };
   }, []);
   const handlePlaceBet = (selectedChoice) => {
+    if (userBalance === 0) {
+      alert("Insufficient Fund");
+      return;
+    }
     const coins = parseInt(selectedCoin);
     if (userBalance > coins) {
-      setCurrentBet((prev) => prev + coins);
       socket.emit("placeBet", { selectedChoice, coins });
       console.log("placeBet", { selectedChoice, coins });
+      setCurrentBet((prev) => prev + coins);
     } else {
-      alert("Betting Amount is less than Balances.");
+      alert("Betting Amount is greater than Balances.");
     }
   };
 

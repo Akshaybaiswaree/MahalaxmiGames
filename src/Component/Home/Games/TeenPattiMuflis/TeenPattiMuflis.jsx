@@ -81,21 +81,21 @@ export default function TeenPattiMuflis() {
   }
 
   const handelBet = (betType) => {
-    if (user?.coins > 10) {
-      setBettingAmount((prev) => prev + Number(coins));
-    }
-
-    if (user?.coins <= 10) {
+    if (user?.coins === 0) {
       alert("Insufficient Fund");
       return;
     }
-    const bet = {
-      betType,
-      coins,
-      cardId: mainCard._id,
-    };
-    socket.emit("bet", bet);
-    console.log("bet", bet);
+    if (user?.coins > coins) {
+      const bet = {
+        betType,
+        coins,
+        cardId: mainCard._id,
+      };
+      socket.emit("bet", bet);
+      console.log("bet", bet);
+      setBettingAmount((prev) => prev + Number(coins));
+    } else alert("Betting Amount is greater than Balance.");
+
     // console.log("betType", bet.betType);
     // console.log("coins", bet.coins);
   };
