@@ -1,477 +1,55 @@
-// import {
-//   AspectRatio,
-//   Box,
-//   Button,
-//   Center,
-//   ChakraProvider,
-//   Flex,
-//   HStack,
-//   Image,
-//   Stack,
-//   Table,
-//   TableCaption,
-//   TableContainer,
-//   Tbody,
-//   Td,
-//   Text,
-//   Tfoot,
-//   Th,
-//   Thead,
-//   Tr,
-// } from "@chakra-ui/react";
-// import React, { useEffect, useState } from "react";
-// import { io } from "socket.io-client";
-// import Teenpatti from "../../Games/Images/TeenPatti.svg";
-// import "./Teenpatti.css";
-
-// const socket = io("https://teenpattibackend.onrender.com", {
-//   query: {
-//     userId: Math.floor(Math.random() * Date.now()),
-//   },
-//   transports: ["websocket"],
-// });
-// function TeenPatti() {
-//   const [gameState, setGameState] = useState({ value: "waiting" });
-//   const [user, setUser] = useState(null);
-//   const [coins, setCoins] = useState(50);
-//   const [mainCard, setMainCard] = useState([]);
-//   const [player1Cards, setPlayer1Cards] = useState([]);
-//   const [player2Cards, setPlayer2Cards] = useState([]);
-
-//   useEffect(() => {
-//     // Listen for game state updates from the server
-//     socket.on(
-//       "gameUpdate",
-//       (updatedGameState) => {
-//         setGameState(updatedGameState?.gamestate);
-
-//         // console.log(updatedGameState, "updatedGameState");
-//         // setMainCard(updatedGameState.gameCard);
-//         //  console.log(updatedGameState.gameCard, "updatedGameState");
-//       },
-//       [gameState?.value]
-//     );
-
-//     socket.on("userDetails", (data) => {
-//       // console.log(data.user.coins , "data");
-//       setUser(data.user);
-//       console.log(data, "data?.user");
-//     });
-//     socket.on("bait", (data) => {
-//       setUser(data);
-//       // console.log(data);
-//       // setUser(data.user);
-//     });
-
-//     socket.on("Main_Card", (data) => {
-//       setMainCard(data.gameCard);
-//       displayPlayerCards(data.gameCard.player1Cards, setPlayer1Cards);
-//       displayPlayerCards(data.gameCard.player2Cards, setPlayer2Cards);
-//       console.log(data, "data");
-//     });
-
-//     // console.log(mainCard , "maincard");
-
-//     return () => {
-//       // Clean up socket connection on component unmount
-
-//       socket.disconnect();
-//     };
-//   }, []);
-//   const displayPlayerCards = (cards, setPlayerCards) => {
-//     const displayedCards = cards.slice(0, 3); // Take only the first 3 cards
-
-//     // Update state directly with the first 3 cards
-//     setPlayerCards(displayedCards);
-//   };
-
-//   const handleBait = (baitType) => {
-//     if (user?.coins <= 0) {
-//       alert("Insufficient Coins");
-//       return; // Stop execution if coins are 0 or less
-//     }
-//     const bait = {
-//       baitType,
-//       coins,
-//       cardId: mainCard._id,
-//     };
-//     console.log(bait, "bait");
-//     socket.emit("bait", bait);
-//   };
-
-//   return (
-//     <>
-//       <ChakraProvider>
-//         <Box m={"0.6rem"}>
-//           <Flex justifyContent={"space-between"}>
-//             <AspectRatio
-//               width={["45%", "70%"]}
-//               minHeight="50%"
-//               borderRadius="10px"
-//               controls
-//               ml={["2.5rem", "0rem"]}
-//               id="teenpattimainimg"
-//             >
-//               <Box
-//                 height="90%" // Adjust the height as needed
-//                 // background="linear-gradient(#c86363, #51a454, #517a9c)"
-
-//                 backgroundImage={Teenpatti}
-//                 backgroundSize="cover"
-//                 display="flex"
-//                 flexDirection="column"
-//                 justifyContent="flex-start"
-//                 alignItems="top"
-//                 position="relative"
-//                 width={"80%"}
-//               >
-//                 <Box
-//                   fontWeight={"1000"}
-//                   border={"1px solid white"}
-//                   borderRadius={"50%"}
-//                   padding={"2px"}
-//                   mt={"2rem"}
-//                   ml={"1rem"}
-//                   position={"absolute"}
-//                   top="0"
-//                   left="0"
-//                   width="18%"
-//                   height="18%"
-//                   display="flex"
-//                   justifyContent="center"
-//                   alignItems="center"
-//                   fontSize="lg"
-//                   color="white"
-//                   background="linear-gradient(to right,#809fff ,#0000FF)"
-//                   id="teenpattifreezeplacebettext"
-//                 >
-//                   {gameState?.value <= 20 ? "Freeze" : "Place  Bet"}
-//                 </Box>
-//                 <Box>
-//                   {gameState.value < 8 && (
-//                     <Button
-//                       // background="linear-gradient(to bottom right,#ED9203, #323349, #880000)"
-//                       background="linear-gradient(to bottom right, #ED9203, #C7E600)"
-//                       height={"4rem"}
-//                       width={"9rem"}
-//                       marginTop={["5rem", ""]}
-//                     >
-//                       Winner: {mainCard?.winstatus}
-//                     </Button>
-//                   )}
-//                 </Box>
-
-//                 {gameState.value >= 1 && (
-//                   <Flex flexWrap="wrap">
-//                     <Box
-//                       color={"Yellow"}
-//                       fontSize="1rem"
-//                       width="120%"
-//                       className="players"
-//                       id="playerA"
-//                       mt={["", "-1rem"]}
-//                     >
-//                       PLAYER A
-//                     </Box>
-//                     {gameState.value < 12 && (
-//                       <Flex
-//                         Flex
-//                         width="40%"
-//                         marginLeft={["5rem", "20rem"]}
-//                         marginTop={"-3rem"}
-//                       >
-//                         {player1Cards.map((card, index) => (
-//                           <Image
-//                             key={index}
-//                             src={`/cards/${card}`}
-//                             boxSize="2rem"
-//                             margin="0.5rem"
-//                             id="cards-positionA"
-//                           />
-//                         ))}
-//                       </Flex>
-//                     )}
-
-//                     <Box
-//                       color={"Yellow"}
-//                       fontSize={["1.4rem", "5rem"]}
-//                       width="100%"
-//                       className="players"
-//                       id="playerB"
-
-//                       mt={["1rem"]}
-//                     >
-//                       PLAYER B
-//                     </Box>
-//                     {gameState.value < 10 && (
-//                       <Flex
-//                         width="40%"
-//                         marginLeft={["5rem", "20rem"]}
-//                         marginTop={"-3rem"}
-//                       >
-//                         {player2Cards.map((card, index) => (
-//                           <Image
-//                             key={index}
-//                             src={`/cards/${card}`}
-//                             boxSize="2rem"
-//                             margin="0.5rem"
-//                             marginTop={"-5rem"}
-//                             id="cards-positionB"
-//                           />
-//                         ))}
-//                       </Flex>
-//                     )}
-//                   </Flex>
-//                 )}
-//                 <Box
-//                   fontWeight={"1000"}
-//                   border={"1px solid white"}
-//                   borderRadius={"50%"}
-//                   padding={"2px"}
-//                   mt={"2rem"}
-//                   ml={"1rem"}
-//                   position={"absolute"}
-//                   top="0"
-//                   right="0"
-//                   width="15%"
-//                   height="17%"
-//                   display="flex"
-//                   justifyContent="center"
-//                   alignItems="center"
-//                   fontSize="lg"
-//                   //   background="linear-gradient(to right, teal.200, blue.500)"
-//                   background="linear-gradient(to right, #809fff, #0000FF)"
-//                   marginRight={"1rem"}
-//                   color="white"
-//                 >
-//                   {gameState?.value && Math.max(0, gameState.value - 20)}
-//                 </Box>
-//               </Box>
-//             </AspectRatio>
-
-//             <Flex flexDirection={"column"} id="outputbox">
-//               <Box
-//                 ml={["1.5rem", ""]}
-//                 height={"5rem"}
-//                 // width="100%"
-//                 flexDirection="row"
-//                 border="5px solid #668cff"
-//                 boxShadow="4px 4px 10px rgba(3, 0, 2, 0.6)"
-//                 display="flex"
-//                 borderRadius="1rem"
-//               >
-//                 <Box
-//                   flex="1"
-//                   //   width={["10%", "44%"]}
-//                   backgroundColor="white"
-//                   textAlign="center"
-//                   borderRight="4px solid #668cff"
-//                   className="abc"
-//                 >
-//                   <Text color={"#668cff"} fontSize="18px" fontWeight="bold">
-//                     Available Credit :
-//                   </Text>
-//                   <Text color="#daa520" fontWeight={"500"} fontSize="24px">
-//                     {user?.coins && Math.max(0, user?.coins)}
-//                   </Text>
-//                 </Box>
-
-//                 <Box flex="1" textAlign="center">
-//                   <Text color={"#668cff"} fontSize="18px" fontWeight="bold">
-//                     Match Id :
-//                   </Text>
-//                   <Text color="#daa520" fontWeight={"500"} fontSize="24px">
-//                     {user?.userId}
-//                   </Text>
-//                 </Box>
-//               </Box>
-//               <TableContainer ml={["1rem", ""]} mt={"1rem"}>
-//                 <Table
-//                   borderRadius={"1rem"}
-//                   border="1px solid 5pxblack"
-//                   bg={"black"}
-//                   variant="simple"
-//                 >
-//                   <Thead></Thead>
-//                   <Tbody>
-//                     <Tr
-//                       borderRadius={"2rem"}
-//                       boxShadow="0 14px 18px rgba(0,1 0, 20, 0.1)"
-//                       color="black"
-//                       bg="lightgray"
-//                     >
-//                       <Td>Hands</Td>
-//                       <Td>Payout</Td>
-//                       <Td></Td>
-//                     </Tr>
-//                     <Tr color="white">
-//                       <Td>Pair</Td>
-
-//                       <Td isNumeric>1 to 2</Td>
-//                     </Tr>
-//                     <Tr color="white">
-//                       <Td>Flush</Td>
-//                       <Td isNumeric>1 to 6</Td>
-//                     </Tr>
-//                     <Tr color="white">
-//                       <Td>Straight</Td>
-//                       <Td isNumeric>1 to 8</Td>
-//                     </Tr>
-//                     <Tr color="white">
-//                       <Td>Straight flush</Td>
-//                       <Td isNumeric>1 to 24</Td>
-//                     </Tr>
-//                   </Tbody>
-//                   <Tfoot>
-//                     <Tr color="white">
-//                       <Th color="white">Trio</Th>
-//                       <Td isNumeric>1 to 36</Td>
-//                     </Tr>
-//                   </Tfoot>
-//                 </Table>
-//               </TableContainer>
-
-//               {/* BUTTONS FOR BET */}
-//             </Flex>
-//           </Flex>
-
-//           <Text
-//             mt={["-10rem", "1rem"]}
-//             mb={"1rem"}
-//             fontSize={"1.3rem"}
-//             fontWeight={"bold"}
-//             ml={["", "16rem"]}
-//             id="chooseamount"
-//           >
-//             Choose the Amount
-//           </Text>
-
-//           <Box
-//             display={"flex"}
-//             flexDirection={"row"}
-//             id="amountbox"
-
-//             // ml={["0rem", "3rem"]}
-//           >
-//             {[
-//               { value: 10, imageSrc: "/Coins/10's coin.webp" },
-//               { value: 50, imageSrc: "/Coins/50's coin.webp" },
-//               { value: 100, imageSrc: "/Coins/100's coin.webp" },
-//               { value: 500, imageSrc: "/Coins/500's coin.webp" },
-//               { value: 1000, imageSrc: "/Coins/1000's coin.webp" },
-//               { value: 5000, imageSrc: "/Coins/5000's coin.webp" },
-//             ].map((item, index) => (
-//               <Button
-//                 key={index}
-//                 height="45px"
-//                 display="flex"
-//                 justifyContent="center"
-//                 alignItems="center"
-//                 fontWeight="bold"
-//                 variant="unstyled"
-//                 _hover={{ height: "2rem" }}
-//                 onClick={() => {
-//                   setCoins(item.value);
-//                   console.log(item.value);
-//                 }}
-//               >
-//                 <img
-//                   height={"10rem"}
-//                   src={item.imageSrc}
-//                   alt={`${item.value}'s coin`}
-//                   style={{ maxHeight: "55px" }}
-//                 />
-//               </Button>
-//             ))}
-//           </Box>
-
-//           <Box ml={["12rem"]} mt={"1rem"} id="playersbutton">
-//             <Button
-//               onClick={() => handleBait("0")}
-//               disabled={gameState?.value <= 10}
-//               width={"10rem"}
-//               height={"5rem"}
-//               bgGradient="linear(to-r, teal.200, blue.500)"
-//               _hover={{
-//                 bgGradient: "linear(to-r, red.200, orange.500, yellow.400)", // Change colors on hover
-//               }}
-//             >
-//               Player A
-//             </Button>
-//             <Button
-//               onClick={() => handleBait("1")}
-//               disabled={gameState?.value <= 10}
-//               width={"10rem"}
-//               ml={"1rem"}
-//               height={"5rem"}
-//               bgGradient="linear(to-r, teal.200, blue.500)"
-//               _hover={{
-//                 bgGradient: "linear(to-r, red.200, orange.500, yellow.400)", // Change colors on hover
-//               }}
-//             >
-//               Player B
-//             </Button>
-//           </Box>
-//         </Box>
-//       </ChakraProvider>
-//     </>
-//   );
-// }
-
-// export default TeenPatti;
-
 import "./Teenpatti.css";
 
 import {
   AspectRatio,
   Box,
   Button,
-  Center,
   ChakraProvider,
   Flex,
-  HStack,
   Image,
-  Stack,
-  Table,
-  TableCaption,
-  TableContainer,
-  Tbody,
-  Td,
   Text,
-  Tfoot,
-  Th,
-  Thead,
-  Tr,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
+import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
-// import Teenpatti from "/public/MuflisTeenPatti/MuflisTeenPatti";
-
+const userId = localStorage.getItem("userId");
 const socket = io("https://teenpattibackend.onrender.com", {
   query: {
-    userId: Math.floor(Math.random() * Date.now()),
+    userID: userId,
   },
   transports: ["websocket"],
 });
-function TeenPatti() {
+
+export default function TeenPatti() {
   const [gameState, setGameState] = useState({ value: "waiting" });
   const [user, setUser] = useState(null);
   const [coins, setCoins] = useState(50);
   const [mainCard, setMainCard] = useState([]);
-  const [swithCard, setSwitchCard] = useState(true);
   const [player1Cards, setPlayer1Cards] = useState([]);
   const [player2Cards, setPlayer2Cards] = useState([]);
   const [gameHistory, setGameHistory] = useState([]);
-  
+  const [bettingAmount, setBettingAmount] = useState("");
+  const [isButtonDisabled, setButtonDisabled] = useState();
 
+  useEffect(() => {
+    const userID = localStorage.getItem("userId");
+    if (userID) {
+      socket.io.opts.query.userID = userID;
+      socket.disconnect();
+      socket.connect();
+    }
+  }, [localStorage.getItem("userId")]);
   useEffect(() => {
     // Listen for game state updates from the server
     socket.on(
       "gameUpdate",
       (updatedGameState) => {
         setGameState(updatedGameState?.gamestate);
+        updatedGameState.gamestate.value - 25 === 20 ? setBettingAmount(0) : "";
+        const isDisabled = updatedGameState.gamestate.value - 25 <= 0;
+        setButtonDisabled(isDisabled);
 
         // console.log(updatedGameState, "updatedGameState");
         // setMainCard(updatedGameState.gameCard);
@@ -481,9 +59,9 @@ function TeenPatti() {
     );
 
     socket.on("userDetails", (data) => {
-      // console.log(data.user.coins , "data");
+      console.log("UserDetails", data);
       setUser(data.user);
-      setCurrentPlayer((prevPlayer) => (prevPlayer === "A" ? "B" : "A"));
+      // setCurrentPlayer((prevPlayer) => (prevPlayer === "A" ? "B" : "A"));
       // console.log(data, "data?.user");
     });
     socket.on("bait", (data) => {
@@ -498,14 +76,13 @@ function TeenPatti() {
       displayPlayerCards(data.gameCard.player1Cards, setPlayer1Cards);
       displayPlayerCards(data.gameCard.player2Cards, setPlayer2Cards);
       setGameHistory(data.gameHistory);
-      
     });
 
     return () => {
       socket.disconnect();
     };
   }, []);
-    if (gameState?.value === 3) {
+  if (gameState?.value === 3) {
     socket.emit("getUpdatedUserDetails");
   }
   // const displayPlayerCards = (cards, setPlayerCards) => {
@@ -522,11 +99,7 @@ function TeenPatti() {
     setPlayerCards(displayedCards);
   };
 
-  const handleBait = (baitType) => {
-    if (user?.coins <= 0) {
-      alert("Insufficient Coins");
-      return; // Stop execution if coins are 0 or less
-    }
+  const handelBet = (baitType) => {
     const bait = {
       baitType,
       coins,
@@ -534,449 +107,627 @@ function TeenPatti() {
     };
     console.log(bait, "bait");
     socket.emit("bait", bait);
+    if (user?.coins <= 10) {
+      alert("Insufficient Coins");
+      return; // Stop execution if coins are 0 or less
+    }
+    if (user?.coins > 10) {
+      setBettingAmount((prev) => prev + Number(coins));
+    }
   };
-
   return (
     <>
       <ChakraProvider>
-        <Box maxW={"100vw"}>
-          <Box m={"0"}>
-            <Flex justifyContent={"space-between"}>
-              <AspectRatio
-                width={["95vw", "70%"]}
-                // backgroundColor='red'
-                // minHeight="50%"
-                borderRadius="10px"
-                controls
-                // ml={["2.5rem", "0rem"]}
-                //  id='AspectRatio'
-              >
-                <Box
-                  height="auto" // Adjust the height as needed
-                  // background="linear-gradient(#c86363, #51a454, #517a9c)"
-
-                  // backgroundImage={Teenpatti}
-                  backgroundImage="url('/public/MuflisTeenPatti/MuflisTeenPatti.webp')"
-                  backgroundSize="cover"
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="flex-start"
-                  alignItems="top"
-                  position="relative"
-                  backgroundPosition={`center 100%`}
-                  // width={"100%"}
-                  id="teenpattimainimg"
-                >
-                  <Box
-                    fontWeight={"1000"}
-                    border={"1px solid white"}
-                    borderRadius={"50%"}
-                    padding={"2px"}
-                    mt={"2rem"}
-                    ml={"1rem"}
-                    position={"absolute"}
-                    top="0"
-                    left="0"
-                    width="18%"
-                    height="18%"
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    fontSize="lg"
-                    color="white"
-                    background="linear-gradient(to right,#809fff ,#0000FF)"
-                    id="teenpattifreezeplacebettext"
-                  >
-                    {gameState?.value <= 20 ? "Freeze" : "Place  Bet"}
-                  </Box>
-                  <Box
-                    position="absolute"
-                    top="5rem"
-                    left="-0.7rem"
-                    id="winner-main"
-                  >
-                    {gameState.value < 8 && (
-                      <Button
-                        // background="linear-gradient(to bottom right,#ED9203, #323349, #880000)"
-                        background="linear-gradient(to bottom right, #ED9203, #C7E600)"
-                        height={"2rem"}
-                        width={"10rem"}
-                        position="absolute"
-                        Top={["2rem", ""]}
-                        left={["6rem"]}
-                        id="winner"
-                      >
-                        Winner: {mainCard?.winstatus}
-                      </Button>
-                    )}
-                  </Box>
-
-                  {gameState.value >= 1 && (
-                    <Flex flexWrap="wrap">
-                      <Box
-                        color={"Yellow"}
-                        fontSize="1rem"
-                        width={["20%", "20%"]}
-                        // backgroundColor='red'
-                        className="players"
-                        id="playerA"
-                        mt={["0", "-1rem"]}
-                      >
-                        {/* PLAYER A */}
-                      </Box>
-                      {gameState.value < 14 && (
-                        <Flex
-                          position="absolute"
-                          width="40%"
-                          flexDirection="row"
-                          // border='2px'
-                          top="8rem"
-                          id="playerA-Card"
-                          // marginLeft={["11rem", "20rem"]}
-                          // marginTop={"9rem"}
-                        >
-                          {/* {player1Cards.map((card, index) => (
-                                <Image
-                                  key={index}
-                                  src={`/cards/${card}`}
-                                  boxSize={["2rem","3rem"]}
-                                  margin="0.5rem"
-                                  id="cards-positionA"
-                                />
-                              ))} */}
-                          {gameState.value <= 14 && (
-                            <Image
-                              key={0}
-                              src={`/cards/${player1Cards[0]}`}
-                              boxSize={["2rem", "3rem"]}
-                              margin="0.5rem"
-                              id="cards-positionA"
-                            />
-                          )}
-                          {gameState.value <= 11 && (
-                            <Image
-                              key={1}
-                              src={`/cards/${player1Cards[1]}`}
-                              boxSize={["2rem", "3rem"]}
-                              margin="0.5rem"
-                              id="cards-positionA"
-                            />
-                          )}
-                          {gameState.value <= 9 && (
-                            <Image
-                              key={2}
-                              src={`/cards/${player1Cards[2]}`}
-                              boxSize={["2rem", "3rem"]}
-                              margin="0.5rem"
-                              id="cards-positionA"
-                            />
-                          )}
-                        </Flex>
-                      )}
-
-                      <Box
-                        color={"Yellow"}
-                        fontSize={["1.4rem", "5rem"]}
-                        width={["20%", "20%"]}
-                        // backgroundColor='red'
-                        className="players"
-                        id="playerB"
-                        mt={["1rem"]}
-                      >
-                        {/* PLAYER B */}
-                      </Box>
-                      {gameState.value < 14 && ( //update 14 to 10
-                        <Flex
-                          position="absolute"
-                          width="40%"
-                          top="16.5rem"
-                          id="playerB-Card"
-                          flexDirection="row"
-                          // marginLeft={["11rem", "20rem"]}
-                          // marginTop={"5rem"}
-                        >
-                          {/* uncomment */}
-                          {/* {player2Cards.map((card, index) => (
-                                <Image
-                                  key={index}
-                                  src={`/cards/${card}`}
-                                  boxSize={["2rem","3rem"]}
-                                  margin="0.5rem"
-                                  marginTop={"-5rem"}
-                                  id="cards-positionB"
-                                />
-                              ))} */}
-                          {gameState.value <= 12 && (
-                            <Image
-                              key={0}
-                              src={`/cards/${player2Cards[0]}`}
-                              boxSize={["2rem", "3rem"]}
-                              margin="0.5rem"
-                              marginTop={"-5rem"}
-                              id="cards-positionB"
-                            />
-                          )}
-                          {gameState.value <= 10 && (
-                            <Image
-                              key={1}
-                              src={`/cards/${player2Cards[1]}`}
-                              boxSize={["2rem", "3rem"]}
-                              margin="0.5rem"
-                              marginTop={"-5rem"}
-                              id="cards-positionB"
-                            />
-                          )}
-                          {gameState.value <= 8 && (
-                            <Image
-                              key={2}
-                              src={`/cards/${player2Cards[2]}`}
-                              boxSize={["2rem", "3rem"]}
-                              margin="0.5rem"
-                              marginTop={"-5rem"}
-                              id="cards-positionB"
-                            />
-                          )}
-                        </Flex>
-                      )}
-                    </Flex>
-                  )}
-                  <Box
-                    fontWeight={"1000"}
-                    border={"1px solid white"}
-                    borderRadius={"50%"}
-                    padding={"2px"}
-                    mt={"2rem"}
-                    ml={"1rem"}
-                    position={"absolute"}
-                    top="0"
-                    right="0"
-                    width="15%"
-                    height="17%"
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    fontSize="lg"
-                    //   background="linear-gradient(to right, teal.200, blue.500)"
-                    background="linear-gradient(to right, #809fff, #0000FF)"
-                    marginRight={"1rem"}
-                    color="white"
-                  >
-                    {gameState?.value && Math.max(0, gameState.value - 20)}
-                  </Box>
-                </Box>
-              </AspectRatio>
-
-              <Flex flexDirection={"column"} id="outputbox">
-                <Box
-                  // ml={["1.5rem", ""]}
-                  height={"5rem"}
-                  // width="100%"
-                  flexDirection="row"
-                  border="5px solid #668cff"
-                  boxShadow="4px 4px 10px rgba(3, 0, 2, 0.6)"
-                  display="flex"
-                  borderRadius="1rem"
-                  mt={["5rem", ""]}
-                >
-                  <Box
-                    flex="1"
-                    // width={["10%", "44%"]}
-                    backgroundColor="white"
-                    textAlign="center"
-                    borderRight="4px solid #668cff"
-                    className="abc"
-                  >
-                    <Text
-                      color={"#668cff"}
-                      fontSize={["17px", "18px"]}
-                      fontWeight="bold"
-                    >
-                      Available Credit :
-                    </Text>
-                    <Text
-                      color="#daa520"
-                      fontWeight={"500"}
-                      fontSize={["20px", "24px"]}
-                    >
-                      {user?.coins && Math.max(0, user?.coins)}
-                    </Text>
-                  </Box>
-
-                  <Box flex="1" textAlign="center">
-                    <Text color={"#668cff"} fontSize="18px" fontWeight="bold">
-                      Match Id :
-                    </Text>
-                    <Text
-                      color="#daa520"
-                      fontWeight={"500"}
-                      fontSize={["20px", "24px"]}
-                    >
-                      {user?.userId}
-                    </Text>
-                  </Box>
-                </Box>
-                <TableContainer ml={["0.1rem", ""]} mt={"1rem"}>
-                  <Table
-                    borderRadius={"1rem"}
-                    border="1px solid 5pxblack"
-                    bg={"black"}
-                    variant="simple"
-                  >
-                    <Thead></Thead>
-                    <Tbody>
-                      <Tr
-                        borderRadius={"2rem"}
-                        boxShadow="0 14px 18px rgba(0,1 0, 20, 0.1)"
-                        color="black"
-                        bg="lightgray"
-                      >
-                        <Td>Hands</Td>
-                        <Td>Payout</Td>
-                        <Td></Td>
-                      </Tr>
-                      <Tr color="white">
-                        <Td>Pair</Td>
-
-                        <Td isNumeric>1 to 2</Td>
-                      </Tr>
-                      <Tr color="white">
-                        <Td>Flush</Td>
-                        <Td isNumeric>1 to 6</Td>
-                      </Tr>
-                      <Tr color="white">
-                        <Td>Straight</Td>
-                        <Td isNumeric>1 to 8</Td>
-                      </Tr>
-                      <Tr color="white">
-                        <Td>Straight flush</Td>
-                        <Td isNumeric>1 to 24</Td>
-                      </Tr>
-                    </Tbody>
-                    <Tfoot>
-                      <Tr color="white">
-                        <Th color="white">Trio</Th>
-                        <Td isNumeric>1 to 36</Td>
-                      </Tr>
-                    </Tfoot>
-                  </Table>
-                </TableContainer>
-
-                {/* BUTTONS FOR BET */}
-              </Flex>
-
-              {[...Array(10)].map((_, index) => (
-              <Box
-                border="1px solid black"
-                backgroundColor="grey"
-                key={index}
-                fontSize={["15px", "20px"]}
-                color={index % 2 === 0 ? "black" : "#553325"}
-                width="5%"
-                height="40%"
-                // align="center"
-                fontWeight="bold"
-              >
-                <Text
-                  fontSize="18px"
-                  color={index % 2 === 0 ? "#black" : "#553325"}
-                  flexDirection="row"
-                >
-                  {gameHistory[index]}
-                </Text>
-              </Box>
-            ))}
-            </Flex>
-
-            <Text
-              mt={["-7rem", "2rem"]}
-              mb={"1rem"}
-              fontSize={"1.3rem"}
-              fontWeight={"bold"}
-              ml={["2rem", "16rem"]}
-              id="chooseamount"
+        <Box width={["100%", "100%"]}>
+          <Box bg={"#757a79"} maxW={["100vw", "100vw"]} id="main-div">
+            <Flex
+              align="left-top"
+              justify="left-top"
+              minH="50%"
+              overflow="hidden"
+              flexDirection={["column", "row"]}
             >
-              Choose the Amount
-            </Text>
-
-            <Box>
               <Box
-                mt={["4rem", ""]}
-                display={"flex"}
-                flexDirection={"row"}
-                id="amountbox"
-
-                // ml={["0rem", "3rem"]}
+                width={["100%", "80%"]}
+                marginTop="0px"
+                marginRight="-4rem"
+                marginBottom="1rem"
               >
-                {[
-                  { value: 10, imageSrc: "/Coins/10's coin.webp" },
-                  { value: 50, imageSrc: "/Coins/50's coin.webp" },
-                  { value: 100, imageSrc: "/Coins/100's coin.webp" },
-                  { value: 500, imageSrc: "/Coins/500's coin.webp" },
-                  { value: 1000, imageSrc: "/Coins/1000's coin.webp" },
-                  { value: 5000, imageSrc: "/Coins/5000's coin.webp" },
-                ].map((item, index) => (
-                  <Button
-                    key={index}
-                    height="45px"
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
+                <Flex justify="space-between" align="center" mb="2">
+                  <Text
+                    fontSize={["20px", "24px"]}
                     fontWeight="bold"
-                    variant="unstyled"
-                    _hover={{ height: "2rem" }}
-                    onClick={() => {
-                      setCoins(item.value);
-                      console.log(item.value);
+                    borderRadius="10px"
+                    position="relative"
+                    marginLeft={["5px", "0px"]}
+                    color={"white"}
+                  >
+                    Teen Patti
+                  </Text>
+                  <Button
+                    variant="outline"
+                    colorScheme="white"
+                    mr="2"
+                    paddingX={"3rem"}
+                    mt="2"
+                  >
+                    Rules
+                  </Button>
+                </Flex>
+                <AspectRatio borderRadius="10px" controls>
+                  <Box
+                    border="4px solid #333"
+                    height="50%"
+                    backgroundImage="url('/MuflisTeenPatti/MuflisTeenPatti.webp')"
+                    backgroundSize="cover"
+                    backgroundPosition={`center 100%`}
+                    backgroundRepeat="no-repeat"
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="flex-start"
+                    alignItems="top"
+                    color="white"
+                    className="muflisfirstBox"
+                    position={"absolute"}
+                  >
+                    <Box
+                      fontWeight={"900"}
+                      border={"1px solid white"}
+                      borderRadius={"50%"}
+                      padding={"2px"}
+                      mt={"2rem"}
+                      ml={"1rem"}
+                      position={"absolute"}
+                      top="0"
+                      left="0"
+                      width="25%"
+                      height="22%"
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                      fontSize={["10px", "sm"]}
+                      color="white"
+                      background="linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898"
+                    >
+                      {/* {countdown <= 25 ? "Freeze" : "Place  Bet"}
+                      {countdown <= 8 ? "Winner : " + winner : "Loading"} */}
+                      {gameState?.value <= 8
+                        ? "Winner: " + mainCard?.winstatus
+                        : gameState?.value <= 25
+                        ? "Freeze"
+                        : "Place Bet"}
+                    </Box>
+
+                    <Box
+                      fontWeight={"900"}
+                      border={"1px solid white"}
+                      borderRadius={"50%"}
+                      padding={"2px"}
+                      mt={"2rem"}
+                      ml={"1rem"}
+                      position={"absolute"}
+                      top="0"
+                      right="0"
+                      width="15%"
+                      height="17%"
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                      fontSize="lg"
+                      background="linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898"
+                      marginRight={"1rem"}
+                      color="white"
+                    >
+                      {gameState?.value - 25 <= 0 ? "0" : gameState?.value - 25}
+                    </Box>
+
+                    <Flex
+                      gap="0.5rem"
+                      direction="row"
+                      position={"relative"}
+                      top={{ base: "5.3rem", lg: "5.8rem", xl: "9rem" }}
+                      left={{ base: "-3.5rem", lg: "-3.6rem", xl: "-5.8rem" }}
+                    >
+                      <Box className="muflisplayercardbox1">
+                        {gameState?.value <= 19 && (
+                          <Box key={1}>
+                            <Image
+                              className="muflisplayercard1"
+                              src={`/cards/${player1Cards[0]}`}
+                            />
+                          </Box>
+                        )}
+                      </Box>
+                      <Box className="muflisplayercardbox2">
+                        {gameState?.value <= 17 && (
+                          <Box key={1}>
+                            <Image
+                              className="muflisplayercard2"
+                              src={`/cards/${player1Cards[1]}`}
+                            />
+                          </Box>
+                        )}
+                      </Box>
+                      <Box className="muflisplayercardbox3">
+                        {gameState?.value <= 15 && (
+                          <Box
+                            key={1}
+                            // height={["2.5 rem", "0.5rem"]
+                          >
+                            <Image
+                              className="muflisplayercard3"
+                              src={`/cards/${player1Cards[2]}`}
+                            />
+                          </Box>
+                        )}
+                      </Box>
+                    </Flex>
+                    <Flex
+                      gap="0.5rem"
+                      direction="row"
+                      position={"relative"}
+                      top={{ base: "2.9rem", lg: "3.3rem", xl: "5.4rem" }}
+                      // left={"3.4rem"
+                      left={{ base: "3.4rem", lg: "3.6rem", xl: "5.4rem" }}
+                    >
+                      <Box className="muflisplayercardbox4">
+                        {gameState?.value <= 18 && (
+                          <Box key={0}>
+                            <Image
+                              className="muflisplayercard4"
+                              src={`/cards/${player2Cards[0]}`}
+                            />
+                          </Box>
+                        )}
+                      </Box>
+                      <Box className="muflisplayercardbox5">
+                        {gameState?.value <= 14 && (
+                          <Box key={1}>
+                            <Image
+                              className="muflisplayercard5"
+                              src={`/cards/${player2Cards[1]}`}
+                            />
+                          </Box>
+                        )}
+                      </Box>
+                      <Box className="muflisplayercardbox6">
+                        {gameState?.value <= 16 && (
+                          <Box key={1}>
+                            <Image
+                              className="muflisplayercard6"
+                              src={`/cards/${player2Cards[2]}`}
+                            />
+                          </Box>
+                        )}
+                      </Box>
+                    </Flex>
+                  </Box>
+                </AspectRatio>
+
+                <Flex flexDirection={["column", "column"]} alignItems="center">
+                  {/* Box Items */}
+
+                  <Button
+                    bg={"black"}
+                    fontWeight={"700"}
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(to right, #A52A2A, #FF8C00)",
+                      WebkitBackgroundClip: "text",
+                      color: "#263849",
                     }}
                   >
-                    <img
-                      height={"10rem"}
-                      src={item.imageSrc}
-                      alt={`${item.value}'s coin`}
-                      style={{ maxHeight: "55px" }}
-                    />
+                    <>
+                      <span>Player Id : </span>
+                      <Text color={"white"} align={"center"}>
+                        {user?.mobileNumber ? user?.mobileNumber : "Loading..."}
+                      </Text>
+                    </>
                   </Button>
-                ))}
+                  <Button
+                    bg={"black"}
+                    fontWeight={"700"}
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(to right, #A52A2A, #FF8C00)",
+                      WebkitBackgroundClip: "text",
+                      color: "#263849",
+                    }}
+                  >
+                    Last Wins:
+                  </Button>
+
+                  <Flex
+                    width={["100%", "67%"]}
+                    p={1}
+                    flexWrap="wrap"
+                    align={"center"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    textAlign={"center"}
+                  >
+                    {gameHistory?.map((item, index) => (
+                      <Box
+                        key={index}
+                        width={["35px", "35px"]} // Adjusted width for responsiveness
+                        height={["45px", "35px"]} // Adjusted height for responsiveness
+                        marginRight="5px" // Added right margin to each item
+                        marginBottom="5px" // Added bottom margin for spacing
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        textAlign={"center"}
+                        fontWeight="bold"
+                        border="2px solid white"
+                        align={"center"}
+                      >
+                        <Text
+                          fontSize="14px"
+                          color={index % 2 === 0 ? "white" : "black"}
+                          align={"center"}
+                        >
+                          {item}
+                        </Text>
+                      </Box>
+                    ))}
+                  </Flex>
+                  <Box
+                    fontWeight={"700"}
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(to right, #A52A2A, #FF8C00)",
+                      WebkitBackgroundClip: "text",
+                      color: "#263849",
+                    }}
+                  >
+                    <>
+                      Last Bet Amount :
+                      <Text color={"white"} align={"center"}>
+                        {bettingAmount}
+                      </Text>
+                    </>
+                  </Box>
+                </Flex>
               </Box>
 
               <Box
-                mr={["2.2rem", "0rem"]}
-                ml={["1rem", "9rem"]}
-                mt={["5rem", "1rem"]}
-                id="playersbutton"
+                marginX={["0rem", "-30rem", "5rem"]}
+                marginTop={["0rem", "38rem", "5rem"]}
+                width={["100%", "50%"]}
+                id="playeryourbetdiv"
               >
-                <Button
-                  onClick={() => handleBait("0")}
-                  disabled={gameState?.value <= 10}
-                  width={"10rem"}
-                  height={"5rem"}
-                  bgGradient="linear(to-r, teal.200, blue.500)"
-                  _hover={{
-                    bgGradient: "linear(to-r, red.200, orange.500, yellow.400)", // Change colors on hover
-                  }}
+                <Flex
+                  width={["95%", "110%"]}
+                  flexDirection="row"
+                  // border="3px solid #333"
+                  borderRadius="10px"
                 >
-                  Player A
-                </Button>
-                <Button
-                  onClick={() => handleBait("1")}
-                  disabled={gameState?.value <= 10}
-                  width={"10rem"}
-                  ml={"1rem"}
-                  height={"5rem"}
-                  bgGradient="linear(to-r, teal.200, blue.500)"
-                  _hover={{
-                    bgGradient: "linear(to-r, red.200, orange.500, yellow.400)", // Change colors on hover
-                  }}
-                >
-                  Player B
-                </Button>
+                  <Box
+                    border="3px solid #333"
+                    flex="1"
+                    width="48%"
+                    textAlign="center"
+                    borderRadius="10px"
+                    background="radial-gradient(circle at -8.9% 51.2%, rgb(255, 124, 0) 0%, rgb(255, 124, 0) 15.9%, rgb(255, 163, 77) 15.9%, rgb(255, 163, 77) 24.4%, rgb(19, 30, 37) 24.5%, rgb(19, 30, 37) 66%)"
+                    color={"white"}
+                  >
+                    <Text fontSize={["18px", "18px"]} fontWeight="bold">
+                      Available Credit
+                    </Text>
+                    <Text fontSize={["20px", "24px"]}>
+                      {Math.round(user?.coins * 100) / 100
+                        ? Math.round(user?.coins * 100) / 100
+                        : "0"}
+                    </Text>
+                  </Box>
+
+                  <Box
+                    border="3px solid #333"
+                    flex="1"
+                    width="48%"
+                    background="radial-gradient(circle at -8.9% 51.2%, rgb(255, 124, 0) 0%, rgb(255, 124, 0) 15.9%, rgb(255, 163, 77) 15.9%, rgb(255, 163, 77) 24.4%, rgb(19, 30, 37) 24.5%, rgb(19, 30, 37) 66%)"
+                    textAlign="center"
+                    borderRadius="10px"
+                    color={"white"}
+                  >
+                    <Text fontSize="18px" fontWeight="bold">
+                      Match Id:
+                    </Text>
+                    <Text fontSize={["20px", "24px"]}>
+                      {/* {user?.gameid ? user?.gameid  : "Loading..."} */}
+                      {mainCard?._id ? mainCard?._id : "Loading..."}
+                    </Text>
+                  </Box>
+                </Flex>
+                {/* New Box  */}
+                <Box width="90%" id="placeyourbet">
+                  <Flex flexDirection="column" alignItems="center">
+                    <Text
+                      fontSize="20px"
+                      fontWeight="bold"
+                      marginLeft={["0.5rem"]}
+                      mt={"1rem"}
+                      color={"white"}
+                      ml={{ base: "3rem", md: "0rem" }}
+                    >
+                      Place Your Bet
+                    </Text>
+
+                    <Flex
+                      width={["100%", "60%"]}
+                      flexWrap={["nowrap", "nowrap"]}
+                      justifyContent={["center", "flex-start"]}
+                      marginTop={["2rem", "0"]}
+                      marginLeft={["1rem", "-9rem"]}
+                    >
+                      {[
+                        { value: 10, imageSrc: "/Coins/10's coin.webp" },
+                        { value: 50, imageSrc: "/Coins/50's coin.webp" },
+                        { value: 100, imageSrc: "/Coins/100's coin.webp" },
+                        { value: 500, imageSrc: "/Coins/500's coin.webp" },
+                        { value: 1000, imageSrc: "/Coins/1000's coin.webp" },
+                        { value: 5000, imageSrc: "/Coins/5000's coin.webp" },
+                      ].map((item, index) => (
+                        <Button
+                          ml={["0.8rem", "0rem"]}
+                          key={index}
+                          // height="45px"
+                          margin={["rem", "0.9rem"]}
+                          display="flex"
+                          justifyContent="center"
+                          alignItems="center"
+                          fontWeight="bold"
+                          borderRadius={"50%"}
+                          // borderColor={'red'}
+                          variant="unstyled"
+                          _hover={{
+                            // boxShadow: "0 8px 12px rgba(0, 0, 255, 0.8)",
+                            boxShadow: "0 8px 12px rgba(255, 255, 255, 0.8)",
+
+                            p: "px",
+                            rounded: "full",
+                            cursor: "pointer",
+                          }}
+                          // onInput={(e) => setSelectedCoin(e.target.value)}
+                          // value={selectedCoin}
+                          onClick={() => {
+                            setCoins(item.value);
+                            // console.log(item.value);
+                          }}
+                        >
+                          {/* {console.log(selectedCoin, "selectedCoin")} */}
+                          <img
+                            src={item.imageSrc}
+                            alt={`${item.value}'s coin`}
+                            style={{ maxHeight: "100px" }}
+                          />
+                        </Button>
+                      ))}
+                    </Flex>
+                  </Flex>
+                  <Flex
+                    flexDirection="row"
+                    alignItems="center"
+                    justifyContent="center"
+                    padding="0rem"
+                    width="111%"
+                  >
+                    <Box
+                      width="100%"
+                      position="relative"
+                      // border="2px solid #333"
+                      height="8rem"
+                      // bgColor={'red'}
+
+                      display="flex"
+                      flexDirection="column"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Box
+                        width="90%"
+                        height="100%"
+                        position="relative"
+                        // border="2px solid #333"
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <Button
+                          isDisabled={isButtonDisabled}
+                          width="90%"
+                          height={["50%", "80%"]}
+                          marginLeft="1rem"
+                          color="white"
+                          fontWeight="800"
+                          borderRadius="20%"
+                          background="linear-gradient(to right, #868f96 0%, #596164 100%)"
+                          display={"flex"}
+                          justifyContent={"space-around"}
+                          _hover={
+                            !isButtonDisabled && {
+                              background:
+                                "linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%)",
+                              boxShadow: "dark-lg",
+                              color: "black",
+                            }
+                          }
+                          onClick={() => handelBet("0")}
+                        >
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
+                            <span>playerA</span> <span>1.98</span>
+                          </Text>
+                        </Button>
+
+                        <Button
+                          isDisabled={isButtonDisabled}
+                          width="90%"
+                          height={["50%", "80%"]}
+                          marginLeft="1rem"
+                          color="white"
+                          fontWeight="800"
+                          borderRadius="20%"
+                          background="linear-gradient(to right, #868f96 0%, #596164 100%)"
+                          _hover={
+                            !isButtonDisabled && {
+                              background:
+                                "linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%)",
+                              boxShadow: "dark-lg",
+                              color: "black",
+                            }
+                          }
+                          display={"flex"}
+                          justifyContent={"space-around"}
+                          onClick={() => handelBet("1")}
+                        >
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
+                            <span>playerB</span> <span>1.98</span>
+                          </Text>
+                        </Button>
+                      </Box>
+                    </Box>
+                  </Flex>
+                  <Text align={"center"} color={"black"}>
+                    Pair Plus
+                  </Text>
+                  <Flex
+                    flexDirection="row"
+                    alignItems="center"
+                    justifyContent="center"
+                    padding="0rem"
+                    width="111%"
+                  >
+                    <Box
+                      width="100%"
+                      position="relative"
+                      // border="2px solid #333"
+                      height="8rem"
+                      // bgColor={'red'}
+
+                      display="flex"
+                      flexDirection="column"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Box
+                        width="90%"
+                        height="100%"
+                        position="relative"
+                        // border="2px solid #333"
+                        // marginTop="1rem"
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <Button
+                          isDisabled={isButtonDisabled}
+                          width="90%"
+                          height={["50%", "80%"]}
+                          marginLeft="1rem"
+                          color="white"
+                          fontWeight="800"
+                          borderRadius="20%"
+                          background="linear-gradient(to right, #868f96 0%, #596164 100%)"
+                          _hover={
+                            !isButtonDisabled && {
+                              background:
+                                "linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%)",
+                              boxShadow: "dark-lg",
+                              color: "black",
+                            }
+                          }
+                          onClick={() => handelBet("PairPlus1")}
+                        >
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
+                            <span>playerA</span> <span>3</span>
+                          </Text>
+                        </Button>
+
+                        <Button
+                          isDisabled={isButtonDisabled}
+                          // {<FaLock isDisabled={isButtonDisabled} />}
+                          width="90%"
+                          height={["50%", "80%"]}
+                          marginLeft="1rem"
+                          color="white"
+                          fontWeight="800"
+                          borderRadius="20%"
+                          background="linear-gradient(to right, #868f96 0%, #596164 100%)"
+                          _hover={
+                            !isButtonDisabled && {
+                              background:
+                                "linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%)",
+                              boxShadow: "dark-lg",
+                              color: "black",
+                            }
+                          }
+                          onClick={() => handelBet("PairPlus2")}
+                        >
+                          {/* {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{ color: "white", marginRight: "0.5rem" }}
+                            />
+                          )}
+                          Player B */}
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
+                            <span>playerB</span> <span>3</span>
+                          </Text>
+                        </Button>
+                      </Box>
+                    </Box>
+                  </Flex>
+                </Box>
               </Box>
-            </Box>
+            </Flex>
           </Box>
         </Box>
       </ChakraProvider>
+      {/* window.location.reload(); */}
     </>
   );
 }
-
-export default TeenPatti;

@@ -5,7 +5,7 @@ const Card = ({ card, index }) => {
 };
 
 Card.propTypes = {
-  card: PropTypes.string,
+  card: PropTypes.string.isRequired,
   index: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 export default Card;

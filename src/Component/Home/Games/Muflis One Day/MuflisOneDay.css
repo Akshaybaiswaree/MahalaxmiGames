@@ -1,0 +1,17 @@
+@media screen and (min-width: 340px) {
+    .muflis1stflex {
+        position: absolute;
+        top: 62%;
+        left: 5%;
+        gap: 1%;
+     
+        border: 10px solid blue;
+        width:"30%"
+    } 
+    
+    .muflisimage1 {
+        border: 1px solid green;
+        height: 1%;
+        width: 1%;
+    }
+}

@@ -6,20 +6,20 @@ import {
 } from "react-router-dom";
 
 import AndarBahar from "./Component/Home/Games/Andar&Bahar/AndarBahar";
-import App1 from "./App1";
 import DragonTiger from "./Component/Home/Games/DragonTiger/DragonTiger";
 import DragonTigerLion from "./Component/Home/Games/DragonTigerLion/DragonTigerLion";
 import HighCard from "./Component/Home/Games/HighCard/HighCard";
 import Home from "./Component/Home/Home";
-import Login from "./Component/Login/Login";
+import Login from "./Component/Login/login";
 import Mainpage from "./Component/Mainpage";
 import MuflisOneDay from "./Component/Home/Games/Muflis One Day/MuflisOneDay";
 import Rootlayout from "./Component/RootLayout/Rootlayout";
 import TeenPatti from "./Component/Home/Games/TeenPatti/TeenPatti";
 import TeenPattiMuflis from "./Component/Home/Games/TeenPattiMuflis/TeenPattiMuflis";
 import ThirtyTwoCards from "./Component/Home/Games/ThirtyTwoCards/ThirtyTwoCards";
-import TwoCardsPattiTesting from "./Component/Home/Games/TwoCardspatti/TwoCardsPattiTesting";
 import TwoCardsTeenPatti from "./Component/Home/Games/TwoCardspatti/TwoCardspatti";
+
+// import Login from "./Component/Login/Login";
 
 // import ThirtyTwoCards from "./Component/Home/Games/32Cards/ThirtyTwoCards";
 
@@ -34,7 +34,7 @@ const router = createBrowserRouter(
       {/* <Route path="SignUp" element={<SignUP />} /> */}
       {/* <Route path="SignUp" element={<Login />} /> */}
       {/* <Route path="racegame" element={<RaceGame />} /> */}
-      <Route path="app1" element={<App1 />} />
+
       <Route index element={<Login />} />
 
       <Route path="/" element={<Rootlayout />}>
@@ -45,10 +45,7 @@ const router = createBrowserRouter(
         <Route path="teenpattimuflis" element={<TeenPattiMuflis />} />
         <Route path="muflisoneday" element={<MuflisOneDay />} />
         <Route path="2cardsteenpatti" element={<TwoCardsTeenPatti />} />
-        <Route
-          path="2cardsteenpattiTesting"
-          element={<TwoCardsPattiTesting />}
-        />
+
         <Route path="dragontigerlion" element={<DragonTigerLion />} />
         <Route path="muflisoneday" element={<MuflisOneDay />} />
         <Route path="highcards" element={<HighCard />} />

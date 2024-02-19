@@ -1,508 +1,609 @@
 
+@media  screen and (min-width: 350px) {
 
-@media only screen and (min-width: 320px) {
-    #freezeplacebettext {
-      font-size: 0.8rem;
-    }
-    #freezorplaceround {
-      border: 4px solid white;
-    }
-    #andarhiddencards {
-      width: 1.5rem;
-    }
-    #andarcardstext {
-      top: 11.8rem;
-    }
-    #maincardsection {
-      width: 2rem;
-    }
-    #maincardsectiontext {
-      display: none;
-    }
-  
-    #andarbaharplayerhistory {
-      width: 7.8rem;
-      right: 0rem;
-      height: 3rem;
-      top: 4rem;
-    }
-    #andarbaharmatchID {
-      top: 4rem;
-      height: 3.2rem;
-      width: 12rem;
-      font-size: 0.8rem;
-    }
-    #andarbaharImg {
-      height: 19rem;
-      width: 20rem;
-      background-color: red;
-    }
-    #andarbaharidhistory {
-      top: 40rem;
-      width: 100%;
-      height: 15%;
-    
-    }
-    #andarbaharscoreboard {
-      position: relative;
-      top: -4.5rem;
-   
-      width: 100%;
-    }
+ 
+  .gdragontigerlion{
+    width: 20rem;
   }
-  
-  @media only screen and (min-width: 375px) {
-    #andarbaharImg {
-      height: 19rem;
-      width: 23.5rem;
-   
-    }
+  .cartbox1{
+    margin-left: -1.2rem;
+    margin-top: -1rem;  
   }
-  
-  @media only screen and (min-width: 420px) {
-    #andarbaharImg {
-      height: 20rem;
-      width: 26.5rem;
-   
-    }
+  .dtlcard1{
+    width: 1.3rem;
+    height: 1.8rem;
+     margin-left: 5rem;
+    margin-top: 8.8rem; 
   }
-  @media only screen and (min-width: 768px) {
+  .cartbox2{
+    margin-left: 4.3rem; 
   }
-  @media only screen and (min-width: 1024px) {
-    #maincardsection {
-      top: 14rem;
-      width: 3rem;
-    }
-    #baharcardstext {
-      top: 20rem;
-      font-size: 1.5rem;
-    }
-    #andarcardstext {
-      top: 11rem;
-      font-size: 1.5rem;
-    }
-    #andarhiddencards {
-      width: 2rem;
-    }
-    #maincardsectiontext {
-      display: block;
-    }
-    #andarbaharImg {
-      height: 24rem;
-      width: 90%;
-      background-color: red;
-    }
-  
-    #andarbaharscoreboard {
-      position: absolute;
-      top: 13.7rem;
-      height: 43.4%;
-    
-      width: 30%;
-    }
-  
-    #andarbaharidhistory {
-      top: 2rem;
-      width: 100%;
-      height: 15%;
-   
-    }
-  
-    #andarbaharmatchID {
-      top: 4rem;
-      height: 3.2rem;
-      width: 35rem;
-      font-size: 1.5rem;
-    }
-    #andarbaharplayerhistory {
-      width: 15rem;
-      right: 0rem;
-      height: 3rem;
-      top: 4rem;
-      font-size: 1.5rem;
-    }
+  .dtlcard2{
+    width: 1.3rem;
+    height: 1.8rem;
+    /* margin-left: 5rem; */
+    margin-top: 7.8rem;
   }
-  @media only screen and (min-width: 1440px) {
-    #maincardsection {
-      top: 15rem;
-      width: 2.5rem;
-    }
-    #baharcardstext {
-      top: 23rem;
-      font-size: 1.5rem;
-    }
-    #andarcardstext {
-      top: 14rem;
-      font-size: 1.5rem;
-    }
-    #andarhiddencards {
-      margin-bottom: 1rem;
-      width: 2rem;
-    }
-    #maincardsectiontext {
-      display: block;
-    }
-    #freezeplacebettext {
-      font-size: 1.5rem;
-    }
-    #andarbaharImg {
-      height: 28rem;
-      width: 45rem;
-    
-    }
-  
-    #andarbaharscoreboard {
-      position: absolute;
-      top: 12.5rem;
-      height: 60%;
-    
-      width: 32%;
-      margin-right: 1rem;
-      right: 2rem;
-    }
-  
-    #andarbaharidhistory {
-      top: 2rem;
-      width: 60%;
-      height: 15%;
-    
-    }
-  
-    #andarbaharmatchID {
-      top: 4rem;
-      height: 3.2rem;
-      width: 24rem;
-      font-size: 1.2rem;
-    }
-    #andarbaharplayerhistory {
-      width: 12rem;
-      right: 0rem;
-      height: 3rem;
-      top: 4rem;
-      font-size: 1.2rem;
-    }
+  .cartbox3{
+    margin-left: 4.8rem;
   }
-  
-  
-  @media screen and (min-width: 320px) {
-    #round1 {
-      padding: 30px;
-      border: 6px solid white;
-      top: 2;
-      left: 1rem;
-    }
-    #round2 {
-      padding: 20px;
-      border: 6px solid white;
-      top: 2;
-      right: 1rem;
-    }
-    #first {
-      width: 124%;
-      margin-top: 1rem;
-      margin-left: 0.1rem;
-    
-      margin-bottom: 26 rem;
-    }
-    #second {
-      width: 124%;
-      margin-bottom: 2rem;
-      height: 4rem;
-      margin-top: 1rem;
-    
-    }
-  
-    .second {
-      margin-bottom: 1.2rem;
-      margin-left: -2.1rem;
-      width: 65%;
-  
-  
-    }
-    .matchID {
-      margin-bottom: -1rem;
-      margin-left: -2.1rem;
-      width: 65%;
-  
-      font-size: 84%;
-  
-    
-    }
-    #array {
-      margin-top: 0.5rem;
-    }
-    #second button {
-      width: 22%;
-      font-size: 0.6rem;
-     
-      margin-right: 0rem;
-      top: 3rem;
-    }
-    #third {
-   
-      width: 100%;
-      top: 100%;
-      right: 0rem;
-      height: 60%;
-    }
+  .dtlcard3{
+    width: 1.3rem;
+    height: 1.8rem;
+    /* margin-left: 9.8rem; */
+    margin-top: 7.8rem;
   }
-  
-  @media screen and (min-width: 375px) {
-    
 
-    #round1 {
-      padding: 30px;
-      border: 6px solid white;
-      top: 2;
-      left: 1rem;
-    }
-    #round2 {
-      padding: 20px;
-      border: 6px solid white;
-      top: 2;
-      right: 1rem;
-    }
-    #first {
-      width: 120%;
-      margin-top: 1rem;
-      margin-left: 0.1rem;
-    
-      margin-bottom: 26rem;
-    }
-    #second {
-      width: 119%;
-      margin-bottom: 2rem;
-      height: 4rem;
-      margin-top: 1rem;
-    
-    }
   
-    .second {
-      margin-bottom: 1.2rem;
-      margin-left: -2.1rem;
-      width: 65%;
-  
-    
-    }
-    .matchID {
-      margin-bottom: -1rem;
-      margin-left: -2.1rem;
-      width: 65%;
-  
-      font-size: 84%;
-  
-    
-    }
-    #array {
-      margin-top: 0.5rem;
-    }
-    #second button {
-      width: 22%;
-      font-size: 0.6rem;
-     
-      margin-right: 0rem;
-      top: 3rem;
-    }
-    #third {
-    
-      width: 100%;
-      top: 105%;
-      right: 0rem;
-      height: 60%;   
-    }
+}
+@media  screen and (min-width: 365px) {
+
+  .gdragontigerlion{
+    width: 20rem;
   }
+  .cartbox1{
+    margin-left: -1.65rem;
+    margin-top: -0.6rem;  
+  }
+  .dtlcard1{
+    width: 1.5rem;
+    height: 2rem;
+     margin-left: 5rem;
+    margin-top: 8.8rem; 
+  }
+  .cartbox2{
+    margin-left: 4.5rem; 
+    margin-top: 0.4rem; 
+  }
+  .dtlcard2{
+    width: 1.5rem;
+    height: 2rem;
+    /* margin-left: 5rem; */
+    margin-top: 7.8rem;
+  }
+  .cartbox3{
+    margin-left: 4.8rem;
+    margin-top: 0.4rem;
+  }
+  .dtlcard3{
+    width: 1.5rem;
+    height: 2rem;
+    /* margin-left: 9.8rem; */
+    margin-top: 7.8rem;
+  }
+
   
-  @media screen and (min-width: 425px) {
+}
+@media  screen and (min-width: 385px) {
+
+
+ 
+  .gdragontigerlion{
+    width: 20rem;
+  }
+  .cartbox1{
+    margin-left: -1.95rem;
+    margin-top: -0.3rem;  
+  }
+  .dtlcard1{
+    width: 1.5rem;
+    height: 2.1rem;
+     margin-left: 5rem;
+    margin-top: 8.8rem; 
+  }
+  .cartbox2{
+    margin-left: 4.8rem; 
+    margin-top: 0.7rem;
+  }
+  .dtlcard2{
+    width: 1.4rem;
+    height: 2rem;
+    /* margin-left: 5rem; */
+    margin-top: 7.8rem;
+  }
+  .cartbox3{
+    margin-left: 5.1rem;
+    margin-top: 0.7rem;
+  }
+  .dtlcard3{
+    width: 1.4rem;
+    height: 2rem;
+    /* margin-left: 9.8rem; */
+    margin-top: 7.8rem;
+  }
+
   
-    #round1 {
-      padding: 30px;
-      border: 6px solid white;
-      top: 2;
-      left: 1rem;
-    }
-    #round2 {
-      padding: 20px;
-      border: 6px solid white;
-      top: 2;
-      right: 1rem;
-    }
-    #first {
-      width: 117%;
-      margin-top: 1rem;
-      margin-left: 0.1rem;
+}
+@media  screen and (min-width: 400px) {
+  .gdragontigerlion{
+    width: 20rem;
+  }
+  .cartbox1{
+    margin-left: -2.2rem;
+    margin-top: 0rem;  
+  }
+  .dtlcard1{
+    width: 1.5rem;
+    height: 2.1rem;
+     margin-left: 5rem;
+    margin-top: 8.8rem; 
+  }
+  .cartbox2{
+    margin-left: 5rem; 
+    margin-top: 1.2rem;
+  }
+  .dtlcard2{
+    width: 1.5rem;
+    height: 2.1rem;
+    margin-top: 7.8rem;
+  }
+  .cartbox3{
+    margin-left: 5.3rem;
+    margin-top: 1.2rem;
+  }
+  .dtlcard3{
+    width: 1.5rem;
+    height: 2.1rem;
+    margin-top: 7.8rem;
+  }
+
+  
+}
+@media  screen and (min-width: 415px) {
+
+
+ 
+  .gdragontigerlion{
+    width: 20rem;
+  }
+  .cartbox1{
+    margin-left: -2.55rem;
+    margin-top: 0.4rem;  
+  }
+  .dtlcard1{
+    width: 1.7rem;
+    height: 2.3rem;
+     margin-left: 5rem;
+    margin-top: 8.8rem; 
+  }
+  .cartbox2{
+    margin-left: 4.9rem; 
+    margin-top: 1.4rem;
+  }
+  .dtlcard2{
+    width: 1.7rem;
+    height: 2.2rem;
+    /* margin-left: 5rem; */
+    margin-top: 7.8rem;
+  }
+  .cartbox3{
+    margin-left: 5.6rem;
+    margin-top: 1.5rem;
+  }
+  .dtlcard3{
+    width: 1.7rem;
+    height: 2.1rem;
+    /* margin-left: 9.8rem; */
+    margin-top: 7.8rem;
+  }
+
+  
+}
+@media  screen and (min-width: 430px) {
+  .gdragontigerlion{
+    width: 20rem;
+  }
+  .cartbox1{
+    margin-left: -2.7rem;
+    margin-top: 0.7rem;  
+  }
+  .dtlcard1{
+    width: 1.6rem;
+    height: 2.2rem;
+     margin-left: 5rem;
+    margin-top: 8.8rem; 
+  }
+  .cartbox2{
+    margin-left: 5.4rem; 
+    margin-top: 1.6rem;
+  }
+  .dtlcard2{
+    width: 1.5rem;
+    height: 2.1rem;
+    margin-top: 7.8rem;
+  }
+  .cartbox3{
+    margin-left: 5.85rem;
+    margin-top: 1.7rem;
+  }
+  .dtlcard3{
+    width: 1.5rem;
+    height: 2.1rem;
+    /* margin-left: 9.8rem; */
+    margin-top: 7.8rem;
+  }
+
+  
+}
+@media  screen and (min-width: 445px) {
+
+
+ 
+  .gdragontigerlion{
+    width: 20rem;
+  }
+  .cartbox1{
+    margin-left: -3rem;
+    margin-top: 1.2rem;  
+  }
+  .dtlcard1{
+    width: 1.6rem;
+    height: 2.2rem;
+     margin-left: 5rem;
+    margin-top: 8.8rem; 
+  }
+  .cartbox2{
+    margin-left: 5.7rem; 
+    margin-top: 2.1rem;
+  }
+  .dtlcard2{
+    width: 1.5rem;
+    height: 2.1rem;
+    /* margin-left: 5rem; */
+    margin-top: 7.8rem;
+  }
+  .cartbox3{
+    margin-left: 6.1rem;
+    margin-top: 2.1rem;
+  }
+  .dtlcard3{
+    width: 1.5rem;
+    height: 2.1rem;
+    /* margin-left: 9.8rem; */
+    margin-top: 7.8rem;
+  }
+
+  
+}
+@media  screen and (min-width: 1024px) {
+  .cartbox1{
+    margin-left: -3.3rem;
+    margin-top: 1.4rem;  
+  }
+  .dtlcard1{
+     /* height: 10rem; */
+     width: 1.8rem;
+     height: 2.6rem;
+     /* margin-left: 5rem;
+    margin-top: 8.8rem;  */
+  }
+  .cartbox2{
+    margin-left: 5.8rem; 
+    margin-top: 2.4rem;
+  }
+  .dtlcard2{
+    width: 1.8rem;
+
+    height: 2.6rem;
+    /* margin-left: 5rem; */
+    /* margin-top: 7.8rem; */
+
+  }
+  .cartbox3{
+    margin-left: 6rem;
+    margin-top: 2.35rem;
+  }
+  .dtlcard3{
+    width: 1.8rem;
+    height: 2.6rem;
+    /* margin-left: 9.8rem; */
+    /* margin-top: 7.8rem; */
+  }
+
+  
+}
+@media  screen and (min-width: 1070px) {
+  .cartbox1{
+    margin-left: -3.7rem;
+    margin-top: 2rem;  
+  }
+  .dtlcard1{
+     width: 1.8rem;
+     height: 2.6rem;
+
+  }
+  .cartbox2{
+    margin-left: 6.15rem; 
+    margin-top: 3.2rem;
+  }
+  .dtlcard2{
+    width: 1.8rem;
+    height: 2.6rem;
+  }
+  .cartbox3{
+    margin-left: 6.5rem;
+    margin-top: 3.2rem;
+  }
+  .dtlcard3{
+    width: 1.8rem;
+    height: 2.6rem;
+  }
+
+  
+}
+@media  screen and (min-width: 1125px) {
+
+
+
+ 
+  /* .gdragontigerlion{
+    width: 30rem;
+  } */
+  .cartbox1{
+    margin-left: -4.2rem;
+    margin-top: 2.5rem;  
+  
+  }
+  .dtlcard1{
+     /* height: 10rem; */
+     width: 2rem;
+     height: 2.6rem;
+     /* margin-left: 5rem;
+    margin-top: 8.8rem;  */
+  }
+  .cartbox2{
+    margin-left: 6.33rem; 
+    margin-top: 3.5rem;
+  }
+  .dtlcard2{
+    width: 2rem;
+    height: 2.6rem;
+    /* margin-left: 5rem; */
+    /* margin-top: 7.8rem; */
+
+  }
+  .cartbox3{
+    margin-left: 6.8rem;
+    margin-top: 3.5rem;
+  }
+  .dtlcard3{
+    width: 2rem;
+    height: 2.6rem;
+    /* margin-left: 9.8rem; */
+    /* margin-top: 7.8rem; */
+  }
+
+  
+}
+@media  screen and (min-width: 1170px) {
+ 
+  .cartbox1{
+    margin-left: -4.6rem;
+    margin-top: 3rem;  
+  }
+  .dtlcard1{
+     width: 2rem;
+     height: 2.6rem;
+  }
+  .cartbox2{
+    margin-left: 6.7rem; 
+    margin-top: 4rem;
+  }
+  .dtlcard2{
+    width: 2rem;
+    height: 2.6rem;
+  }
+  .cartbox3{
+    margin-left: 7.2rem;
+    margin-top: 4rem;
+  }
+  .dtlcard3{
+    width: 2rem;
+    height: 2.6rem;
+    /* margin-left: 9.8rem; */
+    /* margin-top: 7.8rem; */
+  }
+
+  
+}
+@media  screen and (min-width: 1225px) {
+
+
+  .gdragontigerlion{
+    width: 30rem;
+  }
+  .cartbox1{
+    margin-left: -0.3rem;
+    margin-top: 3.7rem;  
+  
+  }
+  .dtlcard1{
+     /* height: 10rem; */
+     width: 2.2rem;
+    height: 2.9rem;
+     /* margin-left: 5rem;
+    margin-top: 8.8rem;  */
+  }
+  .cartbox2{
+    margin-left: 7.1rem; 
+    margin-top: 4.7rem;
+  }
+  .dtlcard2{
+    width: 2.2rem;
+    height: 2.9rem;
+    /* margin-left: 5rem; */
+    /* margin-top: 7.8rem; */
+
+  }
+  .cartbox3{
+    margin-left: 7.6rem;
+    margin-top: 4.7rem;
+  }
+  .dtlcard3{
+    width: 2.2rem;
+    height: 2.9rem;
+    /* margin-left: 9.8rem; */
+    /* margin-top: 7.8rem; */
+  }
+
+  
+}
+@media  screen and (min-width: 1285px) {
+
+
+  .gdragontigerlion{
+    width: 30rem;
+  }
+  .cartbox1{
+    margin-left: -1.1rem;
+    margin-top: 4.7rem;  
+  
+  }
+  .dtlcard1{
      
-      margin-bottom: 26rem;
-    }
-    #second {
-      width: 116%;
-      margin-bottom: 2rem;
-      height: 4rem;
-      margin-top: 1rem;
+     width: 2.4rem;
+     height: 3.1rem;
    
-    }
-  
-    .second {
-      margin-bottom: 1.2rem;
-      margin-left: -2.1rem;
-      width: 65%;
-  
-     
-    }
-    .matchID {
-      margin-bottom: -1rem;
-      margin-left: -2.1rem;
-      width: 65%;
-  
-      font-size: 84%;
-  
-    
-    }
-    #array {
-      margin-top: 0.5rem;
-    }
-    #second button {
-      width: 22%;
-      font-size: 0.6rem;
-    
-      margin-right: 0rem;
-      top: 3rem;
-    }
-    #third {
-     
-      width: 100%;
-      top: 110%;
-      right: 0rem;
-      height: 60%;
-    
-    }
   }
-  
-  @media only screen and (min-width: 768px) {
-    #first {
-      margin-bottom: 0;
-      width: 100%;
-    }
-    #second {
-      margin-top: 1rem;
-      width: 100%;
-      height: 15%;
-  
-      display: flex;
-      position: relative;
-    }
-    .second {
-      margin-left: -1.8rem;
-      margin-right: -1.5rem;
-    }
-  
-    .matchID {
-      margin-top: 0.5rem;
-      left: 0.5rem;
-      width: 75%;
-  
-      font-size: 84%;
-  
-  
-    }
-    #second button {
-      width: 28%;
-      margin-top: 0.5rem;
-      right: 0.5rem;
-    }
-    #third {
-      width: 60%;
-      height: 80;
-      position: absolute;
-      right: 4rem;
-      top: 114%;
-  
-      display: flex;
-      justify-content: space-between;
-      flex-direction: column;
-    }
+  .cartbox2{
+    margin-left: 7.3rem; 
+    margin-top: 5.7rem;
   }
-  @media screen and (min-width: 1024px) {
-    #first {
-      margin-bottom: 0;
-      width: 66%;
-    }
-    #second {
-      width: 65%;
-      height: 15%;
+  .dtlcard2{
+    width: 2.4rem;
+    height: 3.1rem;
+
+  }
+  .cartbox3{
+    margin-left: 8.5rem;
+    margin-top: 5.7rem;
+  }
+  .dtlcard3{
+    width: 2.4rem;
+    height: 3.1rem;
+    
+  }
+
   
-      display: flex;
-      position: relative;
-    }
-    #second button {
-      width: 30%;
-      font-size: 1rem;
-      margin-top: 2.5rem;
-      margin-bottom: 1rem;
-    }
-    .matchID {
-      margin-top: 2rem;
-      left: 0.5rem;
-      height: 2.5rem;
-      font-size: 1rem;
-      width: 75%;
+}
+
+
+@media  screen and (min-width: 1312px) {
+  .gdragontigerlion{
+    width: 30rem;
+  }
+  .cartbox1{
+    margin-left: -1.7rem;
+    margin-top: 5.5rem;  
   
-      font-size: 84%;
-  
+  }
+  .dtlcard1{
      
-    }
-    #third {
-      width: 29%;
-      height: 80%;
-      position: absolute;
-      right: 0.3rem;
-      top: 40%;
-  
-      display: flex;
-      justify-content: space-between;
-      flex-direction: column;
-    }
-  }
-  
-  @media screen and (min-width: 1440px) {
-    #first {
-      height: 40rem;
-      margin-bottom: 0;
-      width: 66%;
-    }
-    #second {
-      width: 65%;
-      height: 11%;
-  
-      display: flex;
-      position: relative;
-    }
-    #second button {
-      width: 30%;
-      font-size: 1rem;
-      margin-top: 2.4rem;
-      margin-bottom: 1rem;
-    }
-    .matchID {
-      margin-top: 2rem;
-      left: 0.5rem;
-      height: 2.4rem;
-      font-size: 1.3rem;
-      width: 75%;
-  
-      text-align: center;
-  
+     width: 2.5rem;
+     height: 3.2rem;
    
-    }
-    #third {
-      width: 29%;
-      height: 100%;
-      position: absolute;
-      right: 0.3rem;
-      top: 22%;
-  
-      display: flex;
-      justify-content: space-between;
-      flex-direction: column;
-    }
   }
+  .cartbox2{
+    margin-left: 8rem; 
+    margin-top: 6.5rem;
+  }
+  .dtlcard2{
+    width: 2.5rem;
+    height: 3.2rem;
+
+  }
+  .cartbox3{
+    margin-left: 8.3rem;
+    margin-top: 6.5rem;
+  }
+  .dtlcard3{
+    width: 2.5rem;
+    height: 3.2rem;
+    
+  }
+
+
+}
+@media  screen and (min-width: 1440px) {
+
+  .gdragontigerlion{
+    width: 30rem;
+  }
+  .cartbox1{
+    margin-left: -3rem;
+    margin-top: 7.6rem;  
   
+  }
+  .dtlcard1{
+     
+     width: 3.7rem;
+     height: 4.1rem;
+   
+  }
+  .cartbox2{
+    margin-left: 7.2rem; 
+    margin-top: 8.5rem;
+  }
+  .dtlcard2{
+    width: 3.6rem;
+    height: 4.1rem;
+
+  }
+  .cartbox3{
+    margin-left: 8.7rem;
+    margin-top: 8.5rem;
+  }
+  .dtlcard3{
+    width: 3.4rem;
+    height: 4.1rem;
+    
+  }
+
+  
+}
+
+
+@media  screen and (min-width: 1484px) {
+
+
+
+  .gdragontigerlion{
+    width: 30rem;
+  }
+  .cartbox1{
+    margin-left: -3.3rem;
+    margin-top: 7.6rem;  
+  
+  }
+  .dtlcard1{
+     
+     width: 3.7rem;
+     height: 4.1rem;
+   
+  }
+  .cartbox2{
+    margin-left: 7.7rem; 
+    margin-top: 8.5rem;
+  }
+  .dtlcard2{
+    width: 3.6rem;
+    height: 4.1rem;
+
+  }
+  .cartbox3{
+    margin-left: 9.3rem;
+    margin-top: 8.5rem;
+  }
+  .dtlcard3{
+    width: 3.4rem;
+    height: 4.1rem;
+    
+  }
+
+  
+}
+
+
+
+
+

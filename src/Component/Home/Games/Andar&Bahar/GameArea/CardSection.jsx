@@ -16,8 +16,8 @@ const CardSection = ({
 
   return (
     <Box
-      width="5%"
-      height="8%"
+      width="6%"
+      height="13%"
       position={position}
       bottom={bottom}
       middle={middle}
@@ -25,11 +25,10 @@ const CardSection = ({
       left={left}
       right={right}
       transform={transform}
+      id="andarhiddencards"
     >
       {/* <Text textColor="white">{title}</Text> */}
-      <Box 
-      display="flex" 
-      flexDirection={flexDirection}>
+      <Box display="flex" flexDirection={flexDirection}>
         {reverseCards.map((card, index) => (
           <Card
             // key={`${title.toLowerCase()}-${index}`}
@@ -44,7 +43,7 @@ const CardSection = ({
 };
 
 CardSection.propTypes = {
-  // title: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   cards: PropTypes.array.isRequired,
   position: PropTypes.string,
   bottom: PropTypes.string,

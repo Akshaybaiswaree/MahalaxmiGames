@@ -1,3 +1,5 @@
+import "./DragonTiger.css";
+
 import {
   AspectRatio,
   Box,
@@ -24,23 +26,23 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
-
 import React, { useEffect, useRef, useState } from "react";
 
-//  import Gamingimage from "../Games/images/GAMING GIRL 1.svg";
 import Gamingimage from "../../Games/Images/GAMING GIRL 1.svg";
-import "./DragonTiger.css";
-
-import { io } from "socket.io-client";
-import pann from "../../Games/Images/Pann.svg";
+import NoteIcon from "@mui/icons-material/Note";
 import flower from "../../Games/Images/Flower.svg";
 import heart from "../../Games/Images/Heart.svg";
 import heart1 from "../../Games/Images/Heart1.svg";
+import { io } from "socket.io-client";
+import pann from "../../Games/Images/Pann.svg";
 import vector from "../../Games/Images/Vector-1.svg";
-import NoteIcon from "@mui/icons-material/Note";
+
+//  import Gamingimage from "../Games/images/GAMING GIRL 1.svg";
+
+const userId = localStorage.getItem("userId");
 const socket = io("https://dragontiger-backend.onrender.com", {
   query: {
-    userId: Math.floor(Math.random() * Date.now()),
+    userID: userId,
   },
   transports: ["websocket"],
 });
@@ -56,7 +58,16 @@ export default function DragonTiger() {
   const [mainCard, setMainCard] = useState([]);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
   const [gamehistory, setGamehistory] = useState([]);
-
+  
+  useEffect(() => {
+    const userID = localStorage.getItem("userId");
+    if (userID) {
+      socket.io.opts.query.userID = userID;
+      socket.disconnect();
+      socket.connect();
+    }
+  }, [localStorage.getItem("userId")]);
+  
   useEffect(() => {
     // Listen for game state updates from the server
     socket.on(
@@ -120,9 +131,7 @@ export default function DragonTiger() {
   return (
     <>
       <ChakraProvider>
-        <Box 
-        bg={' '}
-        m={"0.5rem"} maxW={["90.5vw", "83.5vw"]}>
+        <Box bg={" "} m={"0.5rem"} maxW={["90.5vw", "83.5vw"]}>
           <Flex direction={["column", "row "]}>
             <Box width={["105%", "34%"]}>
               <Box
@@ -169,7 +178,7 @@ export default function DragonTiger() {
                       onClick={onOpen}
                       className="ruleandregulation"
                     >
-                      Rules 
+                      Rules
                     </Button>
                   </Box>
                   <Modal
@@ -217,12 +226,9 @@ export default function DragonTiger() {
                           PAYOUT
                         </Button>
                         <br />
-                        
                         <TableContainer>
                           <Table size="sm">
-                            <Thead>
-                             
-                            </Thead>
+                            <Thead></Thead>
                             <Tbody>
                               <Tr>
                                 <Td>Dragon</Td>
@@ -262,14 +268,11 @@ export default function DragonTiger() {
                                 <Td>1 to 2.75</Td>
                               </Tr>
                             </Tbody>
-                           
                           </Table>
                         </TableContainer>
                       </ModalBody>
 
-                      <ModalFooter>
-                       
-                      </ModalFooter>
+                      <ModalFooter></ModalFooter>
                     </ModalContent>
                   </Modal>
                 </Flex>
@@ -315,12 +318,13 @@ export default function DragonTiger() {
                       color="white"
                       // background="linear-gradient(to bottom right, violet, blue)"
                       background="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
+                      className="placebet"
                     >
                       {gameState?.value < 20 ? "Freeze" : "Place  Bet"}
                     </Box>
 
-                    <Box >
-                      {(gameState.value > 10) && (
+                    <Box>
+                      {gameState.value > 10 && (
                         <Button
                           // background="linear-gradient(to bottom right,#ED9203, #323349, #880000)"
                           background="linear-gradient(to bottom right, #ED9203, #C7E600)"
@@ -332,13 +336,11 @@ export default function DragonTiger() {
                           visibility={"hidden"}
                         >
                           ainner: {mainCard?.winstatus} {mainCard?.winCardSuit}
-                          
                           {/* Winner: {mainCard?.winCardSuit} */}
                         </Button>
                       )}
                     </Box>
-                    <Box 
-                    id="winnerbox">
+                    <Box id="winnerbox">
                       {gameState.value <= 10 && (
                         <Button
                           // background="linear-gradient(to bottom right,#ED9203, #323349, #880000)"
@@ -350,12 +352,10 @@ export default function DragonTiger() {
                           // position={"absolute"}
                         >
                           Winner: {mainCard?.winstatus} {mainCard?.winCardSuit}
-                          
                           {/* Winner: {mainCard?.winCardSuit} */}
                         </Button>
                       )}
                     </Box>
-                    
 
                     <Box
                       fontWeight={"900"}
@@ -389,7 +389,6 @@ export default function DragonTiger() {
                           // backgroundColor={"black"}
                         >
                           <Stack direction="column" width={["10rem", "12rem"]}>
-                           
                             {gameState.value < 150 && (
                               <Box
                                 fontStyle={"yellow"}
@@ -399,7 +398,6 @@ export default function DragonTiger() {
                                 // marginLeft={["-0.8rem", "0.4rem"]}
                                 id="playercard11"
                                 // backgroundColor={"black"}
-
                               >
                                 <Image src={`/cards/${mainCard?.dragoncard}`} />
                               </Box>
@@ -411,14 +409,13 @@ export default function DragonTiger() {
                             width={["6rem", "8rem"]}
                             direction="column"
                           >
-                           
                             {gameState.value < 140 && (
-                              <Box 
-                              // width={["1.5rem", "3rem"]}
-                              // width={"2rem"}
-                              // height={"2rem"}
-                              // marginLeft={["4.4rem", "  3.2rem"]}
-                              id="playercard12"
+                              <Box
+                                // width={["1.5rem", "3rem"]}
+                                // width={"2rem"}
+                                // height={"2rem"}
+                                // marginLeft={["4.4rem", "  3.2rem"]}
+                                id="playercard12"
                               >
                                 <Image src={`/cards/${mainCard?.tigercard}`} />
                               </Box>
@@ -480,40 +477,35 @@ export default function DragonTiger() {
                       >
                         Available Credit :
                       </Text>
-                      <Text 
-                      fontWeight={"500"} 
-                      fontSize={["20px", "24px"]}
-                    // backgroundColor={"yellow"}
+                      <Text
+                        fontWeight={"500"}
+                        fontSize={["20px", "24px"]}
+                        // backgroundColor={"yellow"}
                       >
-                      
                         {user?.coins && Math.max(0, user?.coins)}
                       </Text>
                     </Box>
 
-                    <Box 
-                    // flex="1"
-                    //  width="46%" 
-                    //  textAlign="center"
-                     className="matchidbox"
-                     >
+                    <Box
+                      // flex="1"
+                      //  width="46%"
+                      //  textAlign="center"
+                      className="matchidbox"
+                    >
                       <Text
                         // color={"#668cff"}
                         // fontSize={["16px", "18px"]}
                         // fontWeight="bold"
                         className="matchid"
-                      
                       >
                         Match Id :
                       </Text>
-                      <Text 
-                      fontWeight={"500"}
-                       fontSize={["19px", "24px"]}
-                       >
+                      <Text fontWeight={"500"} fontSize={["19px", "24px"]}>
                         {user?.userId}
                       </Text>
                     </Box>
                   </Flex>
-                  
+
                   <Box
                     // mb={["1rem", ""]}
                     // mt={["2rem", "1rem"]}
@@ -568,12 +560,10 @@ export default function DragonTiger() {
                     <Button
                       background="linear-gradient(to bottom right , #989BDE , #656794 )"
                       _hover={{ bg: " #d9d9d9" }}
-
                       className="playerid"
                       // width={["14rem", "16rem"]}
                       // mb={["1rem", "1rem"]}
                       // marginLeft={["-0.5rem","2rem"]}
-                    
                     >
                       <Text fontWeight={"700"}> PlayerId : {user?.userId}</Text>
                     </Button>
@@ -594,10 +584,11 @@ export default function DragonTiger() {
                   </Box>
 
                   {/* New Box */}
-                  <Box width={["100%", "100%"]}>
-                    <Box 
-                    // marginLeft={["1rem", "12rem"]}
-                    className="chooseyour">
+                  <Box width={["100%", "100%"]} className="choosemain">
+                    <Box
+                      // marginLeft={["1rem", "12rem"]}
+                      className="chooseyour"
+                    >
                       <Text
                         mt={"1.5rem"}
                         mb={"1rem"}
@@ -606,9 +597,8 @@ export default function DragonTiger() {
                         className="choose"
                       >
                         Choose Your Amount
-                       </Text>
-                      
-                     </Box>
+                      </Text>
+                    </Box>
                     <Flex
                       // ml={["0rem", "3rem"]}
                       border={"6px solid lightgreen"}
@@ -622,7 +612,7 @@ export default function DragonTiger() {
                         flexWrap={["nowrap", "wrap"]}
                         justifyContent={["center"]}
                         className="moneyin"
-                        
+
                         // ml={["0rem", "3rem"]}
                       >
                         {[
@@ -637,7 +627,6 @@ export default function DragonTiger() {
                             ml={["0.8rem", "0rem"]}
                             key={index}
                             height="45px"
-                           
                             display="flex"
                             justifyContent="center"
                             alignItems="center"
@@ -646,7 +635,6 @@ export default function DragonTiger() {
                             _hover={{ height: "2rem" }}
                             onClick={() => {
                               setCoins(item.value);
-                            
                             }}
                           >
                             <img
@@ -725,7 +713,6 @@ export default function DragonTiger() {
                         {/* Right Button */}
                         <Button
                           fontWeight={"700"}
-                          
                           onClick={() =>
                             handleBait({
                               baitType: "tiger",
@@ -753,12 +740,11 @@ export default function DragonTiger() {
               </Stack>
             </Box>
           </Flex>
-          
 
           <Box
             p="1"
             width={["100%", "80%"]}
-            
+
             // // maxW={["50vw" , "50vw"]}
           >
             <Table
@@ -779,26 +765,22 @@ export default function DragonTiger() {
                 </Tr>
               </Thead>
 
-             
-
-              <div 
-              style={{ display: "flex" }}
-               className="boxes"
-              // marginLeft={["50rem",""]}
-             
-
+              <div
+                style={{ display: "flex" }}
+                className="boxes"
+                // marginLeft={["50rem",""]}
               >
                 <div className="container">
                   <h6>DRAGON COLOUR</h6>
                   <div className="box1">
-                    < div className="white-box">
+                    <div className="white-box">
                       <div className="image">
-                        <img src={pann} alt="" />  
+                        <img src={pann} alt="" />
                         <img src={flower} alt="" />
                       </div>
                       <span>1.98</span>
                     </div>
-                      <div className="white-box">
+                    <div className="white-box">
                       <div className="image">
                         <img src={heart1} alt="" />
                         <img src={flower} alt="" />
@@ -811,7 +793,7 @@ export default function DragonTiger() {
                 <div className="container2">
                   <h6>TIGER COLOUR</h6>
                   <div className="box1">
-                     <div className="white-box">
+                    <div className="white-box">
                       <div className="image">
                         <img src={pann} alt="" />
                         <img src={flower} alt="" />

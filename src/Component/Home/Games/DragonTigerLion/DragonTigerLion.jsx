@@ -1,4 +1,4 @@
-// import "./TwoCardspatti.css";
+import "./DragonTigerLion.css";
 
 import {
   AspectRatio,
@@ -6,185 +6,105 @@ import {
   Button,
   ChakraProvider,
   Flex,
-  Heading,
   Image,
-  Modal,
   Text,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
-// import TwoCard from "../../Games/Images/2cardpatti.svg";
-
-//import PopUp from "./PopUp";
-// import Logo from "../../../images/32cardsA_v.jpeg";
-//  import backGroundImage from "./images/background_plus_cards.jpeg"
-const userId = Math.floor(Math.random() * Date.now());
-// console.log("userId on the client side:", userId);
-
-const socket = io("https://dragenliontiger.onrender.com/", {
+const userId = localStorage.getItem("userId");
+const socket = io("https://dragontigerlionbackend.onrender.com", {
   query: {
-    userId,
+    userID: userId,
   },
   transports: ["websocket"],
 });
-export default function TwoCardsTeenPatti() {
-  const [timer, setTimer] = useState("");
-  const [playerId, setPlayerId] = useState("");
-  const [availableBal, setAvailableBal] = useState("");
-  const [matchId, setMatchId] = useState("");
-  const [selectBet, setSelectBet] = useState("");
-  const [selectCoins, setSelectCoins] = useState("10");
-  const [dragonCards, setDragonCards] = useState("");
-  const [tigerCards, setTigerCards] = useState("");
-  const [lionCards, setLionCards] = useState("");
-  const [winnerStatus, setWinnerStatus] = useState("Wait!!");
-  const [buttonClick, setButtonClick] = useState(false);
+
+export default function DragonTigerLion() {
+  const [gameState, setGameState] = useState({ value: "waiting" });
+  const [user, setUser] = useState(null);
+  const [coins, setCoins] = useState(0);
+  const [mainCard, setMainCard] = useState({});
   const [selectedCoins, setSelectedCoins] = useState(null);
   const [gameHistory, setGameHistory] = useState([]);
+  const [bettingAmount, setBettingAmount] = useState("");
+  const [isButtonDisabled, setButtonDisabled] = useState();
 
   useEffect(() => {
-    const handleGameCards = (data) => {
-      console.log("CardsData:-", data);
-      if (data.playerHands) {
-        setDragonCards(data.playerHands.Dragen);
-        setTigerCards(data.playerHands.Tiger);
-        setLionCards(data.playerHands.Lion);
-        // setGamesCards(data.playerHands);
-        setWinnerStatus(data.winner);
-      } else {
-        console.log("Cards is not here", data);
-      }
+    const userID = localStorage.getItem("userId");
+    if (userID) {
+      socket.io.opts.query.userID = userID;
+      socket.disconnect();
+      socket.connect();
+    }
+  }, [localStorage.getItem("userId")]);
+
+  useEffect(() => {
+    const handleGameUpdate = (data) => {
+      // console.log("timer", data?.gamestate);
+      setGameState(data.gamestate);
+      data.gamestate.value - 25 === 20 ? setBettingAmount(0) : "";
+      const isDisabled = data.gamestate.value - 25 <= 0;
+      setButtonDisabled(isDisabled);
     };
 
-    const handleTimer = (data) => {
-      setTimer(data.countdown);
+    const handleUserDetails = (data) => {
+      console.log("UserDetails", data);
+      setUser(data.user);
     };
 
-    const handlePlayerId = (data) => {
-      socket.emit("getuser", data);
-      // setPlayerId(data.user.userId);
-      // setMatchId(data.user._id);
-    };
-
-    const handlePlayerBalance = (data) => {
-      // console.log("Received balance update:", data);
-      setAvailableBal(data.balance);
-    };
-
-    const handleGetUserBalance = () => {
-      socket.emit("getBalance");
-    };
-
-    const handleWinHistory = (data) => {
-      console.log("Received win history:", data);
-      if (data && data.winStatuses) {
-        setGameHistory(data.winStatuses);
-      } else {
-        console.error("Invalid or missing win history data.");
-      }
+    const handleMainCard = (data) => {
+      console.log("MainCard", data);
+      setMainCard(data.mainCard);
+      setGameHistory(data.gameHistory);
     };
 
     const handleBet = (data) => {
-      setSelectBet(data.choice);
-      setAvailableBal(data.userBalance);
-      setDragonCards(data.DragenNumber);
-      setTigerCards(data.TigerNumber);
-      setLionCards(data.LionNumber);
-      // setGameHistory(data?.gameHistory)
-      console.log(data);
-      // setButtonStatus1(true);
-      // setButtonStatus2(true);
-      // setButtonStatus3(true);
-
-      console.log("new bet:-", data);
-      // console.log("new bet Choice:-", data.choice);
-      // console.log("new bet balance:-", data.userBalance);
-      // console.log("DragenNumber:-", data.DragenNumber);
-      // console.log("TigerNumber:-", data.TigerNumber);
-      // console.log("LionNumber:-", data.LionNumber);
+      console.log("bet", data);
     };
 
-    const handleNewRound = () => {
-      setSelectBet(null);
-      setDragonCards([]);
-      setTigerCards([]);
-      setLionCards([]);
-      // setGamesCards([]);
-      setWinnerStatus(null);
-      // setButtonStatus1(true);
-      // setButtonStatus2(true);
-      // setButtonStatus3(true);
-    };
-
-    // const handleWinHistory = (data) => {
-    //   console.log("WinHistory", data);
-    //   setGameHistory(data.winStatuses);
-    // };
-
-    const handleGameId = (data) => {
-      console.log("GameId", data);
-      setMatchId(data.gameId);
-    };
-
-    handleGetUserBalance();
-
-    socket.on("countdown", handleTimer);
-    socket.on("balanceUpdate", handlePlayerBalance);
-    socket.on("getuser", handlePlayerId);
-    socket.on("newBet", handleBet);
-    socket.on("newRound", handleNewRound);
-    socket.on("dealCards", handleGameCards);
-    socket.on("WinHistory", handleWinHistory);
-    socket.on("gameId", handleGameId);
+    socket.on("gameUpdate", handleGameUpdate);
+    socket.on("userDetails", handleUserDetails);
+    socket.on("Main_Card", handleMainCard);
+    socket.on("bet", handleBet);
 
     return () => {
-      socket.off("countdown", handleTimer);
-      socket.off("balanceUpdate", handlePlayerBalance);
-      socket.off("getuser", handlePlayerId);
-      socket.off("newBet", handleBet);
-      socket.off("newRound", handleNewRound);
-      socket.off("dealCards", handleGameCards);
-      socket.off("WinHistory", handleWinHistory);
-      socket.off("gameId", handleGameId);
+      socket.off("gameUpdate", handleGameUpdate);
+      socket.off("userDetails", handleUserDetails);
+      socket.off("Main_Card", handleMainCard);
+      socket.off("bet", handleBet);
     };
   }, []);
-  if (timer === 40) {
+  if (gameState?.value === 5) {
     socket.emit("getUpdatedUserDetails");
   }
 
-  const handleBetting = (baitType) => {
-    if (timer - 25 < 0) {
-      setButtonClick(true);
-    }
-
-    if (availableBal <= 0) {
+  const handleBetting = (betType) => {
+    console.log("bettype", betType);
+    const bet = {
+      betType,
+      coins,
+      cardId: mainCard._id,
+    };
+    console.log("betting1234", betType, coins, mainCard._id);
+    socket.emit("bet", bet);
+    if (user?.coins <= 10) {
       alert("Insufficient Funds");
       return;
     }
-
-    // console.log("bettype", baitType);
-
-    const coins = parseInt(selectCoins);
-    // console.log("coins", coins);
-
-    const betData = {
-      selectedChoice: baitType,
-      coins,
-      // cardId: playerId._id,
-    };
-
-    socket.emit("placeBet", betData);
+    if (user?.coins > 10) {
+      setBettingAmount((prev) => prev + Number(coins));
+      return;
+    }
   };
 
   return (
     <>
       <ChakraProvider>
         <Box width={["19rem", "100%"]}>
-          <Box bg={"#451212"} maxW={["100vw", "100vw"]} id="main-div">
+          <Box bg={"#35495e"} maxW={["100vw", "100vw"]} id="main-div">
             <Flex
               align="left-top"
               justify="left-top"
@@ -223,7 +143,7 @@ export default function TwoCardsTeenPatti() {
                   <Box
                     border="4px solid #333"
                     height="50%"
-                    backgroundImage="url('/public/DragonTigerLion/DragonTigerLion.webp')"
+                    backgroundImage="url('/DragonTigerLion/DragonTigerLion.webp')"
                     backgroundSize="cover"
                     backgroundPosition={`center 100%`}
                     backgroundRepeat="no-repeat"
@@ -251,13 +171,11 @@ export default function TwoCardsTeenPatti() {
                       alignItems="center"
                       fontSize={["10px", "sm"]}
                       color="white"
-                      // background="linear-gradient(to bottom right, violet, blue)"
-                      background="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
+                      background="linear-gradient(to top, #09203f 0%, #537895 100%)"
                     >
-                      {/* {countdown <= 25 ? "Freeze" : "Place  Bet"} */}
-                      {timer <= 8
-                        ? "Winner: " + winnerStatus
-                        : timer <= 25
+                      {gameState?.value <= 8
+                        ? "Winner: " + mainCard?.winstatus
+                        : gameState?.value <= 25
                         ? "Freeze"
                         : "Place Bet"}
                     </Box>
@@ -278,134 +196,111 @@ export default function TwoCardsTeenPatti() {
                       justifyContent="center"
                       alignItems="center"
                       fontSize="lg"
-                      background=" linear-gradient(to bottom right, #640E18, #CC1D31,#DAA520)"
+                      background="linear-gradient(to top, #09203f 0%, #537895 100%)"
                       marginRight={"1rem"}
                       color="white"
                     >
-                      {/* {Math.max(0, countdown) !== null && (
-                        <p>{Math.max(0, countdown - 25)}</p>
-                      )} */}
-                      {timer - 25 < 0 ? "0" : timer - 25}
+                      {gameState?.value - 25 <= 0 ? "0" : gameState?.value - 25}
                     </Box>
 
-                    <Flex
-                      justifyContent={"space-between"}
-                      gap={"0.7rem"}
-                      direction="row"
-                      position={"absolute"}
-                      top={["60%", "63%"]}
-                      left={["44%", "45%"]}
-                      // id="playerCard"
-                    >
-                      <Box>
-                        {timer <= 14 && (
-                          <Box
-                            key={1}
-                            height={["20.5 rem", "0.5rem"]}
-                            width={["1.9rem", "3.2rem"]}
-                          >
-                            <Image src={`/cards/${dragonCards}`} />
-                          </Box>
-                        )}
-                      </Box>
-                      <Box>
-                        {timer <= 12 && (
-                          <Box
-                            key={1}
-                            height={["2.5 rem", "0.5rem"]}
-                            width={["1.9rem", "3.2rem"]}
-                          >
+                    <Flex className="gdragontigerlion" direction="row">
+                      <Box className="cartbox1">
+                        {gameState?.value <= 14 && (
+                          <Box key={1}>
                             <Image
-                              src={`/cards/${tigerCards}`}
-                              // boxSize={["1.8rem", "2.7rem"]}
-
-                              // top={"80rem"}
-                              // alt={`${card}`}
+                              className="dtlcard1"
+                              src={`/cards/${mainCard?.dragoncard}`}
                             />
                           </Box>
                         )}
                       </Box>
-                    </Flex>
-                    <Flex
-                      justifyContent={"space-between"}
-                      gap={"0.7rem"}
-                      direction="row"
-                      position={"absolute"}
-                      top={["77%", "78%"]}
-                      left={["44%", "45%"]}
-                    >
-                      <Box>
-                        {timer <= 13 && (
-                          <Box
-                            key={0}
-                            height={["2.5 rem", "0.5rem"]}
-                            width={["1.9rem", "3.2rem"]}
-                            //  style={{marginTop: '0.9rem', marginLeft: '0.1rem' }}
-                          >
+                      <Box className="cartbox2">
+                        {gameState?.value <= 12 && (
+                          <Box key={1}>
                             <Image
-                              src={`/cards/${lionCards}`}
-                              // boxSize={["1.8rem", "2.9rem"]}
+                              className="dtlcard2"
+                              src={`/cards/${mainCard?.tigercard}`}
                             />
                           </Box>
                         )}
                       </Box>
-                      {/* <Box>
-                        {countdown <= 11 && (
-                          <Box
-                            key={1}
-                            height={["2.5 rem", "0.5rem"]}
-                            width={["1.9rem", "3.2rem"]}
-                            //  style={{marginTop: '0.9rem', marginLeft: '0.4rem' }}
-                          >
+                      <Box className="cartbox3">
+                        {gameState?.value <= 10 && (
+                          <Box key={1}>
                             <Image
-                              src={`/cards/${player2Cards[1]}`}
-
-                              // alt={`${card}`}
+                              className="dtlcard3"
+                              src={`/cards/${mainCard?.lioncard}`}
                             />
                           </Box>
                         )}
-                      </Box> */}
+                      </Box>
                     </Flex>
                   </Box>
                 </AspectRatio>
 
-                <Flex flexDirection={["column", "row"]} alignItems="center">
-                  {/* Box Items */}
-                  <Box
+                <Flex flexDirection={["column", "column"]} alignItems="center">
+                  <Button
+                    bg={"black"}
                     fontWeight={"700"}
                     style={{
                       backgroundImage:
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
-                      color: "transparent",
+                      color: "#1d1716",
+                    }}
+                  >
+                    <>
+                      Player Id :
+                      <Text color={"#bae8e8"} align={"center"}>
+                        {user?.mobileNumber ? user?.mobileNumber : "Loading..."}
+                      </Text>
+                    </>
+                  </Button>
+                  <Button
+                    bg={"black"}
+                    fontWeight={"700"}
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(to right, #A52A2A, #FF8C00)",
+                      WebkitBackgroundClip: "text",
+                      color: "#1d1716",
                     }}
                   >
                     Last Wins:
-                  </Box>
+                  </Button>
 
-                  <Flex width={["100%", "67%"]} p={1} flexWrap="wrap">
-                    {gameHistory &&
-                      gameHistory?.map((item, index) => (
-                        <Box
-                          key={index}
-                          width={["35px", "35px"]} // Adjusted width for responsiveness
-                          height={["45px", "35px"]} // Adjusted height for responsiveness
-                          marginRight="5px" // Added right margin to each item
-                          marginBottom="5px" // Added bottom margin for spacing
-                          display="flex"
-                          justifyContent="center"
-                          alignItems="center"
-                          fontWeight="bold"
-                          border="2px solid white"
+                  <Flex
+                    width={["100%", "67%"]}
+                    p={1}
+                    flexWrap="wrap"
+                    align={"center"}
+                    textAlign={"center"}
+                    justifyContent={"center"}
+                  >
+                    {gameHistory?.map((item, index) => (
+                      <Box
+                        key={index}
+                        width={["35px", "35px"]}
+                        height={["45px", "35px"]}
+                        marginRight="5px"
+                        marginBottom="5px"
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        textAlign={"center"}
+                        fontWeight="bold"
+                        border="2px solid white"
+                        align={"center"}
+                      >
+                        <Text
+                          fontSize="14px"
+                          color={index % 2 === 0 ? "#2a2438" : "#bae8e8"}
+                          align={"center"}
                         >
-                          <Text
-                            fontSize="14px"
-                            color={index % 2 === 0 ? "white" : "red"}
-                          >
-                            {item}
-                          </Text>
-                        </Box>
-                      ))}
+                          {item}
+                        </Text>
+                      </Box>
+                    ))}
                   </Flex>
                   <Box
                     fontWeight={"700"}
@@ -413,10 +308,15 @@ export default function TwoCardsTeenPatti() {
                       backgroundImage:
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
-                      color: "transparent",
+                      color: "#1d1716",
                     }}
                   >
-                    <>Last Bet Amount :{0}</>
+                    <>
+                      Last Bet Amount :
+                      <Text color={"#bae8e8"} align={"center"}>
+                        {bettingAmount}
+                      </Text>
+                    </>
                   </Box>
                 </Flex>
               </Box>
@@ -428,35 +328,49 @@ export default function TwoCardsTeenPatti() {
                 id="playeryourbetdiv"
               >
                 <Flex
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                  textAlign={"center"}
+                  ml={{ base: "0.6rem", md: "rem" }}
                   width={["95%", "110%"]}
                   flexDirection="row"
-                  border="3px solid #333"
+                  // border="3px solid #333"
                   borderRadius="10px"
                 >
                   <Box
                     flex="1"
                     width="48%"
-                    backgroundColor="white"
+                    // backgroundColor="white"
+                    background=" linear-gradient(179.7deg, rgb(197, 214, 227) 2.9%, rgb(144, 175, 202) 97.1%)"
                     textAlign="center"
                     borderRadius="10px"
+                    border={"4px solid black"}
                   >
                     <Text fontSize={["18px", "18px"]} fontWeight="bold">
                       Available Credit
                     </Text>
-                    <Text fontSize={["20px", "24px"]}> {availableBal}</Text>
+
+                    <Text fontSize={["20px", "24px"]}>
+                      {Math.round(user?.coins * 100) / 100
+                        ? Math.round(user?.coins * 100) / 100
+                        : "0"}
+                    </Text>
                   </Box>
 
                   <Box
+                    border={"4px solid black"}
                     flex="1"
                     width="48%"
-                    backgroundColor="orange"
+                    background="linear-gradient(179.7deg, rgb(197, 214, 227) 2.9%, rgb(144, 175, 202) 97.1%)"
                     textAlign="center"
-                    borderRightRadius="10px"
+                    borderRadius="10px"
                   >
-                    <Text fontSize="18px" fontWeight="bold">
+                    <Text fontSize="18px" fontWeight="bold" color={"black"}>
                       Match Id:
                     </Text>
-                    <Text fontSize={["20px", "24px"]}>{matchId}</Text>
+                    <Text fontSize={["20px", "24px"]} color={"black"}>
+                      {mainCard?.gameid ? mainCard?.gameid : "Loading..."}
+                    </Text>
                   </Box>
                 </Flex>
                 {/* New Box  */}
@@ -465,7 +379,7 @@ export default function TwoCardsTeenPatti() {
                     <Text
                       fontSize="20px"
                       fontWeight="bold"
-                      marginLeft={["0.5rem"]}
+                      marginLeft={["2.9rem", "0.5rem"]}
                       mt={"1rem"}
                       color={"white"}
                     >
@@ -510,9 +424,9 @@ export default function TwoCardsTeenPatti() {
                           // onInput={(e) => setSelectedCoin(e.target.value)}
                           // value={selectedCoin}
                           onClick={() => {
-                            // setSelectedCoin(item.value);
-                            // console.log(item.value);
-                            setSelectCoins(item.value);
+                            // setSelectCoins(item.value);
+                            setCoins(item.value);
+                            console.log("coins", item.value);
                             setSelectedCoins(index);
                           }}
                         >
@@ -546,7 +460,7 @@ export default function TwoCardsTeenPatti() {
                       alignItems="center"
                     >
                       <Box
-                        width="90%"
+                        width={["110%", "120%"]}
                         height="100%"
                         position="relative"
                         // border="2px solid #333"
@@ -556,86 +470,119 @@ export default function TwoCardsTeenPatti() {
                         alignItems="center"
                       >
                         <Button
-                          isDisabled={timer - 25 <= 0 && buttonClick}
-                          width="90%"
+                          isDisabled={isButtonDisabled}
+                          width={["80%", "100%"]}
                           height={["50%", "80%"]}
-                          marginLeft="1rem"
-                          color="white"
+                          marginLeft="2rem"
+                          color="black"
                           fontWeight="800"
                           borderRadius="20%"
-                          bgGradient="linear(to-r, #0000FF, #FFA500)"
+                          bgGradient="linear(to-r,#a7bcb9, #3e4a61)"
                           _hover={
-                            !buttonClick && {
-                              bg: "#FAEBD7",
+                            !isButtonDisabled && {
+                              background:
+                                "linear-gradient(179.7deg, rgb(197, 214, 227) 2.9%, rgb(144, 175, 202) 97.1%)",
                               boxShadow: "dark-lg",
                               color: "black",
                             }
                           }
-                          onClick={() => handleBetting("Dragen")}
+                          onClick={
+                            () => handleBetting("dragon")
+                            // console.log("dragon")
+                          }
+                          display={"flex"}
+                          justifyContent={"space-around"}
                         >
-                          {buttonClick && (
+                          {isButtonDisabled && (
                             <FaLock
                               size={35}
-                              style={{ color: "white", marginRight: "0.5rem" }}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
                             />
                           )}
-                          Dragon
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
+                            Dragon<span>2.94</span>
+                          </Text>
                         </Button>
 
                         <Button
-                          isDisabled={timer - 25 <= 0 && buttonClick}
+                          isDisabled={isButtonDisabled}
                           // {<FaLock isDisabled={isButtonDisabled} />}
-                          width="90%"
+                          width={["80%", "100%"]}
                           height={["50%", "80%"]}
                           marginLeft="1rem"
-                          color="white"
+                          color="black"
                           fontWeight="800"
                           borderRadius="20%"
-                          bgGradient="linear(to-r, #0000FF, #FFA500)"
+                          bgGradient="linear(to-r,#a7bcb9, #3e4a61)"
                           _hover={
-                            !buttonClick && {
-                              bg: "#FAEBD7",
+                            !isButtonDisabled && {
+                              background:
+                                "linear-gradient(179.7deg, rgb(197, 214, 227) 2.9%, rgb(144, 175, 202) 97.1%)",
                               boxShadow: "dark-lg",
                               color: "black",
                             }
                           }
-                          onClick={() => handleBetting("Tiger")}
+                          onClick={() => handleBetting("tiger")}
+                          display={"flex"}
+                          justifyContent={"space-around"}
                         >
-                          {buttonClick && (
+                          {isButtonDisabled && (
                             <FaLock
                               size={35}
-                              style={{ color: "white", marginRight: "0.5rem" }}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
                             />
                           )}
-                          Tiger
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
+                            Tiger<span>2.94</span>
+                          </Text>
                         </Button>
-
                         <Button
-                          isDisabled={timer - 25 <= 0 && buttonClick}
+                          isDisabled={isButtonDisabled}
                           // {<FaLock isDisabled={isButtonDisabled} />}
-                          width="90%"
+                          width={["80%", "100%"]}
+                          marginRight={["2rem", "0rem"]}
                           height={["50%", "80%"]}
                           marginLeft="1rem"
-                          color="white"
+                          color="black"
                           fontWeight="800"
                           borderRadius="20%"
-                          bgGradient="linear(to-r, #0000FF, #FFA500)"
+                          bgGradient="linear(to-r,#a7bcb9, #3e4a61)"
                           _hover={
-                            !buttonClick && {
-                              bg: "#FAEBD7",
+                            !isButtonDisabled && {
+                              background:
+                                "linear-gradient(179.7deg, rgb(197, 214, 227) 2.9%, rgb(144, 175, 202) 97.1%)",
                               boxShadow: "dark-lg",
                               color: "black",
                             }
                           }
-                          onClick={() => handleBetting("Lion")}
+                          onClick={() => handleBetting("lion")}
+                          display={"flex"}
+                          justifyContent={"space-evenly"}
                         >
-                          {buttonClick && (
+                          {isButtonDisabled && (
                             <FaLock
                               size={35}
-                              style={{ color: "white", marginRight: "0.5rem" }}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
                             />
                           )}
-                          Lion
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
+                            Lion<span>2.94</span>
+                          </Text>
                         </Button>
                       </Box>
                     </Box>
@@ -645,8 +592,7 @@ export default function TwoCardsTeenPatti() {
             </Flex>
           </Box>
         </Box>
-        {/* </Box> */}
-        </ChakraProvider>
+      </ChakraProvider>
     </>
   );
 }
