@@ -292,6 +292,7 @@ export default function DragonTigerLion() {
                         fontWeight="bold"
                         border="2px solid white"
                         align={"center"}
+                        borderRadius={"50%"}
                       >
                         <Text
                           fontSize="14px"

@@ -531,6 +531,9 @@ export default function HighCard() {
                     p={1}
                     flexWrap="wrap"
                     align={"center"}
+                    justifyContent="center"
+                    alignItems="center"
+                    textAlign={"center"}  
                   >
                     {gameHistory?.map((item, index) => (
                       <Box
@@ -546,11 +549,15 @@ export default function HighCard() {
                         fontWeight="bold"
                         border="2px solid white"
                         align={"center"}
+                        borderRadius={"50%"}
                       >
                         <Text
                           fontSize="14px"
                           color={index % 2 === 0 ? "white" : "orange"}
                           align={"center"}
+                          justifyContent="center"
+                          alignItems="center"
+                          textAlign={'ceter'}
                         >
                           {`P${item}`}
                         </Text>
