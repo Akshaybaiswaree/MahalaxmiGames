@@ -99,26 +99,25 @@ export default function TeenPatti() {
     setPlayerCards(displayedCards);
   };
 
+ 
   const handelBet = (baitType) => {
-    if (user?.coins < coins) {
-      const isDisabled = user?.coins < coins;
-      setButtonDisabled(isDisabled);
-      alert("Betting Amount is less than Balances.");
-    }
-    const bait = {
-      baitType,
-      coins,
-      cardId: mainCard._id,
-    };
-    console.log(bait, "bait");
-    socket.emit("bait", bait);
-    if (user?.coins <= 10) {
+    if (user?.coins === 0) {
       alert("Insufficient Coins");
-      return; // Stop execution if coins are 0 or less
+      return;
     }
-    if (user?.coins > 10) {
+    if(user?.coins > coins){
+      const bait = {
+        baitType,
+        coins,
+        cardId: mainCard._id,
+      };
+      console.log(bait, "bait");
+      socket.emit("bait", bait);
       setBettingAmount((prev) => prev + Number(coins));
-    }
+    } else (
+      alert("Betting Amount is greater than Balances.")
+    )
+    
   };
   return (
     <>

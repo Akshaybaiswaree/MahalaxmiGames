@@ -203,7 +203,7 @@
 //               <Text textColor="white" id="maincardsectiontext">
 //                 Joker
 //               </Text>
-//               <img src={`./cards/${mainCard.main_card}`} alt={`Card main`} />
+// <img src={`./cards/${mainCard.main_card}`} alt={`Card main`} />
 //             </Box>
 //             {gameState?.value <= 20 && (
 //               <Box width="100%">
@@ -438,6 +438,8 @@
 
 // export default AndarBahar;
 
+import "./AndarBahar.css";
+
 import {
   AspectRatio,
   Box,
@@ -453,10 +455,8 @@ import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
 const userId = localStorage.getItem("userId");
-// const demoId = localStorage.getItem("demoId");
 const socket = io("https://andarbaharbacked.onrender.com", {
   query: {
-    // userID: userId || demoId,
     userID: userId,
   },
   transports: ["websocket"],
@@ -482,20 +482,6 @@ export default function AndarBahar() {
       socket.connect();
     }
   }, [localStorage.getItem("userId")]);
-  // useEffect(() => {
-  //   const userID = localStorage.getItem("userId");
-  //   const demoID = localStorage.getItem("demoId");
-  //   if (userID) {
-  //     socket.io.opts.query.userID = userID;
-  //     socket.disconnect();
-  //     socket.connect();
-  //   }
-  //   if (demoID) {
-  //     socket.io.opts.query.userID = demoID;
-  //     socket.disconnect();
-  //     socket.connect();
-  //   }
-  // }, [localStorage.getItem("userId"), localStorage.getItem("demoId")]);
 
   useEffect(() => {
     const handleGameUpdate = (updatedGameState) => {
@@ -580,27 +566,27 @@ export default function AndarBahar() {
   }
 
   const handleBetting = (betType) => {
-    const bet = {
-      betType,
-      coins,
-      cardId: mainCard._id,
-    };
-    if (user?.coins > 10) {
-      setBettingAmount((prev) => prev + Number(coins));
-      return;
-    }
-    socket.emit("bet", bet);
-    console.log("betting", bet);
-    if (user?.coins <= 10) {
+    if (user?.coins === 0) {
       alert("Insufficient Funds");
       return;
     }
+    if (user?.coins > coins) {
+      const bet = {
+        betType,
+        coins,
+        cardId: mainCard._id,
+      };
+
+      socket.emit("bet", bet);
+      console.log("betting", bet);
+      setBettingAmount((prev) => prev + Number(coins));
+    } else alert("Betting Amount is greater than Balance.");
   };
 
   return (
     <>
       <ChakraProvider>
-        <Box width={["19rem", "100%"]}>
+        <Box width={["100%", "100%"]}>
           <Box bg={"#07588a"} maxW={["100vw", "100vw"]} id="main-div">
             <Flex
               align="left-top"
@@ -628,7 +614,7 @@ export default function AndarBahar() {
                   </Text>
                   <Button
                     variant="outline"
-                    colorScheme="blue"
+                    colorScheme="white"
                     mr="2"
                     paddingX={"3rem"}
                     mt="2"
@@ -649,7 +635,7 @@ export default function AndarBahar() {
                     justifyContent="flex-start"
                     alignItems="top"
                     color="white"
-                    className="firstBox"
+                    className="AndarfirstBox"
                     position={"absolute"}
                   >
                     <Box
@@ -671,8 +657,6 @@ export default function AndarBahar() {
                       color="white"
                       background="radial-gradient(919px at 1.7% 6.1%, rgb(41, 58, 76) 0%, rgb(40, 171, 226) 100.2%)"
                     >
-                      {/* {countdown <= 25 ? "Freeze" : "Place  Bet"}
-                      {countdown <= 8 ? "Winner : " + winner : "Loading"} */}
                       {gameState?.value <= 8
                         ? "Winner: " + mainCard?.winstatus
                         : gameState?.value <= 25
@@ -704,118 +688,78 @@ export default function AndarBahar() {
                     </Box>
 
                     <Flex
-                      display={"flex"}
+                      // gap="0.5rem"
+                      // direction="row"
+                      // position={"relative"}
+                      // top={{ base: "4.5rem", lg: "5.8rem", xl: "9rem" }}
+                      // left={{ base: "5.8rem", lg: "-3.6rem", xl: "-5.8rem" }}
                       gap="0.5rem"
-                      flexDirection="column"
+                      direction="row"
                       position={"relative"}
-                      top={{
-                        base: "25%",
-                        sm: "25%",
-                        md: "25%",
-                        lg: "25%",
-                        xl: "25%",
-                        "2xl": "25%",
-                      }}
-                      left={{
-                        base: "28%",
-                        sm: "28%",
-                        md: "28%",
-                        lg: "28%",
-                        xl: "28%",
-                        "2xl": "28%",
-                      }}
+                      top={{ base: "4.5rem", lg: "5.8rem", xl: "9rem" }}
+                      left={{ base: "5.8rem", lg: "-3.6rem", xl: "-5.8rem" }}
+                      top={{ base: "4.5rem", lg: "5.8rem", xl: "9rem" }}
+                      left={{ base: "5.8rem", lg: "-3.6rem", xl: "-5.8rem" }}
+                      top={{ base: "4.5rem", lg: "5.8rem", xl: "9rem" }}
+                      left={{ base: "5.8rem", lg: "-3.6rem", xl: "-5.8rem" }}
                     >
-                      <Box
-                        key={1}
-                        // height={["20.5 rem", "0.5rem"]}
-                      >
-                        <Image
-                          width={{
-                            base: "1.8rem",
-                            sm: "2rem",
-                            md: "2.4rem",
-                            lg: "",
-                            xl: "3.5rem",
-                            "2xl": "4rem",
-                          }}
-                          height={{
-                            base: "2.3rem",
-                            sm: "2rem",
-                            md: "1rem",
-                            lg: "2.6rem",
-                            xl: "3.5rem",
-                            "2xl": "4rem",
-                          }}
-                          // height={{base:"rem" , md:"3.5rem"}}
-                          src={`/cards/${mainCard?.main_card}`}
-                          alt={mainCard?.main_card}
-                        />
-                      </Box>
-                    </Flex>
-                    <Flex
-                      gap="0.5rem"
-                      direction="column"
-                      position={"relative"}
-                      top={{
-                        base: "25%",
-                        sm: "25%",
-                        md: "25%",
-                        lg: "25%",
-                        xl: "25%",
-                        "2xl": "25%",
-                      }}
-                      left={{
-                        base: "28%",
-                        sm: "28%",
-                        md: "28%",
-                        lg: "28%",
-                        xl: "28%",
-                        "2xl": "28%",
-                      }}
-                    >
-                      {/* <Box>
-                        {gameState?.value <= 18 && (
-                          <Box key={0}>
-                            {andarCards
-                              .slice()
-                              .reverse()
-                              .map((card, index) => (
-                                <Image
-                                  key={index}
-                                  src={`./cards/${card}`}
-                                  alt={`Andar Card ${index}`}
-                                  style={{
-                                    width: {
-                                      base: "1.8rem",
-                                      sm: "2rem",
-                                      md: "2.4rem",
-                                      lg: "",
-                                      xl: "3.5rem",
-                                      "2xl": "4rem",
-                                    },
-                                    height: {
-                                      base: "2.3rem",
-                                      sm: "2rem",
-                                      md: "1rem",
-                                      lg: "2.6rem",
-                                      xl: "3.5rem",
-                                      "2xl": "4rem",
-                                    },
-                                  }}
-                                />
-                              ))}
+                      <Box className="Andarplayercardbox1">
+                        {gameState?.value - 25 <= 20 && (
+                          <Box key={1}>
+                            <Image
+                              className="Andarplayercard1"
+                              src={`./cards/${mainCard.main_card}`}
+                              alt={`Card main`}
+                            />
                           </Box>
                         )}
-                      </Box> */}
+                      </Box>
                     </Flex>
+                    {/* <Flex
+                      gap="0.5rem" 
+                      direction="row"
+                      position={"relative"}
+                      top={{ base: "2.9rem", lg: "3.3rem", xl: "5.4rem" }}
+                      left={{ base: "3.4rem", lg: "3.6rem", xl: "5.4rem" }}
+                    >
+                      <Box className="Andarplayercardbox4">
+                        {timer?.value <= 18 && (
+                          <Box key={0}>
+                            <Image
+                              className="Andarplayercard4"
+                              src={`/cards/${player2Cards[0]}`}
+                            />
+                          </Box>
+                        )}
+                      </Box>
+                      <Box className="Andarplayercardbox5">
+                        {timer?.value <= 14 && (
+                          <Box key={1}>
+                            <Image
+                              className="Andarplayercard5"
+                              src={`/cards/${player2Cards[1]}`}
+                            />
+                          </Box>
+                        )}
+                      </Box>
+                      <Box className="Andarplayercardbox6">
+                        {timer?.value <= 16 && (
+                          <Box key={1}>
+                            <Image
+                              className="Andarplayercard6"
+                              src={`/cards/${player2Cards[2]}`}
+                            />
+                          </Box>
+                        )}
+                      </Box>
+                    </Flex>  */}
                   </Box>
                 </AspectRatio>
 
                 <Flex flexDirection={["column", "column"]} alignItems="center">
                   {/* Box Items */}
 
-                  <Box
-                    bg={"black"}
+                  <Button
                     fontWeight={"700"}
                     style={{
                       backgroundImage:
@@ -825,12 +769,12 @@ export default function AndarBahar() {
                     }}
                   >
                     <>
-                      Player Id :-
+                      Player Id :
                       <Text color={"black"} align={"center"}>
                         {user?.mobileNumber ? user?.mobileNumber : "Loading..."}
                       </Text>
                     </>
-                  </Box>
+                  </Button>
                   <Button
                     bg={"black"}
                     fontWeight={"700"}
@@ -849,6 +793,9 @@ export default function AndarBahar() {
                     p={1}
                     flexWrap="wrap"
                     align={"center"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    textAlign={"center"}
                   >
                     {gameHistory?.map((item, index) => (
                       <Box
@@ -903,7 +850,7 @@ export default function AndarBahar() {
                 <Flex
                   width={["95%", "110%"]}
                   flexDirection="row"
-                  border="6px solid #333"
+                  // border="3px solid #333"
                   borderRadius="10px"
                 >
                   <Box
@@ -912,17 +859,13 @@ export default function AndarBahar() {
                     background="radial-gradient(263px at 100.2% 3%, rgb(12, 85, 141) 31.1%, rgb(205, 181, 93) 36.4%, rgb(244, 102, 90) 50.9%, rgb(199, 206, 187) 60.7%, rgb(249, 140, 69) 72.5%, rgb(12, 73, 116) 72.6%)"
                     textAlign="center"
                     borderRadius="10px"
-                    border={"5px solid grey"}
+                    border="3px solid #333"
+                    color={"white"}
                   >
-                    <Text
-                      fontSize={["18px", "18px"]}
-                      fontWeight="bold"
-                      color={"white"}
-                    >
+                    <Text fontSize={["18px", "18px"]} fontWeight="bold">
                       Available Credit
                     </Text>
-                    <Text fontSize={["20px", "24px"]} color={"white"}>
-                      💰
+                    <Text fontSize={["20px", "24px"]}>
                       {Math.round(user?.coins * 100) / 100
                         ? Math.round(user?.coins * 100) / 100
                         : "0"}
@@ -932,18 +875,18 @@ export default function AndarBahar() {
                   <Box
                     flex="1"
                     width="48%"
-                    // backgroundColor="orange"
                     background="radial-gradient(263px at 100.2% 3%, rgb(12, 85, 141) 31.1%, rgb(205, 181, 93) 36.4%, rgb(244, 102, 90) 50.9%, rgb(199, 206, 187) 60.7%, rgb(249, 140, 69) 72.5%, rgb(12, 73, 116) 72.6%)"
                     textAlign="center"
                     borderRadius="10px"
-                    border={"5px solid grey"}
+                    border="3px solid #333"
+                    color={"white"}
                   >
-                    <Text fontSize="18px" fontWeight="bold" color={"white"}>
+                    <Text fontSize="18px" fontWeight="bold">
                       Match Id:
                     </Text>
-                    <Text fontSize={["20px", "24px"]} color={"white"}>
-                      {mainCard?._id ? mainCard._id : "Loading..."}
-                      {/* {user?.userID ? user?.userID : "Loading..."} */}
+                    <Text fontSize={["20px", "24px"]}>
+                      {/* {user?.gameid ? user?.gameid  : "Loading..."} */}
+                      {mainCard?._id ? mainCard?._id : "Loading..."}
                     </Text>
                   </Box>
                 </Flex>
@@ -956,6 +899,7 @@ export default function AndarBahar() {
                       marginLeft={["0.5rem"]}
                       mt={"1rem"}
                       color={"white"}
+                      ml={{ base: "3rem", md: "0rem" }}
                     >
                       Place Your Bet
                     </Text>
@@ -1050,27 +994,32 @@ export default function AndarBahar() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          // bgGradient="linear(to-r, #0000FF, #FFA500)"
                           background="linear-gradient(114.9deg, rgb(34, 34, 34) 8.3%, rgb(0, 40, 60) 41.6%, rgb(0, 143, 213) 93.4%)"
                           _hover={
                             !isButtonDisabled && {
                               background:
                                 "linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%)",
+
                               boxShadow: "dark-lg",
                               color: "black",
                             }
                           }
                           onClick={() => handleBetting(0)}
-                          display={"flex"}
-                          justifyContent={"space-around"}
                         >
                           {isButtonDisabled && (
                             <FaLock
                               size={35}
-                              style={{ color: "white", marginRight: "0.5rem" }}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
                             />
                           )}
-                          Andar <span>1.98</span>
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
+                            <span>Andar</span> <span>1.98</span>
+                          </Text>
                         </Button>
 
                         <Button
@@ -1087,21 +1036,27 @@ export default function AndarBahar() {
                             !isButtonDisabled && {
                               background:
                                 "linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%)",
+
                               boxShadow: "dark-lg",
                               color: "black",
                             }
                           }
                           onClick={() => handleBetting(1)}
-                          display={"flex"}
-                          justifyContent={"space-around"}
                         >
                           {isButtonDisabled && (
                             <FaLock
                               size={35}
-                              style={{ color: "white", marginRight: "0.5rem" }}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
                             />
                           )}
-                          Bahar <span>1.98</span>
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
+                            <span>Bahar</span> <span>1.98</span>
+                          </Text>
                         </Button>
                       </Box>
                     </Box>
@@ -1112,6 +1067,7 @@ export default function AndarBahar() {
           </Box>
         </Box>
       </ChakraProvider>
+      {/* window.location.reload(); */}
     </>
   );
 }
