@@ -820,7 +820,7 @@ export default function ThirtyTwoCards() {
                                 "2xl": "4rem",
                               }}
                               // height={{base:"rem" , md:"3.5rem"}}
-                              src={`/cards/${cards[0]}`}
+                              // src={`/cards/${cards[0]}`}
                             />
                           </Box>
                         )}
@@ -849,7 +849,7 @@ export default function ThirtyTwoCards() {
                                 "2xl": "4rem",
                               }}
                               // height={{ base: "rem", md: "3.5rem" }}
-                              src={`/cards/${cards[1]}`}
+                              // src={`/cards/${cards[1]}`}
                               // boxSize={["1.8rem", "2.7rem"]}
 
                               // top={"80r em"}
@@ -882,7 +882,7 @@ export default function ThirtyTwoCards() {
                                 "2xl": "4rem",
                               }}
                               // height={{ base: "rem", md: "3.5rem" }}
-                              src={`/cards/${cards[2]}`}
+                              // src={`/cards/${cards[2]}`}
                               // boxSize={["1.8rem", "2.7rem"]}
 
                               // top={"80r em"}
@@ -947,7 +947,7 @@ export default function ThirtyTwoCards() {
                                 xl: "3.2rem",
                                 "2xl": "4rem",
                               }}
-                              src={`/cards/${cards[3]}`}
+                              // src={`/cards/${cards[3]}`}
                               // boxSize={["1.8rem", "2.9rem"]}
                             />
                           </Box>
@@ -976,7 +976,7 @@ export default function ThirtyTwoCards() {
                                 xl: "3.2rem",
                                 "2xl": "4rem",
                               }}
-                              src={`/cards/${cards[4]}`}
+                              // src={`/cards/${cards[4]}`}
 
                               // alt={`${card}`}
                             />
@@ -1006,7 +1006,7 @@ export default function ThirtyTwoCards() {
                                 xl: "3.2rem",
                                 "2xl": "4rem",
                               }}
-                              src={`/cards/${cards[5]}`}
+                              // src={`/cards/${cards[5]}`}
 
                               // alt={`${card}`}
                             />
@@ -1123,7 +1123,7 @@ export default function ThirtyTwoCards() {
                       Available Credit
                     </Text>
                     <Text fontSize={["20px", "24px"]}>
-                      {availableCoins ? availableCoins : "0"}
+                      {/* {availableCoins ? availableCoins : "0"} */}
                       {/* {`${Math.round(availableCoins * 100) / 100} ? 
                       ${Math.round(availableCoins * 100) / 100} : "Loading" `} */}
                     </Text>

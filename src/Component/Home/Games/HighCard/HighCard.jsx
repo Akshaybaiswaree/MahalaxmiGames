@@ -14,9 +14,10 @@ import { useEffect, useState } from "react";
 import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
+const userId = localStorage.getItem("userId");
 const socket = io("https://highcardsbackend.onrender.com", {
   query: {
-    userId: Math.floor(Math.random() * Date.now()),
+    userID: userId,
   },
   transports: ["websocket"],
 });
@@ -37,6 +38,18 @@ export default function HighCard() {
   const [bettingAmount, setBettingAmount] = useState("");
 
   useEffect(() => {
+    const userID = localStorage.getItem("userId");
+    if (userID) {
+      socket.io.opts.query.userID = userID;
+
+      socket.connect();
+      return () => {
+        socket.disconnect();
+      };
+    }
+  }, [localStorage.getItem("userId")]);
+
+  useEffect(() => {
     const handelTimer = (data) => {
       // console.log("timer", data.timer);
       const isDisabled = data?.timer <= 25;
@@ -46,9 +59,9 @@ export default function HighCard() {
     };
 
     const handelUserDetails = (data) => {
-      console.log("userDetails", data.userData);
+      console.log("userDetails", data);
       setAvailableCoins(data.userData.coins);
-      setUserId(data.userData.userId);
+      setUserId(data.userData.mobileNumber);
     };
 
     const handelGameCreate = (data) => {
@@ -115,7 +128,13 @@ export default function HighCard() {
         coins,
         gameId: docID,
       };
-      socket.emit("bait", data);
+      socket.emit("bait", data, (err, res) => {
+        if (err) {
+          console.log("error", err);
+        } else {
+          console.log("response", res);
+        }
+      });
       console.log("bet", data);
       setBettingAmount((prev) => prev + Number(coins));
     } else alert("Betting Amount is greater than Balance.");
@@ -533,7 +552,7 @@ export default function HighCard() {
                     align={"center"}
                     justifyContent="center"
                     alignItems="center"
-                    textAlign={"center"}  
+                    textAlign={"center"}
                   >
                     {gameHistory?.map((item, index) => (
                       <Box
@@ -557,7 +576,7 @@ export default function HighCard() {
                           align={"center"}
                           justifyContent="center"
                           alignItems="center"
-                          textAlign={'ceter'}
+                          textAlign={"ceter"}
                         >
                           {`P${item}`}
                         </Text>

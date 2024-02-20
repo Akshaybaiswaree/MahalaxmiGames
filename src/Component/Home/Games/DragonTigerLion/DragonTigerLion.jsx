@@ -144,7 +144,7 @@ export default function DragonTigerLion() {
                   <Box
                     border="4px solid #333"
                     height="50%"
-                    backgroundImage="url('/DragonTigerLion/DragonTigerLion.webp')"
+                    backgroundImage="url('/DragonTigerLion/Drgon-tiger-lion.webp')"
                     backgroundSize="cover"
                     backgroundPosition={`center 100%`}
                     backgroundRepeat="no-repeat"

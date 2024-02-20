@@ -1,3 +1,5 @@
+//
+
 import {
   Box,
   Button,
@@ -50,16 +52,12 @@ export default function Login() {
             isClosable: true,
           });
           localStorage.setItem("userId", req.data.user._id);
-          // localStorage.setItem("mobileNumber", req.data.user.mobileNumber);
-          // localStorage.setItem("coins", req.data.user.coins);
           console.log("token", req.data.user);
           localStorage.setItem("auth", true);
           if (req.status === 200) {
             navigate("/home", {
               state: {
                 userId: req.data.user._id,
-                // mobileNumber: req.data.user.mobileNumber,
-                // coins: req.data.user.coins,
               },
             });
             console.log("token", req.data.user._id);
@@ -114,52 +112,6 @@ export default function Login() {
         });
       });
   };
-
-  // const handleSubmitDemo = () => {
-  //   console.log("submit otp", data);
-
-  //   axios
-  //     .post(`${mobileNumber}`, data)
-  //     .then((response) => {
-  //       console.log("Demo API Response:", response.data);
-  //       if (response.status === 200) {
-  //         toast({
-  //           title: response.data.message,
-  //           status: "success",
-  //           duration: 3000,
-  //           position: "top",
-  //           isClosable: true,
-  //         });
-  //         localStorage.setItem("demoId", response.data.demoId);
-  //         // localStorage.setItem("mobileNumber", req.data.user.mobileNumber);
-  //         // localStorage.setItem("coins", req.data.user.coins);
-  //         console.log("token", response.data.user);
-  //         localStorage.setItem("auth", true);
-  //         if (response.status === 200) {
-  //           navigate("/home", {
-  //             state: {
-  //               demoId: response.data.demoId,
-  //               // mobileNumber: req.data.user.mobileNumber,
-  //               // coins: req.data.user.coins,
-  //             },
-  //           });
-  //           console.log("token", response.data.demoId);
-  //         } else {
-  //           navigate("/");
-  //         }
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error occurred while sending OTP request:", error);
-  //       toast({
-  //         title: error.message,
-  //         status: "error",
-  //         duration: 3000,
-  //         position: "top",
-  //         isClosable: true,
-  //       });
-  //     });
-  // };
 
   return (
     <Flex
@@ -237,22 +189,6 @@ export default function Login() {
                 Login
               </Button>
             </Stack>
-
-            {/* <Stack spacing={10} pt={2}>
-              <NavLink to="/home" align="center">
-                <Button
-                  loadingText="Submitting"
-                  size="lg"
-                  bg={"blue.400"}
-                  color={"white"}
-                  _hover={{
-                    bg: "blue.500",
-                  }}
-                >
-                  Login With Demo
-                </Button>
-              </NavLink>
-            </Stack> */}
           </Stack>
         </Box>
       </Stack>

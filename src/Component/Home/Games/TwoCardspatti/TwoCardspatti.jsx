@@ -12,7 +12,8 @@ import {
 import { useEffect, useState } from "react";
 
 import { FaLock } from "react-icons/fa";
-import TwoCard from "../../Games/Images/2cardteenpatti.svg";
+import TwoCard from "../../Games/Images/2 card 3 patti new.svg";
+import TwoCardPattiBG from "../../../images/2cardpattibg.svg";
 import { io } from "socket.io-client";
 
 const userId = localStorage.getItem("userId");
@@ -139,6 +140,7 @@ export default function TwoCardsTeenPatti() {
       socket.off("newBet", handleNewBet);
       socket.off("newRound", handleNewRound);
       socket.off("balanceUpdate", handleBalanceUpdate);
+
       socket.off("getuser", handleuser);
       socket.off("WinHistory", handleWinHistory);
       socket.off("gameId", handleGameId);
@@ -167,8 +169,12 @@ export default function TwoCardsTeenPatti() {
   return (
     <>
       <ChakraProvider>
-        <Box width={["100%", "100%"]}>
-          <Box bg={"#451212"} maxW={["100vw", "100vw"]} id="main-div">
+        <Box className="mainbox2cardspatti">
+          <Box
+            backgroundImage={TwoCardPattiBG}
+            maxW={["100vw", "100vw"]}
+            id="main-div"
+          >
             <Flex
               align="left-top"
               justify="left-top"
@@ -275,38 +281,21 @@ export default function TwoCardsTeenPatti() {
                     </Box>
 
                     <Flex
+                      className="twocard1stflex"
                       // justifyContent={"space-between"}
-                      gap="0.5rem"
+
                       direction="row"
                       position={"relative"}
+                      alignItems={"center"}
+                      textAlign={"center"}
                       // top={"5.2rem"}
-                      top={{ base: "5.3rem", lg: "5.8rem", xl: "9rem" }}
-                      left={{ base: "-3.5rem", lg: "-3.6rem", xl: "-5.8rem" }}
+                      // top={{ base: "5.3rem", lg: "5.8rem", xl: "9rem" }}
+                      // left={{ base: "-3.5rem", lg: "-3.6rem", xl: "-5.8rem" }}
                     >
                       <Box className="playercardbox1">
                         {countdown <= 19 && (
-                          <Box
-                            key={1}
-                            // height={["20.5 rem", "0.5rem"]}
-                          >
+                          <Box key={1}>
                             <Image
-                              // width={{
-                              //   base: "1.8rem",
-                              //   sm: "2rem",
-                              //   md: "2.4rem",
-                              //   lg: "",
-                              //   xl: "3.5rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              // height={{
-                              //   base: "2.3rem",
-                              //   sm: "2rem",
-                              //   md: "1rem",
-                              //   lg: "2.6rem",
-                              //   xl: "3.5rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              // height={{base:"rem" , md:"3.5rem"}}
                               className="playercard1"
                               src={`/cards/${player1Cards[0]}`}
                             />
@@ -320,97 +309,37 @@ export default function TwoCardsTeenPatti() {
                             // height={["2.5 rem", "0.5rem"]}
                           >
                             <Image
-                              // width={{
-                              //   base: "2rem",
-                              //   sm: "2rem",
-                              //   md: "2.4rem",
-                              //   lg: "",
-                              //   xl: "3.5rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              // height={{
-                              //   base: "2.3rem",
-                              //   sm: "2rem",
-                              //   md: "1rem",
-                              //   lg: "2.6rem",
-                              //   xl: "3.5rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              // height={{ base: "rem", md: "3.5rem" }}
                               className="playercard2"
                               src={`/cards/${player1Cards[1]}`}
-                              // boxSize={["1.8rem", "2.7rem"]}
-
-                              // top={"80r em"}
-                              // alt={`${card}`}
                             />
                           </Box>
                         )}
                       </Box>
                     </Flex>
                     <Flex
-                      gap="0.5rem"
+                      className="twocard2ndflex"
                       direction="row"
                       position={"relative"}
-                      top={{ base: "2.9rem", lg: "3.3rem", xl: "5.4rem" }}
-                      // left={"3.4rem"}
-                      left={{ base: "3.4rem", lg: "3.6rem", xl: "5.4rem" }}
+                      alignItems={"center"}
+                      textAlign={"center"}
+                      // top={{ base: "1.9rem", lg: "3.3rem", xl: "5.4rem" }}
+                      // // left={"3.4rem"}
+                      // left={{ base: "2.4rem", lg: "3.6rem", xl: "5.4rem" }}
                     >
                       <Box className="playercardbox3">
                         {countdown <= 18 && (
-                          <Box
-                            key={0}
-                            // height={["2.5 rem", "0.5rem"]}
-
-                            //  style={{marginTop: '0.9rem', marginLeft: '0.1rem' }}
-                          >
+                          <Box key={0}>
                             <Image
-                              // width={{
-                              //   base: "1.8rem",
-                              //   sm: "2rem",
-                              //   md: "2.4rem",
-                              //   lg: "",
-                              //   xl: "3.5rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              // height={{
-                              //   base: "2.3rem",
-                              //   sm: "2rem",
-                              //   md: "1rem",
-                              //   lg: "2.6rem",
-                              //   xl: "3.5rem",
-                              //   "2xl": "4rem",
-                              // }}
                               className="playercard3"
                               src={`/cards/${player2Cards[0]}`}
-                              // boxSize={["1.8rem", "2.9rem"]}
                             />
                           </Box>
                         )}
                       </Box>
                       <Box className="playercardbox4">
                         {countdown <= 16 && (
-                          <Box
-                            key={1}
-                            // height={["2.5 rem", "0.5rem"]}
-                          >
+                          <Box key={1}>
                             <Image
-                              // width={{
-                              //   base: "2rem",
-                              //   sm: "2rem",
-                              //   md: "2.4rem",
-                              //   lg: "",
-                              //   xl: "3.5rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              // height={{
-                              //   base: "2.3rem",
-                              //   sm: "2rem",
-                              //   md: "1rem",
-                              //   lg: "2.6rem",
-                              //   xl: "3.5rem",
-                              //   "2xl": "4rem",
-                              // }}
                               className="playercard4"
                               src={`/cards/${player2Cards[1]}`}
 
@@ -480,10 +409,11 @@ export default function TwoCardsTeenPatti() {
                         border="2px solid white"
                         align={"center"}
                         borderRadius={"50%"}
+                        bg={"white"}
                       >
                         <Text
-                          fontSize="14px"
-                          color={index % 2 === 0 ? "white" : "red"}
+                          fontSize="18px"
+                          color={index % 2 === 0 ? "red" : "red"}
                           align={"center"}
                         >
                           {item}
@@ -521,6 +451,10 @@ export default function TwoCardsTeenPatti() {
                   flexDirection="row"
                   border="3px solid #333"
                   borderRadius="10px"
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                  textAlign={"center"}
+                  ml={{ base: "0.6rem" }}
                 >
                   <Box
                     flex="1"
