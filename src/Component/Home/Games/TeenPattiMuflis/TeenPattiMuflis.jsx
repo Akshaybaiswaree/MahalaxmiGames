@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
-
+import TeenPattiMuflisBg from "../../../images/3pattimuflisbg.svg"
 //import PopUp from "./PopUp";
 // import Logo from "../../../images/32cardsA_v.jpeg";
 //  import backGroundImage from "./images/background_plus_cards.jpeg"
@@ -104,7 +104,9 @@ export default function TeenPattiMuflis() {
     <>
       <ChakraProvider>
         <Box width={["100%", "100%"]}>
-          <Box bg={"#41d8bf"} maxW={["100vw", "100vw"]} id="main-div">
+          <Box
+           backgroundImage={TeenPattiMuflisBg} 
+           maxW={["100vw", "100vw"]} id="main-div">
             <Flex
               align="left-top"
               justify="left-top"
@@ -287,17 +289,18 @@ export default function TeenPattiMuflis() {
                   {/* Box Items */}
 
                   <Button
+                   
                     fontWeight={"700"}
                     style={{
                       backgroundImage:
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
-                      color: "#363333",
+                      color: "white",
                     }}
                   >
                     <>
                       Player Id :
-                      <Text color={"black"} align={"center"}>
+                      <Text color={"yellow"} align={"center"}>
                         {user?.mobileNumber ? user?.mobileNumber : "Loading..."}
                       </Text>
                     </>
@@ -309,7 +312,7 @@ export default function TeenPattiMuflis() {
                       backgroundImage:
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
-                      color: "#363333",
+                      color: "white",
                     }}
                   >
                     Last Wins:
@@ -339,10 +342,11 @@ export default function TeenPattiMuflis() {
                         border="2px solid white"
                         align={"center"}
                         borderRadius={"50%"}
+                        bg={"white"}
                       >
                         <Text
                           fontSize="14px"
-                          color={index % 2 === 0 ? "white" : "black"}
+                          color={index % 2 === 0 ? "black" : "black"}
                           align={"center"}
                         >
                           {item}
@@ -356,12 +360,12 @@ export default function TeenPattiMuflis() {
                       backgroundImage:
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
-                      color: "#363333",
+                      color: "white",
                     }}
                   >
                     <>
                       Last Bet Amount :
-                      <Text color={"black"} align={"center"}>
+                      <Text color={"yellow"} align={"center"}>
                         {bettingAmount}
                       </Text>
                     </>
@@ -587,8 +591,17 @@ export default function TeenPattiMuflis() {
                       </Box>
                     </Box>
                   </Flex>
-                  <Text align={"center"} color={"white"}>
-                    Pair Plus
+                  <Text 
+                  fontSize={'1.2rem'}
+                     fontWeight={"700"}
+                  align={"center"} 
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                  color={"white"}
+                  ml={{ base: "3rem", md: "0rem" }}
+                  >
+                  
+                    Pair Plus Bet
                   </Text>
                   <Flex
                     flexDirection="row"

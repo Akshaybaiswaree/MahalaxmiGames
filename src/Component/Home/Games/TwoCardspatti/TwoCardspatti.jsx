@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { FaLock } from "react-icons/fa";
 import TwoCard from "../../Games/Images/2cardteenpatti.svg";
 import { io } from "socket.io-client";
-
+import TwoCardPattiBG from "../../../images/2cardpattibg.svg"
 const userId = localStorage.getItem("userId");
 const socket = io("https://twocardtp.onrender.com/", {
   query: {
@@ -168,7 +168,9 @@ export default function TwoCardsTeenPatti() {
     <>
       <ChakraProvider>
         <Box width={["100%", "100%"]}>
-          <Box bg={"#451212"} maxW={["100vw", "100vw"]} id="main-div">
+          <Box 
+          backgroundImage={TwoCardPattiBG} 
+          maxW={["100vw", "100vw"]} id="main-div">
             <Flex
               align="left-top"
               justify="left-top"
@@ -480,10 +482,11 @@ export default function TwoCardsTeenPatti() {
                         border="2px solid white"
                         align={"center"}
                         borderRadius={"50%"}
+                        bg={'white'}
                       >
                         <Text
-                          fontSize="14px"
-                          color={index % 2 === 0 ? "white" : "red"}
+                          fontSize="18px"
+                          color={index % 2 === 0 ? "red" : "red"}
                           align={"center"}
                         >
                           {item}
@@ -521,6 +524,10 @@ export default function TwoCardsTeenPatti() {
                   flexDirection="row"
                   border="3px solid #333"
                   borderRadius="10px"
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                  textAlign={'center'}
+                  ml={{base:"0.6rem"}}
                 >
                   <Box
                     flex="1"

@@ -390,6 +390,7 @@ export default function MuflisOneDay() {
                         border="2px solid white"
                         align={"center"}
                         borderRadius={"50%"}
+                        bg={'black'}
                       >
                         <Text
                           fontSize="14px"
