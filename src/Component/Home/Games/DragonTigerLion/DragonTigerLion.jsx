@@ -105,7 +105,7 @@ export default function DragonTigerLion() {
     <>
       <ChakraProvider>
         <Box width={["19rem", "100%"]}>
-          <Box bg={"#35495e"} maxW={["100vw", "100vw"]} id="main-div">
+          <Box bg={"black"} maxW={["100vw", "100vw"]} id="main-div">
             <Flex
               align="left-top"
               justify="left-top"
@@ -247,7 +247,7 @@ export default function DragonTigerLion() {
                       backgroundImage:
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
-                      color: "#1d1716",
+                      color: "yellow",
                     }}
                   >
                     <>
@@ -264,7 +264,7 @@ export default function DragonTigerLion() {
                       backgroundImage:
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
-                      color: "#1d1716",
+                      color: "yellow  ",
                     }}
                   >
                     Last Wins:
@@ -293,10 +293,11 @@ export default function DragonTigerLion() {
                         border="2px solid white"
                         align={"center"}
                         borderRadius={"50%"}
+                        bg={'red'}
                       >
                         <Text
                           fontSize="14px"
-                          color={index % 2 === 0 ? "#2a2438" : "#bae8e8"}
+                          color={index % 2 === 0 ? "white" : "white"}
                           align={"center"}
                         >
                           {item}
@@ -310,7 +311,7 @@ export default function DragonTigerLion() {
                       backgroundImage:
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
-                      color: "#1d1716",
+                      color: "yellow",
                     }}
                   >
                     <>
@@ -383,7 +384,7 @@ export default function DragonTigerLion() {
                       fontWeight="bold"
                       marginLeft={["2.9rem", "0.5rem"]}
                       mt={"1rem"}
-                      color={"white"}
+                      color={"yellow"}
                     >
                       Place Your Bet
                     </Text>
@@ -476,10 +477,10 @@ export default function DragonTigerLion() {
                           width={["80%", "100%"]}
                           height={["50%", "80%"]}
                           marginLeft="2rem"
-                          color="black"
-                          fontWeight="800"
+                          color="white"
+                          fontWeight="900"
                           borderRadius="20%"
-                          bgGradient="linear(to-r,#a7bcb9, #3e4a61)"
+                          bgGradient="linear(to-r,red, #3e4a61)"
                           _hover={
                             !isButtonDisabled && {
                               background:
@@ -517,10 +518,10 @@ export default function DragonTigerLion() {
                           width={["80%", "100%"]}
                           height={["50%", "80%"]}
                           marginLeft="1rem"
-                          color="black"
-                          fontWeight="800"
+                          color="white"
+                          fontWeight="900"
                           borderRadius="20%"
-                          bgGradient="linear(to-r,#a7bcb9, #3e4a61)"
+                          bgGradient="linear(to-r,red, #3e4a61)"
                           _hover={
                             !isButtonDisabled && {
                               background:
@@ -555,10 +556,10 @@ export default function DragonTigerLion() {
                           marginRight={["2rem", "0rem"]}
                           height={["50%", "80%"]}
                           marginLeft="1rem"
-                          color="black"
-                          fontWeight="800"
+                          color="white"
+                          fontWeight="900"
                           borderRadius="20%"
-                          bgGradient="linear(to-r,#a7bcb9, #3e4a61)"
+                          bgGradient="linear(to-r,red, #3e4a61)"
                           _hover={
                             !isButtonDisabled && {
                               background:

@@ -144,7 +144,12 @@ export default function HighCard() {
     <>
       <ChakraProvider>
         <Box width={["19rem", "100%"]}>
-          <Box bg={"#1f2e2e"} maxW={["100vw", "100vw"]} id="main-div">
+          <Box
+            //  bg={"#1f2e2e"}
+            bgGradient="linear(to-t, #273737, #1f2e2e)"
+            maxW={["100vw", "100vw"]}
+            id="main-div"
+          >
             <Flex
               align="left-top"
               justify="left-top"
@@ -569,10 +574,11 @@ export default function HighCard() {
                         border="2px solid white"
                         align={"center"}
                         borderRadius={"50%"}
+                        bg={'yellowgreen'}
                       >
                         <Text
                           fontSize="14px"
-                          color={index % 2 === 0 ? "white" : "orange"}
+                          color={index % 2 === 0 ? "black" : "black"}
                           align={"center"}
                           justifyContent="center"
                           alignItems="center"

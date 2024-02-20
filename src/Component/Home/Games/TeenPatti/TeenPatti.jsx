@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
-
+import Teenpatti from "../../../images/muflisonedaybg.svg"
 const userId = localStorage.getItem("userId");
 const socket = io("https://teenpattibackend.onrender.com", {
   query: {
@@ -123,7 +123,10 @@ export default function TeenPatti() {
     <>
       <ChakraProvider>
         <Box width={["100%", "100%"]}>
-          <Box bg={"#757a79"} maxW={["100vw", "100vw"]} id="main-div">
+          <Box
+      backgroundImage={Teenpatti}
+          
+          maxW={["100vw", "100vw"]} id="main-div">
             <Flex
               align="left-top"
               justify="left-top"
