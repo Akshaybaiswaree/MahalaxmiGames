@@ -218,7 +218,7 @@ export default function TeenPattiMuflis() {
                       className="teenpattimuflis1stflex"
                     >
                       <Box className="muflisplayercardbox1">
-                        {timer?.value <= 190 && (
+                        {timer?.value <= 19 && (
                           <Box key={1}>
                             <Image
                               className="muflisplayercard1"
@@ -228,7 +228,7 @@ export default function TeenPattiMuflis() {
                         )}
                       </Box>
                       <Box className="muflisplayercardbox2">
-                        {timer?.value <= 170 && (
+                        {timer?.value <= 17 && (
                           <Box key={1}>
                             <Image
                               className="muflisplayercard2"
@@ -238,7 +238,7 @@ export default function TeenPattiMuflis() {
                         )}
                       </Box>
                       <Box className="muflisplayercardbox3">
-                        {timer?.value <= 150 && (
+                        {timer?.value <= 15 && (
                           <Box key={1}>
                             <Image
                               className="muflisplayercard3"
@@ -257,7 +257,7 @@ export default function TeenPattiMuflis() {
                       className="teenpattimuflis2ndflex"
                     >
                       <Box className="muflisplayercardbox4">
-                        {timer?.value <= 180 && (
+                        {timer?.value <= 18 && (
                           <Box key={0}>
                             <Image
                               className="muflisplayercard4"
@@ -267,7 +267,7 @@ export default function TeenPattiMuflis() {
                         )}
                       </Box>
                       <Box className="muflisplayercardbox5">
-                        {timer?.value <= 160 && (
+                        {timer?.value <= 16 && (
                           <Box key={1}>
                             <Image
                               className="muflisplayercard5"
@@ -277,7 +277,7 @@ export default function TeenPattiMuflis() {
                         )}
                       </Box>
                       <Box className="muflisplayercardbox6">
-                        {timer?.value <= 140 && (
+                        {timer?.value <= 14 && (
                           <Box key={1}>
                             <Image
                               className="muflisplayercard6"
