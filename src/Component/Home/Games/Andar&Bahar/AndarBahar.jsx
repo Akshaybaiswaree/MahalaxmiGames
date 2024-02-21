@@ -189,7 +189,7 @@ export default function AndarBahar() {
                   <Box
                     border="4px solid #333"
                     height="50%"
-                    backgroundImage="url('/public/Andar&BaharImage/andarbahartables.webp')"
+                    backgroundImage="url('/Andar&BaharImage/andarbahartables.webp')"
                     backgroundSize="cover"
                     backgroundPosition={`center 100%`}
                     backgroundRepeat="no-repeat"
