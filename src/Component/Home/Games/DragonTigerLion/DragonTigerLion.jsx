@@ -104,19 +104,19 @@ export default function DragonTigerLion() {
   return (
     <>
       <ChakraProvider>
-        <Box width={["19rem", "100%"]}>
+        <Box className="dragontigerlionmaindiv">
           <Box bg={"black"} maxW={["100vw", "100vw"]} id="main-div">
             <Flex
               align="left-top"
               justify="left-top"
-              minH="50%"
+        
               overflow="hidden"
               flexDirection={["column", "row"]}
             >
               <Box
                 width={["100%", "80%"]}
                 marginTop="0px"
-                marginRight="-4rem"
+                // marginRight="-4rem"
                 marginBottom="1rem"
               >
                 <Flex justify="space-between" align="center" mb="2">
@@ -204,7 +204,9 @@ export default function DragonTigerLion() {
                       {gameState?.value - 25 <= 0 ? "0" : gameState?.value - 25}
                     </Box>
 
-                    <Flex className="gdragontigerlion" direction="row">
+                    <Flex 
+                      bg={'red'}
+                    className="gdragontigerlion" direction="row">
                       <Box className="cartbox1">
                         {gameState?.value <= 14 && (
                           <Box key={1}>

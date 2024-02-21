@@ -13,10 +13,8 @@ import { useEffect, useState } from "react";
 
 import { FaLock } from "react-icons/fa";
 import TwoCard from "../../Games/Images/2 card 3 patti new.svg";
-import TwoCardPattiBG from "../../../images/2cardpattibg.svg";
 import { io } from "socket.io-client";
-
-// import TwoCardPattiBG from "../../../images/2cardpattibg.svg"
+import TwoCardPattiBG from "../../../images/2cardpattibg.svg";
 const userId = localStorage.getItem("userId");
 const socket = io("https://twocardtp.onrender.com/", {
   query: {
@@ -170,10 +168,17 @@ export default function TwoCardsTeenPatti() {
   return (
     <>
       <ChakraProvider>
-        <Box width={["100%", "100%"]}>
-          <Box 
-          backgroundImage={TwoCardPattiBG} 
-          maxW={["100vw", "100vw"]} id="main-div">
+        <Box
+         className="mainbox2cardspatti"
+          // width={["108%", "100%"]}
+          // overflow={'hidden'}
+          // border={"2px solid green"}
+        >
+          <Box
+            backgroundImage={TwoCardPattiBG}
+            maxW={["100vw", "100vw"]}
+            id="main-div"
+          >
             <Flex
               align="left-top"
               justify="left-top"
@@ -408,7 +413,7 @@ export default function TwoCardsTeenPatti() {
                         border="2px solid white"
                         align={"center"}
                         borderRadius={"50%"}
-                        bg={'white'}
+                        bg={"white"}
                       >
                         <Text
                           fontSize="18px"
@@ -450,10 +455,10 @@ export default function TwoCardsTeenPatti() {
                   flexDirection="row"
                   border="3px solid #333"
                   borderRadius="10px"
-                  justifyContent={'center'}
-                  alignItems={'center'}
-                  textAlign={'center'}
-                  ml={{base:"0.6rem"}}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                  textAlign={"center"}
+                  ml={{ base: "0.6rem" }}
                 >
                   <Box
                     flex="1"

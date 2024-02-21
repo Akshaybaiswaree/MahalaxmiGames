@@ -103,7 +103,10 @@ export default function TeenPattiMuflis() {
   return (
     <>
       <ChakraProvider>
-        <Box width={["100%", "100%"]}>
+        <Box 
+        className="teenpattimuflismainbox"
+        // width={["100%", "100%"]}
+        >
           <Box
            backgroundImage={TeenPattiMuflisBg} 
            maxW={["100vw", "100vw"]} id="main-div">
@@ -212,9 +215,10 @@ export default function TeenPattiMuflis() {
                       position={"relative"}
                       top={{ base: "5.3rem", lg: "5.8rem", xl: "9rem" }}
                       left={{ base: "-3.5rem", lg: "-3.6rem", xl: "-5.8rem" }}
+                      className="teenpattimuflis1stflex"
                     >
                       <Box className="muflisplayercardbox1">
-                        {timer?.value <= 19 && (
+                        {timer?.value <= 190 && (
                           <Box key={1}>
                             <Image
                               className="muflisplayercard1"
@@ -224,7 +228,7 @@ export default function TeenPattiMuflis() {
                         )}
                       </Box>
                       <Box className="muflisplayercardbox2">
-                        {timer?.value <= 17 && (
+                        {timer?.value <= 170 && (
                           <Box key={1}>
                             <Image
                               className="muflisplayercard2"
@@ -234,7 +238,7 @@ export default function TeenPattiMuflis() {
                         )}
                       </Box>
                       <Box className="muflisplayercardbox3">
-                        {timer?.value <= 15 && (
+                        {timer?.value <= 150 && (
                           <Box key={1}>
                             <Image
                               className="muflisplayercard3"
@@ -250,9 +254,10 @@ export default function TeenPattiMuflis() {
                       position={"relative"}
                       top={{ base: "2.9rem", lg: "3.3rem", xl: "5.4rem" }}
                       left={{ base: "3.4rem", lg: "3.6rem", xl: "5.4rem" }}
+                      className="teenpattimuflis2ndflex"
                     >
                       <Box className="muflisplayercardbox4">
-                        {timer?.value <= 18 && (
+                        {timer?.value <= 180 && (
                           <Box key={0}>
                             <Image
                               className="muflisplayercard4"
@@ -262,7 +267,7 @@ export default function TeenPattiMuflis() {
                         )}
                       </Box>
                       <Box className="muflisplayercardbox5">
-                        {timer?.value <= 14 && (
+                        {timer?.value <= 160 && (
                           <Box key={1}>
                             <Image
                               className="muflisplayercard5"
@@ -272,7 +277,7 @@ export default function TeenPattiMuflis() {
                         )}
                       </Box>
                       <Box className="muflisplayercardbox6">
-                        {timer?.value <= 16 && (
+                        {timer?.value <= 140 && (
                           <Box key={1}>
                             <Image
                               className="muflisplayercard6"
