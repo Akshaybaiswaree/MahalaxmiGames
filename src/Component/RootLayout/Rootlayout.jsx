@@ -37,8 +37,8 @@ function Rootlayout() {
 
         {/* Main Content */}
         <Box
-          mx={{ base: "1rem", md: "1rem" }}
-          mr={{ base: "4rem" }}
+          mx={{ base: "1rem", md: "0rem" }}
+          mr={{ base: "0rem" }}
           marginLeft={{ base: "0rem", md: "0rem" }}
           flexBasis={{ base: "300%", md: "100%" }}
           alignItems={{ base: "flex-start" }}

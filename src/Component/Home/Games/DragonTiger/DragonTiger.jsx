@@ -1,5 +1,3 @@
-import "./DragonTiger.css";
-
 import {
   AspectRatio,
   Box,
@@ -26,23 +24,21 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
 
-import Gamingimage from "../../Games/Images/GAMING GIRL 1.svg";
-import NoteIcon from "@mui/icons-material/Note";
+import React, { useEffect, useRef, useState } from "react";
+import Gamingimage from "../../Games/Images/GAMING GIRL 1.webp";
+import "./DragonTiger.css";
+import { FaLock } from "react-icons/fa";
+import { io } from "socket.io-client";
+import pann from "../../Games/Images/Pann.svg";
 import flower from "../../Games/Images/Flower.svg";
 import heart from "../../Games/Images/Heart.svg";
 import heart1 from "../../Games/Images/Heart1.svg";
-import { io } from "socket.io-client";
-import pann from "../../Games/Images/Pann.svg";
 import vector from "../../Games/Images/Vector-1.svg";
-
-//  import Gamingimage from "../Games/images/GAMING GIRL 1.svg";
-
-const userId = localStorage.getItem("userId");
+import NoteIcon from "@mui/icons-material/Note";
 const socket = io("https://dragontiger-backend.onrender.com", {
   query: {
-    userID: userId,
+    userId: Math.floor(Math.random() * Date.now()),
   },
   transports: ["websocket"],
 });
@@ -53,21 +49,12 @@ export default function DragonTiger() {
 
   // const [seconds, setSeconds] = useState(30);
   const [gameState, setGameState] = useState({ value: "waiting" });
-  const [user, setUser] = useState(null);
+  const [user, setUse] = useState(null);
   const [coins, setCoins] = useState(50);
   const [mainCard, setMainCard] = useState([]);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
   const [gamehistory, setGamehistory] = useState([]);
-  
-  useEffect(() => {
-    const userID = localStorage.getItem("userId");
-    if (userID) {
-      socket.io.opts.query.userID = userID;
-      socket.disconnect();
-      socket.connect();
-    }
-  }, [localStorage.getItem("userId")]);
-  
+
   useEffect(() => {
     // Listen for game state updates from the server
     socket.on(
@@ -130,187 +117,184 @@ export default function DragonTiger() {
 
   return (
     <>
-      <ChakraProvider>
-        <Box bg={" "} m={"0.5rem"} maxW={["90.5vw", "83.5vw"]}>
-          <Flex direction={["column", "row "]}>
-            <Box width={["105%", "34%"]}>
+      <Box
+        bg="gray.700"
+        w="100%"
+        // h="50%"
+        m="0"
+        p="0"
+        mt={{ base: "0", md: "0" }}
+      >
+        <Flex direction="column">
+          <Flex
+            w="100%"
+            h={{ base: "820px", md: "500px" }}
+            display="flex"
+            justifyContent="flex-start"
+            direction={{ base: "column", md: "row" }}
+          >
+            <Flex
+              w={{ base: "100%", md: "50%" }}
+              h={{ base: "25rem", md: "100%" }}
+              display="flex"
+              justifyContent="space-between"
+              direction="column"
+            >
               <Box
-                width={["42%", "65%"]}
-                marginTop="0px"
-                marginLeft={["-0.7rem", "0px"]}
-                marginBottom="1rem"
+                w="100%"
+                h="15%"
+                display="flex"
+                direction="row"
+                justifyContent="space-between"
+                px="2"
+                alignItems="center"
+                py="2"
               >
-                {/* Rules and Regulation */}
-                <Flex>
-                  <Box
-                    // textAlign={"center"}
-                    // fontSize={["24px", "28px"]}
-                    // ml={["1.2rem", "0rem"]}
-                    // fontWeight="bold"
-                    // borderRadius="10px"
-                    // mt={"1rem"}
-                    // mb={"1rem"}
-                    className="topleft"
-                  >
-                    Dragon
-                  </Box>
-                  <Box
-                    // textAlign={"center"}
-                    // fontSize={["24px", "28px"]}
-                    // fontWeight="bold"
-                    // borderRadius="10px"
-                    // mt={"1rem"}
-                    // mb={"1rem"}
-                    className="topright"
-                  >
-                    Tiger
-                  </Box>
-                  <Box id="box-btn">
-                    <Button
-                      mb={"1rem"}
-                      mt={"1rem"}
-                      // ml={["-2.2rem", "1rem"]}
-                      fontWeight={"600"}
-                      // width={["10.5rem", "14rem"]}
-                      background="linear-gradient(to bottom right , #668cff , #a64dff)"
-                      _hover={{ bg: " #d9d9d9" }}
-                      color="black"
-                      onClick={onOpen}
-                      className="ruleandregulation"
-                    >
-                      Rules
-                    </Button>
-                  </Box>
-                  <Modal
-                    finalFocusRef={finalRef}
-                    isOpen={isOpen}
-                    onClose={onClose}
-                  >
-                    <ModalOverlay />
-                    <ModalContent
-                      // width="86rem"
-                      maxW={["90vw", "40vw"]}
-                      maxH="60vh" // Set the maximum height to 80% of the viewport height
-                      overflowY="auto" // Enable vertical scrollbar when content overflows
-                      background="white"
-                    >
-                      <ModalHeader>
-                        Dragon Tiger: Rules and Regulations
-                      </ModalHeader>
-                      <ModalCloseButton />
-                      <ModalBody>
-                        {/* <Lorem count={2} /> */}
-                        <Button bg={"#CF8D2E"} width={"10rem"}>
-                          GAME OBJECTIVES
-                        </Button>
-                        <br />
-                        To guess whether Dragon or Tiger wins. Player can also
-                        bet whether the Dragon and Tiger cards will be of same
-                        value, therefore a Tie.
-                        <br /> <br />
-                        <Button bg={"#CF8D2E"} width={"7rem"}>
-                          GAME RULES:
-                        </Button>
-                        <br />
-                        Hands dealt: 2 (Dragon, Tiger)
-                        <br /> <br />
-                        Bets: Higher card between hands win.
-                        <br /> <br /> Tie (Rank only): If the Numbers are same
-                        on both Hands.
-                        <br /> <br /> Number Ranking: Lowest to highest: Ace, 2,
-                        3, 4, 5, 6, 7,8, 9, 10, Jack, Queen and King (Ace is "1"
-                        and King is "13").
-                        <br />
-                        <br />
-                        <Button bg={"#CF8D2E"} width={"5rem"}>
-                          PAYOUT
-                        </Button>
-                        <br />
-                        <TableContainer>
-                          <Table size="sm">
-                            <Thead></Thead>
-                            <Tbody>
-                              <Tr>
-                                <Td>Dragon</Td>
-                                <Td>1 to 0.98</Td>
-                              </Tr>
-                              <Tr>
-                                <Td>Tiger</Td>
-                                <Td>1 to 0.98</Td>
-                              </Tr>
-                              <Tr>
-                                <Td>Tie (Rank Only) </Td>
-                                <Td>1 to 10</Td>
-                              </Tr>
-
-                              <Tr>
-                                <Td>Even </Td>
-                                <Td>1 to 1.1</Td>
-                              </Tr>
-                              <Tr>
-                                <Td>Odd </Td>
-                                <Td>1 to 0.8</Td>
-                              </Tr>
-                              <Tr>
-                                <Td>Red</Td>
-                                <Td>1 to 0.98</Td>
-                              </Tr>
-                              <Tr>
-                                <Td>Red</Td>
-                                <Td>1 to 0.98</Td>
-                              </Tr>
-                              <Tr>
-                                <Td>Black</Td>
-                                <Td>1 to 0.98</Td>
-                              </Tr>
-                              <Tr>
-                                <Td>Suit</Td>
-                                <Td>1 to 2.75</Td>
-                              </Tr>
-                            </Tbody>
-                          </Table>
-                        </TableContainer>
-                      </ModalBody>
-
-                      <ModalFooter></ModalFooter>
-                    </ModalContent>
-                  </Modal>
-                </Flex>
-                {/* Images hai ye */}
-                <AspectRatio
-                  width={"230%"}
-                  minHeight="50%"
-                  borderRadius="10px"
-                  controls
-                  ml={["1rem", "0rem"]}
+                <Text as="h1" fontSize="20" fontWeight="bold" color="white">
+                  pink Dragon Tiger
+                </Text>
+                <Button onClick={onOpen}>Rules</Button>
+                <Modal
+                  finalFocusRef={finalRef}
+                  isOpen={isOpen}
+                  onClose={onClose}
                 >
-                  <Box
-                    border="4px solid #333"
-                    height="50%" // Adjust the height as needed
-                    // background="linear-gradient(#c86363, #51a454, #517a9c)"
+                  <ModalOverlay />
+                  <ModalContent
+                    // width="86rem"
+                    maxW={["90vw", "40vw"]}
+                    maxH="60vh" // Set the maximum height to 80% of the viewport height
+                    overflowY="auto" // Enable vertical scrollbar when content overflows
+                    background="white"
+                  >
+                    <ModalHeader>
+                      Dragon Tiger: Rules and Regulations
+                    </ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                      {/* <Lorem count={2} /> */}
+                      <Button bg={"#CF8D2E"} width={"10rem"}>
+                        GAME OBJECTIVES
+                      </Button>
+                      <br />
+                      To guess whether Dragon or Tiger wins. Player can also bet
+                      whether the Dragon and Tiger cards will be of same value,
+                      therefore a Tie.
+                      <br /> <br />
+                      <Button bg={"#CF8D2E"} width={"7rem"}>
+                        GAME RULES:
+                      </Button>
+                      <br />
+                      Hands dealt: 2 (Dragon, Tiger)
+                      <br /> <br />
+                      Bets: Higher card between hands win.
+                      <br /> <br /> Tie (Rank only): If the Numbers are same on
+                      both Hands.
+                      <br /> <br /> Number Ranking: Lowest to highest: Ace, 2,
+                      3, 4, 5, 6, 7,8, 9, 10, Jack, Queen and King (Ace is "1"
+                      and King is "13").
+                      <br />
+                      <br />
+                      <Button bg={"#CF8D2E"} width={"5rem"}>
+                        PAYOUT
+                      </Button>
+                      <br />
+                      <TableContainer>
+                        <Table size="sm">
+                          <Thead></Thead>
+                          <Tbody>
+                            <Tr>
+                              <Td>Dragon</Td>
+                              <Td>1 to 0.98</Td>
+                            </Tr>
+                            <Tr>
+                              <Td>Tiger</Td>
+                              <Td>1 to 0.98</Td>
+                            </Tr>
+                            <Tr>
+                              <Td>Tie (Rank Only) </Td>
+                              <Td>1 to 10</Td>
+                            </Tr>
 
-                    backgroundImage={Gamingimage}
-                    backgroundSize="cover"
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="flex-start"
-                    alignItems="top"
-                    position="relative"
-                    width={"60%"}
-                    className="mainlef"
+                            <Tr>
+                              <Td>Even </Td>
+                              <Td>1 to 1.1</Td>
+                            </Tr>
+                            <Tr>
+                              <Td>Odd </Td>
+                              <Td>1 to 0.8</Td>
+                            </Tr>
+                            <Tr>
+                              <Td>Red</Td>
+                              <Td>1 to 0.98</Td>
+                            </Tr>
+                            <Tr>
+                              <Td>Red</Td>
+                              <Td>1 to 0.98</Td>
+                            </Tr>
+                            <Tr>
+                              <Td>Black</Td>
+                              <Td>1 to 0.98</Td>
+                            </Tr>
+                            <Tr>
+                              <Td>Suit</Td>
+                              <Td>1 to 2.75</Td>
+                            </Tr>
+                          </Tbody>
+                        </Table>
+                      </TableContainer>
+                    </ModalBody>
+
+                    <ModalFooter></ModalFooter>
+                  </ModalContent>
+                </Modal>
+              </Box>
+              <Box
+                w="100%"
+                h="100%"
+                // background={Gamingimage}
+                // backgroundSize=" 100%"
+                // backgroundRepeat="no-repeat"
+                mb=""
+              >
+                <Image
+                  src="./dragon-tiger.webp"
+                  w="100%"
+                  h={{ base: "90%", md: "86%" }}
+                  mt={{ base: "0px", md: "0" }}
+                  pb={{ base: "3", md: "-0" }}
+                  style={{ borderRadius: "10px" }}
+                />
+                <Flex
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  px="4"
+                  w="100%"
+                  h="100px"
+                  position={"relative"}
+                  top={{ base: "-80%", md: "-350px" }}
+                  left={{ base: "0", md: "0%" }}
+                  // bg="red"
+                >
+                  <Flex
+                    justifyContent="space-between"
+                    alignItems="center"
+                    direction={"row"}
+                    w="100%"
+                    h="4rem"
                   >
                     <Box
                       fontWeight={"900"}
                       border={"1px solid white"}
                       borderRadius={"50%"}
-                      padding={"2px"}
-                      mt={"2rem"}
-                      ml={"1rem"}
-                      position={"absolute"}
-                      top="0"
-                      left="0"
+                      // padding={"2px"}
+                      // mt={{ base: "2rem", md: "0" }}
+                      // ml={"1rem"}
+                      // position={"relative"}
+                      // top={{ base: "-106%", md: "-370px" }}
+                      // left={{ base: "0", md: "-10%" }}
                       width={["25%", "18%"]}
-                      height={["20%", "18%"]}
+                      height={["100%", "100%"]}
                       display="flex"
                       justifyContent="center"
                       alignItems="center"
@@ -318,539 +302,491 @@ export default function DragonTiger() {
                       color="white"
                       // background="linear-gradient(to bottom right, violet, blue)"
                       background="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
-                      className="placebet"
                     >
                       {gameState?.value < 20 ? "Freeze" : "Place  Bet"}
                     </Box>
-
-                    <Box>
-                      {gameState.value > 10 && (
-                        <Button
-                          // background="linear-gradient(to bottom right,#ED9203, #323349, #880000)"
-                          background="linear-gradient(to bottom right, #ED9203, #C7E600)"
-                          // height={["2rem", "4rem"]}
-                          // width={["12rem", "14rem"]}
-                          // mt={["rem", "1rem"]}
-                          // ml={["2rem", ""]}
-                          // position={"absolute"}
-                          visibility={"hidden"}
-                        >
-                          ainner: {mainCard?.winstatus} {mainCard?.winCardSuit}
-                          {/* Winner: {mainCard?.winCardSuit} */}
-                        </Button>
-                      )}
-                    </Box>
-                    <Box id="winnerbox">
-                      {gameState.value <= 10 && (
-                        <Button
-                          // background="linear-gradient(to bottom right,#ED9203, #323349, #880000)"
-                          background="linear-gradient(to bottom right, #ED9203, #C7E600)"
-                          // height={["2rem", "4rem"]}
-                          // width={["12rem", "14rem"]}
-                          // mt={["rem", "1rem"]}
-                          // ml={["2rem", ""]}
-                          // position={"absolute"}
-                        >
-                          Winner: {mainCard?.winstatus} {mainCard?.winCardSuit}
-                          {/* Winner: {mainCard?.winCardSuit} */}
-                        </Button>
-                      )}
-                    </Box>
-
                     <Box
                       fontWeight={"900"}
                       border={"1px solid white"}
                       borderRadius={"50%"}
-                      padding={"2px"}
-                      mt={"2rem"}
-                      ml={"1rem"}
-                      position={"absolute"}
-                      top="0"
-                      right="0"
-                      width="15%"
-                      height="17%"
+                      // padding={"2px"}
+                      // mt={"2rem"}
+                      // ml={"1rem"}
+                      // position={"relative"}
+                      // top={{ base: "-106%", md: "-370px" }}
+                      // left={{ base: "0", md: "8%" }}
+                      width={["25%", "18%"]}
+                      height={["100%", "100%"]}
                       display="flex"
                       justifyContent="center"
                       alignItems="center"
                       fontSize={["sm", "lg"]}
-                      background="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
-                      marginRight={"1rem"}
                       color="white"
+                      background="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
                     >
                       {gameState?.value && Math.max(0, gameState.value - 20)}
                     </Box>
-                    {gameState.value >= -10 && (
-                      <React.Fragment>
-                        <Flex
-                          // marginTop={["13.8rem", "14rem"]}
-                          // ml={["0.5rem", "2rem"]}
-                          // width={["15rem", "19rem"]}
-                          id="playercard1"
-                          // backgroundColor={"black"}
-                        >
-                          <Stack direction="column" width={["10rem", "12rem"]}>
-                            {gameState.value < 150 && (
-                              <Box
-                                fontStyle={"yellow"}
-                                // width={["1.5rem", "3rem"]}
-                                // width={"2rem"}
-                                // height={"2rem"}
-                                // marginLeft={["-0.8rem", "0.4rem"]}
-                                id="playercard11"
-                                // backgroundColor={"black"}
-                              >
-                                <Image src={`/cards/${mainCard?.dragoncard}`} />
-                              </Box>
-                            )}
-                          </Stack>
-
-                          <Stack
-                            // ml={"3rem"}
-                            width={["6rem", "8rem"]}
-                            direction="column"
-                          >
-                            {gameState.value < 140 && (
-                              <Box
-                                // width={["1.5rem", "3rem"]}
-                                // width={"2rem"}
-                                // height={"2rem"}
-                                // marginLeft={["4.4rem", "  3.2rem"]}
-                                id="playercard12"
-                              >
-                                <Image src={`/cards/${mainCard?.tigercard}`} />
-                              </Box>
-                            )}
-                          </Stack>
-                        </Flex>
-                      </React.Fragment>
-                    )}
-                  </Box>
-                </AspectRatio>
-              </Box>
-            </Box>
-            <Box marginLeft={["", "1rem"]}>
-              {/* First Flex - Horizontal View */}
-              <Stack
-                mt={"1.5rem"}
-                display="flex"
-                flexDirection={["column", "row"]}
-                // backgroundColor={'blue'}
-                width={["100%", "45%"]}
-                id="secondss"
-              >
-                <Box
-                  // marginLeft={["rem", "7rem"]}
-                  // marginTop={["1rem", "4rem"]}
-                  // width={["95%", "130%"]}
-                  //  backgroundColor={"red"}
-                  className="rightBox"
-                >
-                  <Flex
-                    // width={["100%", "100%"]}
-                    // flexDirection="row"
-                    // border="5px solid #668cff"
-                    // boxShadow="4px 4px 10px rgba(3, 0, 2, 0.6)"
-                    // display="flex"
-                    // borderRadius="1rem"
-                    // ml={["0.5rem", "3rem"]}
-                    // backgroundColor={"red"}
-
-                    className="rightBoxfirst"
-                  >
-                    <Box
-                      // flex="1"
-                      // width={["20%", "100%"]}
-                      // backgroundColor="white"
-                      // textAlign="center"
-                      // borderRight="4px solid #668cff"
-                      // borderLeftRadius="1rem"
-                      // backgroundColor={"black"}
-
-                      className="rightBoxavailablecredit"
-                    >
-                      <Text
-                        // color={"#668cff"}
-                        // fontSize={["16px", "18px"]}
-                        // fontWeight="bold"
-                        // backgroundColor={"red"}
-                        className="rightBoxavailabelcredittext"
-                      >
-                        Available Credit :
-                      </Text>
-                      <Text
-                        fontWeight={"500"}
-                        fontSize={["20px", "24px"]}
-                        // backgroundColor={"yellow"}
-                      >
-                        {user?.coins && Math.max(0, user?.coins)}
-                      </Text>
-                    </Box>
-
-                    <Box
-                      // flex="1"
-                      //  width="46%"
-                      //  textAlign="center"
-                      className="matchidbox"
-                    >
-                      <Text
-                        // color={"#668cff"}
-                        // fontSize={["16px", "18px"]}
-                        // fontWeight="bold"
-                        className="matchid"
-                      >
-                        Match Id :
-                      </Text>
-                      <Text fontWeight={"500"} fontSize={["19px", "24px"]}>
-                        {user?.userId}
-                      </Text>
-                    </Box>
                   </Flex>
+                </Flex>
+              </Box>
+            </Flex>
 
-                  <Box
-                    // mb={["1rem", ""]}
-                    // mt={["2rem", "1rem"]}
-                    // ml={["5rem", "12rem"]}
-                    className="bethistorybox"
-                  >
-                    <Button
-                      _hover={{ backgroundColor: "blue.500", color: "white" }}
-                      transition="background-color 0.3s, color 0.3s"
-                      p={4}
-                      borderRadius="md"
-                      bg={"orange"}
-                      width={["10rem"]}
-                    >
-                      Bet History
-                    </Button>
-                  </Box>
-                  <Box
-                    // mt={["", "1.5rem"]}
-                    // ml={["0.5rem", "5rem"]}
-                    // display="flex"
-                    className="itembox"
-                  >
-                    {gamehistory.map((item, index) => (
-                      <Box
-                        color={"blue"}
-                        p={"2px"}
-                        key={index}
-                        marginRight={["10px"]}
-                        // width={["25px", "30px"]}
-                        height="30px"
-                        border="2px solid black"
-                        borderRadius="5px"
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
-                        className="historymap"
-                      >
-                        {item}
-                      </Box>
-                    ))}
-                  </Box>
+            <Flex
+              w={{ base: "100%", md: "50%" }}
+              h={{ base: "20rem", md: "100%" }}
+              position="relative"
+              direction="column"
+            >
+              <Flex
+                justify="space-around"
+                alignContent="center"
+                w="100%"
+                direction="row"
+                // p="1"
+                // gap="2"
+              >
+                {/* <Box  border="1px solid red"   m="2" borderRadius="15px"> */}
+                <Flex
+                  direction="column"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  bg="gray.300"
+                  borderRadius="15px"
+                  w="35%"
+                  h="5rem"
+                  mt="2"
+                  py="2"
+                  border="3px solid black"
+                >
+                  <Text fontWeight={"500"} fontSize={["20px", "24px"]}>
+                    Available Credit
+                  </Text>
+                  <Text fontWeight={"500"} fontSize={["20px", "24px"]}>
+                    {user?.coins && Math.max(0, user?.coins)}
+                  </Text>
+                </Flex>
 
-                  <Box
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                    mb={"1rem"}
-                    mt={"1rem"}
-                    ml={["7rem"]}
-                    id="playerId"
-                  >
-                    <Button
-                      background="linear-gradient(to bottom right , #989BDE , #656794 )"
-                      _hover={{ bg: " #d9d9d9" }}
-                      className="playerid"
-                      // width={["14rem", "16rem"]}
-                      // mb={["1rem", "1rem"]}
-                      // marginLeft={["-0.5rem","2rem"]}
-                    >
-                      <Text fontWeight={"700"}> PlayerId : {user?.userId}</Text>
-                    </Button>
-                    <Button
-                      flexDirection="row"
-                      alignItems="center"
-                      // marginLeft={["-0.5rem","2rem"]}
-                      variant="outline"
-                      // width={["14rem", "16rem"]}
-                      borderRadius={"10px"}
-                      background="linear-gradient(to bottom right, #ED9203, #C7E600)"
-                      _hover={{ bg: "#ffff00" }}
-                      fontWeight={"700"}
-                      className="plyaerhistory"
-                    >
-                      Player History
-                    </Button>
-                  </Box>
+                <Flex
+                  direction="column"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  bg="gray.300"
+                  borderRadius="15px"
+                  w="35%"
+                  h="5rem"
+                  mt="2"
+                  py="2"
+                  border="3px solid black"
+                >
+                  <Text fontWeight={"500"} fontSize={["20px", "24px"]}>
+                    Match Id
+                  </Text>
+                  <Text fontWeight={"500"} fontSize={["19px", "24px"]}>
+                    {user?.userId}
+                  </Text>
+                </Flex>
+                {/* </Box> */}
+              </Flex>
 
-                  {/* New Box */}
-                  <Box width={["100%", "100%"]} className="choosemain">
+              <Flex
+                justify="space-around"
+                alignContent="center"
+                w="100%"
+                direction="row"
+                p="1"
+                gap="2"
+              >
+                <Box width="100%">
+                  <Flex flexDirection="column" alignItems="center">
+                    <Text
+                      fontSize="20px"
+                      fontWeight="bold"
+                      // marginLeft={["0.5rem"]}
+                      mt={"1rem"}
+                      color={"white"}
+                    >
+                      Place Your Bet
+                    </Text>
+
+                    <Flex
+                      width={["94%", "70%"]}
+                      flexWrap={["nowrap", "nowrap"]}
+                      justifyContent={["center", "center"]}
+                      marginTop={["1rem", "0"]}
+                    >
+                      {[
+                        { value: 10, imageSrc: "/Coins/10's coin.webp" },
+                        { value: 50, imageSrc: "/Coins/50's coin.webp" },
+                        { value: 100, imageSrc: "/Coins/100's coin.webp" },
+                        { value: 500, imageSrc: "/Coins/500's coin.webp" },
+                        { value: 1000, imageSrc: "/Coins/1000's coin.webp" },
+                        { value: 5000, imageSrc: "/Coins/5000's coin.webp" },
+                      ].map((item, index) => (
+                        <Button
+                          ml={["0.8rem", "0rem"]}
+                          key={index}
+                          margin={["rem", "0.9rem"]}
+                          display="flex"
+                          justifyContent="center"
+                          alignItems="center"
+                          fontWeight="bold"
+                          borderRadius={"50%"}
+                          // borderColor={'red'}
+                          variant="unstyled"
+                          _hover={{
+                            boxShadow: "0 8px 12px rgba(255, 255, 255, 0.8)",
+
+                            p: "px",
+                            rounded: "full",
+                            cursor: "pointer",
+                          }}
+                          // onInput={(e) => setSelectedCoin(e.target.value)}
+                          // value={selectedCoin}
+                          onClick={() => {
+                            setCoins(item.value);
+                            console.log("coins", item.value);
+                            setSelectedCoins(index);
+                          }}
+                        >
+                          <img
+                            src={item.imageSrc}
+                            alt={`${item.value}'s coin`}
+                            style={{ maxHeight: "100px" }}
+                          />
+                        </Button>
+                      ))}
+                    </Flex>
+                  </Flex>
+                  <Flex
+                    flexDirection="column"
+                    alignItems="center"
+                    justifyContent="center"
+                    padding="0rem"
+                    width="100%"
+                  >
                     <Box
-                      // marginLeft={["1rem", "12rem"]}
-                      className="chooseyour"
+                      width="100%"
+                      position="relative"
+                      height="8rem"
+                      display="flex"
+                      flexDirection="column"
+                      justifyContent="center"
+                      alignItems="center"
                     >
-                      <Text
-                        mt={"1.5rem"}
-                        mb={"1rem"}
-                        fontSize="15px"
-                        fontWeight="bold"
-                        className="choose"
+                      <Flex
+                        width="80%"
+                        height="100%"
+                        position="relative"
+                        display="flex"
+                        justifyContent="space-around"
+                        alignItems="center"
+                        px="2"
+                        gap="3"
                       >
-                        Choose Your Amount
-                      </Text>
+                        <Button
+                          isDisabled={isButtonDisabled}
+                          width="50%"
+                          height={["50%", "80%"]}
+                          // marginLeft="1rem"
+                          color="white"
+                          fontWeight="800"
+                          borderRadius="20%"
+                          background="linear-gradient(114.9deg, rgb(34, 34, 34) 8.3%, rgb(0, 40, 60) 41.6%, rgb(0, 143, 213) 93.4%)"
+                          _hover={
+                            !isButtonDisabled && {
+                              background:
+                                "linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%)",
+
+                              boxShadow: "dark-lg",
+                              color: "black",
+                            }
+                          }
+                          onClick={() => handleBetting(0)}
+                        >
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
+                          <Text style={{ position: "absolute", zIndex: "1" }}>
+                            <span>Dragon</span>
+                            <span> 1.98 </span>
+                          </Text>
+                        </Button>
+
+                        <Button
+                          isDisabled={isButtonDisabled}
+                          width="50%"
+                          height={["50%", "80%"]}
+                          // marginLeft="1rem"
+                          color="white"
+                          fontWeight="800"
+                          borderRadius="20%"
+                          background="linear-gradient(114.9deg, rgb(34, 34, 34) 8.3%, rgb(0, 40, 60) 41.6%, rgb(0, 143, 213) 93.4%)"
+                          _hover={
+                            !isButtonDisabled && {
+                              background:
+                                "linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%)",
+
+                              boxShadow: "dark-lg",
+                              color: "black",
+                            }
+                          }
+                          onClick={() => handleBetting(1)}
+                        >
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
+                          <Text style={{ position: "absolute" }}>
+                            <span>Tie</span> <span>1.98</span>
+                          </Text>
+                        </Button>
+                        <Button
+                          isDisabled={isButtonDisabled}
+                          width="50%"
+                          height={["50%", "80%"]}
+                          // marginLeft="1rem"
+                          color="white"
+                          fontWeight="800"
+                          borderRadius="20%"
+                          background="linear-gradient(114.9deg, rgb(34, 34, 34) 8.3%, rgb(0, 40, 60) 41.6%, rgb(0, 143, 213) 93.4%)"
+                          _hover={
+                            !isButtonDisabled && {
+                              background:
+                                "linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%)",
+
+                              boxShadow: "dark-lg",
+                              color: "black",
+                            }
+                          }
+                          onClick={() => handleBetting(1)}
+                        >
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "white",
+                                marginRight: "0.5rem",
+                                position: "relative",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
+                          <Text style={{ position: "absolute" }}>
+                            <span>Tiger</span> <span>1.98</span>
+                          </Text>
+                        </Button>
+                      </Flex>
                     </Box>
                     <Flex
-                      // ml={["0rem", "3rem"]}
-                      border={"6px solid lightgreen"}
-                      borderRadius={"20px"}
-                      // width={["105%", "100%"]}
-                      // flexDirection={["", "row"]}
-                      id="money"
+                      justifyContent={{ base: "space-around", md: "center" }}
+                      direction="row"
+                      w="100%"
+                      h={{ base: "100px", md: "150px" }}
+                      gap="2"
                     >
                       <Flex
-                        width={["95%", "100%"]}
-                        flexWrap={["nowrap", "wrap"]}
-                        justifyContent={["center"]}
-                        className="moneyin"
-
-                        // ml={["0rem", "3rem"]}
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
+                        w="150px"
+                        h="100%"
+                        borderRadius="15px"
+                        bg="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
                       >
-                        {[
-                          { value: 10, imageSrc: "/Coins/10's coin.webp" },
-                          { value: 50, imageSrc: "/Coins/50's coin.webp" },
-                          { value: 100, imageSrc: "/Coins/100's coin.webp" },
-                          { value: 500, imageSrc: "/Coins/500's coin.webp" },
-                          { value: 1000, imageSrc: "/Coins/1000's coin.webp" },
-                          { value: 5000, imageSrc: "/Coins/5000's coin.webp" },
-                        ].map((item, index) => (
-                          <Button
-                            ml={["0.8rem", "0rem"]}
-                            key={index}
-                            height="45px"
-                            display="flex"
-                            justifyContent="center"
-                            alignItems="center"
-                            fontWeight="bold"
-                            variant="unstyled"
-                            _hover={{ height: "2rem" }}
-                            onClick={() => {
-                              setCoins(item.value);
+                        <Text color="white" fontWeight="bold">
+                          TIGER COLOUR
+                        </Text>
+                        <Flex justifyContent="space-around" w="100%">
+                          <img src={pann} alt="" />
+                          <img src={flower} alt="" />
+                        </Flex>
+                      </Flex>
+                      <Flex
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
+                        w="150px"
+                        h="100%"
+                        borderRadius="15px"
+                        bg="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
+                      >
+                        <Text color="white" fontWeight="bold">
+                          {" "}
+                          DRAGON COLOUR
+                        </Text>
+                        <Flex justifyContent="space-around" w="100%">
+                          <img src={pann} alt="" />
+                          <img src={flower} alt="" />
+                        </Flex>
+                      </Flex>
+                    </Flex>
+                    <Flex w="100%" justify="center" direction="column">
+                      <Flex
+                        justifyContent="space-around"
+                        w="100%"
+                        py="1"
+                        alignItems="center"
+                        fontSize="20"
+                      >
+                        <h6 style={{ fontWeight: "bold", color: "white" }}>
+                          DRAGON <br />
+                          SUIT 3.75
+                        </h6>
+                        <Box p="10px">
+                          <img
+                            src={pann}
+                            alt=""
+                            style={{
+                              borderRadius: "1px",
+                              border: "4px solid #880000",
                             }}
-                          >
-                            <img
-                              height={"10rem"}
-                              src={item.imageSrc}
-                              alt={`${item.value}'s coin`}
-                              style={{ maxHeight: "55px" }}
-                            />
-                          </Button>
-                        ))}
+                          />
+                        </Box>
+                        <Box p="10px">
+                          <img
+                            src={flower}
+                            alt=""
+                            style={{
+                              borderRadius: "1px",
+                              border: "4px solid #880000",
+                            }}
+                          />
+                        </Box>
+                        <Box p="10px">
+                          {" "}
+                          <img
+                            src={heart1}
+                            alt=""
+                            style={{
+                              borderRadius: "1px",
+                              border: "4px solid #880000",
+                            }}
+                          />
+                        </Box>
+                        <Box p="10px">
+                          <img
+                            src={pann}
+                            alt=""
+                            style={{
+                              borderRadius: "1px",
+                              border: "4px solid #880000",
+                            }}
+                          />
+                        </Box>
                       </Flex>
-                    </Flex>
-
-                    {/* Player Button */}
-                    <Flex
-                      ml={["0.5rem", "5.5rem"]}
-                      // padding="1rem"
-                      // border="2px solid #333"
-                      marginTop="1.5rem"
-                      width={["100%", "100%"]}
-                      flexDirection="column"
-                      justifyContent="flex-start"
-                      alignItems="center"
-                    >
                       <Flex
-                        width={["100%", "100%"]}
-                        borderRadius="10px"
-                        position="relative"
-                        className="tie"
+                        justifyContent="space-around"
+                        w="100%"
+                        py="1"
+                        alignItems="center"
+                        fontSize="20"
                       >
-                        {/* Left Button */}
-                        <Button
-                          fontWeight={"700"}
-                          // onClick={() => handleBait({baitType:"dragon",baitOn:"normal"})}
-
-                          onClick={() =>
-                            handleBait({ baitType: "dragon", baitOn: "normal" })
-                          }
-                          isDisabled={isButtonDisabled}
-                          width={["60%", "40%"]}
-                          height="5rem"
-                          borderRadius="10px"
-                          variant="unstyled"
-                          background="linear-gradient(to bottom right , #668cff , #a64dff)"
-                          _hover={{ bg: "#668cff" }}
-                          color={"white"}
-                          zIndex="1" // Ensure it's above the middle button
-                        >
-                          <Text textAlign="center">Dragon</Text>
-                          <Text textAlign="center">2.94</Text>
-                        </Button>
-
-                        {/* Middle Overlapping Button */}
-                        <Button
-                          onClick={() =>
-                            handleBait({ baitType: "tie", baitOn: "normal" })
-                          }
-                          isDisabled={isButtonDisabled}
-                          fontWeight={"700"}
-                          width={["30%", "25%"]}
-                          height="5rem"
-                          borderRadius="50%"
-                          position="absolute"
-                          left={["50%", "40%"]}
-                          transform="translateX(-50%)"
-                          variant="unstyled"
-                          background={"white"}
-                          _hover={{ bg: "#e6f7ff" }}
-                          bg={"#f2f2f2"}
-                          zIndex="2" // Ensure it's above the left and right buttons
-                        >
-                          <Text textAlign="center">Tie</Text>
-                          <Text textAlign="center">2.94</Text>
-                        </Button>
-
-                        {/* Right Button */}
-                        <Button
-                          fontWeight={"700"}
-                          onClick={() =>
-                            handleBait({
-                              baitType: "tiger",
-                              baitOn: "suit",
-                              suit: "heart",
-                            })
-                          }
-                          isDisabled={isButtonDisabled}
-                          width={["60%", "40%"]}
-                          height="5rem"
-                          borderRadius="10px"
-                          variant="unstyled"
-                          background="linear-gradient(to bottom right , #668cff , #a64dff)"
-                          _hover={{ bg: "#668cff" }}
-                          color={"white"}
-                          zIndex="1" // Ensure it's above the middle button
-                        >
-                          <Text textAlign="center">Tiger</Text>
-                          <Text textAlign="center">2.94</Text>
-                        </Button>
+                        <h6 style={{ fontWeight: "bold", color: "white" }}>
+                          TIGER <br />
+                          SUIT 3.75
+                        </h6>
+                        <Box p="10px">
+                          <img
+                            src={pann}
+                            alt=""
+                            style={{
+                              borderRadius: "1px",
+                              border: "4px solid #880000",
+                            }}
+                          />
+                        </Box>
+                        <Box p="10px">
+                          <img
+                            src={flower}
+                            alt=""
+                            style={{
+                              borderRadius: "1px",
+                              border: "4px solid #880000",
+                            }}
+                          />
+                        </Box>
+                        <Box p="10px">
+                          {" "}
+                          <img
+                            src={heart1}
+                            alt=""
+                            style={{
+                              borderRadius: "1px",
+                              border: "4px solid #880000",
+                            }}
+                          />
+                        </Box>
+                        <Box p="10px">
+                          <img
+                            src={pann}
+                            alt=""
+                            style={{
+                              borderRadius: "1px",
+                              border: "4px solid #880000",
+                            }}
+                          />
+                        </Box>
                       </Flex>
                     </Flex>
-                  </Box>
+                  </Flex>
                 </Box>
-              </Stack>
-            </Box>
+              </Flex>
+            </Flex>
           </Flex>
-
-          <Box
-            p="1"
-            width={["100%", "80%"]}
-
-            // // maxW={["50vw" , "50vw"]}
-          >
-            <Table
-              style={{
-                borderCollapse: "separate",
-                borderSpacing: "1px",
-                borderRadius: "3px",
-                height: "50px",
-              }}
+          <Flex w="100%" h="250px" py="4">
+            <Flex
+              justifyContent="center"
+              alignItems={{ base: "flex-end", md: "center" }}
+              // direction={{base:"column", md:"row"}}
             >
-              <Thead>
-                <Tr>
-                  {/* <Th bg={"#F09403"}>Place The Bet</Th>
-                    <Th bg={"#F09403"}>Heart</Th>
-                    <Th bg={"#F09403"}>Club</Th>
-                    <Th bg={"#F09403"}>Diamond</Th>
-                  <Th bg={"#F09403"}>Spade</Th> */}
-                </Tr>
-              </Thead>
-
-              <div
-                style={{ display: "flex" }}
-                className="boxes"
-                // marginLeft={["50rem",""]}
+              <Button
+                _hover={{ backgroundColor: "blue.500", color: "white" }}
+                transition="background-color 0.3s, color 0.3s"
+                p={4}
+                borderRadius="md"
+                bg={"orange"}
+                width={["10rem"]}
               >
-                <div className="container">
-                  <h6>DRAGON COLOUR</h6>
-                  <div className="box1">
-                    <div className="white-box">
-                      <div className="image">
-                        <img src={pann} alt="" />
-                        <img src={flower} alt="" />
-                      </div>
-                      <span>1.98</span>
-                    </div>
-                    <div className="white-box">
-                      <div className="image">
-                        <img src={heart1} alt="" />
-                        <img src={flower} alt="" />
-                      </div>
-                      <span>1.98</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="container2">
-                  <h6>TIGER COLOUR</h6>
-                  <div className="box1">
-                    <div className="white-box">
-                      <div className="image">
-                        <img src={pann} alt="" />
-                        <img src={flower} alt="" />
-                      </div>
-                      <span>1.98</span>
-                    </div>
-                    <div className="white-box">
-                      <div className="image">
-                        <img src={heart1} alt="" />
-                        <img src={flower} alt="" />
-                      </div>
-                      <span>1.98</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="cards">
-                <h6 className="lasth6">
-                  DRAGON <br />
-                  SUIT 3.75
-                </h6>
-                <div className="image-1">
-                  <img src={pann} alt="" />
-                </div>
-                <div className="image-1">
-                  <img src={flower} alt="" />
-                </div>
-                <div className="image-1">
-                  <img src={heart1} alt="" />
-                </div>
-                <div className="image-1">
-                  <img src={pann} alt="" />
-                </div>
-              </div>
-
-              <div className="cards">
-                <h6>
-                  TIGER <br /> SUIT 3.75
-                </h6>
-                <div className="image-2">
-                  <img src={pann} alt="" />
-                </div>
-                <div className="image-2">
-                  <img src={flower} alt="" />
-                </div>
-                <div className="image-2">
-                  <img src={heart1} alt="" />
-                </div>
-                <div className="image-2">
-                  <img src={pann} alt="" />
-                </div>
-              </div>
-            </Table>
-          </Box>
-        </Box>
-      </ChakraProvider>
+                Bet History
+              </Button>
+              {gamehistory.map((item, index) => (
+                <Box
+                  color={"blue"}
+                  p={"3px"}
+                  key={index}
+                  marginRight={["10px"]}
+                  width={["25px", "30px"]}
+                  height="39px"
+                  border="2px solid black"
+                  borderRadius="5px"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  w="100%"
+                  m="1"
+                >
+                  {item}
+                </Box>
+              ))}
+            </Flex>
+          </Flex>
+        </Flex>
+      </Box>
     </>
   );
 }
