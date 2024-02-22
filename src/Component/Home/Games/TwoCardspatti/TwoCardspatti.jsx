@@ -658,7 +658,7 @@ export default function TwoCardsTeenPatti() {
                           )}
                           <Text style={{ position: "absolute", zIndex: "1" }}>
                             {" "}
-                            <span>player A</span>
+                            <span>player A-</span><span>1.98</span>
                           </Text>
                         </Button>
 
@@ -701,7 +701,7 @@ export default function TwoCardsTeenPatti() {
                           )}
                           <Text style={{ position: "absolute", zIndex: "1" }}>
                             {" "}
-                            <span>player B</span>
+                            <span>player B-</span><span>1.98</span>
                           </Text>
                         </Button>
                       </Box>
