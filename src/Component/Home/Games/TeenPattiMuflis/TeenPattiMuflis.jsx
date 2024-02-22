@@ -12,8 +12,9 @@ import {
 import { useEffect, useState } from "react";
 
 import { FaLock } from "react-icons/fa";
-import { io } from "socket.io-client";
 import TeenPattiMuflisBg from "../../../images/3pattimuflisbg.svg"
+import { io } from "socket.io-client";
+
 //import PopUp from "./PopUp";
 // import Logo from "../../../images/32cardsA_v.jpeg";
 //  import backGroundImage from "./images/background_plus_cards.jpeg"

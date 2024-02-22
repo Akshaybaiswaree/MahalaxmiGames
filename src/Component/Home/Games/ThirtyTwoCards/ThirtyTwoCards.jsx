@@ -700,7 +700,7 @@ export default function ThirtyTwoCards() {
                   <Box
                     border="4px solid #333"
                     height="50%"
-                    backgroundImage="url('/HighCard/HighCard.webp')"
+                    backgroundImage="url('/32Cards/32-Card.webp')"
                     backgroundSize="cover"
                     backgroundPosition={`center 100%`}
                     backgroundRepeat="no-repeat"

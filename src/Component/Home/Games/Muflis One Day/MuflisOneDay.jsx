@@ -9,11 +9,13 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
+import { useEffect, useState } from "react";
+
 import { FaLock } from "react-icons/fa";
-import { io } from "socket.io-client";
 import MuflisOneDayBG from "../../../images/muflisonedaybg.svg";
+import { io } from "socket.io-client";
+
 const userId = localStorage.getItem("userId");
 const socket = io("https://muflish-one-days.onrender.com", {
   query: {
@@ -185,7 +187,7 @@ export default function MuflisOneDay() {
                   <Box
                     border="4px solid #333"
                     height="50%"
-                    backgroundImage="url('/MuflisTeenPatti/MuflisTeenPatti.webp')"
+                    backgroundImage="url('/MuflisOneDay/MuflisOneDay.webp')"
                     backgroundSize="cover"
                     backgroundPosition={`center 100%`}
                     backgroundRepeat="no-repeat"
