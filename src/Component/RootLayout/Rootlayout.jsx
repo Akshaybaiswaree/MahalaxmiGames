@@ -16,7 +16,7 @@ function Rootlayout() {
     <Flex direction="column">
       <Box 
     
-      minW={"100%"} minH={"20vh"}>
+      minW={"100%"} minH={"auto"}>
         <Navbar />
       </Box>
 
