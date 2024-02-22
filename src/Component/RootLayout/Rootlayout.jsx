@@ -19,16 +19,12 @@ function Rootlayout() {
       minW={"100%"} minH={"20vh"}>
         <Navbar />
       </Box>
-      {/* Main Content */}
+
       <Flex flexGrow={1}>
-        {/* Sidebar */}
         <Box width={{ lg: "15%" }}>
-          {/* {AndarBahar ? <Sidebar1 /> : <SideBar />} */}
           <SideBar />
-          {/* <Sidebar1 /> */}
         </Box>
 
-        {/* Main Content */}
         <Box
           mx={{ base: "0rem", md: "0rem" }}
           marginLeft={{ base: "0rem", md: "0rem" }}

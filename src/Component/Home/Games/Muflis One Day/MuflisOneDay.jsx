@@ -251,8 +251,101 @@ export default function MuflisOneDay() {
                       {/* {timer - 25 <= 0 ? "0" : timer - 25} */}
                       {timer}
                     </Box>
-
-                    <Flex
+                    <Box
+                      // border={"2px solid red"}
+                      width={"52%"}
+                      height={"10%"}
+                      position={"absolute"}
+                      top={"68%"}
+                      display={"flex"}
+                      justifyContent={"space-between"}
+                    >
+                      <Box
+                        // border={"2px solid yellow"}
+                        width={"41%"}
+                        height={"100%"}
+                        display={"flex"}
+                        justifyContent={"space-between"}
+                        flexDirection={"row"}
+                      >
+                        <Box
+                          // border={"2px solid yellow"}
+                          width={"25%"}
+                          height={"100%"}
+                        >
+                          <Image
+                            width={"100%"}
+                            height={"100%"}
+                            src={"/cards/clubs_2.png"}
+                          />
+                        </Box>
+                        <Box
+                          // border={"2px solid yellow"}
+                          width={"25%"}
+                          height={"100%"}
+                        >
+                          <Image
+                            width={"100%"}
+                            height={"100%"}
+                            src={"/cards/clubs_2.png"}
+                          />
+                        </Box>
+                        <Box
+                          // border={"2px solid yellow"}
+                          width={"25%"}
+                          height={"100%"}
+                        >
+                          <Image
+                            width={"100%"}
+                            height={"100%"}
+                            src={"/cards/clubs_2.png"}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        // border={"2px solid yellow"}
+                        width={"41%"}
+                        height={"100%"}
+                        display={"flex"}
+                        justifyContent={"space-between"}
+                        flexDirection={"row"}
+                      >
+                        <Box
+                          // border={"2px solid yellow"}
+                          width={"25%"}
+                          height={"100%"}
+                        >
+                          <Image
+                            width={"100%"}
+                            height={"100%"}
+                            src={"/cards/clubs_2.png"}
+                          />
+                        </Box>
+                        <Box
+                          // border={"2px solid yellow"}
+                          width={"25%"}
+                          height={"100%"}
+                        >
+                          <Image
+                            width={"100%"}
+                            height={"100%"}
+                            src={"/cards/clubs_2.png"}
+                          />
+                        </Box>
+                        <Box
+                          // border={"2px solid yellow"}
+                          width={"25%"}
+                          height={"100%"}
+                        >
+                          <Image
+                            width={"100%"}
+                            height={"100%"}
+                            src={"/cards/clubs_2.png"}
+                          />
+                        </Box>
+                      </Box>
+                    </Box>
+                    {/* <Flex
                       gap="0.5rem"
                       direction="row"
                       position={"relative"}
@@ -292,8 +385,8 @@ export default function MuflisOneDay() {
                           </Box>
                         )}
                       </Box>
-                    </Flex>
-                    <Flex
+                    </Flex> */}
+                    {/* <Flex
                       gap="0.5rem"
                       direction="row"
                       position={"relative"}
@@ -331,7 +424,7 @@ export default function MuflisOneDay() {
                           </Box>
                         )}
                       </Box>
-                    </Flex>
+                    </Flex> */}
                   </Box>
                 </AspectRatio>
 
@@ -392,7 +485,7 @@ export default function MuflisOneDay() {
                         border="2px solid white"
                         align={"center"}
                         borderRadius={"50%"}
-                        bg={'black'}
+                        bg={"black"}
                       >
                         <Text
                           fontSize="14px"
@@ -591,7 +684,8 @@ export default function MuflisOneDay() {
                           justifyContent={"space-around"}
                           _hover={
                             !isButtonDisabled && {
-                              background: "linear-gradient(-180deg, white 0%, purple 100%)",
+                              background:
+                                "linear-gradient(-180deg, white 0%, purple 100%)",
 
                               boxShadow: "dark-lg",
                               color: "black",
@@ -626,7 +720,8 @@ export default function MuflisOneDay() {
                           background="linear-gradient(to bottom right,#9494b8,  #52527a)"
                           _hover={
                             !isButtonDisabled && {
-                              background: "linear-gradient(-180deg, white 0%, purple 100%)",
+                              background:
+                                "linear-gradient(-180deg, white 0%, purple 100%)",
                               boxShadow: "dark-lg",
                               color: "black",
                             }

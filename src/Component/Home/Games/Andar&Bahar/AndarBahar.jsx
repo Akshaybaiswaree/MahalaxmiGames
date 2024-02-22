@@ -15,7 +15,7 @@ import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
 const userId = localStorage.getItem("userId");
-const socket = io("https://andarbaharbacked.onrender.com", {
+const socket = io("https://andarbahargamebackend.onrender.com", {
   query: {
     userID: userId,
   },
@@ -251,82 +251,82 @@ export default function AndarBahar() {
                     </Box>
 
                     <Box
-                      className="Andarplayercardbox1"
-                      // border={"1px solid red"}
                       position={"absolute"}
                       width={"6%"}
                       height={"10%"}
-                      bottom={{ base: "3.5rem", lg: "5.8rem", xl: "9rem" }}
-                      right={{
-                        base: "4.1rem",
-                        lg: "-3.6rem",
-                        xl: "-5.8rem",
-                      }}
+                      top={"69%"}
+                      right={"19%"}
                     >
                       <Image
-                        className="Andarplayercard1"
-                        src={`./cards/${mainCard.main_card}`}
+                        src={`./cards/${mainCard?.main_card}`}
+                        // src={"/cards/clubs_10.png"}
                         alt={`Card main`}
                         width={"100%"}
                         height={"100%"}
                       />
                     </Box>
-
-                    {gameState?.value <= 20 && (
+                    <Box
+                      // border={"2px solid red"}
+                      position={"absolute"}
+                      width={"60%"}
+                      height={"25%"}
+                      top={"60.5%"}
+                      right={"29%"}
+                      display={"flex"}
+                      justifyContent={"space-between"}
+                      flexDirection={"column"}
+                    >
                       <Box
-                        className="Andarplayercardbox2"
-                        // border={"1px solid yellow"}
                         position={"absolute"}
-                        width={"56%"}
-                        height={"11%"}
-                        bottom={{ base: "2.7rem", lg: "5.8rem", xl: "9rem" }}
-                        right={{ base: "0.1rem", lg: "-3.6rem", xl: "-5.8rem" }}
+                        // border={"2px solid yellow"}
+                        width={"100%"}
+                        height={"45%"}
+                        top={"0"}
                         display={"flex"}
-                        transform="translateX(-50%)"
                         flexDirection="row-reverse"
                         overflow={"hidden"}
                       >
-                        {andarCards
-                          .slice()
-                          .reverse()
-                          .map((card, index) => (
-                            <Image
-                              className="Andarplayercard2"
-                              key={index}
-                              src={`./cards/${card}`}
-                              alt={`Andar Card ${index}`}
-                            />
-                          ))}
+                        {gameState?.value <= 20 && (
+                          <>
+                            {andarCards
+                              .slice()
+                              .reverse()
+                              .map((card, index) => (
+                                <Image
+                                  key={index}
+                                  src={`./cards/${card}`}
+                                  alt={`Andar Card ${index}`}
+                                />
+                              ))}
+                          </>
+                        )}
                       </Box>
-                    )}
-
-                    {gameState?.value <= 20 && (
                       <Box
-                        className="Andarplayercardbox3"
-                        // border={"1px solid blue"}
                         position={"absolute"}
-                        width={"56%"}
-                        height={"11%"}
-                        bottom={{ base: "2.3rem", lg: "5.8rem", xl: "9rem" }}
-                        right={{ base: "1.1rem", lg: "-3.6rem", xl: "-5.8rem" }}
+                        // border={"2px solid orange"}
+                        width={"100%"}
+                        height={"45%"}
+                        bottom={"0"}
                         display={"flex"}
-                        transform="translateX(-50%)"
                         flexDirection="row-reverse"
                         overflow={"hidden"}
                       >
-                        {baharCards
-                          .slice()
-                          .reverse()
-                          .map((card, index) => (
-                            <Image
-                              className="Andarplayercard3"
-                              key={index}
-                              src={`./cards/${card}`}
-                              alt={`Bahar Card ${index}`}
-                            />
-                          ))}
+                        {gameState?.value <= 20 && (
+                          <>
+                            {baharCards
+                              .slice()
+                              .reverse()
+                              .map((card, index) => (
+                                <Image
+                                  key={index}
+                                  src={`./cards/${card}`}
+                                  alt={`Bahar Card ${index}`}
+                                />
+                              ))}
+                          </>
+                        )}
                       </Box>
-                    )}
+                    </Box>
                   </Box>
                 </AspectRatio>
 

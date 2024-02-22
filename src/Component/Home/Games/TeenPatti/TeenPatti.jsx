@@ -12,7 +12,7 @@ import {
 import { useEffect, useState } from "react";
 
 import { FaLock } from "react-icons/fa";
-import Teenpatti from "../../../images/muflisonedaybg.svg"
+import Teenpatti from "../../../images/muflisonedaybg.svg";
 import { io } from "socket.io-client";
 
 const userId = localStorage.getItem("userId");
@@ -100,13 +100,12 @@ export default function TeenPatti() {
     setPlayerCards(displayedCards);
   };
 
- 
   const handelBet = (baitType) => {
     if (user?.coins === 0) {
       alert("Insufficient Coins");
       return;
     }
-    if(user?.coins > coins){
+    if (user?.coins > coins) {
       const bait = {
         baitType,
         coins,
@@ -115,10 +114,7 @@ export default function TeenPatti() {
       console.log(bait, "bait");
       socket.emit("bait", bait);
       setBettingAmount((prev) => prev + Number(coins));
-    } else (
-      alert("Betting Amount is greater than Balances.")
-    )
-    
+    } else alert("Betting Amount is greater than Balances.");
   };
   return (
     <>
@@ -228,87 +224,180 @@ export default function TeenPatti() {
                     >
                       {gameState?.value - 25 <= 0 ? "0" : gameState?.value - 25}
                     </Box>
-
-                    <Flex
-                      gap="0.5rem"
-                      direction="row"
-                      position={"relative"}
-                      top={{ base: "5.3rem", lg: "5.8rem", xl: "9rem" }}
-                      left={{ base: "-3.5rem", lg: "-3.6rem", xl: "-5.8rem" }}
+                    <Box
+                      // border={"2px solid red"}
+                      width={"52%"}
+                      height={"10%"}
+                      position={"absolute"}
+                      top={"68%"}
+                      display={"flex"}
+                      justifyContent={"space-between"}
                     >
-                      <Box className="muflisplayercardbox1">
-                        {gameState?.value <= 19 && (
-                          <Box key={1}>
-                            <Image
-                              className="muflisplayercard1"
-                              src={`/cards/${player1Cards[0]}`}
-                            />
-                          </Box>
-                        )}
+                      <Box
+                        // border={"2px solid yellow"}
+                        width={"41%"}
+                        height={"100%"}
+                        display={"flex"}
+                        justifyContent={"space-between"}
+                        flexDirection={"row"}
+                      >
+                        <Box
+                          // border={"2px solid yellow"}
+                          width={"25%"}
+                          height={"100%"}
+                        >
+                          <Image
+                            width={"100%"}
+                            height={"100%"}
+                            src={"/cards/clubs_2.png"}
+                          />
+                        </Box>
+                        <Box
+                          // border={"2px solid yellow"}
+                          width={"25%"}
+                          height={"100%"}
+                        >
+                          <Image
+                            width={"100%"}
+                            height={"100%"}
+                            src={"/cards/clubs_2.png"}
+                          />
+                        </Box>
+                        <Box
+                          // border={"2px solid yellow"}
+                          width={"25%"}
+                          height={"100%"}
+                        >
+                          <Image
+                            width={"100%"}
+                            height={"100%"}
+                            src={"/cards/clubs_2.png"}
+                          />
+                        </Box>
                       </Box>
-                      <Box className="muflisplayercardbox2">
-                        {gameState?.value <= 17 && (
-                          <Box key={1}>
-                            <Image
-                              className="muflisplayercard2"
-                              src={`/cards/${player1Cards[1]}`}
-                            />
-                          </Box>
-                        )}
+                      <Box
+                        // border={"2px solid yellow"}
+                        width={"41%"}
+                        height={"100%"}
+                        display={"flex"}
+                        justifyContent={"space-between"}
+                        flexDirection={"row"}
+                      >
+                        <Box
+                          // border={"2px solid yellow"}
+                          width={"25%"}
+                          height={"100%"}
+                        >
+                          <Image
+                            width={"100%"}
+                            height={"100%"}
+                            src={"/cards/clubs_2.png"}
+                          />
+                        </Box>
+                        <Box
+                          // border={"2px solid yellow"}
+                          width={"25%"}
+                          height={"100%"}
+                        >
+                          <Image
+                            width={"100%"}
+                            height={"100%"}
+                            src={"/cards/clubs_2.png"}
+                          />
+                        </Box>
+                        <Box
+                          // border={"2px solid yellow"}
+                          width={"25%"}
+                          height={"100%"}
+                        >
+                          <Image
+                            width={"100%"}
+                            height={"100%"}
+                            src={"/cards/clubs_2.png"}
+                          />
+                        </Box>
                       </Box>
-                      <Box className="muflisplayercardbox3">
-                        {gameState?.value <= 15 && (
-                          <Box
-                            key={1}
-                            // height={["2.5 rem", "0.5rem"]
-                          >
-                            <Image
-                              className="muflisplayercard3"
-                              src={`/cards/${player1Cards[2]}`}
-                            />
-                          </Box>
-                        )}
-                      </Box>
-                    </Flex>
-                    <Flex
-                      gap="0.5rem"
-                      direction="row"
-                      position={"relative"}
-                      top={{ base: "2.9rem", lg: "3.3rem", xl: "5.4rem" }}
-                      // left={"3.4rem"
-                      left={{ base: "3.4rem", lg: "3.6rem", xl: "5.4rem" }}
-                    >
-                      <Box className="muflisplayercardbox4">
-                        {gameState?.value <= 18 && (
-                          <Box key={0}>
-                            <Image
-                              className="muflisplayercard4"
-                              src={`/cards/${player2Cards[0]}`}
-                            />
-                          </Box>
-                        )}
-                      </Box>
-                      <Box className="muflisplayercardbox5">
-                        {gameState?.value <= 14 && (
-                          <Box key={1}>
-                            <Image
-                              className="muflisplayercard5"
-                              src={`/cards/${player2Cards[1]}`}
-                            />
-                          </Box>
-                        )}
-                      </Box>
-                      <Box className="muflisplayercardbox6">
-                        {gameState?.value <= 16 && (
-                          <Box key={1}>
-                            <Image
-                              className="muflisplayercard6"
-                              src={`/cards/${player2Cards[2]}`}
-                            />
-                          </Box>
-                        )}
-                      </Box>
-                    </Flex>
+                      {/* <Box
+                        gap="0.5rem"
+                        direction="row"
+                        position={"relative"}
+                        top={{ base: "5.3rem", lg: "5.8rem", xl: "9rem" }}
+                        left={{ base: "-3.5rem", lg: "-3.6rem", xl: "-5.8rem" }}
+                      >
+                        <Box className="muflisplayercardbox1">
+                          {gameState?.value <= 19 && (
+                            <Box key={1}>
+                              <Image
+                                className="muflisplayercard1"
+                                src={`/cards/${player1Cards[0]}`}
+                              />
+                            </Box>
+                          )}
+                        </Box>
+                        <Box className="muflisplayercardbox2">
+                          {gameState?.value <= 17 && (
+                            <Box key={1}>
+                              <Image
+                                className="muflisplayercard2"
+                                src={`/cards/${player1Cards[1]}`}
+                              />
+                            </Box>
+                          )}
+                        </Box>
+                        <Box className="muflisplayercardbox3">
+                          {gameState?.value <= 15 && (
+                            <Box
+                              key={1}
+                              // height={["2.5 rem", "0.5rem"]
+                            >
+                              <Image
+                                className="muflisplayercard3"
+                                src={`/cards/${player1Cards[2]}`}
+                              />
+                            </Box>
+                          )}
+                        </Box>
+                      </Box> */}
+                      {/* <Box
+                        gap="0.5rem"
+                        direction="row"
+                        position={"relative"}
+                        top={{ base: "2.9rem", lg: "3.3rem", xl: "5.4rem" }}
+                        // left={"3.4rem"
+                        left={{ base: "3.4rem", lg: "3.6rem", xl: "5.4rem" }}
+                      >
+                        <Box className="muflisplayercardbox4">
+                          {gameState?.value <= 18 && (
+                            <Box key={0}>
+                              <Image
+                                className="muflisplayercard4"
+                                src={`/cards/${player2Cards[0]}`}
+                              />
+                            </Box>
+                          )}
+                        </Box>
+                        <Box className="muflisplayercardbox5">
+                          {gameState?.value <= 14 && (
+                            <Box key={1}>
+                              <Image
+                                className="muflisplayercard5"
+                                src={`/cards/${player2Cards[1]}`}
+                              />
+                            </Box>
+                          )}
+                        </Box>
+                        <Box className="muflisplayercardbox6">
+                          {gameState?.value <= 16 && (
+                            <Box key={1}>
+                              <Image
+                                className="muflisplayercard6"
+                                src={`/cards/${player2Cards[2]}`}
+                              />
+                            </Box>
+                          )}
+                        </Box>
+                      </Box> */}
+                    </Box>
                   </Box>
                 </AspectRatio>
 

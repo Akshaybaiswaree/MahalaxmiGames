@@ -12,8 +12,10 @@ import {
   MenuItem,
   MenuList,
   Modal,
+  ModalBody,
   ModalCloseButton,
   ModalContent,
+  ModalFooter,
   ModalHeader,
   ModalOverlay,
   Stack,
@@ -23,8 +25,6 @@ import {
   Td,
   Text,
   Thead,
-  ModalBody,
-  ModalFooter,
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -153,12 +153,8 @@ const Navbar = () => {
                       <Table size="sm">
                         <Thead></Thead>
                         <Tbody>
-                          <Tr>
-                       
-                          </Tr>
-                          <Tr>
-                       
-                          </Tr>
+                          <Tr></Tr>
+                          <Tr></Tr>
                           <Tr>
                             <Td>Tie (Rank Only) </Td>
                             <Td>1 to 10</Td>
