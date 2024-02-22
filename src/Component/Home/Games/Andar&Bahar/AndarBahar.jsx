@@ -149,7 +149,7 @@ export default function AndarBahar() {
   return (
     <>
       <ChakraProvider>
-        <Box width={["100%", "100%"]}>
+        <Box className="AndarBaharmaindiv" minH={"100vh"} minW={"48vh"}>
           <Box bg={"#07588a"} maxW={["100vw", "100vw"]} id="main-div">
             <Flex
               align="left-top"
@@ -252,7 +252,7 @@ export default function AndarBahar() {
 
                     <Box
                       className="Andarplayercardbox1"
-                      // border={"1px solid red"}   
+                      // border={"1px solid red"}
                       position={"absolute"}
                       width={"6%"}
                       height={"10%"}
@@ -277,13 +277,14 @@ export default function AndarBahar() {
                         className="Andarplayercardbox2"
                         // border={"1px solid yellow"}
                         position={"absolute"}
-                        width={"50%"}
-                        height={"10%"}
-                        bottom={{ base: "3rem", lg: "5.8rem", xl: "9rem" }}
+                        width={"56%"}
+                        height={"11%"}
+                        bottom={{ base: "2.7rem", lg: "5.8rem", xl: "9rem" }}
                         right={{ base: "0.1rem", lg: "-3.6rem", xl: "-5.8rem" }}
                         display={"flex"}
                         transform="translateX(-50%)"
                         flexDirection="row-reverse"
+                        overflow={"hidden"}
                       >
                         {andarCards
                           .slice()
@@ -304,13 +305,14 @@ export default function AndarBahar() {
                         className="Andarplayercardbox3"
                         // border={"1px solid blue"}
                         position={"absolute"}
-                        width={"50%"}
-                        height={"10%"}
-                        bottom={{ base: "2.5rem", lg: "5.8rem", xl: "9rem" }}
+                        width={"56%"}
+                        height={"11%"}
+                        bottom={{ base: "2.3rem", lg: "5.8rem", xl: "9rem" }}
                         right={{ base: "1.1rem", lg: "-3.6rem", xl: "-5.8rem" }}
                         display={"flex"}
                         transform="translateX(-50%)"
                         flexDirection="row-reverse"
+                        overflow={"hidden"}
                       >
                         {baharCards
                           .slice()

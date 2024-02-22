@@ -1,4 +1,8 @@
 @media only screen and (min-width: 350px) and (max-width: 365px) {
+  .AndarBaharmaindiv {
+    minW: 50vh;
+  }
+
   #table {
     display: flex;
     flex-direction: column;
@@ -86,6 +90,9 @@
 }
 
 @media only screen and (min-width: 365px) and (max-width: 380px) {
+  /* .AndarBaharmaindiv{
+    width: 109%;
+  } */
   #table {
     display: flex;
     flex-direction: column;
@@ -802,7 +809,6 @@
     height: 1.8rem;
   }
 }
-
 
 @media only screen and (min-width: 1050px) and (max-width: 1060px) {
   #table {

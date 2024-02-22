@@ -8,24 +8,14 @@ import Sidebar1 from "../Sidebar/Sidebar1";
 
 // import AndarBahar from "../Home/Games/AndarBahar";
 
-
-
-
-
-
 // import Sidebar1 from "../Sidebar/Sidebar1";
 
 function Rootlayout() {
   return (
-    <Flex direction="column" height="100vh">
-      {/* Navbar */}
-      <Box
-      
-      >
+    <Flex direction="column">
+      <Box minW={"100vw"} minH={"30vh"}>
         <Navbar />
-        {/* {!AndarBahar && <Navbar />} */}
       </Box>
-
       {/* Main Content */}
       <Flex flexGrow={1}>
         {/* Sidebar */}
@@ -42,7 +32,7 @@ function Rootlayout() {
           marginLeft={{ base: "0rem", md: "0rem" }}
           flexBasis={{ base: "300%", md: "100%" }}
           alignItems={{ base: "flex-start" }}
-          // bg={"#451212"} 
+          // bg={"#451212"}
         >
           <Outlet />
         </Box>

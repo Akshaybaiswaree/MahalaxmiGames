@@ -15,7 +15,7 @@ import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
 const userId = localStorage.getItem("userId");
-const socket = io("https://highcardsbackend.onrender.com", {
+const socket = io("https://highcardsbackend-tn1f.onrender.com", {
   query: {
     userID: userId,
   },

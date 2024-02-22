@@ -553,7 +553,7 @@ import { useEffect, useState } from "react";
 import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
-const socket = io("https://highcardsbackend.onrender.com", {
+const socket = io("https://three2cardsbackend.onrender.com", {
   query: {
     userId: Math.floor(Math.random() * Date.now()),
   },
@@ -574,6 +574,8 @@ export default function ThirtyTwoCards() {
   const [docID, setDocId] = useState("");
   const [buttonClick, setButtonClick] = useState(false);
   const [bettingAmount, setBettingAmount] = useState("");
+  const [isButtonDisabled, setButtonDisabled] = useState();
+
 
   useEffect(() => {
     const handelTimer = (data) => {
@@ -1255,7 +1257,7 @@ export default function ThirtyTwoCards() {
                               color: "black",
                             }
                           }
-                          onClick={() => handleBetting(0, coins, docID)}
+                          onClick={() => handelBet(0, coins, docID)}
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
@@ -1285,7 +1287,7 @@ export default function ThirtyTwoCards() {
                               color: "black",
                             }
                           }
-                          onClick={() => handleBetting(1, coins, docID)}
+                          onClick={() => handelBet(1, coins, docID)}
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
@@ -1314,7 +1316,7 @@ export default function ThirtyTwoCards() {
                               color: "black",
                             }
                           }
-                          onClick={() => handleBetting(2, coins, docID)}
+                          onClick={() => handelBet(2, coins, docID)}
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
@@ -1374,7 +1376,7 @@ export default function ThirtyTwoCards() {
                               color: "black",
                             }
                           }
-                          onClick={() => handleBetting(3, coins, docID)}
+                          onClick={() => handelBet(3, coins, docID)}
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
@@ -1404,7 +1406,7 @@ export default function ThirtyTwoCards() {
                               color: "black",
                             }
                           }
-                          onClick={() => handleBetting(4, coins, docID)}
+                          onClick={() => handelBet(4, coins, docID)}
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
@@ -1433,7 +1435,7 @@ export default function ThirtyTwoCards() {
                               color: "black",
                             }
                           }
-                          onClick={() => handleBetting(5, coins, docID)}
+                          onClick={() => handelBet(5, coins, docID)}
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
