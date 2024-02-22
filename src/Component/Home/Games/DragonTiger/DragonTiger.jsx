@@ -256,6 +256,7 @@ export default function DragonTiger() {
                 // backgroundSize=" 100%"
                 // backgroundRepeat="no-repeat"
                 mb=""
+                // bg="red"
               >
                 <Image
                   src="./dragon-tiger.webp"
@@ -274,14 +275,16 @@ export default function DragonTiger() {
                   position={"relative"}
                   top={{ base: "-80%", md: "-350px" }}
                   left={{ base: "0", md: "0%" }}
-                  // bg="red"
+                  // bg="blue"
                 >
+                   {/* bet and timer  */}
                   <Flex
                     justifyContent="space-between"
                     alignItems="center"
                     direction={"row"}
                     w="100%"
                     h="4rem"
+                    // bg="red"
                   >
                     <Box
                       fontWeight={"900"}
@@ -326,6 +329,85 @@ export default function DragonTiger() {
                     >
                       {gameState?.value && Math.max(0, gameState.value - 20)}
                     </Box>
+                  </Flex>
+                </Flex>
+
+{/* cards display  */}
+                <Flex
+                  justifyContent="center"
+                  alignItems="center"
+                  px="4"
+                  w="100%"
+                  h="100px"
+                  position={"relative"}
+                  top={{ base: "-58%", md: "-235px" }}
+                  left={{ base: "0", md: "0%" }}
+                  // bg="blue"
+                >
+                  <Flex
+                    justifyContent="center"
+                    alignItems="center"
+                    direction={"row"}
+                    w="50%"
+                    h="4rem"
+                    // gap={{base:"127", md:"196"}}
+                    bg="gray"
+                  >
+                    {/* dragon card  */}
+                    <Flex
+                      fontWeight={"900"}
+                      border={"1px solid white"}
+                      // borderRadius={"50%"}
+                     
+                      width={["8%", "7%"]}
+                      height={["60%", "70%"]}
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                      fontSize={["sm", "lg"]}
+                      color="white"
+                      // bg="gray"
+                      // background="linear-gradient(to bottom right, violet, blue)"
+                      // background="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
+                    >
+                      {gameState.value < 140 && (
+                              <Box 
+                            
+                              id="playercard12"
+                              >
+                                <Image src={`/cards/${mainCard?.dragoncard}`} />
+                              </Box>
+                            )}
+                    </Flex>
+
+                    {/* Tiger Card  */}
+                    <Flex
+                      fontWeight={"900"}
+                      border={"1px solid white"}
+                      // borderRadius={"50%"}
+                     
+                      width={["8%", "7%"]}
+                      height={["60%", "70%"]}
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                      fontSize={["sm", "lg"]}
+                      color="white"
+                      // bg="gray"
+
+                      // background="linear-gradient(to bottom right, violet, blue)"
+                      // background="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
+                    >
+                      {gameState.value < 140 && (
+                              <Box 
+                            
+                              id="playercard12"
+                              >
+                                <Image src={`/cards/${mainCard?.tigercard}`} />
+                              </Box>
+                            )}
+                    </Flex>
+                   
                   </Flex>
                 </Flex>
               </Box>
@@ -753,6 +835,7 @@ export default function DragonTiger() {
               justifyContent="center"
               alignItems={{ base: "flex-end", md: "center" }}
               // direction={{base:"column", md:"row"}}
+              mx="2"
             >
               <Button
                 _hover={{ backgroundColor: "blue.500", color: "white" }}
