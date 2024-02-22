@@ -15,7 +15,7 @@ import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
 const userId = localStorage.getItem("userId");
-const socket = io("https://highcardsbackend-tn1f.onrender.com", {
+const socket = io("https://highcardsbackend-mctk.onrender.com", {
   query: {
     userID: userId,
   },
@@ -42,12 +42,15 @@ export default function HighCard() {
     if (userID) {
       socket.io.opts.query.userID = userID;
 
-      socket.connect();
-      return () => {
-        socket.disconnect();
-      };
+      // socket.connect();
+      // return () => {
+      //   socket.disconnect();
+      // };
+      socket.io.on("reconnect_attempt", () => {
+        socket.io.opts.query.userID;
+      });
     }
-  }, [localStorage.getItem("userId")]);
+  }, []);
 
   useEffect(() => {
     const handelTimer = (data) => {
@@ -143,7 +146,7 @@ export default function HighCard() {
   return (
     <>
       <ChakraProvider>
-        <Box width={["19rem", "100%"]}>
+        <Box width={["100%", "100%"]}>
           <Box
             //  bg={"#1f2e2e"}
             bgGradient="linear(to-t, #273737, #1f2e2e)"
@@ -251,269 +254,127 @@ export default function HighCard() {
                       background="linear-gradient(to bottom right, #BDB76B, #FFFFFF)"
                       marginRight={"1rem"}
                     >
-                      {/* {Math.max(0, countdown) !== null && (
-                        <p>{Math.max(0, countdown - 25)}</p>
-                      )} */}
                       {timer - 25 <= 0 ? "0" : timer - 25}
                     </Box>
-
-                    <Flex
-                      // justifyContent={"space-between"}
-                      // gap={{
-                      //   base: "0.2rem",
-                      //   sm: "0.1rem",
-                      //   md: "0.1rem",
-                      //   lg: "0.1rem",
-                      //   xl: "0.3rem",
-                      //   "2xl": "0.4rem",
-                      // }}
-                      direction="column"
-                      // position={"absolute"}
-                      // top={["60%", "63%"]}
-                      // left={["44%", "45%"]}
-                      // top={{
-                      //   base: "60.5%",
-                      //   sm: "62%",
-                      //   md: "60%",
-                      //   lg: "60%",
-                      //   xl: "61%",
-                      //   "2xl": "63%",
-                      // }}
-                      // left={{
-                      //   base: "39%",
-                      //   sm: "40%",
-                      //   md: "39%",
-                      //   lg: "38%",
-                      //   xl: "38%",
-                      //   "2xl": "43%",
-                      // }}
-                      id="playerCard"
+                    <Box
+                      // border={"1px solid red"}
+                      width={"21.5%"}
+                      height={"31.5%"}
+                      position={"absolute"}
+                      top={"61%"}
+                      right={"40%"}
+                      display={"flex"}
+                      justifyContent={"space-between"}
                     >
-                      <Box className="card1">
-                        {timer <= 14 && (
-                          <Box
-                            key={1}
-                            // height={["20.5 rem", "0.5rem"]}
-                          >
-                            <Image
-                              //  className=" card1"
-                              // width={{
-                              //   base: "1.5rem",
-                              //   sm: "1.5rem",
-                              //   md: "1.5rem",
-                              //   lg: "1.6rem",
-                              //   xl: "2.5rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              // height={{
-                              //   base: "2rem",
-                              //   sm: "1.5rem",
-                              //   md: "1.5rem",
-                              //   lg: "1.6rem",
-                              //   xl: "2.6rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              // height={{base:"rem" , md:"3.5rem"}}
-                              src={`/cards/${cards[0]}`}
-                            />
-                          </Box>
-                        )}
+                      <Box
+                        // border={"1px solid yellow"}
+                        width={"28%"}
+                        height={"100%"}
+                        display={"flex"}
+                        justifyContent={"space-between"}
+                        flexDirection={"column"}
+                      >
+                        <Box
+                          // border={"1px solid blue"}
+                          width={"100%"}
+                          height={"30%"}
+                        >
+                          {timer <= 14 && (
+                            <>
+                              <Image
+                                src={`/cards/${cards[0]}`}
+                                width={"100%"}
+                                height={"100%"}
+                              />
+                            </>
+                          )}
+                        </Box>
+                        <Box
+                          // border={"1px solid blue"}
+                          width={"100%"}
+                          height={"30%"}
+                        >
+                          {timer <= 13 && (
+                            <>
+                              <Image
+                                src={`/cards/${cards[1]}`}
+                                width={"100%"}
+                                height={"100%"}
+                              />
+                            </>
+                          )}
+                        </Box>
+                        <Box
+                          // border={"1px solid blue"}
+                          width={"100%"}
+                          height={"30%"}
+                        >
+                          {timer <= 12 && (
+                            <>
+                              <Image
+                                src={`/cards/${cards[2]}`}
+                                width={"100%"}
+                                height={"100%"}
+                              />
+                            </>
+                          )}
+                        </Box>
                       </Box>
-                      <Box className="card2">
-                        {timer <= 13 && (
-                          <Box
-                            key={1}
-                            // height={["2.5 rem", "0.5rem"]}
-                          >
-                            <Image
-                              //  className=" card2"
-                              // width={{
-                              //   base: "1.4rem",
-                              //   sm: "1.5rem",
-                              //   md: "1.5rem",
-                              //   lg: "1.6rem",
-                              //   xl: "2.5rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              // height={{
-                              //   base: "2rem",
-                              //   sm: "1.5rem",
-                              //   md: "1.5rem",
-                              //   lg: "1.6rem",
-                              //   xl: "2.6rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              // height={{ base: "rem", md: "3.5rem" }}
-                              src={`/cards/${cards[1]}`}
-                              // boxSize={["1.8rem", "2.7rem"]}
-
-                              // top={"80r em"}
-                              // alt={`${card}`}
-                            />
-                          </Box>
-                        )}
+                      <Box
+                        // border={"1px solid yellow"}
+                        width={"28%"}
+                        height={"100%"}
+                        display={"flex"}
+                        justifyContent={"space-between"}
+                        flexDirection={"column"}
+                      >
+                        <Box
+                          // border={"1px solid blue"}
+                          width={"100%"}
+                          height={"30%"}
+                        >
+                          {timer <= 11 && (
+                            <>
+                              <Image
+                                src={`/cards/${cards[3]}`}
+                                width={"100%"}
+                                height={"100%"}
+                              />
+                            </>
+                          )}
+                        </Box>
+                        <Box
+                          // border={"1px solid blue"}
+                          width={"100%"}
+                          height={"30%"}
+                        >
+                          {timer <= 10 && (
+                            <>
+                              <Image
+                                src={`/cards/${cards[4]}`}
+                                width={"100%"}
+                                height={"100%"}
+                              />
+                            </>
+                          )}
+                        </Box>
+                        <Box
+                          // border={"1px solid blue"}
+                          width={"100%"}
+                          height={"30%"}
+                        >
+                          {timer <= 9 && (
+                            <>
+                              <Image
+                                src={`/cards/${cards[5]}`}
+                                width={"100%"}
+                                height={"100%"}
+                              />
+                            </>
+                          )}
+                        </Box>
                       </Box>
-                      <Box className="card3">
-                        {timer <= 12 && (
-                          <Box
-                            key={1}
-                            // height={["2.5 rem", "0.5rem"]}
-                          >
-                            <Image
-                              //  className="card4"
-                              // width={{
-                              //   base: "1.4rem",
-                              //   sm: "1.5rem",
-                              //   md: "1.5rem",
-                              //   lg: "1.6rem",
-                              //   xl: "2.5rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              // height={{
-                              //   base: "2rem",
-                              //   sm: "2rem",
-                              //   md: "2rem",
-                              //   lg: "1.6rem",
-                              //   xl: "2.7rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              // height={{ base: "rem", md: "3.5rem" }}
-                              src={`/cards/${cards[2]}`}
-                              // boxSize={["1.8rem", "2.7rem"]}
-
-                              // top={"80r em"}
-                              // alt={`${card}`}
-                            />
-                          </Box>
-                        )}
-                      </Box>
-                    </Flex>
-                    <Flex
-                      // gap={{
-                      //   base: "0.2rem",
-                      //   sm: "0.1rem",
-                      //   md: "0.3rem",
-                      //   lg: "0.2rem",
-                      //   xl: "0.3rem",
-                      //   "2xl": "0.4rem",
-                      // }}
-                      direction="column"
-                      // position={"absolute"}
-                      // top={["77%", "78%"]}
-                      // left={["44%", "45%"]}
-                      // top={{
-                      //   base: "60.5%",
-                      //   sm: "62%",
-                      //   md: "65%",
-                      //   lg: "60.5%",
-                      //   xl: "61%",
-                      //   "2xl": "79%",
-                      // }}
-                      // left={{
-                      //   base: "54.3%",
-                      //   sm: "55.5%",
-                      //   md: "53%",
-                      //   lg: "53.5%",
-                      //   xl: "53.5%",
-                      //   "2xl": "43%",
-                      // }}
-                      className="cardbox2"
-                    >
-                      <Box className="card4">
-                        {timer <= 11 && (
-                          <Box
-                            key={0}
-                            // height={["2.5 rem", "0.5rem"]}
-
-                            //  style={{marginTop: '0.9rem', marginLeft: '0.1rem' }}
-                          >
-                            <Image
-                              className="highcardheight"
-                              // width={{
-                              //   base: "1.5rem",
-                              //   sm: "2rem",
-                              //   md: "2rem",
-                              //   lg: "1.6rem",
-                              //   xl: "2.5rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              // height={{
-                              //   base: "2rem",
-                              //   sm: "2rem",
-                              //   md: "2rem",
-                              //   lg: "1.5rem",
-                              //   xl: "2.7rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              src={`/cards/${cards[3]}`}
-                              // boxSize={["1.8rem", "2.9rem"]}
-                            />
-                          </Box>
-                        )}
-                      </Box>
-                      <Box className="card5">
-                        {timer <= 10 && (
-                          <Box
-                            key={1}
-                            // height={["2.5 rem", "0.5rem"]}
-                          >
-                            <Image
-                              className="highcardheight"
-                              // width={{
-                              //   base: "1.5rem",
-                              //   sm: "2rem",
-                              //   md: "2rem",
-                              //   lg: "1.6rem",
-                              //   xl: "2.5rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              // height={{
-                              //   base: "2rem",
-                              //   sm: "2rem",
-                              //   md: "2rem",
-                              //   lg: "1.5rem",
-                              //   xl: "2.7rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              src={`/cards/${cards[4]}`}
-
-                              // alt={`${card}`}
-                            />
-                          </Box>
-                        )}
-                      </Box>
-                      <Box className="card6">
-                        {timer <= 9 && (
-                          <Box
-                            key={1}
-                            // height={["2.5 rem", "0.5rem"]}
-                          >
-                            <Image
-                              className="highcardheight"
-                              // width={{
-                              //   base: "1.5rem",
-                              //   sm: "2rem",
-                              //   md: "2rem",
-                              //   lg: "1.6rem",
-                              //   xl: "2.6rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              // height={{
-                              //   base: "2rem",
-                              //   sm: "2rem",
-                              //   md: "2rem",
-                              //   lg: "1.55rem",
-                              //   xl: "2.6rem",
-                              //   "2xl": "4rem",
-                              // }}
-                              src={`/cards/${cards[5]}`}
-
-                              // alt={`${card}`}
-                            />
-                          </Box>
-                        )}
-                      </Box>
-                    </Flex>
+                    </Box>
                   </Box>
                 </AspectRatio>
 
@@ -562,10 +423,10 @@ export default function HighCard() {
                     {gameHistory?.map((item, index) => (
                       <Box
                         key={index}
-                        width={["35px", "35px"]} // Adjusted width for responsiveness
-                        height={["45px", "35px"]} // Adjusted height for responsiveness
-                        marginRight="5px" // Added right margin to each item
-                        marginBottom="5px" // Added bottom margin for spacing
+                        width={["35px", "35px"]}
+                        height={["45px", "35px"]}
+                        marginRight="5px"
+                        marginBottom="5px"
                         display="flex"
                         justifyContent="center"
                         alignItems="center"
@@ -574,7 +435,7 @@ export default function HighCard() {
                         border="2px solid white"
                         align={"center"}
                         borderRadius={"50%"}
-                        bg={'yellowgreen'}
+                        bg={"yellowgreen"}
                       >
                         <Text
                           fontSize="14px"

@@ -15,7 +15,7 @@ import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
 const userId = localStorage.getItem("userId");
-const socket = io("https://dragontigerlionbackend.onrender.com", {
+const socket = io("https://dragontigerlionbackend-ysfi.onrender.com", {
   query: {
     userID: userId,
   },
@@ -81,10 +81,9 @@ export default function DragonTigerLion() {
     socket.emit("getUpdatedUserDetails");
   }
 
-  
   const handleBetting = (betType) => {
-    if(user?.coins === 0){
-      alert("Insufficient Fund.")
+    if (user?.coins === 0) {
+      alert("Insufficient Fund.");
       return;
     }
     if (user?.coins > coins) {
@@ -96,9 +95,7 @@ export default function DragonTigerLion() {
       socket.emit("bet", bet);
       console.log("betting1234", betType, coins, mainCard._id);
       setBettingAmount((prev) => prev + Number(coins));
-    }else (
-      alert("Betting Amount is greater than Balances.")
-    )
+    } else alert("Betting Amount is greater than Balances.");
   };
 
   return (
@@ -109,7 +106,6 @@ export default function DragonTigerLion() {
             <Flex
               align="left-top"
               justify="left-top"
-        
               overflow="hidden"
               flexDirection={["column", "row"]}
             >
@@ -204,40 +200,68 @@ export default function DragonTigerLion() {
                       {gameState?.value - 25 <= 0 ? "0" : gameState?.value - 25}
                     </Box>
 
-                    <Flex 
-                      bg={'red'}
-                    className="gdragontigerlion" direction="row">
-                      <Box className="cartbox1">
-                        {gameState?.value <= 14 && (
-                          <Box key={1}>
+                    <Box
+                      // border={"2px solid red"}
+                      position={"absolute"}
+                      width={"61%"}
+                      height={"12%"}
+                      top={"68%"}
+                      right={"19%"}
+                      display={"flex"}
+                      justifyContent={"space-between"}
+                      flexDirection={"row"}
+                    >
+                      <Box
+                        // border={"2px solid orange"}
+                        position={"absolute"}
+                        width={"10%"}
+                        height={"100%"}
+                      >
+                        {mainCard?.dragoncard && gameState?.value <= 14 && (
+                          <Box>
                             <Image
-                              className="dtlcard1"
                               src={`/cards/${mainCard?.dragoncard}`}
+                              width={"100%"}
+                              height={"100%"}
                             />
                           </Box>
                         )}
                       </Box>
-                      <Box className="cartbox2">
+                      <Box
+                        // border={"2px solid orange"}
+                        position={"absolute"}
+                        width={"10%"}
+                        height={"100%"}
+                        right={"46%"}
+                      >
                         {gameState?.value <= 12 && (
-                          <Box key={1}>
+                          <Box>
                             <Image
-                              className="dtlcard2"
                               src={`/cards/${mainCard?.tigercard}`}
+                              width={"100%"}
+                              height={"100%"}
                             />
                           </Box>
                         )}
                       </Box>
-                      <Box className="cartbox3">
+                      <Box
+                        // border={"2px solid orange"}
+                        position={"absolute"}
+                        width={"10%"}
+                        height={"100%"}
+                        right={"0"}
+                      >
                         {gameState?.value <= 10 && (
-                          <Box key={1}>
+                          <Box>
                             <Image
-                              className="dtlcard3"
                               src={`/cards/${mainCard?.lioncard}`}
+                              width={"100%"}
+                              height={"100%"}
                             />
                           </Box>
                         )}
                       </Box>
-                    </Flex>
+                    </Box>
                   </Box>
                 </AspectRatio>
 
@@ -295,7 +319,7 @@ export default function DragonTigerLion() {
                         border="2px solid white"
                         align={"center"}
                         borderRadius={"50%"}
-                        bg={'red'}
+                        bg={"red"}
                       >
                         <Text
                           fontSize="14px"

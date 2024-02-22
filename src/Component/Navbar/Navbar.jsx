@@ -1,6 +1,7 @@
 import { AccountBalance, ZoomIn } from "@mui/icons-material";
 import {
   Box,
+  Button,
   Container,
   Flex,
   HStack,
@@ -10,10 +11,24 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Stack,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
   Text,
+  Thead,
+  Tr,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import LOGO from "./Logo.png";
@@ -21,7 +36,9 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 
 const Navbar = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [playerBalance, setPlayerBalance] = useState(0);
+  const finalRef = useRef(null);
   // console.log(playerBalance)
 
   // useEffect(() => {
@@ -62,7 +79,13 @@ const Navbar = () => {
           </Box>
         </Box>
 
-        <Box alignItems="flex-start">
+        <Flex
+          width={{ base: "70%", md: "30%" }}
+          height={{ base: "100%" }}
+          justify="center"
+          alignItems="center"
+          justifyContent={"space-evenly"}
+        >
           <Box
             paddingRight={{ lg: "30" }}
             display={{ base: "grid", md: "flex", lg: "flex" }}
@@ -70,37 +93,119 @@ const Navbar = () => {
             gap={{ lg: "4" }}
           >
             <Box
-              display={{ base: "none", md: "flex", lg: "flex" }}
+              display={{ base: "flex", md: "flex", lg: "flex" }}
+              direction={{ base: "row" }}
               gap={{ lg: "4" }}
               marginTop={{ lg: "2" }}
               justifyContent="end"
             >
-              <ZoomIn />
-
-              <Text
-                display={{ base: "none", mg: "flex", lg: "fl" }}
+              <Button
+                display={{ base: "block", mg: "flex", lg: "fl" }}
                 marginRight={{ lg: "1.5rem" }}
                 fontSize={{ lg: "20" }}
+                onClick={onOpen}
+                style={{ boxShadow: "0 40px 40px rgba(10, 10, 10, 0.1)" }}
+                bg={"#d6d6f5"}
               >
-                Rule
-              </Text>
-            </Box>
+                Rules
+              </Button>
 
-            <Box>
-              <Text display={{ lg: "none" }}>
-                <AccountBalance />
-              </Text>
-            </Box>
+              <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent
+                  // width="86rem"
+                  maxW={["90vw", "40vw"]}
+                  maxH="60vh" // Set the maximum height to 80% of the viewport height
+                  overflowY="auto" // Enable vertical scrollbar when content overflows
+                  background="white"
+                >
+                  <ModalHeader>Rules and Regulations</ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody>
+                    {/* <Lorem count={2} /> */}
+                    <Button bg={"#CF8D2E"} width={"10rem"}>
+                      GAME OBJECTIVES
+                    </Button>
+                    <br />
+                    To guess whether Dragon or Tiger wins. Player can also bet
+                    whether the Dragon and Tiger cards will be of same value,
+                    therefore a Tie.
+                    <br /> <br />
+                    <Button bg={"#CF8D2E"} width={"7rem"}>
+                      GAME RULES:
+                    </Button>
+                    <br />
+                    Hands dealt: 2 (Dragon, Tiger)
+                    <br /> <br />
+                    Bets: Higher card between hands win.
+                    <br /> <br /> Tie (Rank only): If the Numbers are same on
+                    both Hands.
+                    <br /> <br /> Number Ranking: Lowest to highest: Ace, 2, 3,
+                    4, 5, 6, 7,8, 9, 10, Jack, Queen and King (Ace is "1" and
+                    King is "13").
+                    <br />
+                    <br />
+                    <Button bg={"#CF8D2E"} width={"5rem"}>
+                      PAYOUT
+                    </Button>
+                    <br />
+                    <TableContainer>
+                      <Table size="sm">
+                        <Thead></Thead>
+                        <Tbody>
+                          <Tr></Tr>
+                          <Tr></Tr>
+                          <Tr>
+                            <Td>Tie (Rank Only) </Td>
+                            <Td>1 to 10</Td>
+                          </Tr>
 
+                          <Tr>
+                            <Td>Even </Td>
+                            <Td>1 to 1.1</Td>
+                          </Tr>
+                          <Tr>
+                            <Td>Odd </Td>
+                            <Td>1 to 0.8</Td>
+                          </Tr>
+                          <Tr>
+                            <Td>Red</Td>
+                            <Td>1 to 0.98</Td>
+                          </Tr>
+                          <Tr>
+                            <Td>Red</Td>
+                            <Td>1 to 0.98</Td>
+                          </Tr>
+                          <Tr>
+                            <Td>Black</Td>
+                            <Td>1 to 0.98</Td>
+                          </Tr>
+                          <Tr>
+                            <Td>Suit</Td>
+                            <Td>1 to 2.75</Td>
+                          </Tr>
+                        </Tbody>
+                      </Table>
+                    </TableContainer>
+                  </ModalBody>
+
+                  <ModalFooter></ModalFooter>
+                </ModalContent>
+              </Modal>
+            </Box>
+          </Box>
+          <Box>
             <Text
               marginTop={{ lg: "2" }}
               marginRight={{ lg: "1.5rem" }}
               fontSize={{ lg: "20" }}
               justifyContent={{ base: "end" }}
-              display={{ base: "none", md: "flex", lg: "flex" }}
+              display={{ base: "block", md: "flex", lg: "flex" }}
             >
               Balance: {playerBalance}
             </Text>
+          </Box>
+          <Box>
             <Text
               textDecor={{ lg: "underline" }}
               marginTop={{ lg: "2" }}
@@ -144,7 +249,7 @@ const Navbar = () => {
               </NavLink>
             </Box> */}
           </Box>
-        </Box>
+        </Flex>
       </HStack>
 
       <HStack>

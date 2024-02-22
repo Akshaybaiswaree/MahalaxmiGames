@@ -13,26 +13,22 @@ import Sidebar1 from "../Sidebar/Sidebar1";
 function Rootlayout() {
   return (
     <Flex direction="column">
-      <Box minW={"100vw"} minH={"30vh"}>
+      <Box minW={"100vw"} minH={"20vh"}>
         <Navbar />
       </Box>
-      {/* Main Content */}
+
       <Flex flexGrow={1}>
-        {/* Sidebar */}
         <Box width={{ lg: "15%" }}>
-          {/* {AndarBahar ? <Sidebar1 /> : <SideBar />} */}
           <SideBar />
-          {/* <Sidebar1 /> */}
         </Box>
 
-        {/* Main Content */}
         <Box
-          mx={{ base: "1rem", md: "1rem" }}
-          mr={{ base: "4rem" }}
+          mx={{ base: "0rem", md: "0rem" }}
+          // mr={{ base: "4rem" }}
           marginLeft={{ base: "0rem", md: "0rem" }}
           flexBasis={{ base: "300%", md: "100%" }}
           alignItems={{ base: "flex-start" }}
-          // bg={"#451212"}
+          // bg={"black"}
         >
           <Outlet />
         </Box>

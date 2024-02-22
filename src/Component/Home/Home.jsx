@@ -296,14 +296,14 @@ const Home = () => {
         </Flex>
       </Flex>
 
-      <Box width={["26rem", "100%"]} className="Home" paddingLeft="2">
+      <Box width={["100%", "100%"]} className="Home" paddingLeft="2">
         {/* <Heading as="h1" textAlign={{base: "start", md: "center",lg: "center"}} marginBottom="4">
           Our Casino
         </Heading> */}
 
         <Grid
           templateColumns={{
-            base: "repeat(16, 1fr)",
+            base: "repeat(12, 1fr)",
             md: "repeat(4, 1fr)",
             lg: "repeat(6, 1fr)",
             xl: "repeat(6, 1fr)",
@@ -331,23 +331,6 @@ const Home = () => {
                   alt="DRAGON TIGER LION"
                 />
                 <span> DRAGON TIGER LION</span>
-              </Box>
-            </NavLink>
-          </GridItem>
-
-          <GridItem colSpan={{ base: 4, md: 1 }}>
-            <NavLink
-              to={{
-                pathname: "/3cardsteenpatti",
-              }}
-              data={location?.state}
-            >
-              <Box className="custom-box">
-                <Image
-                  src="/game card/Teen Patti T20.png"
-                  alt="MULFIS TEENPATTI"
-                />
-                <span>3 CARDS TEEN PATTI</span>
               </Box>
             </NavLink>
           </GridItem>
@@ -431,6 +414,37 @@ const Home = () => {
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <NavLink
               to={{
+                pathname: "/thirtytwocards",
+              }}
+              data={location?.state}
+            >
+              <Box className="custom-box">
+                <Image src="/game card/32 CARD VR.png" alt="32 Cards" />
+                <span>32 Cards</span>
+              </Box>
+            </NavLink>
+          </GridItem>
+
+          <GridItem colSpan={{ base: 4, md: 1 }}>
+            <NavLink
+              to={{
+                pathname: "/3cardsteenpatti",
+              }}
+              data={location?.state}
+            >
+              <Box className="custom-box">
+                <Image
+                  src="/game card/Teen Patti T20.png"
+                  alt="MULFIS TEENPATTI"
+                />
+                <span>3 CARDS TEEN PATTI</span>
+              </Box>
+            </NavLink>
+          </GridItem>
+
+          <GridItem colSpan={{ base: 4, md: 1 }}>
+            <NavLink
+              to={{
                 pathname: "/muflisoneday",
               }}
               data={location?.state}
@@ -441,20 +455,6 @@ const Home = () => {
                   alt="TEENPATTI T20"
                 />
                 <span>Muflis One Day</span>
-              </Box>
-            </NavLink>
-          </GridItem>
-
-          <GridItem colSpan={{ base: 4, md: 1 }}>
-            <NavLink
-              to={{
-                pathname: "/thirtytwocards",
-              }}
-              data={location?.state}
-            >
-              <Box className="custom-box">
-                <Image src="/game card/32 CARD VR.png" alt="32 Cards" />
-                <span>32 Cards</span>
               </Box>
             </NavLink>
           </GridItem>

@@ -12,14 +12,14 @@ import {
 import { useEffect, useState } from "react";
 
 import { FaLock } from "react-icons/fa";
-import TeenPattiMuflisBg from "../../../images/3pattimuflisbg.svg"
+import TeenPattiMuflisBg from "../../../images/3pattimuflisbg.svg";
 import { io } from "socket.io-client";
 
 //import PopUp from "./PopUp";
 // import Logo from "../../../images/32cardsA_v.jpeg";
 //  import backGroundImage from "./images/background_plus_cards.jpeg"
 const userId = localStorage.getItem("userId");
-const socket = io("https://muflisteenpattibackend.onrender.com", {
+const socket = io("https://muflisteenpattibackend-n65p.onrender.com", {
   query: {
     userID: userId,
   },
@@ -104,13 +104,15 @@ export default function TeenPattiMuflis() {
   return (
     <>
       <ChakraProvider>
-        <Box 
-        className="teenpattimuflismainbox"
+        <Box
+        // className="teenpattimuflismainbox"
         // width={["100%", "100%"]}
         >
           <Box
-           backgroundImage={TeenPattiMuflisBg} 
-           maxW={["100vw", "100vw"]} id="main-div">
+            backgroundImage={TeenPattiMuflisBg}
+            maxW={["100vw", "100vw"]}
+            id="main-div"
+          >
             <Flex
               align="left-top"
               justify="left-top"
@@ -209,85 +211,124 @@ export default function TeenPattiMuflis() {
                     >
                       {timer?.value - 25 <= 0 ? "0" : timer?.value - 25}
                     </Box>
-
-                    <Flex
-                      gap="0.5rem"
-                      direction="row"
-                      position={"relative"}
-                      top={{ base: "5.3rem", lg: "5.8rem", xl: "9rem" }}
-                      left={{ base: "-3.5rem", lg: "-3.6rem", xl: "-5.8rem" }}
-                      className="teenpattimuflis1stflex"
+                    <Box
+                      // border={"2px solid red"}
+                      width={"52%"}
+                      height={"10%"}
+                      position={"absolute"}
+                      top={"68%"}
+                      display={"flex"}
+                      justifyContent={"space-between"}
                     >
-                      <Box className="muflisplayercardbox1">
-                        {timer?.value <= 19 && (
-                          <Box key={1}>
-                            <Image
-                              className="muflisplayercard1"
-                              src={`/cards/${player1Cards[0]}`}
-                            />
-                          </Box>
-                        )}
+                      <Box
+                        // border={"1px solid orange"}
+                        width={"41%"}
+                        height={"97%"}
+                        display={"flex"}
+                        justifyContent={"space-between"}
+                        flexDirection={"row"}
+                      >
+                        <Box
+                          // border={"1px solid yellow"}
+                          width={"25%"}
+                          height={"100%"}
+                        >
+                          {timer?.value <= 19 && (
+                            <Box>
+                              <Image
+                                src={`/cards/${player1Cards[0]}`}
+                                width={"100%"}
+                                height={"100%"}
+                              />
+                            </Box>
+                          )}
+                        </Box>
+                        <Box
+                          // border={"1px solid yellow"}
+                          width={"25%"}
+                          height={"100%"}
+                        >
+                          {timer?.value <= 17 && (
+                            <Box>
+                              <Image
+                                src={`/cards/${player1Cards[1]}`}
+                                width={"100%"}
+                                height={"100%"}
+                              />
+                            </Box>
+                          )}
+                        </Box>
+                        <Box
+                          // border={"1px solid yellow"}
+                          width={"25%"}
+                          height={"100%"}
+                        >
+                          {timer?.value <= 15 && (
+                            <Box>
+                              <Image
+                                src={`/cards/${player1Cards[2]}`}
+                                width={"100%"}
+                                height={"100%"}
+                              />
+                            </Box>
+                          )}
+                        </Box>
                       </Box>
-                      <Box className="muflisplayercardbox2">
-                        {timer?.value <= 17 && (
-                          <Box key={1}>
-                            <Image
-                              className="muflisplayercard2"
-                              src={`/cards/${player1Cards[1]}`}
-                            />
-                          </Box>
-                        )}
+                      <Box
+                        // border={"1px solid yellow"}
+                        width={"41.8%"}
+                        height={"100%"}
+                        display={"flex"}
+                        justifyContent={"space-between"}
+                        flexDirection={"row"}
+                      >
+                        <Box
+                          // border={"1px solid blue"}
+                          width={"25%"}
+                          height={"100%"}
+                        >
+                          {timer?.value <= 18 && (
+                            <Box>
+                              <Image
+                                src={`/cards/${player2Cards[0]}`}
+                                width={"100%"}
+                                height={"100%"}
+                              />
+                            </Box>
+                          )}
+                        </Box>
+                        <Box
+                          // border={"1px solid blue"}
+                          width={"25%"}
+                          height={"100%"}
+                        >
+                          {timer?.value <= 16 && (
+                            <Box>
+                              <Image
+                                src={`/cards/${player2Cards[1]}`}
+                                width={"100%"}
+                                height={"100%"}
+                              />
+                            </Box>
+                          )}
+                        </Box>
+                        <Box
+                          // border={"1px solid blue"}
+                          width={"25%"}
+                          height={"100%"}
+                        >
+                          {timer?.value <= 14 && (
+                            <Box>
+                              <Image
+                                src={`/cards/${player2Cards[2]}`}
+                                width={"100%"}
+                                height={"100%"}
+                              />
+                            </Box>
+                          )}
+                        </Box>
                       </Box>
-                      <Box className="muflisplayercardbox3">
-                        {timer?.value <= 15 && (
-                          <Box key={1}>
-                            <Image
-                              className="muflisplayercard3"
-                              src={`/cards/${player1Cards[2]}`}
-                            />
-                          </Box>
-                        )}
-                      </Box>
-                    </Flex>
-                    <Flex
-                      gap="0.5rem"
-                      direction="row"
-                      position={"relative"}
-                      top={{ base: "2.9rem", lg: "3.3rem", xl: "5.4rem" }}
-                      left={{ base: "3.4rem", lg: "3.6rem", xl: "5.4rem" }}
-                      className="teenpattimuflis2ndflex"
-                    >
-                      <Box className="muflisplayercardbox4">
-                        {timer?.value <= 18 && (
-                          <Box key={0}>
-                            <Image
-                              className="muflisplayercard4"
-                              src={`/cards/${player2Cards[0]}`}
-                            />
-                          </Box>
-                        )}
-                      </Box>
-                      <Box className="muflisplayercardbox5">
-                        {timer?.value <= 16 && (
-                          <Box key={1}>
-                            <Image
-                              className="muflisplayercard5"
-                              src={`/cards/${player2Cards[1]}`}
-                            />
-                          </Box>
-                        )}
-                      </Box>
-                      <Box className="muflisplayercardbox6">
-                        {timer?.value <= 14 && (
-                          <Box key={1}>
-                            <Image
-                              className="muflisplayercard6"
-                              src={`/cards/${player2Cards[2]}`}
-                            />
-                          </Box>
-                        )}
-                      </Box>
-                    </Flex>
+                    </Box>
                   </Box>
                 </AspectRatio>
 
@@ -295,7 +336,6 @@ export default function TeenPattiMuflis() {
                   {/* Box Items */}
 
                   <Button
-                   
                     fontWeight={"700"}
                     style={{
                       backgroundImage:
@@ -597,16 +637,15 @@ export default function TeenPattiMuflis() {
                       </Box>
                     </Box>
                   </Flex>
-                  <Text 
-                  fontSize={'1.2rem'}
-                     fontWeight={"700"}
-                  align={"center"} 
-                  justifyContent={'center'}
-                  alignItems={'center'}
-                  color={"white"}
-                  ml={{ base: "3rem", md: "0rem" }}
+                  <Text
+                    fontSize={"1.2rem"}
+                    fontWeight={"700"}
+                    align={"center"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    color={"white"}
+                    ml={{ base: "3rem", md: "0rem" }}
                   >
-                  
                     Pair Plus Bet
                   </Text>
                   <Flex

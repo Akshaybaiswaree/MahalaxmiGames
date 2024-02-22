@@ -660,7 +660,7 @@ export default function ThirtyTwoCards() {
   return (
     <>
       <ChakraProvider>
-        <Box width={["19rem", "100%"]}>
+        <Box width={["100%", "100%"]}>
           <Box bg={"#451212"} maxW={["100vw", "100vw"]} id="main-div">
             <Flex
               align="left-top"
@@ -778,8 +778,6 @@ export default function ThirtyTwoCards() {
                       }}
                       direction="row"
                       position={"absolute"}
-                      // top={["60%", "63%"]}
-                      // left={["44%", "45%"]}
                       top={{
                         base: "63%",
                         sm: "62%",

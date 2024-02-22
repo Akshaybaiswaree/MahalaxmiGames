@@ -13,10 +13,11 @@ import { useEffect, useState } from "react";
 
 import { FaLock } from "react-icons/fa";
 import TwoCard from "../../Games/Images/2 card 3 patti new.svg";
-import { io } from "socket.io-client";
 import TwoCardPattiBG from "../../../images/2cardpattibg.svg";
+import { io } from "socket.io-client";
+
 const userId = localStorage.getItem("userId");
-const socket = io("https://twocardtp.onrender.com/", {
+const socket = io("https://twocardtp-t0r6.onrender.com/", {
   query: {
     userId: userId,
   },
@@ -45,7 +46,7 @@ export default function TwoCardsTeenPatti() {
       socket.disconnect();
       socket.connect();
     }
-  }, [localStorage.getItem("userId")]);
+  }, []);
   //
   useEffect(() => {
     const handleDealCards = (data) => {
@@ -169,10 +170,10 @@ export default function TwoCardsTeenPatti() {
     <>
       <ChakraProvider>
         <Box
-         className="mainbox2cardspatti"
-          // width={["108%", "100%"]}
-          // overflow={'hidden'}
-          // border={"2px solid green"}
+        //  className="mainbox2cardspatti"
+        // width={["108%", "100%"]}
+        // overflow={'hidden'}
+        // border={"2px solid green"}
         >
           <Box
             backgroundImage={TwoCardPattiBG}
@@ -284,75 +285,98 @@ export default function TwoCardsTeenPatti() {
                       {countdown - 25 <= 0 ? "0" : countdown - 25}
                     </Box>
 
-                    <Flex
-                      className="twocard1stflex"
-                      // justifyContent={"space-between"}
-
-                      direction="row"
-                      position={"relative"}
-                      alignItems={"center"}
-                      textAlign={"center"}
-                      // top={"5.2rem"}
-                      // top={{ base: "5.3rem", lg: "5.8rem", xl: "9rem" }}
-                      // left={{ base: "-3.5rem", lg: "-3.6rem", xl: "-5.8rem" }}
+                    <Box
+                      // border={"1px solid red"}
+                      width={"40%"}
+                      height={"10%"}
+                      position={"absolute"}
+                      top={"68%"}
+                      display={"flex"}
+                      justifyContent={"space-between"}
                     >
-                      <Box className="playercardbox1">
-                        {countdown <= 19 && (
-                          <Box key={1}>
-                            <Image
-                              className="playercard1"
-                              src={`/cards/${player1Cards[0]}`}
-                            />
-                          </Box>
-                        )}
+                      <Box
+                        // border={"1px solid black"}
+                        width={"34%"}
+                        height={"97%"}
+                        display={"flex"}
+                        justifyContent={"space-between"}
+                        flexDirection={"row"}
+                      >
+                        <Box
+                          // border={"1px solid yellow"}
+                          width={"39%"}
+                          height={"100%"}
+                          overflow={"hidden"}
+                        >
+                          {countdown <= 19 && (
+                            <Box>
+                              <Image
+                                src={`/cards/${player1Cards[0]}`}
+                                width={"100%"}
+                                height={"100%"}
+                              />
+                            </Box>
+                          )}
+                        </Box>
+                        <Box
+                          // border={"1px solid yellow"}
+                          width={"40%"}
+                          height={"100%"}
+                          overflow={"hidden"}
+                        >
+                          {countdown <= 17 && (
+                            <Box>
+                              <Image
+                                src={`/cards/${player1Cards[1]}`}
+                                width={"100%"}
+                                height={"100%"}
+                              />
+                            </Box>
+                          )}
+                        </Box>
                       </Box>
-                      <Box className="playercardbox2">
-                        {countdown <= 17 && (
-                          <Box
-                            key={1}
-                            // height={["2.5 rem", "0.5rem"]}
-                          >
-                            <Image
-                              className="playercard2"
-                              src={`/cards/${player1Cards[1]}`}
-                            />
-                          </Box>
-                        )}
+                      <Box
+                        // border={"1px solid yellow"}
+                        width={"34%"}
+                        height={"100%"}
+                        display={"flex"}
+                        justifyContent={"space-between"}
+                        flexDirection={"row"}
+                      >
+                        <Box
+                          // border={"1px solid blue"}
+                          width={"41%"}
+                          height={"100%"}
+                          overflow={"hidden"}
+                        >
+                          {countdown <= 18 && (
+                            <Box>
+                              <Image
+                                src={`/cards/${player2Cards[0]}`}
+                                width={"100%"}
+                                height={"100%"}
+                              />
+                            </Box>
+                          )}
+                        </Box>
+                        <Box
+                          // border={"1px solid blue"}
+                          width={"41%"}
+                          height={"100%"}
+                          overflow={"hidden"}
+                        >
+                          {countdown <= 16 && (
+                            <Box>
+                              <Image
+                                src={`/cards/${player2Cards[1]}`}
+                                width={"100%"}
+                                height={"100%"}
+                              />
+                            </Box>
+                          )}
+                        </Box>
                       </Box>
-                    </Flex>
-                    <Flex
-                      className="twocard2ndflex"
-                      direction="row"
-                      position={"relative"}
-                      alignItems={"center"}
-                      textAlign={"center"}
-                      // top={{ base: "1.9rem", lg: "3.3rem", xl: "5.4rem" }}
-                      // // left={"3.4rem"}
-                      // left={{ base: "2.4rem", lg: "3.6rem", xl: "5.4rem" }}
-                    >
-                      <Box className="playercardbox3">
-                        {countdown <= 18 && (
-                          <Box key={0}>
-                            <Image
-                              className="playercard3"
-                              src={`/cards/${player2Cards[0]}`}
-                            />
-                          </Box>
-                        )}
-                      </Box>
-                      <Box className="playercardbox4">
-                        {countdown <= 16 && (
-                          <Box key={1}>
-                            <Image
-                              className="playercard4"
-                              src={`/cards/${player2Cards[1]}`}
-
-                              // alt={`${card}`}
-                            />
-                          </Box>
-                        )}
-                      </Box>
-                    </Flex>
+                    </Box>
                   </Box>
                 </AspectRatio>
 
