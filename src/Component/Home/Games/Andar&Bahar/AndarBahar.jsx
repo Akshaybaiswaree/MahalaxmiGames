@@ -150,7 +150,7 @@ export default function AndarBahar() {
     <>
       <ChakraProvider>
         <Box className="AndarBaharmaindiv" minH={"100vh"} minW={"48vh"}>
-          <Box bg={"#07588a"} maxW={["100vw", "100vw"]} id="main-div">
+          <Box  maxW={["100vw", "100vw"]} id="main-div">
             <Flex
               align="left-top"
               justify="left-top"
@@ -257,6 +257,7 @@ export default function AndarBahar() {
                       top={"69%"}
                       right={"19%"}
                     >
+                      {mainCard?.main_card? (
                       <Image
                         src={`./cards/${mainCard?.main_card}`}
                         // src={"/cards/clubs_10.png"}
@@ -264,6 +265,7 @@ export default function AndarBahar() {
                         width={"100%"}
                         height={"100%"}
                       />
+                      ) : ( "" )}
                     </Box>
                     <Box
                       // border={"2px solid red"}
@@ -335,16 +337,18 @@ export default function AndarBahar() {
 
                   <Button
                     fontWeight={"700"}
+                    
                     style={{
                       backgroundImage:
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
-                      color: "#222831",
+                      color: "#8A2BE2",
+
                     }}
                   >
                     <>
                       Player Id :
-                      <Text color={"black"} align={"center"}>
+                      <Text color={"white"} align={"center"}>
                         {user?.mobileNumber ? user?.mobileNumber : "Loading..."}
                       </Text>
                     </>
@@ -356,7 +360,8 @@ export default function AndarBahar() {
                       backgroundImage:
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
-                      color: "#222831",
+                      color: "#8A2BE2",
+
                     }}
                   >
                     Last Wins:
@@ -370,7 +375,9 @@ export default function AndarBahar() {
                     justifyContent={"center"}
                     alignItems={"center"}
                     textAlign={"center"}
+                  
                   >
+
                     {gameHistory?.map((item, index) => (
                       <Box
                         key={index}
@@ -385,10 +392,13 @@ export default function AndarBahar() {
                         fontWeight="bold"
                         border="2px solid white"
                         align={"center"}
+                        borderRadius={"50%"}
+                        bg={"white"}
                       >
                         <Text
-                          fontSize="14px"
-                          color={index % 2 === 0 ? "white" : "black"}
+                          fontSize="18px"
+                          color={index % 2 === 0 ? "black" : "black"}
+                          fontWeight={"800"}
                           align={"center"}
                         >
                           {item}
@@ -402,12 +412,13 @@ export default function AndarBahar() {
                       backgroundImage:
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
-                      color: "#222831",
+                      color: "#8A2BE2",
+
                     }}
                   >
                     <>
                       Last Bet Amount :
-                      <Text color={"black"} align={"center"}>
+                      <Text color={"white"} align={"center"}>
                         {bettingAmount}
                       </Text>
                     </>
@@ -430,7 +441,7 @@ export default function AndarBahar() {
                   <Box
                     flex="1"
                     width="48%"
-                    background="radial-gradient(263px at 100.2% 3%, rgb(12, 85, 141) 31.1%, rgb(205, 181, 93) 36.4%, rgb(244, 102, 90) 50.9%, rgb(199, 206, 187) 60.7%, rgb(249, 140, 69) 72.5%, rgb(12, 73, 116) 72.6%)"
+                    bgGradient="linear(to-tr, #000000, #8A2BE2)"
                     textAlign="center"
                     borderRadius="10px"
                     border="3px solid #333"
@@ -449,7 +460,7 @@ export default function AndarBahar() {
                   <Box
                     flex="1"
                     width="48%"
-                    background="radial-gradient(263px at 100.2% 3%, rgb(12, 85, 141) 31.1%, rgb(205, 181, 93) 36.4%, rgb(244, 102, 90) 50.9%, rgb(199, 206, 187) 60.7%, rgb(249, 140, 69) 72.5%, rgb(12, 73, 116) 72.6%)"
+                    bgGradient="linear(to-tr, #000000, #8A2BE2)"
                     textAlign="center"
                     borderRadius="10px"
                     border="3px solid #333"
@@ -568,7 +579,8 @@ export default function AndarBahar() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          background="linear-gradient(114.9deg, rgb(34, 34, 34) 8.3%, rgb(0, 40, 60) 41.6%, rgb(0, 143, 213) 93.4%)"
+                          // background="linear-gradient(114.9deg, rgb(34, 34, 34) 8.3%, rgb(0, 40, 60) 41.6%, rgb(0, 143, 213) 93.4%)"
+                          bgGradient="linear(to-tr, #FFFFFF, #8A2BE2)"
                           _hover={
                             !isButtonDisabled && {
                               background:
@@ -605,7 +617,7 @@ export default function AndarBahar() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          background="linear-gradient(114.9deg, rgb(34, 34, 34) 8.3%, rgb(0, 40, 60) 41.6%, rgb(0, 143, 213) 93.4%)"
+                          bgGradient="linear(to-tr, #FFFFFF, #8A2BE2)"
                           _hover={
                             !isButtonDisabled && {
                               background:

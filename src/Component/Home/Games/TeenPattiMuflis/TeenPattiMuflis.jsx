@@ -109,7 +109,7 @@ export default function TeenPattiMuflis() {
         // width={["100%", "100%"]}
         >
           <Box
-            backgroundImage={TeenPattiMuflisBg}
+            // backgroundImage={TeenPattiMuflisBg}
             maxW={["100vw", "100vw"]}
             id="main-div"
           >
@@ -685,7 +685,7 @@ export default function TeenPattiMuflis() {
                           color="black"
                           fontWeight="800"
                           borderRadius="20%"
-                          background="linear-gradient(109.6deg, rgb(156, 252, 248) 11.2%, rgb(110, 123, 251) 91.1%)"
+                          bgGradient="linear(to-tr, #FFFFFF, #9A6525)"
                           _hover={
                             !isButtonDisabled && {
                               background:
@@ -708,7 +708,7 @@ export default function TeenPattiMuflis() {
                             />
                           )}
                           <Text style={{ position: "absolute", zIndex: "1" }}>
-                            <span>player A</span> <span>3</span>
+                            <span>player A-</span> <span>3</span>
                           </Text>
                         </Button>
 
@@ -721,7 +721,7 @@ export default function TeenPattiMuflis() {
                           color="black"
                           fontWeight="800"
                           borderRadius="20%"
-                          background="linear-gradient(109.6deg, rgb(156, 252, 248) 11.2%, rgb(110, 123, 251) 91.1%)"
+                          bgGradient="linear(to-tr, #FFFFFF, #9A6525)"
                           _hover={
                             !isButtonDisabled && {
                               background:
@@ -744,7 +744,7 @@ export default function TeenPattiMuflis() {
                             />
                           )}
                           <Text style={{ position: "absolute", zIndex: "1" }}>
-                            <span>player B</span>
+                            <span>player B-</span>
                             <span>3</span>
                           </Text>
                         </Button>

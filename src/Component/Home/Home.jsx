@@ -317,7 +317,7 @@ const Home = () => {
                   src="/game card/Dragon Tiger Lion.png"
                   alt="DRAGON TIGER LION"
                 />
-                <span> DRAGON TIGER LION</span>
+                <span style={{color:"gold"}}> DRAGON TIGER LION</span>
               </Box>
             </NavLink>
           </GridItem>
@@ -334,7 +334,7 @@ const Home = () => {
                   src="/game card/2 CARD TEEN PATTI.png"
                   alt="2 CARDS TEEN PATTI"
                 />
-                <span>2 CARDS TEEN PATTI</span>
+                <span  style={{color:"gold"}}>2 CARDS TEEN PATTI</span>
               </Box>
             </NavLink>
           </GridItem>
@@ -351,7 +351,7 @@ const Home = () => {
                   src="/game card/Teen Patti  Muflis.png"
                   alt="3 PATTI MUFLIS"
                 />
-                <span>MUFLIS TEEN PATTI</span>
+                <span  style={{color:"gold"}}>MUFLIS TEEN PATTI</span>
               </Box>
             </NavLink>
           </GridItem>
@@ -365,7 +365,7 @@ const Home = () => {
             >
               <Box className="custom-box">
                 <Image src="/game card/HighCard.jpg" alt="TEENPATTI T20" />
-                <span>HIGH CARD</span>
+                <span  style={{color:"gold"}}>HIGH CARD</span>
               </Box>
             </NavLink>
           </GridItem>
@@ -379,7 +379,7 @@ const Home = () => {
             >
               <Box className="custom-box">
                 <Image src="/game card/Andar Bahar.png" alt="ANDAR BAHAR" />
-                <span>ANDAR BAHAR (Virtual)</span>
+                <span  style={{color:"gold"}}>ANDAR BAHAR (Virtual)</span>
               </Box>
             </NavLink>
           </GridItem>
@@ -393,7 +393,7 @@ const Home = () => {
             >
               <Box className="custom-box">
                 <Image src="/game card/Dragon  Tiger.png" alt="DRAGON TIGER" />
-                <span> DRAGON TIGER</span>
+                <span  style={{color:"gold"}}> DRAGON TIGER</span>
               </Box>
             </NavLink>
           </GridItem>
@@ -407,7 +407,7 @@ const Home = () => {
             >
               <Box className="custom-box">
                 <Image src="/game card/32 CARD VR.png" alt="32 Cards" />
-                <span>32 Cards</span>
+                <span  style={{color:"gold"}}>32 Cards</span>
               </Box>
             </NavLink>
           </GridItem>
@@ -424,7 +424,7 @@ const Home = () => {
                   src="/game card/Teen Patti T20.png"
                   alt="MULFIS TEENPATTI"
                 />
-                <span>3 CARDS TEEN PATTI</span>
+                <span  style={{color:"gold"}}>3 CARDS TEEN PATTI</span>
               </Box>
             </NavLink>
           </GridItem>
@@ -441,7 +441,7 @@ const Home = () => {
                   src="/game card/MUFLIS ONE DAY.webp"
                   alt="TEENPATTI T20"
                 />
-                <span>Muflis One Day</span>
+                <span  style={{color:"gold"}}>Muflis One Day</span>
               </Box>
             </NavLink>
           </GridItem>
@@ -453,7 +453,7 @@ const Home = () => {
                   src="/game card/1DdragonTiger.png"
                   alt="1 DAY DRAGON TIGER"
                 />
-                <span> 1 DAY DRAGON TIGER </span>
+                <span  style={{color:"gold"}}> 1 DAY DRAGON TIGER </span>
               </Box>
             </NavLink>
           </GridItem>
@@ -471,7 +471,7 @@ const Home = () => {
             <NavLink to="/andarbahar">
               <Box className="custom-box">
                 <Image src="/game card/Casino war.png" alt="Casino-war" />
-                <Text>CASINO WAR</Text>
+                <Text  style={{color:"gold"}}>CASINO WAR</Text>
               </Box>
             </NavLink>
           </GridItem>
@@ -480,7 +480,7 @@ const Home = () => {
             <NavLink to="/andarbahar">
               <Box className="custom-box">
                 <Image src="/game card/1 Day Poker.png" alt="1-DAY POKER" />
-                <span> 1-DAY POKER</span>
+                <span  style={{color:"gold"}}> 1-DAY POKER</span>
               </Box>
             </NavLink>
           </GridItem>
@@ -489,7 +489,7 @@ const Home = () => {
             <NavLink to="/andarbahar">
               <Box className="custom-box">
                 <Image src="/game card/Worli Matka.png" alt="WORLI MATKA" />
-                <span> WORLI MATKA</span>
+                <span  style={{color:"gold"}}> WORLI MATKA</span>
               </Box>
             </NavLink>
           </GridItem>
@@ -498,7 +498,7 @@ const Home = () => {
             <NavLink to="/racegame">
               <Box className="custom-box">
                 <Image src="/game card/World  Matka VR.png" alt="WORLD MATKA" />
-                <span> WORLD MATKA </span>
+                <span  style={{color:"gold"}}> WORLD MATKA </span>
               </Box>
             </NavLink>
           </GridItem>
@@ -507,7 +507,7 @@ const Home = () => {
             <NavLink to="/RaceGame">
               <Box className="custom-box">
                 <Image src="/game card/Race 20-20.png" alt=" RACE 20-20" />
-                <span> RACE 20-20</span>
+                <span  style={{color:"gold"}}> RACE 20-20</span>
               </Box>
             </NavLink>
           </GridItem>
@@ -516,7 +516,7 @@ const Home = () => {
             <NavLink to="/RaceGame">
               <Box className="custom-box">
                 <Image src="/game card/Race 20-20.png" alt="RACE 20-20" />
-                <span> RACE 20-20</span>
+                <span  style={{color:"gold"}}> RACE 20-20</span>
               </Box>
             </NavLink>
           </GridItem>
@@ -524,35 +524,35 @@ const Home = () => {
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <Box className="custom-box">
               <Image src="/game card/Casino war.png" alt="CASINO METER" />
-              <span> CASINO METER</span>
+              <span  style={{color:"gold"}}>CASINO METER</span>
             </Box>
           </GridItem>
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <Box className="custom-box">
               <Image src="/game card/20-20  Poker.png" alt="20-20 POKER" />
-              <span> 20-20 POKER</span>
+              <span  style={{color:"gold"}}> 20-20 POKER</span>
             </Box>
           </GridItem>
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <Box className="custom-box">
               <Image src="/game card/Trio.png" alt="TRIO" />
-              <span> TRIO</span>
+              <span  style={{color:"gold"}}> TRIO</span>
             </Box>
           </GridItem>
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <Box className="custom-box">
               <Image src="/game card/Card  Casino.png" alt="CARD CASINO" />
-              <span> CARD CASINO</span>
+              <span  style={{color:"gold"}}> CARD CASINO</span>
             </Box>
           </GridItem>
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <Box className="custom-box">
               <Image src="/game card/Trap.png" alt="Trap" />
-              <span> Trap</span>
+              <span  style={{color:"gold"}}> Trap</span>
             </Box>
           </GridItem>
 
@@ -569,7 +569,7 @@ const Home = () => {
                 src="/game card/Bollywood Casino.png"
                 alt="BOLLYWOOD CASINO"
               />
-              <span> BOLLYWOOD CASINO</span>
+              <span  style={{color:"gold"}}> BOLLYWOOD CASINO</span>
             </Box>
           </GridItem>
 
@@ -579,28 +579,28 @@ const Home = () => {
                 src="/game card/Teenpatti  1 day  virtual.png"
                 alt="TEENPATTI ONE-DAY"
               />
-              <span> TEENPATTI ONE-DAY (VIRTUAL)</span>
+              <span  style={{color:"gold"}}> TEENPATTI ONE-DAY (VIRTUAL)</span>
             </Box>
           </GridItem>
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <Box className="custom-box">
               <Image src="/game card/Poker Virtual.png" alt=" POKER VIRTUAL" />
-              <span> POKER VIRTUAL</span>
+              <span  style={{color:"gold"}}> POKER VIRTUAL</span>
             </Box>
           </GridItem>
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <Box className="custom-box">
               <Image src="/game card/Hii Low.png" alt=" HII-LOW" />
-              <span> HII-LOW</span>
+              <span  style={{color:"gold"}}> HII-LOW</span>
             </Box>
           </GridItem>
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <Box className="custom-box">
               <Image src="/game card/BACCARAT.png" alt=" BACCARAT" />
-              <span> BACCARAT</span>
+              <span  style={{color:"gold"}}> BACCARAT</span>
             </Box>
           </GridItem>
 
@@ -614,14 +614,14 @@ const Home = () => {
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <Box className="custom-box">
               <Image src="/game card/7 Up & Down.png" alt="7 UP AND DOWN" />
-              <span> 7 UP AND DOWN</span>
+              <span  style={{color:"gold"}}> 7 UP AND DOWN</span>
             </Box>
           </GridItem>
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <Box className="custom-box">
               <Image src="/game card/SCIBO.png" alt="SCIBO" />
-              <span> SCIBO</span>
+              <span  style={{color:"gold"}}> SCIBO</span>
             </Box>
           </GridItem>
 
@@ -631,21 +631,21 @@ const Home = () => {
                 src="/game card/6 Player poker VR.png"
                 alt="SIX PLAYER POKER"
               />
-              <span> SIX PLAYER POKER (VIRTUAL)</span>
+              <span  style={{color:"gold"}}> SIX PLAYER POKER (VIRTUAL)</span>
             </Box>
           </GridItem>
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <Box className="custom-box">
               <Image src="/game card/Test Teenpatti.png" alt="TEST TEENPATTI" />
-              <span> TEST TEENPATTI</span>
+              <span  style={{color:"gold"}}> TEST TEENPATTI</span>
             </Box>
           </GridItem>
 
           <GridItem colSpan={{ base: 4, md: 1 }}>
             <Box className="custom-box">
               <Image src="/game card/Hii Low.png" alt=" HII-LOW " />
-              <span> HII-LOW (VIRTUAL)</span>
+              <span  style={{color:"gold"}}> HII-LOW (VIRTUAL)</span>
             </Box>
           </GridItem>
         </Grid>

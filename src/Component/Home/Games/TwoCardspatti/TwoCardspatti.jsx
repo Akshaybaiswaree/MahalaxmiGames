@@ -52,6 +52,7 @@ export default function TwoCardsTeenPatti() {
     const handleDealCards = (data) => {
       // console.log(data, "playerHands123");
       // handleGetBalance();
+      console.log(data, "cardss");
       setTimeout(() => {
         handleGetBalance();
       }, 10000);
@@ -310,11 +311,13 @@ export default function TwoCardsTeenPatti() {
                         >
                           {countdown <= 19 && (
                             <Box>
+                             { player1Cards[0]?
                               <Image
                                 src={`/cards/${player1Cards[0]}`}
                                 width={"100%"}
                                 height={"100%"}
                               />
+                              :""}
                             </Box>
                           )}
                         </Box>
@@ -326,11 +329,13 @@ export default function TwoCardsTeenPatti() {
                         >
                           {countdown <= 17 && (
                             <Box>
+                              { player1Cards[1]?
                               <Image
                                 src={`/cards/${player1Cards[1]}`}
                                 width={"100%"}
                                 height={"100%"}
                               />
+                              :""}
                             </Box>
                           )}
                         </Box>
@@ -351,11 +356,13 @@ export default function TwoCardsTeenPatti() {
                         >
                           {countdown <= 18 && (
                             <Box>
+                               { player2Cards[0]?
                               <Image
                                 src={`/cards/${player2Cards[0]}`}
                                 width={"100%"}
                                 height={"100%"}
                               />
+                              :""}
                             </Box>
                           )}
                         </Box>
@@ -367,11 +374,13 @@ export default function TwoCardsTeenPatti() {
                         >
                           {countdown <= 16 && (
                             <Box>
+                              { player2Cards[1]?
                               <Image
                                 src={`/cards/${player2Cards[1]}`}
                                 width={"100%"}
                                 height={"100%"}
                               />
+                              :""}
                             </Box>
                           )}
                         </Box>
