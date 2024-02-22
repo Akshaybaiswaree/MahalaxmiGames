@@ -125,7 +125,7 @@ export default function TeenPatti() {
       <ChakraProvider>
         <Box width={["100%", "100%"]}>
           <Box
-      backgroundImage={Teenpatti}
+      // backgroundImage={Teenpatti}
           
           maxW={["100vw", "100vw"]} id="main-div">
             <Flex

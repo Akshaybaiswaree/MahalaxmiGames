@@ -187,19 +187,6 @@ const Home = () => {
             </WrapItem>
           </NavLink>
 
-          {/* <NavLink>
-            <WrapItem
-              paddingRight={2}
-              borderRight="1px"
-              borderColor="black"
-              h="100%"
-              _hover={{ textColor: "#CCCCCC", bg: "#092844" }}
-            >
-              <Center w="75px" h="40px">
-                
-              </Center>
-            </WrapItem>
-          </NavLink> */}
         </Wrap>
       </Flex>
 
@@ -296,14 +283,14 @@ const Home = () => {
         </Flex>
       </Flex>
 
-      <Box width={["26rem", "100%"]} className="Home" paddingLeft="2">
+      <Box width={["100%", "100%"]} className="Home" paddingLeft="2">
         {/* <Heading as="h1" textAlign={{base: "start", md: "center",lg: "center"}} marginBottom="4">
           Our Casino
         </Heading> */}
 
         <Grid
           templateColumns={{
-            base: "repeat(16, 1fr)",
+            base: "repeat(12, 1fr)",
             md: "repeat(4, 1fr)",
             lg: "repeat(6, 1fr)",
             xl: "repeat(6, 1fr)",

@@ -143,10 +143,12 @@ export default function HighCard() {
   return (
     <>
       <ChakraProvider>
-        <Box width={["19rem", "100%"]}>
+        <Box
+      
+        width={["100%", "100%"]}>
           <Box
             //  bg={"#1f2e2e"}
-            bgGradient="linear(to-t, #273737, #1f2e2e)"
+            // bgGradient="linear(to-t, #273737, #1f2e2e)"
             maxW={["100vw", "100vw"]}
             id="main-div"
           >

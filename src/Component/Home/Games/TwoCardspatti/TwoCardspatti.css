@@ -453,10 +453,10 @@
     }
   
     @media only screen and (min-width: 415px) and (max-width:430px){
-      .mainbox2cardspatti{
+      /* .mainbox2cardspatti{
           width:118%;
           
-      }
+      } */
       #table {
         display: flex;
         flex-direction: column;

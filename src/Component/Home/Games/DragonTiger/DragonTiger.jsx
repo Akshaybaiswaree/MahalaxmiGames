@@ -39,13 +39,6 @@ import vector from "../../Games/Images/Vector-1.svg";
 
 // import Gamingimage from "../../Games/Images/GAMING GIRL 1.webp";
 
-
-
-
-
-
-
-
 const socket = io("https://dragontiger-backend.onrender.com", {
   query: {
     userId: Math.floor(Math.random() * Date.now()),
@@ -161,7 +154,7 @@ export default function DragonTiger() {
                 py="2"
               >
                 <Text as="h1" fontSize="20" fontWeight="bold" color="white">
-                  pink Dragon Tiger
+                  Dragon Tiger
                 </Text>
                 <Button onClick={onOpen}>Rules</Button>
                 <Modal

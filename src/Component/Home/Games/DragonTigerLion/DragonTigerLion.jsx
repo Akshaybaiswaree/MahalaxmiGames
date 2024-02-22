@@ -105,7 +105,8 @@ export default function DragonTigerLion() {
     <>
       <ChakraProvider>
         <Box className="dragontigerlionmaindiv">
-          <Box bg={"black"} maxW={["100vw", "100vw"]} id="main-div">
+          <Box
+          maxW={["100vw", "100%"]} id="main-div">
             <Flex
               align="left-top"
               justify="left-top"
@@ -144,7 +145,7 @@ export default function DragonTigerLion() {
                   <Box
                     border="4px solid #333"
                     height="50%"
-                    backgroundImage="url('/DragonTigerLion/Drgon-tiger-lion.webp')"
+                     backgroundImage="url('/DragonTigerLion/Drgon-tiger-lion.webp')"
                     backgroundSize="cover"
                     backgroundPosition={`center 100%`}
                     backgroundRepeat="no-repeat"

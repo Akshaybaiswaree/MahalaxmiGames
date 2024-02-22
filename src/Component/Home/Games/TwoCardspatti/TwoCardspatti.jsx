@@ -169,7 +169,7 @@ export default function TwoCardsTeenPatti() {
     <>
       <ChakraProvider>
         <Box
-         className="mainbox2cardspatti"
+        
           // width={["108%", "100%"]}
           // overflow={'hidden'}
           // border={"2px solid green"}

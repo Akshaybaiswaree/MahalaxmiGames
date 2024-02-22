@@ -105,7 +105,7 @@ export default function TeenPattiMuflis() {
     <>
       <ChakraProvider>
         <Box 
-        className="teenpattimuflismainbox"
+        // className="teenpattimuflismainbox"
         // width={["100%", "100%"]}
         >
           <Box

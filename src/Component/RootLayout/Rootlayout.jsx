@@ -5,7 +5,8 @@ import Navbar from "../Navbar/Navbar";
 import { Outlet } from "react-router-dom";
 import SideBar from "../Sidebar/Sidebar";
 import Sidebar1 from "../Sidebar/Sidebar1";
-
+// import TwoCardPattiBG from "../../images/2cardpattibg.svg";
+import TwoCardPattiBG from  "../images/2cardpattibg.svg";
 // import AndarBahar from "../Home/Games/AndarBahar";
 
 // import Sidebar1 from "../Sidebar/Sidebar1";
@@ -13,7 +14,9 @@ import Sidebar1 from "../Sidebar/Sidebar1";
 function Rootlayout() {
   return (
     <Flex direction="column">
-      <Box minW={"100vw"} minH={"30vh"}>
+      <Box 
+    
+      minW={"100%"} minH={"20vh"}>
         <Navbar />
       </Box>
       {/* Main Content */}
@@ -27,12 +30,11 @@ function Rootlayout() {
 
         {/* Main Content */}
         <Box
-          mx={{ base: "1rem", md: "1rem" }}
-          mr={{ base: "4rem" }}
+          mx={{ base: "0rem", md: "0rem" }}
           marginLeft={{ base: "0rem", md: "0rem" }}
           flexBasis={{ base: "300%", md: "100%" }}
           alignItems={{ base: "flex-start" }}
-          // bg={"#451212"}
+          backgroundImage={TwoCardPattiBG}
         >
           <Outlet />
         </Box>
