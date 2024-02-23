@@ -659,7 +659,7 @@ export default function DragonTiger() {
                       >
                         <Button
                           isDisabled={isButtonDisabled}
-                          width="50%"
+                          width="45%"
                           height={["50%", "80%"]}
                           // marginLeft="1rem"
                           color="white"
@@ -698,7 +698,7 @@ export default function DragonTiger() {
 
                         <Button
                           isDisabled={isButtonDisabled}
-                          width="50%"
+                          width="45%"
                           height={["50%", "80%"]}
                           // marginLeft="1rem"
                           color="white"
@@ -735,7 +735,7 @@ export default function DragonTiger() {
                         </Button>
                         <Button
                           isDisabled={isButtonDisabled}
-                          width="50%"
+                          width="45%"
                           height={["50%", "80%"]}
                           // marginLeft="1rem"
                           color="white"
