@@ -39,9 +39,10 @@ import vector from "../../Games/Images/Vector-1.svg";
 
 // import Gamingimage from "../../Games/Images/GAMING GIRL 1.webp";
 
-const socket = io("https://dragontiger-backend.onrender.com", {
+const userId = localStorage.getItem("userId");
+const socket = io("https://dragontigerbackend.onrender.com", {
   query: {
-    userId: Math.floor(Math.random() * Date.now()),
+    userID: userId,
   },
   transports: ["websocket"],
 });
@@ -57,6 +58,20 @@ export default function DragonTiger() {
   const [mainCard, setMainCard] = useState([]);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
   const [gamehistory, setGamehistory] = useState([]);
+  useEffect(() => {
+    const userID = localStorage.getItem("userId");
+    if (userID) {
+      socket.io.opts.query.userID = userID;
+
+      // socket.connect();
+      // return () => {
+      //   socket.disconnect();
+      // };
+      socket.io.on("reconnect_attempt", () => {
+        socket.io.opts.query.userID;
+      });
+    }
+  }, []);
 
   useEffect(() => {
     // Listen for game state updates from the server
@@ -154,7 +169,7 @@ export default function DragonTiger() {
                 py="2"
               >
                 <Text as="h1" fontSize="20" fontWeight="bold" color="white">
-                  Dragon Tiger
+                  pink Dragon Tiger
                 </Text>
                 <Button onClick={onOpen}>Rules</Button>
                 <Modal
@@ -309,7 +324,11 @@ export default function DragonTiger() {
                       // background="linear-gradient(to bottom right, violet, blue)"
                       background="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
                     >
-                      {gameState?.value < 20 ? "Freeze" : "Place  Bet"}
+                      {gameState?.value <= 8
+                        ? "Winner: " + mainCard?.winstatus
+                        : gameState?.value <= 25
+                        ? "Freeze"
+                        : "Place Bet"}
                     </Box>
                     <Box
                       fontWeight={"900"}
@@ -330,82 +349,58 @@ export default function DragonTiger() {
                       color="white"
                       background="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
                     >
-                      {gameState?.value && Math.max(0, gameState.value - 20)}
+                      {gameState?.value - 25 <= 0 ? "0" : gameState?.value - 25}
                     </Box>
                   </Flex>
                 </Flex>
 
                 {/* cards display  */}
-                <Flex
-                  justifyContent="center"
-                  alignItems="center"
-                  px="4"
-                  w="100%"
-                  h="100px"
-                  position={"relative"}
-                  top={{ base: "-58%", md: "-235px" }}
-                  left={{ base: "0", md: "0%" }}
-                  // bg="blue"
+
+                <Box
+                  // border={"1px solid red"}
+                  position={"absolute"}
+                  width={["44%", "18.5%"]}
+                  height={["2.8%", "5.2%"]}
+                  top={["38.5%", "58.5%"]}
+                  right={["28%", "54.8%"]}
+                  display={"flex"}
+                  justifyContent={"space-between"}
+                  flexDirection={"row"}
                 >
-                  <Flex
-                    justifyContent="center"
-                    alignItems="center"
-                    direction={"row"}
-                    w="50%"
-                    h="4rem"
-                    // gap={{base:"127", md:"196"}}
-                    bg="gray"
+                  <Box
+                    // border={"1px solid orange"}
+                    position={"absolute"}
+                    width={"15%"}
+                    height={"100%"}
                   >
-                    {/* dragon card  */}
-                    <Flex
-                      fontWeight={"900"}
-                      border={"1px solid white"}
-                      // borderRadius={"50%"}
-
-                      width={["8%", "7%"]}
-                      height={["60%", "70%"]}
-                      display="flex"
-                      justifyContent="center"
-                      alignItems="center"
-                      fontSize={["sm", "lg"]}
-                      color="white"
-                      // bg="gray"
-                      // background="linear-gradient(to bottom right, violet, blue)"
-                      // background="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
-                    >
-                      {gameState.value < 140 && (
-                        <Box id="playercard12">
-                          <Image src={`/cards/${mainCard?.dragoncard}`} />
-                        </Box>
-                      )}
-                    </Flex>
-
-                    {/* Tiger Card  */}
-                    <Flex
-                      fontWeight={"900"}
-                      border={"1px solid white"}
-                      // borderRadius={"50%"}
-
-                      width={["8%", "7%"]}
-                      height={["60%", "70%"]}
-                      display="flex"
-                      justifyContent="center"
-                      alignItems="center"
-                      fontSize={["sm", "lg"]}
-                      color="white"
-                      // bg="gray"
-
-                      // background="linear-gradient(to bottom right, violet, blue)"
-                      // background="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
-                    >
-                      {gameState.value < 140 && (
-                        <Box id="playercard12">
-                          <Image src={`/cards/${mainCard?.tigercard}`} />
-                        </Box>
-                      )}
-                    </Flex>
-                  </Flex>
-                </Flex>
+                    {mainCard?.dragoncard && gameState?.value <= 14 && (
+                      <Box>
+                        <Image
+                          src={`/cards/${mainCard?.dragoncard}`}
+                          width={"100%"}
+                          height={"100%"}
+                        />
+                      </Box>
+                    )}
+                  </Box>
+                  <Box
+                    // border={"1px solid orange"}
+                    position={"absolute"}
+                    width={"15%"}
+                    height={"100%"}
+                    right={"0%"}
+                  >
+                    {gameState?.value <= 12 && (
+                      <Box>
+                        <Image
+                          src={`/cards/${mainCard?.tigercard}`}
+                          width={"100%"}
+                          height={"100%"}
+                        />
+                      </Box>
+                    )}
+                  </Box>
+                </Box>
               </Box>
             </Flex>
 
@@ -420,10 +415,7 @@ export default function DragonTiger() {
                 alignContent="center"
                 w="100%"
                 direction="row"
-                // p="1"
-                // gap="2"
               >
-                {/* <Box  border="1px solid red"   m="2" borderRadius="15px"> */}
                 <Flex
                   direction="column"
                   justifyContent="flex-start"
@@ -677,6 +669,7 @@ export default function DragonTiger() {
                       h={{ base: "100px", md: "150px" }}
                       gap="2"
                     >
+                      {/* <Box> */}
                       <Flex
                         direction="column"
                         justifyContent="center"
@@ -689,29 +682,61 @@ export default function DragonTiger() {
                         <Text color="white" fontWeight="bold">
                           TIGER COLOUR
                         </Text>
-                        <Flex justifyContent="space-around" w="100%">
-                          <img src={pann} alt="" />
-                          <img src={flower} alt="" />
+                        <Flex>
+                          <Flex
+                            border={"1px solid black"}
+                            justifyContent="space-around"
+                            w="50%"
+                          >
+                            <img src={pann} alt="" />
+                            <img src={flower} alt="" />
+                          </Flex>
+
+                          <Flex
+                            border={"1px solid black"}
+                            justifyContent="space-around"
+                            w="50%"
+                          >
+                            <img src={pann} alt="" />
+                            <img src={flower} alt="" />
+                          </Flex>
                         </Flex>
                       </Flex>
-                      <Flex
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="center"
-                        w="150px"
-                        h="100%"
-                        borderRadius="15px"
-                        bg="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
-                      >
-                        <Text color="white" fontWeight="bold">
-                          {" "}
-                          DRAGON COLOUR
-                        </Text>
-                        <Flex justifyContent="space-around" w="100%">
-                          <img src={pann} alt="" />
-                          <img src={flower} alt="" />
+
+                      {/* </Box> */}
+                      <Box>
+                        <Flex
+                          direction="column"
+                          justifyContent="center"
+                          alignItems="center"
+                          w="150px"
+                          h="100%"
+                          borderRadius="15px"
+                          bg="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
+                        >
+                          <Text color="white" fontWeight="bold">
+                            DRAGON COLOUR
+                          </Text>
+                          <Flex>
+                            <Flex
+                              border={"1px solid black"}
+                              justifyContent="space-around"
+                              w="50%"
+                            >
+                              <img src={pann} alt="" />
+                              <img src={flower} alt="" />
+                            </Flex>
+                            <Flex
+                              border={"1px solid black"}
+                              justifyContent="space-around"
+                              w="50%"
+                            >
+                              <img src={pann} alt="" />
+                              <img src={flower} alt="" />
+                            </Flex>
+                          </Flex>
                         </Flex>
-                      </Flex>
+                      </Box>
                     </Flex>
                     <Flex w="100%" justify="center" direction="column">
                       <Flex
@@ -833,35 +858,41 @@ export default function DragonTiger() {
               // direction={{base:"column", md:"row"}}
               mx="2"
             >
-              <Button
-                _hover={{ backgroundColor: "blue.500", color: "white" }}
-                transition="background-color 0.3s, color 0.3s"
-                p={4}
-                borderRadius="md"
-                bg={"orange"}
-                width={["10rem"]}
-              >
-                Bet History
-              </Button>
-              {gamehistory.map((item, index) => (
-                <Box
-                  color={"blue"}
-                  p={"3px"}
-                  key={index}
-                  marginRight={["10px"]}
-                  width={["25px", "30px"]}
-                  height="39px"
-                  border="2px solid black"
-                  borderRadius="5px"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  w="100%"
-                  m="1"
-                >
-                  {item}
+              <Box>
+                <Box>
+                  <Button
+                    _hover={{ backgroundColor: "blue.500", color: "white" }}
+                    transition="background-color 0.3s, color 0.3s"
+                    p={4}
+                    borderRadius="md"
+                    bg={"orange"}
+                    width={["10rem"]}
+                  >
+                    Bet History
+                  </Button>
                 </Box>
-              ))}
+                <Box display={"flex"}>
+                  {gamehistory.map((item, index) => (
+                    <Box
+                      color={"blue"}
+                      p={"3px"}
+                      key={index}
+                      marginRight={["10px"]}
+                      width={["25px", "30px"]}
+                      height="39px"
+                      border="2px solid black"
+                      borderRadius="5px"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      w="100%"
+                      m="1"
+                    >
+                      {item}
+                    </Box>
+                  ))}
+                </Box>
+              </Box>
             </Flex>
           </Flex>
         </Flex>
