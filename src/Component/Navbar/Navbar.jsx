@@ -28,36 +28,21 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import LOGO from "./Logo.png";
-import { NavLink } from "react-router-dom";
-import axios from "axios";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [playerBalance, setPlayerBalance] = useState(0);
   const finalRef = useRef(null);
-  // console.log(playerBalance)
-
-  // useEffect(() => {
-  //   const fetchPlayerBalance = async () => {
-  //     try {
-  //       const playerId = 3;
-  //       const response = await axios.post(
-  //         `http://localhost:4000/andarBahar/getPlayerBalance`,
-  //         { playerId }
-  //       );
-  //       setPlayerBalance(response.data.playerBal);
-  //       console.log(response,"Player Balance")
-  //     } catch (error) {
-  //       console.error("Error fetching player balance:", error);
-  //     }
-  //   };
-
-  //   fetchPlayerBalance();
-  // }, [playerBalance]); // The empty dependency array ensures that this effect runs only once when the component mounts
+  const handleLogOut = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
 
   return (
     <Container p="0" bg="#2b329b" textColor="white" maxW="100vw">
@@ -74,9 +59,7 @@ const Navbar = () => {
             src={LOGO}
           />
 
-          <Box marginTop={{ base: "2rem", lg: "3.5rem" }}>
-            {/* <Text fontWeight={{lg:'600'}}>MahaLaxmi</Text> */}
-          </Box>
+          <Box marginTop={{ base: "2rem", lg: "3.5rem" }}></Box>
         </Box>
 
         <Flex
@@ -212,42 +195,8 @@ const Navbar = () => {
               fontSize={{ lg: "20" }}
               marginRight={{ lg: "1.5rem" }}
             >
-              Exposure:0
+              <Button onClick={handleLogOut}>LogOut</Button>
             </Text>
-            {/* <Menu>
-              <MenuButton
-                px={4}
-                py={2}
-                // transition="all 0.2s"
-                // borderRadius="md"
-                // borderWidth="1px"
-                _hover={{ bg: "gray.400" }}
-                _expanded={{ bg: "blue.400" }}
-                _focus={{ boxShadow: "outline" }}
-                fontSize={{ lg: "16" }}
-                fontWeight={{ base: "500", md: "500", lg: "600" }}
-              >
-                MahaLaxmi
-                <ChevronDownIcon />
-              </MenuButton>
-              <MenuList textColor="black">
-                <MenuItem>Account Statement</MenuItem>
-                <MenuItem>Profit Loss Report</MenuItem>
-
-                <MenuItem>Bet History</MenuItem>
-                <MenuItem>Unsettled Bet</MenuItem>
-                <MenuItem>Set Button Value</MenuItem>
-                <MenuItem>Change Password</MenuItem>
-                <MenuDivider />
-                <MenuItem>SignOut</MenuItem>
-              </MenuList>
-            </Menu> */}
-
-            {/* <Box bg="#2b329b">
-              <NavLink to="/admin">
-                <Button>Admin</Button>
-              </NavLink>
-            </Box> */}
           </Box>
         </Flex>
       </HStack>

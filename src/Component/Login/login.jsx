@@ -51,13 +51,13 @@ export default function Login() {
             position: "top",
             isClosable: true,
           });
-          localStorage.setItem("userId", req.data.user._id);
-          console.log("token", req.data.user);
+          localStorage.setItem("userId", req?.data?.user?._id);
+          console.log("token", req?.data?.user);
           localStorage.setItem("auth", true);
           if (req.status === 200) {
             navigate("/home", {
               state: {
-                userId: req.data.user._id,
+                userId: req?.data?.user?._id,
               },
             });
             console.log("token", req.data.user._id);

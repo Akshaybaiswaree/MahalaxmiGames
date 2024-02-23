@@ -15,7 +15,7 @@ import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
 const userId = localStorage.getItem("userId");
-const socket = io("https://dragontigerlionbackend-ysfi.onrender.com", {
+const socket = io("https://dragontigerlionbackend-web.onrender.com/", {
   query: {
     userID: userId,
   },
@@ -36,8 +36,11 @@ export default function DragonTigerLion() {
     const userID = localStorage.getItem("userId");
     if (userID) {
       socket.io.opts.query.userID = userID;
-      socket.disconnect();
-      socket.connect();
+      // socket.disconnect();
+      // socket.connect();
+      socket.io.on("reconnect_attempt", () => {
+        socket.io.opts.query.userID;
+      });
     }
   }, [localStorage.getItem("userId")]);
 
@@ -626,3 +629,4 @@ export default function DragonTigerLion() {
     </>
   );
 }
+

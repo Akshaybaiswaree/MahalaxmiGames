@@ -15,7 +15,7 @@ import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
 const userId = localStorage.getItem("userId");
-const socket = io("https://highcardsbackend-mctk.onrender.com", {
+const socket = io("https://highcardsbackend-web.onrender.com/", {
   query: {
     userID: userId,
   },
@@ -50,7 +50,7 @@ export default function HighCard() {
         socket.io.opts.query.userID;
       });
     }
-  }, []);
+  }, [localStorage.getItem("userId")]);
 
   useEffect(() => {
     const handelTimer = (data) => {
@@ -137,7 +137,7 @@ export default function HighCard() {
         } else {
           console.log("response", res);
         }
-      });
+      })
       console.log("bet", data);
       setBettingAmount((prev) => prev + Number(coins));
     } else alert("Betting Amount is greater than Balance.");
@@ -494,7 +494,9 @@ export default function HighCard() {
                       Available Credit
                     </Text>
                     <Text fontSize={["20px", "24px"]}>
-                      {availableCoins ? availableCoins : "0"}
+                      {Math.round(availableCoins * 100) / 100
+                        ? Math.round(availableCoins * 100) / 100
+                        : "0"}
                     </Text>
                   </Box>
 

@@ -16,7 +16,7 @@ import Teenpatti from "../../../images/muflisonedaybg.svg";
 import { io } from "socket.io-client";
 
 const userId = localStorage.getItem("userId");
-const socket = io("https://teenpattibackend.onrender.com", {
+const socket = io("https://teenpattibackend-web.onrender.com/", {
   query: {
     userID: userId,
   },
@@ -38,8 +38,11 @@ export default function TeenPatti() {
     const userID = localStorage.getItem("userId");
     if (userID) {
       socket.io.opts.query.userID = userID;
-      socket.disconnect();
-      socket.connect();
+      // socket.disconnect();
+      // socket.connect();
+      socket.io.on("reconnect_attempt", () => {
+        socket.io.opts.query.userID;
+      });
     }
   }, [localStorage.getItem("userId")]);
   useEffect(() => {

@@ -17,7 +17,7 @@ import TwoCardPattiBG from "../../../images/2cardpattibg.svg";
 import { io } from "socket.io-client";
 
 const userId = localStorage.getItem("userId");
-const socket = io("https://twocardtp-t0r6.onrender.com/", {
+const socket = io("https://twocardtp-web.onrender.com/", {
   query: {
     userId: userId,
   },
@@ -46,17 +46,17 @@ export default function TwoCardsTeenPatti() {
       socket.disconnect();
       socket.connect();
     }
-  }, []);
+  }, [localStorage.getItem("userId")]);
   //
   useEffect(() => {
     const handleDealCards = (data) => {
       // console.log(data, "playerHands123");
       // handleGetBalance();
       console.log(data, "cardss");
-      setTimeout(() => {
-        handleGetBalance();
-      }, 10000);
-
+      // setTimeout(() => {
+      //   handleGetBalance();
+      // }, 10000);
+      handleGetBalance();
       // setgameHistory(data.winHistory);
       const winner = data.winner;
 
@@ -107,7 +107,7 @@ export default function TwoCardsTeenPatti() {
       setCountdown(data.countdown);
     };
     const handleBalanceUpdate = (data) => {
-      //   console.log("Received balance update:", data);
+      console.log("Received balance update:", data);
       setUserBalance(data.balance);
     };
 
@@ -311,13 +311,15 @@ export default function TwoCardsTeenPatti() {
                         >
                           {countdown <= 19 && (
                             <Box>
-                             { player1Cards[0]?
-                              <Image
-                                src={`/cards/${player1Cards[0]}`}
-                                width={"100%"}
-                                height={"100%"}
-                              />
-                              :""}
+                              {player1Cards[0] ? (
+                                <Image
+                                  src={`/cards/${player1Cards[0]}`}
+                                  width={"100%"}
+                                  height={"100%"}
+                                />
+                              ) : (
+                                ""
+                              )}
                             </Box>
                           )}
                         </Box>
@@ -329,13 +331,15 @@ export default function TwoCardsTeenPatti() {
                         >
                           {countdown <= 17 && (
                             <Box>
-                              { player1Cards[1]?
-                              <Image
-                                src={`/cards/${player1Cards[1]}`}
-                                width={"100%"}
-                                height={"100%"}
-                              />
-                              :""}
+                              {player1Cards[1] ? (
+                                <Image
+                                  src={`/cards/${player1Cards[1]}`}
+                                  width={"100%"}
+                                  height={"100%"}
+                                />
+                              ) : (
+                                ""
+                              )}
                             </Box>
                           )}
                         </Box>
@@ -356,13 +360,15 @@ export default function TwoCardsTeenPatti() {
                         >
                           {countdown <= 18 && (
                             <Box>
-                               { player2Cards[0]?
-                              <Image
-                                src={`/cards/${player2Cards[0]}`}
-                                width={"100%"}
-                                height={"100%"}
-                              />
-                              :""}
+                              {player2Cards[0] ? (
+                                <Image
+                                  src={`/cards/${player2Cards[0]}`}
+                                  width={"100%"}
+                                  height={"100%"}
+                                />
+                              ) : (
+                                ""
+                              )}
                             </Box>
                           )}
                         </Box>
@@ -374,13 +380,15 @@ export default function TwoCardsTeenPatti() {
                         >
                           {countdown <= 16 && (
                             <Box>
-                              { player2Cards[1]?
-                              <Image
-                                src={`/cards/${player2Cards[1]}`}
-                                width={"100%"}
-                                height={"100%"}
-                              />
-                              :""}
+                              {player2Cards[1] ? (
+                                <Image
+                                  src={`/cards/${player2Cards[1]}`}
+                                  width={"100%"}
+                                  height={"100%"}
+                                />
+                              ) : (
+                                ""
+                              )}
                             </Box>
                           )}
                         </Box>
@@ -658,7 +666,8 @@ export default function TwoCardsTeenPatti() {
                           )}
                           <Text style={{ position: "absolute", zIndex: "1" }}>
                             {" "}
-                            <span>player A-</span><span>1.98</span>
+                            <span>player A-</span>
+                            <span>1.98</span>
                           </Text>
                         </Button>
 
@@ -701,7 +710,8 @@ export default function TwoCardsTeenPatti() {
                           )}
                           <Text style={{ position: "absolute", zIndex: "1" }}>
                             {" "}
-                            <span>player B-</span><span>1.98</span>
+                            <span>player B-</span>
+                            <span>1.98</span>
                           </Text>
                         </Button>
                       </Box>

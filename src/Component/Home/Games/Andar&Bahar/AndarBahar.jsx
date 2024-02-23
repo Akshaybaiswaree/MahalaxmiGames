@@ -15,7 +15,7 @@ import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
 
 const userId = localStorage.getItem("userId");
-const socket = io("https://andarbahargamebackend.onrender.com", {
+const socket = io("https://andarbahargamebackend-web.onrender.com/", {
   query: {
     userID: userId,
   },
@@ -38,8 +38,11 @@ export default function AndarBahar() {
     const userID = localStorage.getItem("userId");
     if (userID) {
       socket.io.opts.query.userID = userID;
-      socket.disconnect();
-      socket.connect();
+      // socket.disconnect();
+      // socket.connect();
+      socket.io.on("reconnect_attempt", () => {
+        socket.io.opts.query.userID;
+      });
     }
   }, [localStorage.getItem("userId")]);
 
@@ -150,7 +153,7 @@ export default function AndarBahar() {
     <>
       <ChakraProvider>
         <Box className="AndarBaharmaindiv" minH={"100vh"} minW={"48vh"}>
-          <Box  maxW={["100vw", "100vw"]} id="main-div">
+          <Box maxW={["100vw", "100vw"]} id="main-div">
             <Flex
               align="left-top"
               justify="left-top"
@@ -257,15 +260,17 @@ export default function AndarBahar() {
                       top={"69%"}
                       right={"19%"}
                     >
-                      {mainCard?.main_card? (
-                      <Image
-                        src={`./cards/${mainCard?.main_card}`}
-                        // src={"/cards/clubs_10.png"}
-                        alt={`Card main`}
-                        width={"100%"}
-                        height={"100%"}
-                      />
-                      ) : ( "" )}
+                      {mainCard?.main_card ? (
+                        <Image
+                          src={`./cards/${mainCard?.main_card}`}
+                          // src={"/cards/clubs_10.png"}
+                          alt={`Card main`}
+                          width={"100%"}
+                          height={"100%"}
+                        />
+                      ) : (
+                        ""
+                      )}
                     </Box>
                     <Box
                       // border={"2px solid red"}
@@ -337,13 +342,11 @@ export default function AndarBahar() {
 
                   <Button
                     fontWeight={"700"}
-                    
                     style={{
                       backgroundImage:
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
                       color: "#8A2BE2",
-
                     }}
                   >
                     <>
@@ -361,7 +364,6 @@ export default function AndarBahar() {
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
                       color: "#8A2BE2",
-
                     }}
                   >
                     Last Wins:
@@ -375,9 +377,7 @@ export default function AndarBahar() {
                     justifyContent={"center"}
                     alignItems={"center"}
                     textAlign={"center"}
-                  
                   >
-
                     {gameHistory?.map((item, index) => (
                       <Box
                         key={index}
@@ -413,7 +413,6 @@ export default function AndarBahar() {
                         "linear-gradient(to right, #A52A2A, #FF8C00)",
                       WebkitBackgroundClip: "text",
                       color: "#8A2BE2",
-
                     }}
                   >
                     <>

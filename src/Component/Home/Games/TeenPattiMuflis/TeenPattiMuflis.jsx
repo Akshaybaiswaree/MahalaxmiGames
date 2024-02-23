@@ -9,17 +9,18 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { FaLock } from "react-icons/fa";
 import TeenPattiMuflisBg from "../../../images/3pattimuflisbg.svg";
 import { io } from "socket.io-client";
+import { useLocation } from "react-router-dom";
 
 //import PopUp from "./PopUp";
 // import Logo from "../../../images/32cardsA_v.jpeg";
 //  import backGroundImage from "./images/background_plus_cards.jpeg"
 const userId = localStorage.getItem("userId");
-const socket = io("https://muflisteenpattibackend-n65p.onrender.com", {
+const socket = io("https://muflisteenpattibackend-web.onrender.com/", {
   query: {
     userID: userId,
   },
@@ -27,6 +28,8 @@ const socket = io("https://muflisteenpattibackend-n65p.onrender.com", {
 });
 
 export default function TeenPattiMuflis() {
+  //  const location =  useLocation ()
+  // console.log("data",location?.data?.userDetails)
   const [timer, setTimer] = useState("");
   const [coins, setCoins] = useState("");
   const [user, setUser] = useState("");
@@ -37,12 +40,34 @@ export default function TeenPattiMuflis() {
   const [gameHistory, setGameHistory] = useState([]);
   const [isButtonDisabled, setButtonDisabled] = useState();
   const [bettingAmount, setBettingAmount] = useState("");
+
+  // const userIDRef = useRef(localStorage.getItem("userId"));
+
+  // useEffect(() => {
+  //   const userID = localStorage.getItem("userId");
+  //   userIDRef.current = userID;
+  //   if (userID) {
+  //     connectSocket(userID);
+  //   }
+  // }, []);
+
+  // const connectSocket = (userID) => {
+  //   socket.io.opts.query.userID = userID;
+
+  //   socket.io.on("reconnect_attempt", () => {
+  //     socket.io.opts.query.userID = userID;
+  //   });
+  // };
+
   useEffect(() => {
     const userID = localStorage.getItem("userId");
     if (userID) {
       socket.io.opts.query.userID = userID;
-      socket.disconnect();
-      socket.connect();
+      // socket.disconnect();
+      // socket.connect();
+      socket.io.on("reconnect_attempt", () => {
+        socket.io.opts.query.userID;
+      });
     }
   }, [localStorage.getItem("userId")]);
   useEffect(() => {

@@ -17,7 +17,7 @@ import MuflisOneDayBG from "../../../images/muflisonedaybg.svg";
 import { io } from "socket.io-client";
 
 const userId = localStorage.getItem("userId");
-const socket = io("https://muflish-one-days.onrender.com", {
+const socket = io("https://muflish-one-days-web.onrender.com/", {
   query: {
     userId: userId,
   },
@@ -41,8 +41,11 @@ export default function MuflisOneDay() {
     const userID = localStorage.getItem("userId");
     if (userID) {
       socket.io.opts.query.userID = userID;
-      socket.disconnect();
-      socket.connect();
+      // socket.disconnect();
+      // socket.connect();
+      socket.io.on("reconnect_attempt", () => {
+        socket.io.opts.query.userID;
+      });
     }
   }, [localStorage.getItem("userId")]);
 

@@ -30,17 +30,16 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { FaLock } from "react-icons/fa";
 import NoteIcon from "@mui/icons-material/Note";
+import blackcolor from "/DragonTiger/blackcolordt.svg";
+import diamond from "../../Games/Images/Rectangle.svg";
 import flower from "../../Games/Images/Flower.svg";
-import heart from "../../Games/Images/Heart.svg";
 import heart1 from "../../Games/Images/Heart1.svg";
 import { io } from "socket.io-client";
 import pann from "../../Games/Images/Pann.svg";
-import vector from "../../Games/Images/Vector-1.svg";
-
-// import Gamingimage from "../../Games/Images/GAMING GIRL 1.webp";
+import redcolor from "/DragonTiger/redcolordt.svg";
 
 const userId = localStorage.getItem("userId");
-const socket = io("https://dragontigerbackend.onrender.com", {
+const socket = io("https://dragontigerbackend-web.onrender.com/", {
   query: {
     userID: userId,
   },
@@ -53,11 +52,15 @@ export default function DragonTiger() {
 
   // const [seconds, setSeconds] = useState(30);
   const [gameState, setGameState] = useState({ value: "waiting" });
-  const [user, setUse] = useState(null);
+  const [user, setUser] = useState(null);
+  const [playerid, setPlayerid] = useState(null);
+  const [matchid, setMatchid] = useState(null);
   const [coins, setCoins] = useState(50);
+  const [bettingAmount, setBettingAmount] = useState("");
   const [mainCard, setMainCard] = useState([]);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
   const [gamehistory, setGamehistory] = useState([]);
+
   useEffect(() => {
     const userID = localStorage.getItem("userId");
     if (userID) {
@@ -71,7 +74,7 @@ export default function DragonTiger() {
         socket.io.opts.query.userID;
       });
     }
-  }, []);
+  }, [localStorage.getItem("userId")]);
 
   useEffect(() => {
     // Listen for game state updates from the server
@@ -79,10 +82,11 @@ export default function DragonTiger() {
       "gameUpdate",
       (updatedGameState) => {
         setGameState(updatedGameState?.gamestate);
-
+        updatedGameState.gamestate.value - 25 === 20 ? setBettingAmount(0) : "";
         const isDisabled = updatedGameState?.gamestate?.value <= 20;
 
         setButtonDisabled(isDisabled);
+        // console.log(updatedGameState , "updatedGameState")
       },
       [gameState?.value]
     );
@@ -90,7 +94,7 @@ export default function DragonTiger() {
     socket.on("Main_Card", (data) => {
       setMainCard(data.mainCard);
 
-      console.log(data, "data");
+      // console.log(data, "data");
     });
     socket.on("Main_Card", (data) => {
       setGamehistory(data.gameHistory);
@@ -99,11 +103,23 @@ export default function DragonTiger() {
     });
 
     socket.on("userDetails", (data) => {
-      // console.log(data.user.coins , "data");
+      console.log(data, "userdata");
       setUser(data.user);
     });
 
-    socket.on("bait", (data) => {
+    socket.on("userDetails", (data) => {
+      // console.log(data , "data");
+      setPlayerid(data?.user?.mobileNumber);
+      // console.log(data?.user?.mobileNumber , "mobilleno")
+      // console.log(data , "mobilleno")
+    });
+
+    socket.on("userDetails", (data) => {
+      console.log(data, "data");
+      setMatchid(data?.user?._id);
+    });
+
+    socket.on("bet", (data) => {
       setUser(data);
       // console.log(data);
       // setUser(data.user);
@@ -112,7 +128,7 @@ export default function DragonTiger() {
     // console.log(mainCard , "maincard");
 
     return () => {
-      socket.off("bait", handleBait);
+      socket.off("bet", handleBet);
       socket.disconnect();
     };
   }, []);
@@ -120,25 +136,29 @@ export default function DragonTiger() {
     socket.emit("getUpdatedUserDetails");
   }
 
-  const handleBait = ({ baitType, baitOn, suit, color }) => {
-    const bait = {
-      baitType,
-      baitOn,
-      coins,
-      suit: suit || "",
-      color: color || "",
-      cardId: mainCard._id,
-    };
-    console.log(bait);
-    socket.emit("bait", bait);
+  const handleBet = ({ betType, betOn, suit, color }) => {
+    if (user?.coins > coins) {
+      const bet = {
+        betType,
+        betOn,
+        coins,
+        suit: suit || "",
+        color: color || "",
+        cardId: mainCard._id,
+      };
+      console.log(bet);
+      socket.emit("bet", bet);
+      console.log("betting1234", betType, coins, mainCard._id);
+      setBettingAmount((prev) => prev + coins);
+    } else alert("Betting Amount is greater than coins.");
   };
 
   return (
     <>
       <Box
-        bg="gray.700"
-        w="100%"
-        // h="50%"
+        //  position={"relative"}
+        w={["100%", "100%"]}
+        h={"auto"}
         m="0"
         p="0"
         mt={{ base: "0", md: "0" }}
@@ -146,7 +166,7 @@ export default function DragonTiger() {
         <Flex direction="column">
           <Flex
             w="100%"
-            h={{ base: "820px", md: "500px" }}
+            h={{ base: "840px", md: "500px" }}
             display="flex"
             justifyContent="flex-start"
             direction={{ base: "column", md: "row" }}
@@ -169,7 +189,7 @@ export default function DragonTiger() {
                 py="2"
               >
                 <Text as="h1" fontSize="20" fontWeight="bold" color="white">
-                  pink Dragon Tiger
+                  Dragon Tiger
                 </Text>
                 <Button onClick={onOpen}>Rules</Button>
                 <Modal
@@ -330,6 +350,7 @@ export default function DragonTiger() {
                         : gameState?.value <= 25
                         ? "Freeze"
                         : "Place Bet"}
+                      {/* {mainCard?.winCardSuit} */}
                     </Box>
                     <Box
                       fontWeight={"900"}
@@ -409,55 +430,135 @@ export default function DragonTiger() {
 
             <Flex
               w={{ base: "100%", md: "50%" }}
-              h={{ base: "20rem", md: "100%" }}
+              h={{ base: "100%", md: "100%" }}
               position="relative"
               direction="column"
             >
+              {/* last win and player id */}
+              <Flex flexDirection={["column", "column"]} alignItems="center">
+                <Button
+                  bg={"black"}
+                  fontWeight={"700"}
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(to right, #A52A2A, #FF8C00)",
+                    WebkitBackgroundClip: "text",
+                    color: "yellow",
+                  }}
+                >
+                  <>
+                    Player Id :
+                    <Text color={"#bae8e8"} align={"center"}>
+                      {playerid ? playerid : "Loading..."}
+                    </Text>
+                  </>
+                </Button>
+                <Button
+                  bg={"black"}
+                  fontWeight={"700"}
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(to right, #A52A2A, #FF8C00)",
+                    WebkitBackgroundClip: "text",
+                    color: "yellow  ",
+                  }}
+                >
+                  Last Wins:
+                </Button>
+
+                <Flex
+                  width={["100%", "67%"]}
+                  p={1}
+                  flexWrap="wrap"
+                  align={"center"}
+                  textAlign={"center"}
+                  justifyContent={"center"}
+                >
+                  {/* {gameHistory?.map((item, index) => ( */}
+                  {gamehistory.map((item, index) => (
+                    <Box
+                      // key={index}
+                      width={["35px", "35px"]}
+                      height={["45px", "35px"]}
+                      marginRight="5px"
+                      marginBottom="5px"
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                      textAlign={"center"}
+                      fontWeight="bold"
+                      border="2px solid white"
+                      align={"center"}
+                      borderRadius={"50%"}
+                      bg={"white"}
+                    >
+                      <Text
+                        fontSize="20px"
+                        color={index % 2 === 0 ? "black" : "black"}
+                        align={"center"}
+                      >
+                        {item}
+                      </Text>
+                    </Box>
+                  ))}
+                </Flex>
+                <Box
+                  fontWeight={"700"}
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(to right, #A52A2A, #FF8C00)",
+                    WebkitBackgroundClip: "text",
+                    color: "yellow",
+                  }}
+                >
+                  <>
+                    Last Bet Amount :
+                    <Text color={"#bae8e8"} align={"center"}>
+                      {bettingAmount}
+                    </Text>
+                  </>
+                </Box>
+              </Flex>
               <Flex
                 justify="space-around"
                 alignContent="center"
                 w="100%"
                 direction="row"
+                gap={"1%"}
               >
-                <Flex
+                <Box
+                  border={"5px solid gray"}
+                  background="linear-gradient(179.7deg, rgb(197, 214, 227) 2.9%, rgb(144, 175, 202) 97.1%)"
                   direction="column"
                   justifyContent="flex-start"
                   alignItems="center"
-                  bg="gray.300"
-                  borderRadius="15px"
-                  w="35%"
-                  h="5rem"
-                  mt="2"
-                  py="2"
-                  border="3px solid black"
+                  width={"50%"}
+                  borderRadius={"12%"}
+                  p={"0.5rem"}
                 >
                   <Text fontWeight={"500"} fontSize={["20px", "24px"]}>
-                    Available Credit
+                    Available Credit :
                   </Text>
                   <Text fontWeight={"500"} fontSize={["20px", "24px"]}>
                     {user?.coins && Math.max(0, user?.coins)}
                   </Text>
-                </Flex>
+                </Box>
 
-                <Flex
-                  direction="column"
-                  justifyContent="flex-start"
-                  alignItems="center"
-                  bg="gray.300"
-                  borderRadius="15px"
-                  w="35%"
-                  h="5rem"
-                  mt="2"
-                  py="2"
-                  border="3px solid black"
+                <Box
+                  flex="1"
+                  width="50%"
+                  background="linear-gradient(179.7deg, rgb(197, 214, 227) 2.9%, rgb(144, 175, 202) 97.1%)"
+                  textAlign="center"
+                  border={"5px solid gray"}
+                  borderRadius={"12%"}
                 >
-                  <Text fontWeight={"500"} fontSize={["20px", "24px"]}>
-                    Match Id
+                  <Text fontSize="18px" fontWeight="bold" color={"black"}>
+                    Match Id:
                   </Text>
-                  <Text fontWeight={"500"} fontSize={["19px", "24px"]}>
-                    {user?.userId}
+                  <Text fontSize={["20px", "24px"]} color={"black"}>
+                    {matchid}
                   </Text>
-                </Flex>
+                </Box>
                 {/* </Box> */}
               </Flex>
 
@@ -538,18 +639,18 @@ export default function DragonTiger() {
                     width="100%"
                   >
                     <Box
-                      width="100%"
+                      width={["100%", "100%"]}
                       position="relative"
-                      height="8rem"
+                      height={["8rem"]}
                       display="flex"
                       flexDirection="column"
                       justifyContent="center"
                       alignItems="center"
                     >
                       <Flex
-                        width="80%"
+                        width="100%"
                         height="100%"
-                        position="relative"
+                        position="absolute"
                         display="flex"
                         justifyContent="space-around"
                         alignItems="center"
@@ -564,7 +665,7 @@ export default function DragonTiger() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          background="linear-gradient(114.9deg, rgb(34, 34, 34) 8.3%, rgb(0, 40, 60) 41.6%, rgb(0, 143, 213) 93.4%)"
+                          bg="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
                           _hover={
                             !isButtonDisabled && {
                               background:
@@ -574,13 +675,15 @@ export default function DragonTiger() {
                               color: "black",
                             }
                           }
-                          onClick={() => handleBetting(0)}
+                          onClick={() =>
+                            handleBet({ betType: "dragon", betOn: "normal" })
+                          }
                         >
                           {isButtonDisabled && (
                             <FaLock
                               size={35}
                               style={{
-                                color: "white",
+                                color: "black",
                                 marginRight: "0.5rem",
                                 position: "relative",
                                 zIndex: "2",
@@ -601,7 +704,7 @@ export default function DragonTiger() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          background="linear-gradient(114.9deg, rgb(34, 34, 34) 8.3%, rgb(0, 40, 60) 41.6%, rgb(0, 143, 213) 93.4%)"
+                          bg="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
                           _hover={
                             !isButtonDisabled && {
                               background:
@@ -611,13 +714,15 @@ export default function DragonTiger() {
                               color: "black",
                             }
                           }
-                          onClick={() => handleBetting(1)}
+                          onClick={() =>
+                            handleBet({ betType: "tie", betOn: "normal" })
+                          }
                         >
                           {isButtonDisabled && (
                             <FaLock
                               size={35}
                               style={{
-                                color: "white",
+                                color: "black",
                                 marginRight: "0.5rem",
                                 position: "relative",
                                 zIndex: "2",
@@ -636,7 +741,7 @@ export default function DragonTiger() {
                           color="white"
                           fontWeight="800"
                           borderRadius="20%"
-                          background="linear-gradient(114.9deg, rgb(34, 34, 34) 8.3%, rgb(0, 40, 60) 41.6%, rgb(0, 143, 213) 93.4%)"
+                          bg="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
                           _hover={
                             !isButtonDisabled && {
                               background:
@@ -646,13 +751,15 @@ export default function DragonTiger() {
                               color: "black",
                             }
                           }
-                          onClick={() => handleBetting(1)}
+                          onClick={() =>
+                            handleBet({ betType: "tiger", betOn: "normal" })
+                          }
                         >
                           {isButtonDisabled && (
                             <FaLock
                               size={35}
                               style={{
-                                color: "white",
+                                color: "black",
                                 marginRight: "0.5rem",
                                 position: "relative",
                                 zIndex: "2",
@@ -666,82 +773,213 @@ export default function DragonTiger() {
                       </Flex>
                     </Box>
                     <Flex
-                      justifyContent={{ base: "space-around", md: "center" }}
+                      isDisabled={isButtonDisabled}
                       direction="row"
-                      w="100%"
-                      h={{ base: "100px", md: "150px" }}
+                      w={["100%", "100%"]}
+                      h={{ base: "140px", md: "170px" }}
                       gap="2"
+                      justifyContent={"center"}
                     >
+                      {isButtonDisabled && (
+                        <FaLock
+                          size={65}
+                          style={{
+                            color: "black",
+                            marginRight: "0.5rem",
+                            position: "absolute",
+                            // top:"70%",
+                            zIndex: "2",
+                          }}
+                        />
+                      )}
                       {/* <Box> */}
                       <Flex
+                        p={"1rem"}
                         direction="column"
-                        justifyContent="center"
+                        // justifyContent="center"
                         alignItems="center"
-                        w="150px"
-                        h="100%"
+                        w="45%"
+                        h="120%"
                         borderRadius="15px"
                         bg="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
                       >
                         <Text color="white" fontWeight="bold">
                           TIGER COLOUR
                         </Text>
+                        <Text color="white" fontWeight="bold">
+                          1.98
+                        </Text>
                         <Flex>
                           <Flex
-                            border={"1px solid black"}
                             justifyContent="space-around"
-                            w="50%"
+                            w="100%"
+                            // marginLeft={'1rem'}
+                            height={"100%"}
+                            gap={"5px"}
                           >
-                            <img src={pann} alt="" />
-                            <img src={flower} alt="" />
-                          </Flex>
+                            <Box
+                              isDisabled={isButtonDisabled}
+                              _hover={
+                                !isButtonDisabled && {
+                                  background:
+                                    "linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%)",
 
-                          <Flex
-                            border={"1px solid black"}
-                            justifyContent="space-around"
-                            w="50%"
-                          >
-                            <img src={pann} alt="" />
-                            <img src={flower} alt="" />
+                                  boxShadow: "dark-lg",
+                                  color: "black",
+                                }
+                              }
+                              onClick={() =>
+                                handleBet({
+                                  betType: "tiger",
+                                  betOn: "color",
+                                  color: "red",
+                                })
+                              }
+                              width={"150%"}
+                              height={"160%"}
+                            >
+                              <Image
+                                borderRadius={"15px"}
+                                height={"150%"}
+                                style={{ backgroundColor: "white" }}
+                                src={redcolor}
+                                alt=""
+                              />
+
+                              {/* <img src={redcolorcard} alt="" /> */}
+                            </Box>
+                            <Box
+                              isDisabled={isButtonDisabled}
+                              _hover={
+                                !isButtonDisabled && {
+                                  background:
+                                    "linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%)",
+
+                                  boxShadow: "dark-lg",
+                                  color: "black",
+                                }
+                              }
+                              onClick={() =>
+                                handleBet({
+                                  betType: "tiger",
+                                  betOn: "color",
+                                  color: "black",
+                                })
+                              }
+                              width={"150%"}
+                              height={"160%"}
+                            >
+                              <Image
+                                borderRadius={"15px"}
+                                height={"150%"}
+                                style={{ backgroundColor: "white" }}
+                                src={blackcolor}
+                                alt=""
+                              />
+                            </Box>
                           </Flex>
                         </Flex>
                       </Flex>
 
                       {/* </Box> */}
-                      <Box>
-                        <Flex
-                          direction="column"
-                          justifyContent="center"
-                          alignItems="center"
-                          w="150px"
-                          h="100%"
-                          borderRadius="15px"
-                          bg="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
-                        >
-                          <Text color="white" fontWeight="bold">
-                            DRAGON COLOUR
-                          </Text>
-                          <Flex>
-                            <Flex
-                              border={"1px solid black"}
-                              justifyContent="space-around"
-                              w="50%"
+
+                      <Flex
+                        isDisabled={isButtonDisabled}
+                        p={"1rem"}
+                        direction="column"
+                        // justifyContent="center"
+                        alignItems="center"
+                        w="45%"
+                        h="120%"
+                        borderRadius="15px"
+                        bg="linear-gradient(to bottom right, #323349, #880000, #ED9203)"
+                      >
+                        <Text color="white" fontWeight="bold">
+                          DRAGON COLOUR
+                        </Text>
+                        <Text color="white" fontWeight="bold">
+                          1.98
+                        </Text>
+                        <Flex>
+                          <Flex
+                            isDisabled={isButtonDisabled}
+                            justifyContent="space-around"
+                            w="100%"
+                            // marginLeft={'1rem'}
+                            height={"100%"}
+                            gap={"5px"}
+                          >
+                            <Box
+                              isDisabled={isButtonDisabled}
+                              _hover={
+                                !isButtonDisabled && {
+                                  background:
+                                    "linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%)",
+
+                                  boxShadow: "dark-lg",
+                                  color: "black",
+                                }
+                              }
+                              onClick={() =>
+                                handleBet({
+                                  betType: "dragon",
+                                  betOn: "color",
+                                  color: "red",
+                                })
+                              }
+                              width={"150%"}
+                              height={"160%"}
                             >
-                              <img src={pann} alt="" />
-                              <img src={flower} alt="" />
-                            </Flex>
-                            <Flex
-                              border={"1px solid black"}
-                              justifyContent="space-around"
-                              w="50%"
+                              <Image
+                                borderRadius={"15px"}
+                                height={"150%"}
+                                style={{ backgroundColor: "white" }}
+                                src={redcolor}
+                                alt=""
+                              />
+                              {/* <img src={redcolorcard} alt="" /> */}
+                            </Box>
+
+                            <Box
+                              isDisabled={isButtonDisabled}
+                              _hover={
+                                !isButtonDisabled && {
+                                  background:
+                                    "linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%)",
+
+                                  boxShadow: "dark-lg",
+                                  color: "black",
+                                }
+                              }
+                              onClick={() =>
+                                handleBet({
+                                  betType: "dragon",
+                                  betOn: "color",
+                                  color: "black",
+                                })
+                              }
+                              width={"150%"}
+                              height={"160%"}
                             >
-                              <img src={pann} alt="" />
-                              <img src={flower} alt="" />
-                            </Flex>
+                              <Image
+                                borderRadius={"15px"}
+                                height={"150%"}
+                                style={{ backgroundColor: "white" }}
+                                src={blackcolor}
+                                alt=""
+                              />
+                            </Box>
                           </Flex>
                         </Flex>
-                      </Box>
+                      </Flex>
                     </Flex>
-                    <Flex w="100%" justify="center" direction="column">
+
+                    <Flex
+                      mt={"3rem"}
+                      w="100%"
+                      justify="center"
+                      direction="column"
+                    >
                       <Flex
                         justifyContent="space-around"
                         w="100%"
@@ -753,44 +991,176 @@ export default function DragonTiger() {
                           DRAGON <br />
                           SUIT 3.75
                         </h6>
-                        <Box p="10px">
+                        <Box
+                          position={"relative"}
+                          isDisabled={isButtonDisabled}
+                          _hover={
+                            !isButtonDisabled && {
+                              background:
+                                "linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%)",
+
+                              boxShadow: "dark-lg",
+                              color: "black",
+                            }
+                          }
+                          onClick={() =>
+                            handleBet({
+                              betType: "dragon",
+                              betOn: "suit",
+                              suit: "spade",
+                            })
+                          }
+                          p="10px"
+                        >
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "black",
+
+                                position: "absolute",
+                                top: "30%",
+                                left: "25%",
+
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
                           <img
                             src={pann}
                             alt=""
                             style={{
                               borderRadius: "1px",
-                              border: "4px solid #880000",
+                              border: "14px solid #880000",
                             }}
                           />
                         </Box>
-                        <Box p="10px">
+                        <Box
+                          position={"relative"}
+                          _hover={
+                            !isButtonDisabled && {
+                              background:
+                                "linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%)",
+
+                              boxShadow: "dark-lg",
+                              color: "black",
+                            }
+                          }
+                          onClick={() =>
+                            handleBet({
+                              betType: "dragon",
+                              betOn: "suit",
+                              suit: "club",
+                            })
+                          }
+                          p="10px"
+                        >
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "black",
+
+                                position: "absolute",
+                                top: "30%",
+                                left: "25%",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
                           <img
+                            isDisabled={isButtonDisabled}
                             src={flower}
                             alt=""
                             style={{
                               borderRadius: "1px",
-                              border: "4px solid #880000",
+                              border: "14px solid #880000",
                             }}
                           />
                         </Box>
-                        <Box p="10px">
-                          {" "}
+                        <Box
+                          position={"relative"}
+                          isDisabled={isButtonDisabled}
+                          _hover={
+                            !isButtonDisabled && {
+                              background:
+                                "linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%)",
+
+                              boxShadow: "dark-lg",
+                              color: "black",
+                            }
+                          }
+                          onClick={() =>
+                            handleBet({
+                              betType: "dragon",
+                              betOn: "suit",
+                              suit: "heart",
+                            })
+                          }
+                          p="10px"
+                        >
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "black",
+                                marginRight: "0.5rem",
+                                position: "absolute",
+                                top: "30%",
+                                left: "25%",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}{" "}
                           <img
                             src={heart1}
                             alt=""
                             style={{
                               borderRadius: "1px",
-                              border: "4px solid #880000",
+                              border: "14px solid #880000",
                             }}
                           />
                         </Box>
-                        <Box p="10px">
+                        <Box
+                          position={"relative"}
+                          isDisabled={isButtonDisabled}
+                          _hover={
+                            !isButtonDisabled && {
+                              background:
+                                "linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%)",
+
+                              boxShadow: "dark-lg",
+                              color: "black",
+                            }
+                          }
+                          onClick={() =>
+                            handleBet({
+                              betType: "dragon",
+                              betOn: "suit",
+                              suit: "diamond",
+                            })
+                          }
+                          p="10px"
+                        >
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "black",
+                                marginRight: "0.5rem",
+                                position: "absolute",
+                                top: "30%",
+                                left: "25%",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
                           <img
-                            src={pann}
+                            src={diamond}
                             alt=""
                             style={{
                               borderRadius: "1px",
-                              border: "4px solid #880000",
+                              border: "14px solid #880000",
                             }}
                           />
                         </Box>
@@ -806,44 +1176,175 @@ export default function DragonTiger() {
                           TIGER <br />
                           SUIT 3.75
                         </h6>
-                        <Box p="10px">
+                        <Box
+                          position={"relative"}
+                          isDisabled={isButtonDisabled}
+                          _hover={
+                            !isButtonDisabled && {
+                              background:
+                                "linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%)",
+
+                              boxShadow: "dark-lg",
+                              color: "black",
+                            }
+                          }
+                          onClick={() =>
+                            handleBet({
+                              betType: "tiger",
+                              betOn: "suit",
+                              suit: "spade",
+                            })
+                          }
+                          p="10px"
+                        >
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "black",
+                                marginRight: "0.5rem",
+                                position: "absolute",
+                                top: "30%",
+                                left: "25%",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
                           <img
                             src={pann}
                             alt=""
                             style={{
                               borderRadius: "1px",
-                              border: "4px solid #880000",
+                              border: "14px solid #880000",
                             }}
                           />
                         </Box>
-                        <Box p="10px">
+                        <Box
+                          position={"relative"}
+                          isDisabled={isButtonDisabled}
+                          _hover={
+                            !isButtonDisabled && {
+                              background:
+                                "linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%)",
+
+                              boxShadow: "dark-lg",
+                              color: "black",
+                            }
+                          }
+                          onClick={() =>
+                            handleBet({
+                              betType: "tiger",
+                              betOn: "suit",
+                              suit: "club",
+                            })
+                          }
+                          p="10px"
+                        >
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "black",
+                                marginRight: "0.5rem",
+                                position: "absolute",
+                                top: "30%",
+                                left: "25%",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
                           <img
                             src={flower}
                             alt=""
                             style={{
                               borderRadius: "1px",
-                              border: "4px solid #880000",
+                              border: "14px solid #880000",
                             }}
                           />
                         </Box>
-                        <Box p="10px">
-                          {" "}
+                        <Box
+                          position={"relative"}
+                          isDisabled={isButtonDisabled}
+                          _hover={
+                            !isButtonDisabled && {
+                              background:
+                                "linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%)",
+
+                              boxShadow: "dark-lg",
+                              color: "black",
+                            }
+                          }
+                          onClick={() =>
+                            handleBet({
+                              betType: "tiger",
+                              betOn: "suit",
+                              suit: "heart",
+                            })
+                          }
+                          p="10px"
+                        >
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "black",
+                                marginRight: "0.5rem",
+                                position: "absolute",
+                                top: "30%",
+                                left: "25%",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}{" "}
                           <img
                             src={heart1}
                             alt=""
                             style={{
                               borderRadius: "1px",
-                              border: "4px solid #880000",
+                              border: "14px solid #880000",
                             }}
                           />
                         </Box>
-                        <Box p="10px">
+                        <Box
+                          position={"relative"}
+                          isDisabled={isButtonDisabled}
+                          onClick={() =>
+                            handleBet({
+                              betType: "tiger",
+                              betOn: "suit",
+                              suit: "diamond",
+                            })
+                          }
+                          p="10px"
+                          _hover={
+                            !isButtonDisabled && {
+                              background:
+                                "linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%)",
+
+                              boxShadow: "dark-lg",
+                              color: "black",
+                            }
+                          }
+                        >
+                          {isButtonDisabled && (
+                            <FaLock
+                              size={35}
+                              style={{
+                                color: "black",
+                                marginRight: "0.5rem",
+                                position: "absolute",
+                                top: "30%",
+                                left: "25%",
+                                zIndex: "2",
+                              }}
+                            />
+                          )}
                           <img
-                            src={pann}
+                            src={diamond}
                             alt=""
                             style={{
                               borderRadius: "1px",
-                              border: "4px solid #880000",
+                              border: "14px solid #880000",
                             }}
                           />
                         </Box>
@@ -854,49 +1355,13 @@ export default function DragonTiger() {
               </Flex>
             </Flex>
           </Flex>
-          <Flex w="100%" h="250px" py="4">
+          <Flex w="100%" h="500px" py="4">
             <Flex
               justifyContent="center"
               alignItems={{ base: "flex-end", md: "center" }}
               // direction={{base:"column", md:"row"}}
               mx="2"
-            >
-              <Box>
-                <Box>
-                  <Button
-                    _hover={{ backgroundColor: "blue.500", color: "white" }}
-                    transition="background-color 0.3s, color 0.3s"
-                    p={4}
-                    borderRadius="md"
-                    bg={"orange"}
-                    width={["10rem"]}
-                  >
-                    Bet History
-                  </Button>
-                </Box>
-                <Box display={"flex"}>
-                  {gamehistory.map((item, index) => (
-                    <Box
-                      color={"blue"}
-                      p={"3px"}
-                      key={index}
-                      marginRight={["10px"]}
-                      width={["25px", "30px"]}
-                      height="39px"
-                      border="2px solid black"
-                      borderRadius="5px"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="center"
-                      w="100%"
-                      m="1"
-                    >
-                      {item}
-                    </Box>
-                  ))}
-                </Box>
-              </Box>
-            </Flex>
+            ></Flex>
           </Flex>
         </Flex>
       </Box>
