@@ -275,6 +275,7 @@ export default function DragonTiger() {
                 // backgroundRepeat="no-repeat"
                 mb=""
                 // bg="red"
+                position={"relative"}
               >
                 <Image
                   src="/DragonTiger/Dragon-tiger.webp"
@@ -359,10 +360,10 @@ export default function DragonTiger() {
                 <Box
                   // border={"1px solid red"}
                   position={"absolute"}
-                  width={["44%", "18.5%"]}
-                  height={["2.8%", "5.2%"]}
-                  top={["38.5%", "58.5%"]}
-                  right={["28%", "54.8%"]}
+                  width={["44%", "44%"]}
+                  height={["9.5%", "10%"]}
+                  top={["65%", "64%"]}
+                  right={["28%", "28%"]}
                   display={"flex"}
                   justifyContent={"space-between"}
                   flexDirection={"row"}
@@ -370,8 +371,9 @@ export default function DragonTiger() {
                   <Box
                     // border={"1px solid orange"}
                     position={"absolute"}
-                    width={"15%"}
+                    width={"16%"}
                     height={"100%"}
+                    // overflow={"hidden"}
                   >
                     {mainCard?.dragoncard && gameState?.value <= 14 && (
                       <Box>
@@ -386,9 +388,10 @@ export default function DragonTiger() {
                   <Box
                     // border={"1px solid orange"}
                     position={"absolute"}
-                    width={"15%"}
+                    width={"16%"}
                     height={"100%"}
                     right={"0%"}
+                    // overflow={"hidden"}
                   >
                     {gameState?.value <= 12 && (
                       <Box>
