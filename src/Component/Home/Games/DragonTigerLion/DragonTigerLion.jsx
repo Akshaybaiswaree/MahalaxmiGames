@@ -559,7 +559,7 @@ export default function DragonTigerLion() {
                             }
                           }
                           onClick={
-                            () => handleBetting("dragon", 1000)
+                            () => handleBetting("dragon")
                             // console.log("dragon")
                           }
                           // onClick={() =>
