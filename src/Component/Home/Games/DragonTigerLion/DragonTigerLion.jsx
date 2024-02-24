@@ -9,7 +9,7 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { FaLock } from "react-icons/fa";
 import { io } from "socket.io-client";
@@ -29,9 +29,10 @@ export default function DragonTigerLion() {
   const [mainCard, setMainCard] = useState({});
   const [selectedCoins, setSelectedCoins] = useState(null);
   const [gameHistory, setGameHistory] = useState([]);
-  const [bettingAmount, setBettingAmount] = useState("");
+  const [bettingAmount, setBettingAmount] = useState(0);
   const [isButtonDisabled, setButtonDisabled] = useState();
-
+  // const [money, setMoney] = useState(0);
+  // const id=useRef()
   useEffect(() => {
     const userID = localStorage.getItem("userId");
     if (userID) {
@@ -54,12 +55,12 @@ export default function DragonTigerLion() {
     };
 
     const handleUserDetails = (data) => {
-      console.log("UserDetails", data);
+      // console.log("UserDetails", data);
       setUser(data.user);
     };
 
     const handleMainCard = (data) => {
-      console.log("MainCard", data);
+      // console.log("MainCard", data);
       setMainCard(data.mainCard);
       setGameHistory(data.gameHistory);
     };
@@ -83,7 +84,6 @@ export default function DragonTigerLion() {
   if (gameState?.value === 5) {
     socket.emit("getUpdatedUserDetails");
   }
-
   const handleBetting = (betType) => {
     if (user?.coins === 0) {
       alert("Insufficient Fund.");
@@ -101,12 +101,51 @@ export default function DragonTigerLion() {
     } else alert("Betting Amount is greater than Balances.");
   };
 
+  // const handleBetting = (betType) => {
+  //   if (user?.coins === 0) {
+  //     alert("Insufficient Fund.");
+  //     return;
+  //   }
+  //   if (user?.coins > coins) {
+  //     const bet = {
+  //       betType,
+  //       coins: money,
+  //       cardId: mainCard._id,
+  //     };
+  //     socket.emit("bet", bet, (res, err) => {
+  //       console.log(res);
+  //       // if(res.status=="ok"){
+  //       //   setBettingAmount(bettingAmount + Number(coins));
+  //       // }
+  //     });
+  //     setMoney(0);
+
+  //     console.log("betting1234", betType, coins, mainCard._id);
+  //     // setBettingAmount(bettingAmount + Number(coins));
+  //   } else alert("Betting Amount is greater than Balances.");
+  // };
+
+  // // let id;
+
+  // const debounce = (func, delay) => {
+  //   console.log("berr",user?.coins - Number(coins));
+  //   setUser({...user,coins:user.coins - Number(coins)})
+  //   setBettingAmount(bettingAmount + Number(coins));
+  //   setMoney(bettingAmount);
+  //   console.log("2333232sdsd",money)
+  //   if (id.current) {
+  //     clearTimeout(id.current);
+  //   }
+
+  //   id.current = setTimeout(() => {
+  //     func;
+  //   }, delay);
+  // };
   return (
     <>
       <ChakraProvider>
         <Box className="dragontigerlionmaindiv">
-          <Box
-          maxW={["100vw", "100%"]} id="main-div">
+          <Box maxW={["100vw", "100%"]} id="main-div">
             <Flex
               align="left-top"
               justify="left-top"
@@ -144,7 +183,7 @@ export default function DragonTigerLion() {
                   <Box
                     border="4px solid #333"
                     height="50%"
-                     backgroundImage="url('/DragonTigerLion/Drgon-tiger-lion.webp')"
+                    backgroundImage="url('/DragonTigerLion/Drgon-tiger-lion.webp')"
                     backgroundSize="cover"
                     backgroundPosition={`center 100%`}
                     backgroundRepeat="no-repeat"
@@ -520,9 +559,12 @@ export default function DragonTigerLion() {
                             }
                           }
                           onClick={
-                            () => handleBetting("dragon")
+                            () => handleBetting("dragon", 1000)
                             // console.log("dragon")
                           }
+                          // onClick={() =>
+                          //   debounce(()=>handleBetting("dragon"), 4000)
+                          // }
                           display={"flex"}
                           justifyContent={"space-around"}
                         >
@@ -629,4 +671,3 @@ export default function DragonTigerLion() {
     </>
   );
 }
-
