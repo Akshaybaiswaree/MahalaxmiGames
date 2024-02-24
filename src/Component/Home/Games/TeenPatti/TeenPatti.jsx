@@ -16,7 +16,7 @@ import Teenpatti from "../../../images/muflisonedaybg.svg";
 import { io } from "socket.io-client";
 
 const userId = localStorage.getItem("userId");
-const socket = io("https://teenpattibackend-web.onrender.com/", {
+const socket = io("https://teenpattiwebbackend.onrender.com", {
   query: {
     userID: userId,
   },
@@ -68,7 +68,7 @@ export default function TeenPatti() {
       // setCurrentPlayer((prevPlayer) => (prevPlayer === "A" ? "B" : "A"));
       // console.log(data, "data?.user");
     });
-    socket.on("bait", (data) => {
+    socket.on("bet", (data) => {
       setUser(data);
       // console.log(data);
       // setUser(data.user);
@@ -103,19 +103,19 @@ export default function TeenPatti() {
     setPlayerCards(displayedCards);
   };
 
-  const handelBet = (baitType) => {
+  const handelBet = (betType) => {
     if (user?.coins === 0) {
       alert("Insufficient Coins");
       return;
     }
     if (user?.coins > coins) {
-      const bait = {
-        baitType,
+      const bet = {
+        betType,
         coins,
         cardId: mainCard._id,
       };
-      console.log(bait, "bait");
-      socket.emit("bait", bait);
+      console.log(bet, "bet");
+      socket.emit("bet", bet);
       setBettingAmount((prev) => prev + Number(coins));
     } else alert("Betting Amount is greater than Balances.");
   };
